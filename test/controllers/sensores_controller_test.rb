@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class SensoresControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should get display" do
+    get :display
+    assert_response :success
+  end
+
 end

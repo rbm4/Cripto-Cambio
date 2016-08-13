@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Terremoto</title>
+  <title>Hacker cidadao - Monitoramento de encostas</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div id="menu">
+		<ul>
+			<li><a href="sensores/display">Sensores</a></li>
+			<li><a href="">Bt2</a></li>
+			<li><a href="">Bt3</a></li>
+			<li><a href="">Bt4</a></li>
+		</ul>
+</div>
 <%= yield %>
 
 </body>
