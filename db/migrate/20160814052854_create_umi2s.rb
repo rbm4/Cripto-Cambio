@@ -1,7 +1,7 @@
 class CreateUmi2s < ActiveRecord::Migration
   def change
     create_table :umi2s do |t|
-      t.string :valor
+      t.integer :valor
 
       t.timestamps null: false
     end

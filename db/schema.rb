@@ -14,33 +14,33 @@
 ActiveRecord::Schema.define(version: 20160814052854) do
 
   create_table "temp1s", force: :cascade do |t|
-    t.string   "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "valor",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "temp2s", force: :cascade do |t|
-    t.string   "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "valor",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "temp3s", force: :cascade do |t|
-    t.string   "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "valor",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "umi1s", force: :cascade do |t|
-    t.string   "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "valor",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "umi2s", force: :cascade do |t|
-    t.string   "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "valor",      limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
 end

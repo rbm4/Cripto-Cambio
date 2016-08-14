@@ -1,7 +1,29 @@
 class SensoresController < ApplicationController
 require 'open-uri'
+require 'gchart'
   def display
-      @sensor1 = Temp1.all
+      @array1 = Array.new
+      @sensor1 = Temp1.all.each do |p|
+        @array1.append(p.valor)
+      end
+      @array2 = Array.new
+      @sensor2 = Temp2.all.each do |t|
+        @array2.append(t.valor)
+      end
+      @array3 = Array.new
+      @sensor3 = Temp3.all.each do |y|
+        @array3.append(y.valor)
+      end
+      @uarray1 = Array.new
+      @usensor1 = Umi1.all.each do |j|
+        @uarray1.append(j.valor)
+      end
+      @uarray2 = Array.new
+      @usensor2 = Umi2.all.each do |k|
+        @uarray2.append(k.valor)
+      end
+      
+      print @array2
       sensores_xml = Nokogiri::HTML(open("http://hackercidadao.com.br/embarquelab/downloads/EL_sensores.xml"))
       valor = sensores_xml.xpath("//valor")
       minimo = sensores_xml.xpath("//minimo")
@@ -41,4 +63,8 @@ require 'open-uri'
   end
   def charte
   end
+  def values
+   render json: Temp1.group_by_day(:created_at, format: "%B %d, %Y").pluck(:valor)
+  end
+  helper_method :values
 end
