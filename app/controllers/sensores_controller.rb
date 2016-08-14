@@ -30,6 +30,12 @@ require 'open-uri'
           end
       end
       print(temperatura1)
+      print(temperatura2)
+      print(temperatura3)
+      print(umidade1)
+      print(umidade2)
       @todos = [temperatura1,temperatura2,temperatura3,umidade1,umidade2]
+  end
+  def mjolnir
   end
 end
