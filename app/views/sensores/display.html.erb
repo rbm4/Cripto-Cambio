@@ -38,10 +38,10 @@
 						<li class="submenu">
 							<a href="">O Projeto</a>
 							<ul>
-								<li><a href="left-sidebar.html">Mj&oumllnir</a></li>
-								<li><a href="right-sidebar.html">Sensores</a></li>
-								<li><a href="no-sidebar.html">No Sidebar</a></li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a href="mjolnir">Mj&oumllnir</a></li>
+								<li><a href="sdisplay">Sensores</a></li>
+								<li><a href="chamados">Inteligência</a></li>
+								<li><a href="#">Contato</a></li>
 								<li class="submenu">
 									<a href="">Submenu</a>
 									<ul>
@@ -74,11 +74,11 @@
 							<div class="content">
 								<section>
 								 <h3>Temperaturas por dia obtidas:</h3>
-   								 <img src="<%=Gchart.line(:data => [@array1], :title => "Gráfico Referente ao Sensor 1 (temperatura)", :legend => ['first data set label', 'second data set label'])%>"/>
+   								 <img src="<%=Gchart.line(:data => [@array1], :title => "Gráfico Referente ao Sensor 1 (temperatura)", :axis_with_labels => ['x'], :axis_labels => [@array1x,])%>"/>
    								 <img src="<%=Gchart.line(:data => [@array2], :title => "Gráfico Referente ao Sensor 2 (temperatura)" )%>"/>
    								 <img src="<%=Gchart.line(:data => [@array3], :title => "Gráfico Referente ao Sensor 3 (temperatura)")%>"/><br>
-   								 <img src="<%=Gchart.line(:data => [@uarray1], :title => "Gráfico Referente ao Sensor 1 (Umidade do ar)")%>"/>
-   								 <img src="<%=Gchart.line(:data => [@uarray2], :title => "Gráfico Referente ao Sensor 2 (Umidade do ar)")%>"/>
+   								 <img src="<%=Gchart.line(:data => [@uarray1], :title => "Gráfico Referente ao Sensor 1 (Umidade do ar)", :line_colors =>"00FF00")%>"/>
+   								 <img src="<%=Gchart.line(:data => [@uarray2], :title => "Gráfico Referente ao Sensor 2 (Umidade do ar)", :line_colors =>"00FF00")%>"/>
 									<header>
 										<h3>Informações atuais sobre os sensores obtidas do portal do HackerCidadao</h3> <br>
 									</header>
@@ -123,7 +123,4 @@
 
 	</body>
 </html>
-==================================================================================================
-<h1>Esta é uma página exemplo</h1>
-<p>Aqui, serão dispostos os dados recebidos pelo XML ou JSON (entre outros) disponibilizados para a solução proposta.</p><br>
-<p>Informações atuais sobre os sensores de temperatura:</p>
+

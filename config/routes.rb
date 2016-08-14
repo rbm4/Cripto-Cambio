@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/sdisplay' => 'sensores#display'
   get '/mjolnir' => 'sensores#mjolnir'
   get '/charte' => 'sensores#charte'
+  get '/chamados' => 'sensores#smart'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

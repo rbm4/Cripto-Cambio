@@ -1,10 +1,13 @@
 class SensoresController < ApplicationController
 require 'open-uri'
 require 'gchart'
+require "csv"
   def display
       @array1 = Array.new
-      @sensor1 = Temp1.all.each do |p|
+      @array1x = Array.new
+      Temp1.all.each do |p|
         @array1.append(p.valor)
+        @array1x.append(p.created_at)
       end
       @array2 = Array.new
       @sensor2 = Temp2.all.each do |t|
@@ -61,7 +64,16 @@ require 'gchart'
   end
   def mjolnir
   end
-  def charte
+  def smart
+    quote_chars = %w(" | ~ ^ & *)
+    @result = Array.new
+    CSV.open('bairros.csv', 'wb') do |csv|
+      CSV.foreach("#{Rails.root}/public/Sedec_solicitacoes.csv", :headers => ["solicitacao_bairro"]) do |row|
+        row['solicitacao_bairro'] = row['solicitacao_bairro'].to_s
+        csv << row
+      end
+    end
+    puts @result
   end
   def values
    render json: Temp1.group_by_day(:created_at, format: "%B %d, %Y").pluck(:valor)
