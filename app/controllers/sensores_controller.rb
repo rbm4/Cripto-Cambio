@@ -1,6 +1,7 @@
 class SensoresController < ApplicationController
 require 'open-uri'
   def display
+      @sensor1 = Temp1.all
       sensores_xml = Nokogiri::HTML(open("http://hackercidadao.com.br/embarquelab/downloads/EL_sensores.xml"))
       valor = sensores_xml.xpath("//valor")
       minimo = sensores_xml.xpath("//minimo")
@@ -37,5 +38,7 @@ require 'open-uri'
       @todos = [temperatura1,temperatura2,temperatura3,umidade1,umidade2]
   end
   def mjolnir
+  end
+  def charte
   end
 end

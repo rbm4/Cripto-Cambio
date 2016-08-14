@@ -7,11 +7,11 @@
 <body>
 <canvas id="grafico" width="400" height="400"></canvas>
 
-<script> 
+<script type="text/javascript" src="chart.js"> 
 var chrt = document.getElementById("grafico").getContext("2d");
 var myarr = [10, 59, 80, 81, 56, 55, 40];
 var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"], //x-axis
+    labels: ["Sensor 1", "Sensor 2", "Sensor 3"], //x-axis
     datasets: [
         {
             label: "My First dataset", //optional
@@ -19,15 +19,7 @@ var data = {
             strokeColor: "rgba(220,220,220,0.8)",
             highlightFill: "rgba(220,220,220,0.75)",
             highlightStroke: "rgba(220,220,220,1)",
-            data: [10, 50, 80, 81, 56, 55, 40] // y-axis
-        },
-		{
-            label: "My Second dataset", //optional
-            fillColor: "rgba(220,120,220,0.8)",
-            strokeColor: "rgba(220,120,220,0.8)",
-            highlightFill: "rgba(220,220,220,0.75)",
-            highlightStroke: "rgba(220,220,220,1)",
-            data: myarr
+            data: [10, 50, 80] // y-axis
         }
     ]
 };

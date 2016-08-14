@@ -46,3 +46,5 @@ group :development do
 end
 
 gem 'nokogiri'
+gem 'chartkick', '~> 2.0', '>= 2.0.2'
+#gem 'gruff'

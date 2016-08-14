@@ -72,16 +72,16 @@
 						<!-- Content -->
 							<div class="content">
 								<section>
-									<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
+								<%= scatter_chart @sensor1.pluck(:created_at.to_s, :valor) %>
+
+
 									<header>
-										<h3>Informações atuais sobre os sensores</h3>
+										<h3>Informações atuais sobre os sensores</h3> <br>
 									</header>
 									<table border="1">
 									    <tr>
 									            <th>Sensor</th>
 									            <th>Valor</th>
-									            <th>Minimo</th>
-									            <th>Maximo</th>
 									            <th>Descricao</th>
 									            <th>Modelo</th>
 									            </tr>
@@ -89,8 +89,6 @@
 									            <tr>
 									                <td>Sensor</td>
 									                <td><%= list[0]%></td>
-									                <td><%= list[1] %></td>
-									                <td><%= list[2] %></td>
 									                <td><%= list[3] %></td>
 									                <td><%= list[4] %></td>
 									                </tr>
