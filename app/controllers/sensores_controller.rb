@@ -7,34 +7,29 @@ require 'open-uri'
       maximo = sensores_xml.xpath("//maximo")
       descricao = sensores_xml.xpath("//descricao")
       tipo = sensores_xml.xpath("//tipo")
-      sensores = Hash.new
       for x in [4, 5, 6, 7, 15] do
           if x == 5
             puts'temperatura1'
-            @temperatura1 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
+            temperatura1 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
           end
           if x == 7
             puts'temperatura2'
-            @temperatura2 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
+            temperatura2 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
           end
           if x == 15
             puts'temperatura3'
-            @temperatura1 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
+            temperatura3 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
           end
           if x == 4
             puts'umidade1'
-            @umidade1 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
+            umidade1 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
           end
           if x == 6
             puts'umidade2'
-            @umidade2 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
+            umidade2 = [String(valor[x]),String(minimo[x]),String(maximo[x]),String(descricao[x]),String(tipo[x])]
           end
       end
-      
-      @temperatura2 = sensores[7]
-      @temperatura3 = sensores[15]
-      @umidade1 = sensores[4]
-      @umidade2 = sensores[6]
-      print(@temperatura1)
+      print(temperatura1)
+      @todos = [temperatura1,temperatura2,temperatura3,umidade1,umidade2]
   end
 end
