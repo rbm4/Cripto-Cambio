@@ -1,24 +1,126 @@
-<h1>Esta é uma página exemplo</h1>
-<p>Aqui, serão dispostos os dados recebidos pelo XML ou JSON (entre outros) disponibilizados para a solução proposta.</p><br>
-<p>Informações atuais sobre os sensores de temperatura:</p>
-<table border="1">
-<tr>
-    <th>Sensor</th>
-    <th>Valor</th>
-    <th>Minimo</th>
-    <th>Maximo</th>
-    <th>Descricao</th>
-    <th>Modelo</th>
-</tr>
+<!DOCTYPE HTML>
+<%= require 'gchart' %>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/jquery.scrollgress.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+			<link rel="stylesheet" href="css/style-noscript.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+	</head>
+	<body class="right-sidebar">
+	
+		<!-- Header -->
+			<header id="header">
+				<h1 id="logo"><a href="index.html"><span>os</span> sensores</a></h1>
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="index.html">In&iacutecio</a></li>
+						<li class="submenu">
+							<a href="">O Projeto</a>
+							<ul>
+								<li><a href="mjolnir">Mj&oumllnir</a></li>
+								<li><a href="sdisplay">Sensores</a></li>
+								<li><a href="chamados">Inteligência</a></li>
+								<li><a href="#">Contato</a></li>
+								<li class="submenu">
+									<a href="">Submenu</a>
+									<ul>
+										<li><a href="#">Dolore Sed</a></li>
+										<li><a href="#">Consequat</a></li>
+										<li><a href="#">Lorem Magna</a></li>
+										<li><a href="#">Sed Magna</a></li>
+										<li><a href="#">Ipsum Nisl</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</nav>
+			</header>
+		
+		<!-- Main -->
+			<article id="main">
 
-<% @todos.each do |list| %>
-<tr>
-<td>Sensor</td>
-    <td><%= list[0]%></td>
-    <td><%= list[1] %></td>
-    <td><%= list[2] %></td>
-    <td><%= list[3] %></td>
-    <td><%= list[4] %></td>
-</tr>
-<%end%>
-</table>
+				<header class="special container">
+					<span class="icon fa-mobile"></span>
+					<h2><strong>Sensores</strong></h2>
+					<p>Nesta p&aacutegina voce ir&aacute encontrar informa&ccedil&otildees sobre os sensores.</p>
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container">
+					
+						<!-- Content -->
+							<div class="content">
+								<section>
+								 <h3>Temperaturas por dia obtidas:</h3>
+   								 <img src="<%=Gchart.line(:data => [@array1], :title => "Gráfico Referente ao Sensor 1 (temperatura)", :axis_with_labels => ['x'], :axis_labels => [@array1x,])%>"/>
+   								 <img src="<%=Gchart.line(:data => [@array2], :title => "Gráfico Referente ao Sensor 2 (temperatura)" )%>"/>
+   								 <img src="<%=Gchart.line(:data => [@array3], :title => "Gráfico Referente ao Sensor 3 (temperatura)")%>"/><br>
+   								 <img src="<%=Gchart.line(:data => [@uarray1], :title => "Gráfico Referente ao Sensor 1 (Umidade do ar)", :line_colors =>"00FF00")%>"/>
+   								 <img src="<%=Gchart.line(:data => [@uarray2], :title => "Gráfico Referente ao Sensor 2 (Umidade do ar)", :line_colors =>"00FF00")%>"/>
+									<header>
+										<h3>Informações atuais sobre os sensores obtidas do portal do HackerCidadao</h3> <br>
+									</header>
+									<table border="1">
+									    <tr>
+									            <th>Valor</th>
+									            <th>Descricao</th>
+									            <th>Modelo</th>
+									            </tr>
+									            <% @todos.each do |list| %>
+									            <tr>
+									                <td><div align='center'><%= list[0]%></div></td>
+									                <td><div align='center'><%= list[3] %></div></td>
+									                <td><div align='center'><%= list[4] %></div></td>
+									                </tr>
+									           <%end%>
+									           </table>
+							    </section>
+							</div>
+
+					</section>
+					
+			</article>
+
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+					<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>
+

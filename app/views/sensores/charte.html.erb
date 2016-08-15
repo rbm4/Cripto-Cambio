@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="chart.js"></script>
+	<title></title>
+</head>
+<body>
+<canvas id="grafico" width="400" height="400"></canvas>
+
+<script type="text/javascript" src="chart.js"> 
+var chrt = document.getElementById("grafico").getContext("2d");
+var myarr = [10, 59, 80, 81, 56, 55, 40];
+var data = {
+    labels: ["Sensor 1", "Sensor 2", "Sensor 3"], //x-axis
+    datasets: [
+        {
+            label: "My First dataset", //optional
+            fillColor: "rgba(220,220,220,0.8)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: [10, 50, 80] // y-axis
+        }
+    ]
+};
+
+var myFirstChart = new Chart(chrt).Bar(data);
+</script>
+</body>
+</html>
