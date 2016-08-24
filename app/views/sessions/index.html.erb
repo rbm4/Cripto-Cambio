@@ -29,35 +29,6 @@
 	</head>
 	<body class="index">
 	
-		<!-- Header -->
-			<header id="header" class="alt">
-
-				<nav id="nav">
-					<ul>
-						<li class="current"><a href="index.html">In&iacutecio</a></li>
-						<li class="submenu">
-							<a href="">O Projeto</a>
-							<ul>
-								<li><a href="mjolnir">Mj&oumllnir</a></li>
-								<li><a href="sdisplay">Sensores</a></li>
-								<li><a href="chamados">Inteligência</a></li>
-								<li><a href="register">Registrar</a></li>
-								<li class="submenu">
-									<a href="">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</nav>
-			</header>
-
 		<!-- Banner -->		
 			<section id="banner">
 				
@@ -70,22 +41,30 @@
 				<div class="inner">
 					
 					<header>
-						<h2>TERREMOTO</h2>
+						<h2>Krobellus Market</h2>
 					</header>
-					<p>Este &eacute um projeto
+					<p>Uma loja feita por Brasileiros
 					<br />
-					para o hackaton
+					para Brasileiros
 					<br />
-					da <strong>EMPREL</strong>.</p>
+					seja <strong>BEM VINDO!</strong>.</p>
 					<footer>
 						<ul class="buttons vertical">
-							<li><a href="mjolnir" class="button fit scrolly">O que fizemos?</a></li>
+							<li><a href="howto" class="button fit scrolly">Como comprar?</a></li>
 						</ul>
 					</footer>
 					<footer>
+						<% if session[:user_id] != nil %>
+						<% if session[:user_id] == current_user.id ;%>
+						<ul class="buttons vertical">
+							<li><a href="logout" class="button fit scrolly">Logout</a></li>
+						</ul>
+						<% end %>
+						<% else %>
 						<ul class="buttons vertical">
 							<li><a href="login" class="button fit scrolly">Login</a></li>
 						</ul>
+						<% end %>
 					</footer>
 				
 				</div>

@@ -43,36 +43,6 @@
 	</head>
 	<body class="contact">
 	
-		<!-- Header -->
-			<header id="header">
-				<h1 id="logo"><a href="index.html">Twenty <span>by HTML5 UP</span></a></h1>
-				<nav id="nav">
-					<ul>
-						<li class="current"><a href="index.html">Inicio</a></li>
-						<li class="submenu">
-							<a href="">Layouts</a>
-							<ul>
-								<li><a href="mjolnir">Mj&oumllnir</a></li>
-								<li><a href="sdisplay">sensores</a></li>
-								<li><a href="chamados">Inteligência</a></li>
-								<li><a href="register">Registrar</a></li>
-								<li class="submenu">
-									<a href="">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li><a href="#" class="button special">Sign Up</a></li>
-					</ul>
-				</nav>
-			</header>
-		
 		<!-- Main -->
 			<article id="main">
 
@@ -96,7 +66,7 @@
                                 <% end %>
                                 <ul class="Signin_Errors">
                                 <% if (@messages.to_s == '') == false ;%>
-                                <li><%= text_field_tag :error, nil, placeholder: @messages, disabled: true, size: 25%></li>
+                                <li><%= text_field_tag :error, nil, placeholder: @messages, disabled: true, size: 15%></li>
                                 <% end %>
                                 </ul>
                                 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Monitoramento de encostas</title>
+  <title>Krobellus Market</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
@@ -9,8 +9,75 @@
   <%= javascript_include_tag 'http://yandex.st/bootstrap/3.1.1/js/bootstrap.min.js' %>
   
   <%= csrf_meta_tags %>
-</head>
-<body>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/jquery.scrollgress.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+			<link rel="stylesheet" href="css/style-noscript.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+	</head>
+	<body class="contact">
+	
+		<!-- Header -->
+			<header id="header">
+				<h1 id="logo">
+					<a href="/">Krobellus Market </a>
+					<% if session[:user_id] != nil %>
+						  <% if session[:user_id] == current_user.id ;%>
+						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b></span>
+						  <% end %>
+						  <% else %>
+						  <span><a href="login">Visitante?</a></span>
+						  <% end %>
+				</h1>
+				<nav id="nav">
+					<ul>
+						<li class="current"><a href="/">Inicio</a></li>
+						<li class="submenu">
+							<a href="">Menu</a>
+							<ul>
+								<li><a href="mjolnir">Mj&oumllnir</a></li>
+								<li><a href="sdisplay">sensores</a></li>
+								<li><a href="store">Loja</a></li>
+								<li><a href="register">Registrar</a></li>
+								<li class="submenu">
+									<a href="">Submenu</a>
+									<ul>
+										<li><a href="#">Dolore Sed</a></li>
+										<li><a href="#">Consequat</a></li>
+										<li><a href="#">Lorem Magna</a></li>
+										<li><a href="#">Sed Magna</a></li>
+										<li><a href="#">Ipsum Nisl</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+						  <% if session[:user_id] != nil %>
+						  <% if session[:user_id] == current_user.id ;%>
+						  <a href="logout" class="button special">Logout</a>
+						  <% end %>
+						  <% else %>
+						  <a href="login" class = "button special">Login</a>
+						  <% end %>
+						  
+						</li>
+					</ul>
+				</nav>
+			</header>
 <%= yield %>
 
 </body>

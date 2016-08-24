@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   get 'sessions/login'
 
-  get 'sessions/home'
+  get '/home' => 'sessions#home'
+  get '/loginerror' => 'sessions#loginerror'
 
   get 'sessions/profile'
 
@@ -9,7 +10,8 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
   post 'login_attempt' => 'sessions#login_attempt'
-  
+  get 'logout' => 'sessions#destroy'
+  root 'sessions#index'
   get '/register' => 'usuarios#new'
   get '/create' => 'usuarios#new'
   post '/create' => 'usuarios#create'
