@@ -15,11 +15,6 @@
     
 </style>
 <html>
-    <script>
-    input[name=error], {
-    color: red;
-    }
-    </script>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
@@ -49,6 +44,7 @@
 				<header class="special container">
 					<span class="icon fa-envelope"></span>
 					<h2>Log in</h2>
+					<p><%= label_tag @logged, nil, disabled: true%></p>
 					<p>Efetue login nesta página para realizar compras.</p>
 				</header>
 					
@@ -59,7 +55,7 @@
 							<div class="content">
 								<div class= "Sign_Form">
                                 <h1>Log in</h1>
-                                <%= form_tag(:action => 'login_attempt') do %>
+                                <%= form_tag(:controller => 'sessions', :action => 'login_attempt') do %>
                                 <%= text_field_tag :username_or_email, nil, placeholder: 'Username ou Email' %></p>
                                 <p><%= password_field_tag :login_password, nil, placeholder: 'Senha' %></p>
                                 <%= submit_tag("Log In") %>
@@ -80,15 +76,11 @@
 			<footer id="footer">
 			
 				<ul class="icons">
-					<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-					<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+					
 				</ul>
 				
 				<ul class="copyright">
-					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					<li>&copy; Krobellus market</li>
 				</ul>
 			
 			</footer>

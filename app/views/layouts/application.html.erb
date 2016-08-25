@@ -40,12 +40,18 @@
 						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b></span>
 						  <% end %>
 						  <% else %>
-						  <span><a href="login">Visitante?</a></span>
+						  <strong><a href="login">Visitante?</a></strong>
 						  <% end %>
 				</h1>
 				<nav id="nav">
 					<ul>
+						<% if session[:user_id] != nil %>
+						<% if session[:user_id] == current_user.id ;%>
+						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home', :id => session[:user_id]%></li>
+						<% end %>
+						<% else %>
 						<li class="current"><a href="/">Inicio</a></li>
+						<% end%>
 						<li class="submenu">
 							<a href="">Menu</a>
 							<ul>

@@ -1,18 +1,53 @@
-<% @page_title = "UserAuth | Signup" %>
-<div class="Sign_Form">
-  <h1>Sign Up</h1>
-  <%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
-    <p> Username:</br> <%= f.text_field :username %> </p>
-    <p> Email:</br> <%= f.text_field :email %> </p>
-    <p> Password:</br> <%= f.password_field :password %></p>
-    <p> Password Confirmation:</br> <%= f.password_field :password_confirmation %> </p>
-    <%= f.submit :Signup %>
-  <% end %>
-  <% if @usuario.errors.any? %>
-    <ul class="Signup_Errors">
-    <% for message_error in @usuario.errors.full_messages %>
-      <li>* <%= message_error %></li>
-    <% end %>
-    </ul>
-  <% end %>
-</div>
+<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					<span class="icon fa-mobile"></span>
+					<h2>Preencha o formulário <strong></strong></h2>
+					<p>Consulte nossa loja, nossas ofertas e maneje suas transações.</p>
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container">
+					
+						<!-- Content -->
+							<div class="content">
+								<section>
+									<div class="Sign_Form">
+                  <h1>Sign Up</h1>
+                  <%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
+                  <p> Username:</br> <%= f.text_field :username %> </p>
+                  <p> Email:</br> <%= f.text_field :email %> </p>
+                  <p> Password:</br> <%= f.password_field :password %></p>
+                  <p> Password Confirmation:</br> <%= f.password_field :password_confirmation %> </p>
+                  <%= f.submit :Signup %>
+                  <% end %>
+                  <% if @usuario.errors.any? %>
+                  <ul class="Signup_Errors">
+                    <% for message_error in @usuario.errors.full_messages %>
+                    <li>* <%= message_error %></li>
+                  <% end %>
+                  </ul>
+                  <% end %>
+                  </div>
+								</section>
+							</div>
+
+					</section>
+
+				
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

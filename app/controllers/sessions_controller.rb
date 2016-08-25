@@ -25,8 +25,8 @@ class SessionsController < ApplicationController
   def home
       @atual = Usuario.find(params[:id])
     unless session[:user_id] == @atual.id
-      @messages = "Você não pode acessar esta página"
-      redirect_to '/loginerror'
+      @messages = "ERRO! Você não pode acessar esta página"
+      render 'sessions/loginerror'
       return
     end
   end

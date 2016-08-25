@@ -8,7 +8,7 @@ class UsuariosController < ApplicationController
     @usuario.username.downcase!
     @usuario.email.downcase!
     if @usuario.save
-      flash[:notice] = 'Você efetuou o registro com sucesso.'
+      @logged = 'Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.'
       flash[:color] = 'valid'
     else 
       flash[:notice] = 'Formulário inválido.'
@@ -17,7 +17,7 @@ class UsuariosController < ApplicationController
     #encrypted_password= Digest::SHA1.hexdigest(password)
     @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
     @usuario.save
-    render 'new'
+    render 'sessions/login'
   end
   private
   def usuario_params

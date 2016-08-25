@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823145728) do
+ActiveRecord::Schema.define(version: 20160824231656) do
+
+  create_table "pagamentos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "produtos", force: :cascade do |t|
+    t.string   "foto",       limit: 255
+    t.string   "tipo",       limit: 255
+    t.string   "preco",      limit: 255
+    t.string   "detalhes",   limit: 255
+    t.string   "nome",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "sesssions", force: :cascade do |t|
     t.datetime "created_at", null: false

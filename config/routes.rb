@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get '/loginerror' => 'sessions#loginerror'
 
   get 'sessions/profile'
-
+  get '/store' => 'produtos#show'
+  get '/payment/:invoice_id' => 'produtos#receber_pagamento'
+  get '/create_handler/:invoice_id' => 'produtos#solicitar_pagamento'
   get 'sessions/setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
