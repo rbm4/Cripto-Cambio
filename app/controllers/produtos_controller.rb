@@ -26,16 +26,27 @@ class ProdutosController < ApplicationController
        userid = hash["data"]["user_id"].to_s
        @payment_address = hash["data"]["address"].to_s
        @identifier = hash["data"]["label"].to_s
+       @produtos = ["Purple jesus","Nitro boots","Pure Blotter"].to_s
        
-       salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => @volume, :usuario => username, :status => @transaction_status, :endereco => @endereco)
+       salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => @volume, :usuario => username, :status => @transaction_status, :endereco => @endereco, :produtos => @produtos)
     end
+    def list_all_payment
+         @pagamento = Pagamento.find_by(address: params[:id])
+         @endereco = @pagamento.endereco
+         @produtos = @pagamento.produtos
+         @vol = @pagamento.volume
+        
+    end
+    private
     def salvar_pagamento(pagamento_params)
         pagamento = Pagamento.new(pagamento_params)
         pagamento.save
     end
-    
+    def endereco_params
+        params.require(:pagamento).permit(:address)
+    end
     
     def pagamento_params
-        params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco)
+        params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco, :produtos)
     end
 end

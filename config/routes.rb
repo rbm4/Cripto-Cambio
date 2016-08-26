@@ -3,10 +3,11 @@ Rails.application.routes.draw do
 
   get '/home' => 'sessions#home'
   get '/loginerror' => 'sessions#loginerror'
-  get '/contact' => 'usuarios#contato'
+  get '/contato' => 'usuarios#contato'
   get 'sessions/profile'
   get '/store' => 'produtos#show'
   post 'submit' => 'sessions#submit'
+  post 'list' => 'produtos#list_all_payment'
   get '/detalhes' => 'sessions#detalhes'
   get '/create_handler' => 'produtos#solicitar_pagamento'
   get 'sessions/setting'

@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160826130249) do
     t.string   "endereco",   limit: 255
     t.string   "volume",     limit: 255
     t.string   "network",    limit: 255
+    t.string   "produtos",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

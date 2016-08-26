@@ -12,8 +12,13 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<%= label_tag @messages, nil, placeholder: @messages, disabled: true%><BR>
-								    <a href="detalhes">Voltar</a>
+								<p>Endereço fisico da entrega: <%= label_tag @endereco, nil, placeholder: @endereco, disabled: true%></p>
+								<font>Produtos solicitados neste pedido: </font>
+								<% array = @produtos.split(",")%>
+								<% array.each do |h| %>
+								<p><%= h %></p>
+								<% end %>
+								<p>Volume Solicitado neste pagamento: <%= @vol %></p>
 							</div>
 							
 					</section>
