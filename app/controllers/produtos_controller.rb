@@ -1,6 +1,9 @@
 class ProdutosController < ApplicationController
     #convert BRL to BTC https://blockchain.info/tobtc?currency=BRL&value=VALOR DO PRODUTO
     require 'net/http'
+    require 'uri'
+    require 'net/https'
+    require 'json'
     before_action :require_user, only: [:show, :solicitar_pagamento]
     
     def show
@@ -12,54 +15,27 @@ class ProdutosController < ApplicationController
     end
     
     def solicitar_pagamento
-        Faraday.post 'https://block.io/api/v2/get_new_address/?ddcf-3881-8c4e-7590'    
-      # uri = URI.parse('/api/v2/get_new_address/')
-      # http = Net::HTTP.new(uri.host, uri.port)
-      # request = Net::HTTP::Post.new(uri.request_uri)
-      # request.set_form_data({"api_key" => "ddcf-3881-8c4e-7590"})
-      # response = http.request(request)
-      # render :json => response.body
-        #callback_url = 'https://bmarket-rbm4.c9users.io/payment/' + String(params[:invoice_id])
-        #resp = Blockchain::V2.receive('xpub6CBYyFSnxZqqmW2q2oycEKhYDEFXf5bh3TB4DkJdRnLKA5NkerJMTfUq1nZnkvQHj5RgUKAh2goaYNJ2pwspvieemDHMsj1Dum3ab5PZPwq', callback_url, 'keydseste')
-        #db.execute %{
-        #    UPDATE pagamentos
-        #    SET address = ?
-        #    WHERE invoice_id = ?    }, resp.address, invoice_id
-        #    JSON.dump({ input_address: resp.address })
-        #@resp = Blockchain::V2::receive('xpub6CBYyFSnxZqqmW2q2oycEKhYDEFXf5bh3TB4DkJdRnLKA5NkerJMTfUq1nZnkvQHj5RgUKAh2goaYNJ2pwspvieemDHMsj1Dum3ab5PZPwq','https://bmarket-rbm4.c9users.io/blockcall','') #xpub / callback URL / apikey
+        @endereco = 'teste inicial'
+      @volume = '0.00001'
+       url = 'https://block.io/api/v2/get_new_address/?api_key=ac35-6ff5-e103-d1c3'
+       uri = URI(url)
+       response = Net::HTTP.get(uri)
+       hash = JSON.parse(response)
+       @transaction_status = hash["status"].to_s
+       net =  hash["data"]["network"].to_s
+       userid = hash["data"]["user_id"].to_s
+       @payment_address = hash["data"]["address"].to_s
+       @identifier = hash["data"]["label"].to_s
+       
+       salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => @volume, :usuario => username, :status => @transaction_status, :endereco => @endereco)
     end
-    def receber_pagamento
-        address = params[:address]
-        secret = params[:secret]
-        confirmations = params[:confirmations].to_i
-        tx_hash = params[:transaction_hash]
-        value = params[:value].to_f / 100000000
-        handle = db()
-        my_address = handle.execute(%{
-            SELECT address
-            FROM pagamentos
-            WHERE invoice_id = ?
-            }, invoice_id)[0][0]
-        return 400, 'Incorrect Receiving Address' unless my_address == address
-        return 400, 'Invalid Secret' unless secret == Settings.secret
-        if confirmations >= 4
-            handle.execute %{
-                INSERT INTO invoice_payments 
-                (invoice_id, transaction_hash, value)
-                VALUES (?, ?, ?)
-                }, invoice_id, tx_hash, value
-                handle.execute %{
-        DELETE FROM pending_invoice_payments WHERE invoice_id = ?
-        }, invoice_id
-        return 200, '*ok*'
-        else
-            handle.execute %{
-                INSERT INTO pending_invoice_payments
-                (invoice_id, transaction_hash, value)
-                VALUES (?, ?, ?)
-                }, invoice_id, tx_hash, value
-                return 200, 'Waiting for confirmations'
-        end    # shouldn't ever reach this
-        return 500, 'something went wrong'
+    def salvar_pagamento(pagamento_params)
+        pagamento = Pagamento.new(pagamento_params)
+        pagamento.save
+    end
+    
+    
+    def pagamento_params
+        params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco)
     end
 end

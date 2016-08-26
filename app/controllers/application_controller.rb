@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :current_user
   helper_method :username
+  helper_method :receber_pagamento
+  helper_method :moeda
   def current_user 
     @current_user ||= Usuario.find(session[:user_id]) if session[:user_id] 
   end
@@ -17,6 +19,25 @@ class ApplicationController < ActionController::Base
     redirect_to '/' if current_user
   end
   def username
-    @current_user.username
+    if @current_user == nil
+      current_user
+    else
+      @current_user.username
+    end
   end
+  def moeda(string)
+    if string == "BTCTEST"
+      return "฿T"
+    end
+    if string == "LTCTEST"
+      return " ŁT"
+    end
+    if string == "BTC"
+      return " ฿"
+    end
+    if string == "LTC"
+      return " Ł"
+    end
+  end
+  
 end

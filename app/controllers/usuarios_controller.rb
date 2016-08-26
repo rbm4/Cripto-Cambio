@@ -19,6 +19,8 @@ class UsuariosController < ApplicationController
     @usuario.save
     render 'sessions/login'
   end
+  def contato
+  end
   private
   def usuario_params
     params.require(:usuario).permit(:username,:email, :password, :password_confirmation)

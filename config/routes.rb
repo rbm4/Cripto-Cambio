@@ -3,11 +3,12 @@ Rails.application.routes.draw do
 
   get '/home' => 'sessions#home'
   get '/loginerror' => 'sessions#loginerror'
-
+  get '/contact' => 'usuarios#contato'
   get 'sessions/profile'
   get '/store' => 'produtos#show'
-  get '/payment/:invoice_id' => 'produtos#receber_pagamento'
-  get '/create_handler/:invoice_id' => 'produtos#solicitar_pagamento'
+  post 'submit' => 'sessions#submit'
+  get '/detalhes' => 'sessions#detalhes'
+  get '/create_handler' => 'produtos#solicitar_pagamento'
   get 'sessions/setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'

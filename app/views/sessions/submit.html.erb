@@ -12,11 +12,7 @@
 					
 						<!-- Content -->
 							<div class="content">
-								Status: <%= label_tag @transaction_status, nil, placeholder: @transaction_status, disabled: true%>
-								<p>Efetue o pagamento do volume para o endereço: <%= label_tag @payment_address, nil, placeholder: @payment_address, disabled: true%></p>
-								<p>Identificador único da transação: <%= label_tag @identifier, nil, placeholder: @identifier, disabled: true%></p>
-								<p></p>
-								
+								<%= label_tag @messages, nil, placeholder: @messages, disabled: true%>
 							</div>
 							
 					</section>

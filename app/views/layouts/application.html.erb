@@ -48,29 +48,17 @@
 						<% if session[:user_id] != nil %>
 						<% if session[:user_id] == current_user.id ;%>
 						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home', :id => session[:user_id]%></li>
+						<li class= 'current'><a href='store'>Loja</a></li>
+						<li class='current'><a href='contact'>Contato</a></li>
+						<li class='current'><a href='howto'>Como comprar</a></li>
 						<% end %>
 						<% else %>
 						<li class="current"><a href="/">Inicio</a></li>
+						<li class="current"><a href="register">Registrar</a></li>
+						<li class='current'><a href='contact'>Contato</a></li>
+						<li class='current'><a href='howto'>Como comprar</a></li>
 						<% end%>
-						<li class="submenu">
-							<a href="">Menu</a>
-							<ul>
-								<li><a href="mjolnir">Mj&oumllnir</a></li>
-								<li><a href="sdisplay">sensores</a></li>
-								<li><a href="store">Loja</a></li>
-								<li><a href="register">Registrar</a></li>
-								<li class="submenu">
-									<a href="">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
+							
 						<li>
 						  <% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
