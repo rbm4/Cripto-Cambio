@@ -46,13 +46,16 @@ class SessionsController < ApplicationController
        pending_dec = BigDecimal.new(@saldo_pendente,9)                          #Transformando em decimal o saldo pendente (a receber)
        
        #Volume do pedido é igual ou inferior ao volume atual?
+       update = Pagamento.find_by(address: endereco.address)
        if BigDecimal(endereco.volume) <= a
           update = Pagamento.find_by(address: endereco.address)
           update.status = 'accepted'
           update.save
           @messages = 'Transação aceita. Você aparentemente enviou pelo menos o valor necessário para essa transação. Pode verificar o status de envio na sua página de detalhes'
        elsif pending_dec > 0
-         @messages = 'Transação ainda não aprovada. Porém com volume pendente, é preciso esperar confirmações da rede, tente novamente em alguns instantes. Valor pendente: ' + String(pending_dec) + moeda
+         update.status = 'waiting confirmation'
+         update.save
+         @messages = 'Transação ainda não aprovada. Porém com volume pendente, é preciso esperar confirmações da rede, tente novamente em alguns instantes. Valor pendente: ' + String(pending_dec) + moeda(hash_r["data"]["network"])
        else
          @messages = 'Transação ainda não aprovada. Verifique se você enviou as moedas para o endereço correto'
        end

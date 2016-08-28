@@ -37,7 +37,12 @@
 					<a href="/">Krobellus Market </a>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
-						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b></span>
+						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %>
+<p style="padding:10px;">
+  Você tem <%= pluralize current_order.total_items, 'item'%> em seu carrinho, com volume: 
+  <%= number_to_currency current_order.total_before_tax %>.
+</p>
+<% end %></span>
 						  <% end %>
 						  <% else %>
 						  <strong><a href="login">Visitante?</a></strong>

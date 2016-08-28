@@ -27,6 +27,13 @@
 										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
 										<tr></tr>|Editar dados| </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
+										<% end %>
+										<% if h.usuario == username and h.status == 'waiting confirmation'%>
+										<p><tr>- Confirmação em andamento </tr>
+										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
+										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
+										<tr></tr>|Editar dados| </tr>
+										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %></font>
 										<% end %>
 									</table>

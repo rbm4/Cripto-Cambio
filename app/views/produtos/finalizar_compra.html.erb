@@ -12,14 +12,11 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<p>Endereço fisico da entrega: <%= label_tag @endereco, nil, placeholder: @endereco, disabled: true%></p>
-								<font>Produtos solicitados neste pedido: </font>
-								<% array = @produtos.split(",")%>
-								<p><% array.each do |h| %>
-								<%= h.sub(/[^$\w^]/, "") %> 
-								<% end %></p>
-								<p>Volume Solicitado neste pagamento: <%= @vol %></p>
-								<p><a href="detalhes">Voltar</a></p>
+								Status: <%= label_tag @transaction_status, nil, placeholder: @transaction_status, disabled: true%>
+								<p>Efetue o pagamento do volume para o endereço: <%= @payment_address %></p>
+								<p>Identificador único da transação: <%= label_tag @identifier, nil, placeholder: @identifier, disabled: true%></p>
+								<p></p>
+								
 							</div>
 							
 					</section>

@@ -1,0 +1,42 @@
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<h2><%= @messages %></h2>
+								<h2> DETALHES </h2>
+								<p><h1><%= @product.name %></p></h1><p>  <b><%= @product.price %></b>
+								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %>
+                                  </p>
+                                  <hr><%= simple_format @product.description %>
+                                  <hr><p><%= link_to "Back to list", '/store' %></p>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

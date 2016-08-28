@@ -5,9 +5,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   attr_accessor :viewname
   helper_method :current_user
+  helper_method :current_order
+  helper_method :has_order?
   helper_method :username
   helper_method :receber_pagamento
   helper_method :moeda
+  helper_method :buy
   def current_user 
     @current_user ||= Usuario.find(session[:user_id]) if session[:user_id] 
   end
@@ -21,6 +24,7 @@ class ApplicationController < ActionController::Base
   def username
     if @current_user == nil
       current_user
+      @current_user.username
     else
       @current_user.username
     end
@@ -39,5 +43,32 @@ class ApplicationController < ActionController::Base
       return " Ł"
     end
   end
-  
+  private
+  def current_order
+    @current_order ||= begin
+      if has_order?
+        @current_order
+      else
+        order = Shoppe::Order.create(:ip_address => request.ip)
+        session[:order_id] = order.id
+        order
+      end
+    end
+  end
+
+  def has_order?
+    !!(
+      session[:order_id] &&
+      @current_order = Shoppe::Order.includes(:order_items => :ordered_item).find_by_id(session[:order_id])
+    )
+  end
+  def buy(permalink)
+        # @product = Produto.find_by(params[:id])
+        puts params[:permalink]
+        puts 'AQUI EXECUTA A FUNÇÃO DE SALVAR ITEM NA ONDA'
+         @product = Shoppe::Product.root.find_by_permalink!(permalink)
+         current_order.order_items.add_item(@product, 1)
+         @messages = "Product has been added successfuly!"
+         redirect_to product_path(@product.permalink)
+  end
 end
