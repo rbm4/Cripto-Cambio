@@ -1,0 +1,62 @@
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+							<h2>Finalizar compra</h2>
+<%= render 'items', :order => @order %>
+<% volm = convert_bitcoin(current_order.total_before_tax)%>
+<% @volm = volm.to_s %>
+<%= form_for :pagamento, :url => '/create_handler', :method => 'post', :volume => @volm do |f| %>
+  <dl>
+    
+    <dd><%= f.hidden_field :usuario, :value => username %> </dd>
+    <dd>Preencha os campos a seguir com cautela, <b>eles não poderão ser modificados depois</b></dd>
+    <dt><%= f.label :endereco, 'Campo para preencher o Endereço' %></dt>
+    <dd><%= f.text_field :endereco %></dd>
+    <dt>Volume convertido em bitcoins:></dt>
+    <dd><%= f.text_field :volume, :placeholder => volm, :value => volm.to_s, :disabled => true %></dd>
+    <dt><%= f.label :billing_postcode, 'Código postal' %></dt>
+    <dd><%= f.text_field :postcode %></dd>
+    <% @array_produtos = Array.new%>
+    <% @order.order_items.each do |item| %>
+    <% @array_produtos << item.quantity.to_s + ' ' + item.ordered_item.full_name.to_s%>
+    <% @array_produtos = @array_produtos.to_s %>
+    <% end %>
+    <%= f. hidden_field :produtos, :value => @array_produtos %>
+    <%= f.hidden_field :volume, :value => @volm %>
+
+
+    <dd><%= f.submit 'Continuar' %></dd>
+  </dl>
+<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

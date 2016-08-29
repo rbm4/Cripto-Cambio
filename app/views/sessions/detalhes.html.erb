@@ -22,37 +22,37 @@
 										<th><tr>Extras</tr></th></font>
 										<font size="3"><% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'success'%>
-										<p><tr>- Aguardando pagamento </tr>
+										<font color='red'><p><tr>- Aguardando pagamento </tr>
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
 										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-										<tr></tr>|Editar dados| </tr>
+										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %>
 										<% if h.usuario == username and h.status == 'waiting confirmation'%>
 										<p><tr>- Confirmação em andamento </tr>
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
 										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-										<tr></tr>|Editar dados| </tr>
+										<tr></tr> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %></font>
-										<% end %>
+										<% end %></font>
 									</table>
 									</div>
 									<p>Pedidos aceitos (Na fila para envio)</p>
 									<font size="3">Abaixo estão pagamentos já aceitos, porém ainda não foram enviados para o endereço cadastrado. Assim que forem enviados, você os verá em "Transações fechadas", no fim da página.</font></p>
 									<table border="1">
-										<font size="2"><tr>Status,            </tr>
+										<font size="2" ><tr>Status,            </tr>
 										<th><tr>Volume / Moeda,      </tr></th>
 										<th><tr>Pedido Atualizado em,      </tr></th>
 										<th><tr>	Opções          </tr></th>
-										<th><tr>Extras</tr></th><br></font>
+										<th><tr>Extras</tr></th><br></font><font color='green'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'accepted'%>
 										<tr>- Transação aceita. </tr>
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network) %></b> </tr>
 										<tr><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </tr>
 										<tr>  </tr>
-										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
+										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr></font>
 										<% end %>
 										<% end %>
 									</table>

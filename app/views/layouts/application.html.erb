@@ -37,10 +37,10 @@
 					<a href="/">Krobellus Market </a>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
-						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %>
-<p style="padding:10px;">
+						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 
+<p style="padding:4px;">
   Você tem <%= pluralize current_order.total_items, 'item'%> em seu carrinho, com volume: 
-  <%= number_to_currency current_order.total_before_tax %>.
+  <%= number_to_currency current_order.total_before_tax %>. <a href= "/basket"><img src="/images/icon_cart.png" height="25" width="25"></a>
 </p>
 <% end %></span>
 						  <% end %>
@@ -52,6 +52,7 @@
 					<ul>
 						<% if session[:user_id] != nil %>
 						<% if session[:user_id] == current_user.id ;%>
+						<% if is_admin? == true %><li class='current'><%= link_to "Painel admin", :controller => 'admin', :action =>'home', :id => session[:user_id]%></li><% end%>
 						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home', :id => session[:user_id]%></li>
 						<li class= 'current'><a href='store'>Loja</a></li>
 						<li class='current'><a href='contato'>Contato</a></li>

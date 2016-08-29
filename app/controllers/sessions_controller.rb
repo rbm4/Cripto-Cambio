@@ -23,6 +23,22 @@ class SessionsController < ApplicationController
     redirect_to '/' 
   end
   def home
+      params[:featured] = "1"
+      @destaques = Shoppe::Product.root.ordered
+      @destaques = @destaques.group_by(&:product_category)
+      count = 0
+      @dstqn = Array.new
+      @dstqi = Array.new
+      @destaques.each do |h|
+        h[1].each do |g|
+          if g.featured == true
+            count = count + 1
+            @dstqn.append(g.name)
+            @dstqi.append(g.in_the_box)
+          end
+        end
+      end
+      
       @atual = Usuario.find(params[:id])
     unless session[:user_id] == @atual.id
       @messages = "ERRO! Você não pode acessar esta página"

@@ -15,7 +15,9 @@
 								Status: <%= label_tag @transaction_status, nil, placeholder: @transaction_status, disabled: true%>
 								<p>Efetue o pagamento do volume para o endereço: <%= @payment_address %></p>
 								<p>Identificador único da transação: <%= label_tag @identifier, nil, placeholder: @identifier, disabled: true%></p>
-								<p></p>
+								<p>PARABÉNS! Você acabou de confirmar uma transação! O próximo passo agora é enviar o volume especificado para o endereço acima e 
+								após enviar, confirmar.</p>
+								<p>Você pode verificar seus pagamentos pendentes na página de "inicio", <%= link_to "Aqui", :controller => 'sessions', :action =>'home', :id => session[:user_id]%></p>
 								
 							</div>
 							

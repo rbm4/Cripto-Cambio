@@ -27,7 +27,10 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 	</head>
 	<body class="no-sidebar">
-	
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
 		
 		<!-- Main -->
 			<article id="main">
@@ -44,27 +47,26 @@
 						<!-- Content -->
 							<div class="content">
 								<section>
+								    <h1>MENUS</h1>
 									 <table style="width:100%">
 									 	  <tr>
-									 	  	    <td>Produto recente</td>
-									 	  	    <td>Produto recente</td>
-									 	  	    <td>Produto recente</td>
+									 	  	    <td>Usuarios</td>
+									 	  	    <td>Pagamentos</td>
+									 	  	    <td>Tickets</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td><%= @dstqn[0] %></td>
-									 	  	    <td><%= @dstqn[1] %></td>
-									 	  	    <td><%= @dstqn[2] %></td>
+									 	  	    <td>Promote</td>
+									 	  	    <td><%= link_to "Pagamentos para envio", payment_path%></td>
+									 	  	    <td>Vizualizar</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	   	<td><a href='/store'><img src="<%=@dstqi[0] %>" height=250px width=250px></a></td>
-									 	  	   	<td><a href='/store'><img src="<%=@dstqi[1]%>" height=250px width=250px> </a></td>
-									 	  	   	<td><a href='/store'><img src="<%=@dstqi[2]%>" height=250px width=250px> </a></td>
+									 	  	   	<td>Demote</td>
+									 	  	   	<td>Histórico</td>
+									 	  	   	<td>fechados</td>
 									 	  	    </tr>
 									 	  	   	</table> 
 									
-									<header>
-										<h3><li class='current'><a href="/detalhes" class= "button small">Transações</a></h3></li>
-									</header>
+								
 									
 								</section>
 							</div>

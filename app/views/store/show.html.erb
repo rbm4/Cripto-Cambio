@@ -1,3 +1,45 @@
+<head>
+	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+label[type="descricao"]{
+	width: 10px; height: 55px 
+}
+div{ 
+
+   
+    
+}
+ .conteudo{
+ 	margin-top: -6%;
+    margin-left:10%;
+    width: 80%;
+ 	padding: 10px;
+ }
+ .table_detalhes {
+ 	position: absolute;
+ 	text-align: left;
+ 	margin-top: 0%;
+ 	margin-left: 5%;
+ 	margin-right: 14%;
+ 	width: 80%;
+ 	
+ }
+ .table_foto{
+ 	position: absolute;
+	margin-left: 32%;
+	margin-top: -20%;
+ }
+ 
+</style>
+</head>
 <body class="contact">
 	
 		<!-- Main -->
@@ -13,9 +55,10 @@
 						<!-- Content -->
 							<div class="content">
 								<h2><%= @messages %></h2>
+								
 								<h2> DETALHES </h2>
-								<p><h1><%= @product.name %></p></h1><p>  <b><%= @product.price %></b>
-								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %>
+								<p><h1>NOME: <%= @product.name %></p></h1><p><b>Preço: </b> <%= number_to_currency @product.price %></b>
+								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %><div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div>
                                   </p>
                                   <hr><%= simple_format @product.description %>
                                   <hr><p><%= link_to "Back to list", '/store' %></p>

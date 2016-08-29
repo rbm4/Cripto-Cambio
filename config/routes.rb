@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post 'submit' => 'sessions#submit'
   post 'list' => 'produtos#list_all_payment'
   get '/detalhes' => 'sessions#detalhes'
-  get '/create_handler' => 'produtos#finalizar_compra'
+  post '/create_handler' => 'produtos#finalizar_compra'
   get 'sessions/setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
@@ -27,7 +27,12 @@ Rails.application.routes.draw do
   post "/store" => "store#show", as: "product"
   post "/show" => "store#buy", as: "buy"
   get "basket", to: "orders#show"
-  
+  delete "basket", to: "orders#destroy"
+  match "checkout", to: "orders#checkout", as: "checkout", via: [:get, :patch]
+  match "checkout/pay", to: "orders#payment", as: "checkout_payment", via: [:get, :post]
+  match "checkout/confirm", to: "orders#confirmation", as: "checkout_confirmation", via: [:get, :post]
+  get "/admin" => "admin#home"
+  get "/payment" => "admin#orders"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

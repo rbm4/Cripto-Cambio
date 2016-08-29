@@ -12,10 +12,10 @@
 <table width='100%' border='1'>
   <thead>
     <tr>
-      <td>Quantity</td>
-      <td>Product</td>
+      <td>Quantia</td>
+      <td>Produto</td>
       <td>Sub-Total</td>
-      <td>Tax</td>
+      <td>Taxa aplicada</td>
       <td>Total</td>
     </tr>
   </thead>
@@ -48,7 +48,7 @@
       <td><%= number_to_currency order.total_before_tax %></td>
     </tr>
     <tr>
-      <td colspan='4'>Tax</td>
+      <td colspan='4'>Taxação total</td>
       <td><%= number_to_currency order.tax %></td>
     </tr>
     <tr>
@@ -57,3 +57,5 @@
     </tr>
   </tfoot>
 </table>
+<p><%= link_to 'Esvaziar carrinho', basket_path, :method => :delete %></p>
+<p><%= link_to "Checkout", checkout_path %>

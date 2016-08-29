@@ -12,15 +12,18 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<p>Endereço fisico da entrega: <%= label_tag @endereco, nil, placeholder: @endereco, disabled: true%></p>
-								<font>Produtos solicitados neste pedido: </font>
-								<% array = @produtos.split(",")%>
-								<p><% array.each do |h| %>
-								<%= h.sub(/[^$\w^]/, "") %> 
-								<% end %></p>
-								<p>Volume Solicitado neste pagamento: <%= @vol %></p>
-								<p>Endereço para pagamento: <%= @carteira %></p>
-								<p><a href="detalhes">Voltar</a></p>
+								<h2>Make your payment</h2>
+<%= form_tag do %>
+  <dl>
+    <dt><%= label_tag 'card_number' %></dt>
+    <dd><%= text_field_tag 'card_number' %></dd>
+    <dt><%= label_tag 'expiry' %></dt>
+    <dd><%= text_field_tag 'expiry' %></dd>
+    <dt><%= label_tag 'security_code' %></dt>
+    <dd><%= text_field_tag 'security_code' %></dd>
+    <dd><%= submit_tag "Continue" %></dd>
+  </dl>
+<% end %>
 							</div>
 							
 					</section>

@@ -54,18 +54,17 @@ div{
 					
 						<!-- Content -->
 							<div class="conteudo">
-								<a href='/create_handler'> Pagamento</a>
+								<%= @messages %>
 							<% @products.each do |category, prd| %>
   							<h3><%= category.name %></h3>
 							<% prd.each do |products| %>
-							<th>
 							<div class="table_detalhes"><h3><%= products.name %></h3>
 							<ul><% products.permalink %><li>
 							<h4><%= button_to "Detalhes", permalink: products.permalink %></h4>
 							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
-							<p><b>Price:</b> <%= number_to_currency products.price %></th></p>
-							</div></li></ul><th> <div class="table_foto"><img src="images/purple_jesus.jpg" alt="Smiley face" height=250px width=250px></div><hr> </th><% end %></div>
-							<% end %>
+							<p><b>Preço: </b> <%= number_to_currency products.price %></th></p>
+							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
+							<% end %></div>
 							
 							
 							

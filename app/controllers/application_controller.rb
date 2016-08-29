@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   attr_accessor :viewname
+  helper_method :useremail
   helper_method :current_user
   helper_method :current_order
   helper_method :has_order?
@@ -11,6 +12,9 @@ class ApplicationController < ActionController::Base
   helper_method :receber_pagamento
   helper_method :moeda
   helper_method :buy
+  helper_method :convert_bitcoin
+  helper_method :is_admin?
+  
   def current_user 
     @current_user ||= Usuario.find(session[:user_id]) if session[:user_id] 
   end
@@ -20,6 +24,14 @@ class ApplicationController < ActionController::Base
   
   def require_logout
     redirect_to '/' if current_user
+  end
+  def useremail
+    if @current_user == nil
+      current_user
+      @current_user.email
+    else
+      @current_user.email
+    end
   end
   def username
     if @current_user == nil
@@ -55,20 +67,24 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
+  def is_admin?
+    user = current_user
+    if user.salt == 'admin'
+      true
+    else
+      false
+    end
+  end
   def has_order?
     !!(
       session[:order_id] &&
       @current_order = Shoppe::Order.includes(:order_items => :ordered_item).find_by_id(session[:order_id])
     )
   end
-  def buy(permalink)
-        # @product = Produto.find_by(params[:id])
-        puts params[:permalink]
-        puts 'AQUI EXECUTA A FUNÇÃO DE SALVAR ITEM NA ONDA'
-         @product = Shoppe::Product.root.find_by_permalink!(permalink)
-         current_order.order_items.add_item(@product, 1)
-         @messages = "Product has been added successfuly!"
-         redirect_to product_path(@product.permalink)
+  def convert_bitcoin(valor)
+    string = 'https://blockchain.info/tobtc?currency=BRL&value=' + valor.to_s
+    uri = URI(string)
+    response = Net::HTTP.get(uri)
+    response
   end
 end
