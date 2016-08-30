@@ -52,9 +52,9 @@
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network) %></b> </tr>
 										<tr><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </tr>
 										<tr>  </tr>
-										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr></font>
+										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
 										<% end %>
-										<% end %>
+										<% end %></font>
 									</table>
 									<p>Transações fechadas</p>
 							</div>

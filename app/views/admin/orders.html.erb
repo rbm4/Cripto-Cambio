@@ -1,5 +1,8 @@
 <body class="contact">
-	
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
 		<!-- Main -->
 			<article id="main">
 
@@ -32,7 +35,7 @@
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network) %></b> </tr>
 										<tr><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </tr>
 										<tr>  </tr>
-										<tr><%= link_to "Dar baixa",  list_path(:id => h.address), method: "post" %><br></div></tr>
+										<tr><%= link_to('Dar baixa', :controller => 'admin', :action => 'finish', :id => h.address, method: "post") %><br></div></tr>
 										<% end %>
 										<% end %>
 										

@@ -6,27 +6,39 @@
 -->
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.dropotron.min.js"></script>
-		<script src="js/jquery.scrolly.min.js"></script>
-		<script src="js/jquery.scrollgress.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-wide.css" />
-			<link rel="stylesheet" href="css/style-noscript.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-	</head>
-	<body class="no-sidebar">
+	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+td[type="title"]{
+	text-align:center;
+	font-size:25px;
+	font-weight:bold;
+}
+td[type="menu"]{
+	text-align:center;
+}
+label[type="descricao"]{
+	width: 10px; height: 55px 
+}
+input[type=submit]{ 
+	width: 23px;
+	height: 46px;
+
+}
+ .submit{
+ 	color:white;
+ 	background: black;
+ }
+</style>
+</head>
+	<body class="index">
 	<% if is_admin? != true %>
 	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
 	<% render '/sessions/loginerror'%>
@@ -37,8 +49,8 @@
 
 				<header class="special container">
 	
-					<h2>Realize compras <strong>consulte seus pedidos pendentes</strong></h2>
-					<p>Leia abaixo as instruções.</p>
+					<h2>Painel administrativo restrito </h2>
+					<p>Usuario: <font color="red"><b><%= String(username).capitalize %></p></b></font>
 				</header>
 					
 				<!-- One -->
@@ -50,19 +62,19 @@
 								    <h1>MENUS</h1>
 									 <table style="width:100%">
 									 	  <tr>
-									 	  	    <td>Usuarios</td>
-									 	  	    <td>Pagamentos</td>
-									 	  	    <td>Tickets</td>
+									 	  	    <td type="title">Usuarios</td>
+									 	  	    <td type="title">Pagamentos</td>
+									 	  	    <td type="title">Tickets</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td>Promote</td>
-									 	  	    <td><%= link_to "Pagamentos para envio", payment_path%></td>
-									 	  	    <td>Vizualizar</td>
+									 	  	    <td type="menu">Promote</td>
+									 	  	    <td type="menu"><%= button_to "Aguardando envio", payment_path%></td>
+									 	  	    <td type="menu">Vizualizar</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	   	<td>Demote</td>
-									 	  	   	<td>Histórico</td>
-									 	  	   	<td>fechados</td>
+									 	  	   	<td type="menu">Demote</td>
+									 	  	   	<td type="menu"><%= button_to "Histórico", '#'%></td>
+									 	  	   	<td type="menu">fechados</td>
 									 	  	    </tr>
 									 	  	   	</table> 
 									
@@ -79,45 +91,21 @@
 							<div class="4u">
 							
 								<section>
-									<header>
-										<h3>Por quê no Brasil?</h3>
-									</header>
-									<p>Texto</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="store" class="button small">Compre agora!</a></li>
-										</ul>
-									</footer>
+									
 								</section>
 							
 							</div>
 							<div class="4u">
 							
 								<section>
-									<header>
-										<h3>Confiabilidade e comentários de usuários</h3>
-									</header>
-									<p>Texto explicativo e futuramente consulta de comentários de produtos</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="#" class="button small">Learn More</a></li>
-										</ul>
-									</footer>
+									
 								</section>
 							
 							</div>
 							<div class="4u">
 							
 								<section>
-									<header>
-										<h3>100% de privacidade</h3>
-									</header>
-									<p>Cadastre-se agora mesmo e saiba sobre como adquirir nossos produtos!</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="#" class="button small">Learn More</a></li>
-										</ul>
-									</footer>
+									
 								</section>
 							
 							</div>

@@ -18,7 +18,9 @@ class SessionsController < ApplicationController
     end
   end
   def destroy 
-    session[:user_id] = nil 
+    session[:user_id] = nil
+    current_order.destroy
+    session[:order_id] = nil
     @messages = "logout"
     redirect_to '/' 
   end
