@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :buy
   helper_method :convert_bitcoin
   helper_method :is_admin?
-  
+  helper_method :archive_wallet
   def current_user 
     @current_user ||= Usuario.find(session[:user_id]) if session[:user_id] 
   end
@@ -86,5 +86,12 @@ class ApplicationController < ActionController::Base
     uri = URI(string)
     response = Net::HTTP.get(uri)
     response
+  end
+  def archive_wallet(address)
+    url = 'https://block.io/api/v2/archive_addresses/?api_key=ac35-6ff5-e103-d1c3&addresses=' + address
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    hash = JSON.parse(response)
+    puts hash
   end
 end

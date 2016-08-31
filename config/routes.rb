@@ -32,9 +32,12 @@ Rails.application.routes.draw do
   match "checkout/pay", to: "orders#payment", as: "checkout_payment", via: [:get, :post]
   match "checkout/confirm", to: "orders#confirmation", as: "checkout_confirmation", via: [:get, :post]
   get "/admin" => "admin#home"
-  post "/payment" => "admin#orders"
+  match "/payment" => "admin#orders", via: [:get, :post]
   match "/finish" => "admin#finish", via: [:get, :post]
   post '/finalizar' => 'admin#finalizar'
+  get '/howto' => 'sessions#howto'
+  post '/history' => "admin#history"
+  post '/volm' => 'admin#take'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,3 +1,13 @@
+	<head>
+	<style>
+td[type=finished]{
+ 	color:blue;
+ 	text-align:center;
+ 	
+ 	
+ }
+</style>
+</head>
 <body class="contact">
 	
 		<!-- Main -->
@@ -56,7 +66,39 @@
 										<% end %>
 										<% end %></font>
 									</table>
-									<p>Transações fechadas</p>
+									<p>Transações fechadas.
+									Abaixo você encontrará a listagem de pedidos que você fez e que foram enviados.</p>
+									 
+									<table style="width:100%">
+									 			<tr>
+									 	  	    <td>Status</td>
+									 	  	    <td>Volume / Moeda</td>
+									 	  	    <td>Cod. rastreamento</td>
+									 	  	    <td>Admin que enviou</td>
+									 	  	    <td>Data de envio</td>
+									 	  	    </tr>
+									 	  	    <% @pagamentos.each do |h| %>
+									 	  	    <% if h.usuario == username and h.status == 'send'%>
+									 	  	    <tr>
+									 	  	    <td type='finished'> Pedido enviado</td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><%= h.label %> </td>
+									 	  	    <td type='finished'><%= h.user_id%><br></td>
+									 	  	    <td type='finished'><%= h.endereco%></td>
+									 	  	    </tr>
+									 	  	    <% else %>
+									 	  	    <% if h.usuario == username and h.status == 'retirado'%>
+									 	  	    <tr>
+									 	  	    <td type='finished'> Pedido Finalizado</td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><%= h.label %> </td>
+									 	  	    <td type='finished'><%= h.user_id%><br></td>
+									 	  	    <td type='finished'><%= h.endereco%></td>
+									 	  	    </tr>
+									 	  	    <% end %>
+									 	  	    <% end %>
+										<% end %></font>
+									 	  	   	</table> 
 							</div>
 							
 					</section>

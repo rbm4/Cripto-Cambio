@@ -1,0 +1,77 @@
+<head><style>
+	input[type=submit]{ 
+	margin-left: 5%;
+ 	margin-right: 14%;
+	height: 50px;
+
+}
+	
+</style></head>
+<body class="contact">
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								
+									<p>Transações fechadas</p>
+									<table style="width:100%">
+									 			<tr>
+									 	  	    <td>Status</td>
+									 	  	    <td>Volume / Moeda</td>
+									 	  	    <td>Admin que enviou</td>
+									 	  	    <td>Data de envio</td>
+									 	  	    <td>Retirar volume</td>
+									 	  	    </tr>
+									 	  	    <% @pagamentos.each do |h| %>
+									 	  	    <% if h.status == 'send'%>
+									 	  	    <tr>
+									 	  	    <td type='finished'> Enviado</td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><%= h.user_id%><br></td>
+									 	  	    <td type='finished'><%= h.endereco%></td>
+									 	  	    <td type='finished'>
+									 	  	    	<% volume = BigDecimal(h.volume) - BigDecimal('0.00020')%>
+									 	  	    	<%= form_tag("/volm", method: 'post') do %>
+									 	  	    	<%= hidden_field_tag 'address', h.address %>
+									 	  	    	<%= hidden_field_tag 'amount', volume %>
+													<%= submit_tag("Retirada")%>
+									 	  	    	<% end %>	
+									 	  	    	
+									 	  	    	</td>
+									 	  	    </tr>
+									 	  	    <% end %>
+										<% end %></font>
+									 	  	   	</table>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

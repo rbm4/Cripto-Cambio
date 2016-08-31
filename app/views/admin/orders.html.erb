@@ -42,6 +42,26 @@
 										
 									</table>
 									<p>Transações fechadas</p>
+									<table style="width:100%">
+									 			<tr>
+									 	  	    <td>Status</td>
+									 	  	    <td>Volume / Moeda</td>
+									 	  	    <td>Cod. rastreamento</td>
+									 	  	    <td>Admin que enviou</td>
+									 	  	    <td>Data de envio</td>
+									 	  	    </tr>
+									 	  	    <% @pagamentos.each do |h| %>
+									 	  	    <% if h.usuario == username and h.status == 'send'%>
+									 	  	    <tr>
+									 	  	    <td type='finished'> Pedido enviado</td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><%= h.label %> </td>
+									 	  	    <td type='finished'><%= h.user_id%><br></td>
+									 	  	    <td type='finished'><%= h.address%></td>
+									 	  	    </tr>
+									 	  	    <% end %>
+										<% end %></font>
+									 	  	   	</table>
 							</div>
 							
 					</section>
