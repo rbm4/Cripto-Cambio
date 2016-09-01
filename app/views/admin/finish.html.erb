@@ -22,7 +22,7 @@
 								<%= h.sub(/[^$\w^]/, "") %> 
 								<% end %></p>
 								<p>O Volume já foi confirmado. Se você enviou a mercadoria para este endereço pelo correio, confirme o envio a seguir.</p>
-								<p>Usuário admin que está dando baixa: <font color="red"><b><%= username %></p></b></font>
+								<p>Usuário admin que está dando baixa: <font color="red"><b><%= String(username).capitalize %></p></b></font>
 								<p><%= link_to "Voltar", payment_path%>
 								
 								<%= form_tag("/finalizar", method: 'post') do %>
