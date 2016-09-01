@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/howto' => 'sessions#howto'
   post '/history' => "admin#history"
   post '/volm' => 'admin#take'
+  post '/comfirmation' => 'admin#notification'
   
   
   # The priority is based upon order of creation: first created -> highest priority.
