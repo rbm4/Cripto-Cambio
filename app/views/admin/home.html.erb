@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+td[type="title"]{
+	text-align:center;
+	font-size:25px;
+	font-weight:bold;
+}
+td[type="menu"]{
+	text-align:center;
+}
+label[type="descricao"]{
+	width: 10px; height: 55px 
+}
+input[type=submit]{ 
+	width: 23px;
+	height: 46px;
+
+}
+ .submit{
+ 	color:white;
+ 	background: black;
+ }
+</style>
+</head>
+	<body class="index">
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
+		
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+	
+					<h2>Painel administrativo restrito </h2>
+					<p>Usuario: <font color="red"><b><%= String(username).capitalize %></p></b></font>
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container">
+					
+						<!-- Content -->
+							<div class="content">
+								<section>
+								    <h1>MENUS</h1>
+									 <table style="width:100%">
+									 	  <tr>
+									 	  	    <td type="title">Usuarios</td>
+									 	  	    <td type="title">Pagamentos</td>
+									 	  	    <td type="title">Tickets</td>
+									 	  	    </tr>
+									 	  	    <tr>
+									 	  	    <td type="menu">Promote</td>
+									 	  	    <td type="menu"><%= button_to "Aguardando envio", payment_path%></td>
+									 	  	    <td type="menu">Vizualizar</td>
+									 	  	    </tr>
+									 	  	    <tr>
+									 	  	   	<td type="menu">Demote</td>
+									 	  	   	<td type="menu"><%= button_to "Histórico", '#'%></td>
+									 	  	   	<td type="menu">fechados</td>
+									 	  	    </tr>
+									 	  	   	</table> 
+									
+								
+									
+								</section>
+							</div>
+
+					</section>
+
+				<!-- Two -->
+					<section class="wrapper style1 container special">
+						<div class="row">
+							<div class="4u">
+							
+								<section>
+									
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									
+								</section>
+							
+							</div>
+						</div>
+					</section>
+					
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

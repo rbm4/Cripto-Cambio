@@ -1,0 +1,65 @@
+<body class="contact">
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								
+									<p>Pedidos aceitos (Na fila para envio)</p>
+									<font size="3">Abaixo estão pedidos já confirmados e pagos, aguardando envio.</font></p>
+									<table border="1">
+										<font size="2"><tr>Status,            </tr>
+										<th><tr>Volume / Moeda,      </tr></th>
+										<th><tr>Pedido Atualizado em,      </tr></th>
+										<th><tr>	Opções          </tr></th>
+										<th><tr>Extras</tr></th><br></font>
+										<% nulos = @pagamentos.find_by_status("accepted")%>
+										<% if nulos == nil  %>
+										<tr>Não existem pagamentos/pedidos pendentes para envio.</tr>
+										<% end %>
+										<% else %>
+										<% @pagamentos.each do |h| %>
+										<% if h.status == 'accepted'%>
+										<tr>- Transação aceita. </tr>
+										<tr><b><%= h.volume %></b> <b><%= moeda(h.network) %></b> </tr>
+										<tr><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </tr>
+										<tr>  </tr>
+										<tr><%= link_to('Dar baixa', :controller => 'admin', :action => 'finish', :id => h.address, method: "post") %><br></div></tr>
+										<% end %>
+										<% end %>
+										
+										
+									</table>
+									<p>Transações fechadas</p>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<h2>Make your payment</h2>
+<%= form_tag do %>
+  <dl>
+    <dt><%= label_tag 'card_number' %></dt>
+    <dd><%= text_field_tag 'card_number' %></dd>
+    <dt><%= label_tag 'expiry' %></dt>
+    <dd><%= text_field_tag 'expiry' %></dd>
+    <dt><%= label_tag 'security_code' %></dt>
+    <dd><%= text_field_tag 'security_code' %></dd>
+    <dd><%= submit_tag "Continue" %></dd>
+  </dl>
+<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<body class="contact">
+	<% if is_admin? != true %>
+	<% @messages = 'Tentativa de acesso a área restrita detectada. Favor não insistir.'%>
+	<% render '/sessions/loginerror'%>
+	<% end %>
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<p>Endereço fisico da entrega: <%= label_tag @endereco, nil, placeholder: @endereco, disabled: true%></p>
+								<font>Produtos solicitados neste pedido: </font>
+								<% array = @produtos.split(",")%>
+								<p><% array.each do |h| %>
+								<%= h.sub(/[^$\w^]/, "") %> 
+								<% end %></p>
+								<p>O Volume já foi confirmado. Se você enviou a mercadoria para este endereço pelo correio, confirme o envio a seguir.</p>
+								<p>Usuário admin que está dando baixa: <font color="red"><b><%= username %></p></b></font>
+								<p><%= link_to "Voltar", payment_path%>
+								
+								<%= form_tag("/finalizar", method: 'post') do %>
+								<%= hidden_field_tag 'operador', username %>
+								<%= hidden_field_tag 'pgto_address', @carteira %>
+								<p>Coloque o código para rastreio da encomenda nos correios: 
+								<%= text_field_tag 'cdgo_encomenda', nil, :maxlength => 13 %></p>
+								<% data = String(Time.now.day) + "/" + String(Time.now.month) + "/" + String(Time.now.year) %>
+								<%= hidden_field_tag 'data', data  %>
+								<%= submit_tag("Dar baixa")%>
+								<% end %>
+								
+								
+								
+								</p>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

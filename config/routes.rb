@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
+  mount Shoppe::Engine => "/shoppe"
   get 'sessions/login'
 
   get '/home' => 'sessions#home'
   get '/loginerror' => 'sessions#loginerror'
-
+  get '/contato' => 'usuarios#contato'
   get 'sessions/profile'
-
+  get '/store' => 'store#store'
+  post 'submit' => 'sessions#submit'
+  post 'list' => 'produtos#list_all_payment'
+  get '/detalhes' => 'sessions#detalhes'
+  post '/create_handler' => 'produtos#finalizar_compra'
   get 'sessions/setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
@@ -19,7 +24,19 @@ Rails.application.routes.draw do
   get '/mjolnir' => 'sensores#mjolnir'
   get '/charte' => 'sensores#charte'
   get '/chamados' => 'sensores#smart'
-
+  post "/store" => "store#show", as: "product"
+  post "/show" => "store#buy", as: "buy"
+  get "basket", to: "orders#show"
+  delete "basket", to: "orders#destroy"
+  match "checkout", to: "orders#checkout", as: "checkout", via: [:get, :patch]
+  match "checkout/pay", to: "orders#payment", as: "checkout_payment", via: [:get, :post]
+  match "checkout/confirm", to: "orders#confirmation", as: "checkout_confirmation", via: [:get, :post]
+  get "/admin" => "admin#home"
+  post "/payment" => "admin#orders"
+  match "/finish" => "admin#finish", via: [:get, :post]
+  post '/finalizar' => 'admin#finalizar'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

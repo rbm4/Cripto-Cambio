@@ -37,34 +37,34 @@
 					<a href="/">Krobellus Market </a>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
-						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b></span>
+						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 
+<p style="padding:4px;">
+  Você tem <%= pluralize current_order.total_items, 'item'%> em seu carrinho, com volume: 
+  <%= number_to_currency current_order.total_before_tax %>. <a href= "/basket"><img src="/images/icon_cart.png" height="25" width="25"></a>
+</p>
+<% end %></span>
 						  <% end %>
 						  <% else %>
-						  <span><a href="login">Visitante?</a></span>
+						  <strong><a href="login">Visitante?</a></strong>
 						  <% end %>
 				</h1>
 				<nav id="nav">
 					<ul>
+						<% if session[:user_id] != nil %>
+						<% if session[:user_id] == current_user.id ;%>
+						<% if is_admin? == true %><li class='current'><%= link_to "Painel admin", :controller => 'admin', :action =>'home', :id => session[:user_id]%></li><% end%>
+						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home', :id => session[:user_id]%></li>
+						<li class= 'current'><a href='store'>Loja</a></li>
+						<li class='current'><a href='contato'>Contato</a></li>
+						<li class='current'><a href='howto'>Como comprar</a></li>
+						<% end %>
+						<% else %>
 						<li class="current"><a href="/">Inicio</a></li>
-						<li class="submenu">
-							<a href="">Menu</a>
-							<ul>
-								<li><a href="mjolnir">Mj&oumllnir</a></li>
-								<li><a href="sdisplay">sensores</a></li>
-								<li><a href="store">Loja</a></li>
-								<li><a href="register">Registrar</a></li>
-								<li class="submenu">
-									<a href="">Submenu</a>
-									<ul>
-										<li><a href="#">Dolore Sed</a></li>
-										<li><a href="#">Consequat</a></li>
-										<li><a href="#">Lorem Magna</a></li>
-										<li><a href="#">Sed Magna</a></li>
-										<li><a href="#">Ipsum Nisl</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
+						<li class="current"><a href="register">Registrar</a></li>
+						<li class='current'><a href='contact'>Contato</a></li>
+						<li class='current'><a href='howto'>Como comprar</a></li>
+						<% end%>
+							
 						<li>
 						  <% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>

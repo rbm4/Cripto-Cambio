@@ -1,0 +1,89 @@
+<head>
+	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+label[type="descricao"]{
+	width: 10px; height: 55px 
+}
+div{ 
+
+   
+    
+}
+ .conteudo{
+ 	margin-top: -6%;
+    margin-left:10%;
+    width: 80%;
+ 	padding: 10px;
+ }
+ .table_detalhes {
+ 	position: absolute;
+ 	text-align: left;
+ 	margin-top: 0%;
+ 	margin-left: 5%;
+ 	margin-right: 14%;
+ 	width: 80%;
+ 	
+ }
+ .table_foto{
+ 	position: relative;
+	margin-left: 80%;
+	margin-top: 2%;
+ }
+ 
+</style>
+</head>
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					
+					
+						<!-- Content -->
+							<div class="conteudo">
+								<%= @messages %>
+							<% @products.each do |category, prd| %>
+  							<h3><%= category.name %></h3>
+							<% prd.each do |products| %>
+							<div class="table_detalhes"><h3><%= products.name %></h3>
+							<ul><% products.permalink %><li>
+							<h4><%= button_to "Detalhes", permalink: products.permalink %></h4>
+							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
+							<p><b>Preço: </b> <%= number_to_currency products.price %></th></p>
+							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
+							<% end %></div>
+							
+							
+							
+					
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

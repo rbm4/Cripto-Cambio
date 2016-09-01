@@ -1,3 +1,4 @@
+
 @import url("font-awesome.min.css");
 @import url("http://fonts.googleapis.com/css?family=Lato:300,400,900");
 
@@ -486,6 +487,7 @@
 				background: #7c8081;
 				color: #fff;
 			}
+			
 
 /* Button */
 
@@ -579,6 +581,7 @@
 			background-size: 25em, 25em;
 			color: white;
 		}
+		
 
 			.wrapper.style2 .button:hover {
 				background: rgba(255, 255, 255, 0.15) !important;
@@ -597,7 +600,19 @@
 
 		.wrapper.style3 {
 			background: white;
-			color: inherit;
+			margin: auto;
+			text-align: center;
+			width: 50%;
+			border:3px;
+			column-count: 3;
+			column-gap 15%;
+		}
+		.leftcustom {
+		margin: auto;
+		text-align: center;
+		width: 50%;
+		
+
 		}
 
 		.wrapper.style4 {
@@ -612,7 +627,7 @@
 	@-o-keyframes reveal-header { 0% { top: -5em; } 100% { top: 0; } }
 	@-ms-keyframes reveal-header { 0% { top: -5em; } 100% { top: 0; } }
 	@keyframes reveal-header { 0% { top: -5em; } 100% { top: 0; } }
-
+	
 	#header {
 		background: white;
 		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.075);
