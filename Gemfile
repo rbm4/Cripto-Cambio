@@ -52,6 +52,6 @@ gem 'nokogiri'
 gem 'chartkick', '~> 2.0', '>= 2.0.2'
 gem 'groupdate'
 group :production do
-  gem 'mysql2'
+  gem 'pg'
 end
 gem 'googlecharts', :require => "gchart"

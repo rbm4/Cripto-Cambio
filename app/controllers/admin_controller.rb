@@ -45,9 +45,5 @@ class AdminController < ApplicationController
             archive_wallet(params[:address])
         end
         
-    def notification
-    end
-  
-      
     end
 end

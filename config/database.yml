@@ -1,3 +1,19 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: market
+  pool: 5
+  username: ubuntu
+  password: deepmarket
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: market
+  pool: 5
+  username: ubuntu
+  password: deepmarket
+
 # MySQL.  Versions 5.0+ are recommended.
 #
 # Install the MYSQL driver
@@ -9,17 +25,17 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
-default: &default
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: rbm4
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+#default: &default
+#  adapter: mysql2
+#  encoding: utf8
+#  pool: 5
+#  username: rbm4
+#  password:
+#  socket: /var/run/mysqld/mysqld.sock
 
-development:
-  <<: *default
-  database: c9
+#development:
+#  <<: *default
+#  database: c9
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -47,8 +63,8 @@ development:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: c9
-  username: rbm4
-  password: <%= ENV['EXAMPLE_DATABASE_PASSWORD'] %>
+#production:
+#  <<: *default
+#  database: c9
+#  username: rbm4
+#  password: <%= ENV['EXAMPLE_DATABASE_PASSWORD'] %>
