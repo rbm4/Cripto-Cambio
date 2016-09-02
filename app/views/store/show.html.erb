@@ -57,9 +57,9 @@ div{
 								<h2><%= @messages %></h2>
 								
 								<h2> DETALHES </h2>
-								<p><h1>NOME: <%= @product.name %></p></h1><p><b>Preço: </b> <%= number_to_currency @product.price %></b>
-								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %><div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div>
-                                  </p>
+								<p><font size='4'>NOME: <%= @product.name %></p></h1><p><b>Preço: </b> <%= number_to_currency @product.price %></b>
+								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %><div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div></p></font>
+                                  </p><BR><BR>
                                   <hr><%= simple_format @product.description %>
                                   <hr><p><%= link_to "Back to list", '/store' %></p>
 							</div>

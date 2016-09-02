@@ -33,8 +33,8 @@
 	
 		<!-- Header -->
 			<header id="header">
-				<h1 id="logo">
-					<a href="/">Krobellus Market </a>
+				<font size='4' >
+					<button href="/">Krobellus Market </button>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
 						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 
@@ -47,7 +47,7 @@
 						  <% else %>
 						  <strong><a href="login">Visitante?</a></strong>
 						  <% end %>
-				</h1>
+				</font>
 				<nav id="nav">
 					<ul>
 						<% if session[:user_id] != nil %>

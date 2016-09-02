@@ -12,6 +12,13 @@
         color: white;
         background: black;
     }
+    div[class=upper]{
+    	text-align: center ;
+    	position:absolute;
+    	margin:-100px 0 0 -150px;
+    	left: 45%;
+
+    }
     
 </style>
 <html>
@@ -41,20 +48,18 @@
 		<!-- Main -->
 			<article id="main">
 
-				<header class="special container">
-					<span class="icon fa-envelope"></span>
-					<h2>Log in</h2>
-					<p><%= label_tag @logged, nil, disabled: true%></p>
-					<p>Efetue login nesta página para realizar compras.</p>
+				<header class="special container" >
+					<div class="upper"><h2>Log in</h2>
+					<p><%= label_tag @logged, nil, disabled: true%>
+					Efetue login nesta página para realizar compras.</p></div>
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 special container small">
+					<section class="wrapper style4 special container small" alinhar="upper">
 					
 						<!-- Content -->
 							<div class="content">
 								<div class= "Sign_Form">
-                                <h1>Log in</h1>
                                 <%= form_tag(:controller => 'sessions', :action => 'login_attempt') do %>
                                 <%= text_field_tag :username_or_email, nil, placeholder: 'Username ou Email' %></p>
                                 <p><%= password_field_tag :login_password, nil, placeholder: 'Senha' %></p>
