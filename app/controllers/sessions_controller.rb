@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     else
       @messages = "Invalid Username or Password"
       flash[:color]= "invalid"
-      render "login"	
+      render "login"	 
     end
   end
   def destroy 
@@ -86,7 +86,7 @@ class SessionsController < ApplicationController
   def index
   end
   def endereco_params
-        params.require(:pagamento).permit(:address, :volume)
+        params.require(:pagamento).permit(:address, :volume) 
   end
   #https://www.sitepoint.com/rails-userpassword-authentication-from-scratch-part-ii/
 end

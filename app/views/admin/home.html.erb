@@ -67,12 +67,12 @@ input[type=submit]{
 									 	  	    <td type="title">Tickets</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td type="menu">Promote</td>
+									 	  	    <td type="menu"><%= button_to "Promote", promote_path %></td>
 									 	  	    <td type="menu"><%= button_to "Aguardando envio: " + @count.to_s, payment_path%></td>
 									 	  	    <td type="menu">Vizualizar</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	   	<td type="menu">Demote</td>
+									 	  	   	<td type="menu"><%= button_to "Demote<", demote_path %></td>
 									 	  	   	<td type="menu"><%= button_to "Histórico", history_path%></td>
 									 	  	   	<td type="menu">fechados</td>
 									 	  	    </tr>
