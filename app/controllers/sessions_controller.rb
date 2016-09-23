@@ -88,5 +88,8 @@ class SessionsController < ApplicationController
   def endereco_params
         params.require(:pagamento).permit(:address, :volume) 
   end
-  #https://www.sitepoint.com/rails-userpassword-authentication-from-scratch-part-ii/
+  def setting
+    @user = Usuario.find_by_id(session[:id])
+    puts @user
+  end
 end

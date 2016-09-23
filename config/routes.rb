@@ -39,7 +39,11 @@ Rails.application.routes.draw do
   post '/history' => "admin#history"
   post '/volm' => 'admin#take'
   post '/confirmation' => 'notifications#balance_change'
-  post '/promote' => 'admin#permissoes'
+  get '/promote' => 'admin#promo'
+  get '/demote' => 'admin#demo'
+  get '/msgs' => 'notifications#msg'
+  get '/msgall' => 'notifications#msgall'
+  get '/setting' => 'sessions#setting'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

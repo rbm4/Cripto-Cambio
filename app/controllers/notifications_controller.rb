@@ -9,4 +9,8 @@ class NotificationsController < ApplicationController
       response.body
       return 201
     end
+    def msgall
+    end
+    def msg
+    end 
 end
