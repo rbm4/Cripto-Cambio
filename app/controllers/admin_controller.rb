@@ -46,4 +46,8 @@ class AdminController < ApplicationController
         end
         
     end
+    def promo
+    end
+    def demo
+    end
 end
