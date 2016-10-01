@@ -71,6 +71,8 @@ GEM
     css_parser (1.4.5)
       addressable
     debug_inspector (0.0.2)
+    domain_name (0.5.20160826)
+      unf (>= 0.0.5, < 1.0.0)
     dynamic_form (1.1.4)
     ecdsa (1.2.0)
     erubis (2.7.0)
@@ -195,6 +197,15 @@ GEM
       activesupport (>= 3)
     haml (4.0.7)
       tilt
+    http (2.0.3)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     httpclient (2.8.2.3)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -323,6 +334,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -343,6 +357,7 @@ DEPENDENCIES
   css_parser
   googlecharts
   groupdate
+  http
   jbuilder (~> 2.0)
   nokogiri
   pg

@@ -40,17 +40,16 @@ class NotificationsController < ApplicationController
           return 201
         end
       end
-      if green == 'false'
-        if Integer(confirmations) >= 3
+      if Integer(confirmations) >= 3
           pgto.status = 'accepted'
           pgto.save
           puts "Pagamento confirmado por notificação"
           BlockIo.delete_notification :notification_id => id
           render '/'
           return 202
-        end
       end
-      #return 200
+      render '/'
+      return 202
     end
     
 end
