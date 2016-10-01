@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  encoding: unicode #unicode
+  encoding: SQL_ASCII #unicode
   database: deepmarket
   pool: 5
   username: ubuntu #krobellus
@@ -8,7 +8,7 @@ development:
 
 test:
   adapter: postgresql
-  encoding: unicode #unicode
+  encoding: SQL_ASCII #unicode
   database: deepmarket
   pool: 5
   username: ubuntu #krobellus
