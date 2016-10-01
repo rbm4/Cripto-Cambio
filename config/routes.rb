@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get '/msgall' => 'notifications#msgall'
   get '/setting' => 'sessions#setting'
   post '/blckrntf' => 'notifications#bitcoin'
+  get '/blckrntf' => 'notifications#msg'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

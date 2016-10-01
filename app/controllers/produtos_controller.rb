@@ -4,7 +4,9 @@ class ProdutosController < ApplicationController
     require 'uri'
     require 'net/https'
     require 'json'
+    require 'block_io'
     before_action :require_user, only: [:show, :solicitar_pagamento]
+    BlockIo.set_options :api_key=> 'ac35-6ff5-e103-d1c3', :pin => 'Xatm@074', :version => 2
     
     def list_all_payment
          @pagamento = Pagamento.find_by(address: params[:id])
@@ -26,18 +28,20 @@ class ProdutosController < ApplicationController
        @payment_address = hash["data"]["address"]
        @identifier = hash["data"]["label"].to_s
       
-       
-       
+       puts 'endereço aqui'
+       puts @payment_address
+       puts 'era pra estar aqui'
        salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
+       notifyurl = 'https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + @payment_address + '&url=https://bmarket-rbm4.c9users.io/blckrntf'
+       notifyuri = URI(notifyurl)
+       response2 = Net::HTTP.get(notifyuri)
+       hashntf = JSON.parse(response2)
+       puts hashntf
     end
     private
     def salvar_pagamento(pagamento_params)
         pagamento = Pagamento.new(pagamento_params)
         pagamento.save
-        notification = 'https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + pagamento.address + '&url=https://bmarket-rbm4.c9users.io/'
-        uri = URI(notification)
-        response = Net::HTTP.get(uri)
-        puts response
         session[:order_id] = nil
         @messages = 'Order has been placed successfully!'
         puts @messages
