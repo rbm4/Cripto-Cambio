@@ -1,14 +1,14 @@
 development:
   adapter: postgresql
-  encoding: SQL_ASCII #unicode
+  encoding: unicode #unicode
   database: deepmarket
   pool: 5
-  username: ubuntu #krobellus
-  password: password #Xatm@074
+  username: krobellus #ubuntu #krobellus
+  password: Xatm@074 #password #Xatm@074
 
 test:
   adapter: postgresql
-  encoding: SQL_ASCII #unicode
+  encoding: unicode #unicode
   database: deepmarket
   pool: 5
   username: ubuntu #krobellus
