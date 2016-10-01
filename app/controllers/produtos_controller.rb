@@ -34,8 +34,13 @@ class ProdutosController < ApplicationController
     def salvar_pagamento(pagamento_params)
         pagamento = Pagamento.new(pagamento_params)
         pagamento.save
+        notification = 'https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + pagamento.address + '&url=https://bmarket-rbm4.c9users.io/'
+        uri = URI(notification)
+        response = Net::HTTP.get(uri)
+        puts response
         session[:order_id] = nil
         @messages = 'Order has been placed successfully!'
+        puts @messages
     end
     def endereco_params
         params.require(:pagamento).permit(:address)

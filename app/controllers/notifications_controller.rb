@@ -13,4 +13,9 @@ class NotificationsController < ApplicationController
     end
     def msg
     end 
+    def bitcoin
+      puts 'NOTIFICAÇÃO'
+      redirect_to root_path
+      return 200
+    end
 end

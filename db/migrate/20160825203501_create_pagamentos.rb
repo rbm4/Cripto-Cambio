@@ -11,6 +11,7 @@ class CreatePagamentos < ActiveRecord::Migration
       t.string :network
       t.string :produtos
       t.string :postcode
+      t.string :notifyid
 
       t.timestamps null: false
     end
