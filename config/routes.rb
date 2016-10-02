@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'list' => 'produtos#list_all_payment'
   get '/detalhes' => 'sessions#detalhes'
   post '/create_handler' => 'produtos#finalizar_compra'
+  post '/create_handlerps' => 'produtos#finalizar_compra_pagseguro'
   get 'sessions/setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
@@ -46,7 +47,8 @@ Rails.application.routes.draw do
   get '/setting' => 'sessions#setting'
   post '/blckrntf' => 'notifications#bitcoin'
   get '/blckrntf' => 'notifications#msg'
-  
+  post '/pgseguro' => 'notification#pgseguro'
+  get '/checkoutps' => 'orders#checkoutpgseguro'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

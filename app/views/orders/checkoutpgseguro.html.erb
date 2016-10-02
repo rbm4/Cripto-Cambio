@@ -1,0 +1,70 @@
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+							<h2>Finalizar compra</h2>
+<%= render 'items', :order => @order %>
+<% volm = current_order.total_before_tax %>
+<% @volm = volm.to_s %>
+<%= form_for :pagamento, :url => '/create_handlerps', :method => 'post', :volume => @volm do |f| %>
+  <dl>
+    
+    <dd><%= f.hidden_field :usuario, :value => username %> </dd>
+    <dd><%= f.hidden_field :email, :value => useremail %></dd>
+    <dd><%= f.hidden_field :moeda, :value => "BRL" %> </dd>
+    <dd>Preencha os campos a seguir com cautela, <b>eles não poderão ser modificados depois</b></dd>
+    <dt>Rua: <%= f.text_field :rua %></dt>
+    <dt>Número: <%= f.text_field :numero %> </dt>
+    <dt>Complemento: <%= f.text_field :complemento %> </dt>
+    <dt>Bairro: <%= f.text_field :bairro %> </dt>
+    <dt>Cidade: <%= f.text_field :cidade %> </dt>
+    <dt>Estado: <%= f.text_field :estado %> </dt>
+    <dd><%= f.hidden_field :pais, :value => 'BRA' %> </dd>
+    <dd>Telefone de contato: <%= f.text_field :endereco %></dd>
+    <dt>Valor total da compra em Reais (BRL): </dt>
+    <dd><%= f.text_field :volume, :placeholder => volm, :value => volm.to_s, :disabled => true %></dd>
+    <dt><%= f.label :billing_postcode, 'Código postal' %></dt>
+    <dd><%= f.text_field :postcode %></dd>
+    <% @array_produtos = Array.new%>
+    <% @order.order_items.each do |item| %>
+    <% @array_produtos << item.quantity.to_s + ' ' + item.ordered_item.full_name.to_s%>
+    <% @array_produtos = @array_produtos.to_s %>
+    <% end %>
+    <%= f. hidden_field :produtos, :value => @array_produtos %>
+    <%= f.hidden_field :volume, :value => @volm %>
+
+
+    <dd><%= f.submit 'Continuar' %></dd>
+  </dl>
+<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

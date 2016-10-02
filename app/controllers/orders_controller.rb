@@ -19,4 +19,12 @@ class OrdersController < ApplicationController
             redirect_to checkout_confirmation_path
         end
     end
+    def checkoutpgseguro
+        @order = Shoppe::Order.find(current_order.id)
+        if request.patch?
+            if @order.proceed_to_confirm(params[:order].permit(:first_name, :billing_address1, :billing_address2, :billing_address3, :billing_address4, :billing_postcode, :email_address))
+                redirect_to '/'
+            end
+        end
+    end
 end

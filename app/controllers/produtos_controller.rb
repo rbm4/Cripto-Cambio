@@ -38,6 +38,54 @@ class ProdutosController < ApplicationController
        puts hashntf
        salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
     end
+    def finalizar_compra_pagseguro
+        idcount = 0
+        pgto = Pagamento.new(pagamento_params)
+        order = Shoppe::Order.find(current_order.id)
+        builder = Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
+                xml.checkout {
+                    xml.currency "BRL"
+                    xml.items {
+                        order.order_items.each do |item| #repetição para colocar itens
+                        idcount = idcount + 1
+                        xml.item {
+                            xml.id_ (idcount).to_s
+                            xml.description (item.ordered_item.full_name).to_s
+                            xml.amount (item.sub_total).to_s
+                            xml.quantity (item.quantity).to_s
+                            }
+                        end
+                        }
+                    xml.reference "REF1234"
+                    xml.sender{
+                        xml.name username.to_s
+                        xml.email useremail.to_s
+                        xml.phone{
+                            xml.areacode "81"
+                            xml.number "12344321"
+                        }
+                    }
+                    xml.shipping{
+                        xml.address{
+                            xml.street params["pagamento"]["rua"]
+                            xml.number params["pagamento"]["numero"]
+                            xml.complement params["pagamento"]["complemento"]
+                            xml.district params["pagamento"]["bairro"]
+                            xml.postalcode params["pagamento"]["postcode"]
+                            xml.city params["pagamento"]["cidade"]
+                            xml.state params["pagamento"]["estado"]
+                            xml.country params["pagamento"]["pais"]
+                        }
+                    }
+                }
+        end
+        puts builder.to_xml
+        #http = Net::HTTP.new("https://ws.pagseguro.uol.com.br")
+        #response = http.post("/v2/checkout/email=ricardo.malafaia1994@gmail.com&token=00A92577FCAF42E094AC514713498B5F", builder.to_xml)
+        uri = URI('https://ws.pagseguro.uol.com.br/v2/checkout/email=ricardo.malafaia1994@gmail.com&token=00A92577FCAF42E094AC514713498B5F')
+        response = Net::HTTP.post_form(uri, 'xml' => builder.to_xml)
+        puts response
+    end
     private
     def salvar_pagamento(pagamento_params)
         pagamento = Pagamento.new(pagamento_params)
@@ -53,4 +101,5 @@ class ProdutosController < ApplicationController
     def pagamento_params
         params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco, :produtos, :postcode)
     end
+    
 end

@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
     require 'net/http'
-    skip_before_action :verify_authenticity_token, :only => [:bitcoin]
+    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro]
     
     def balance_change url_string, xml_string
       uri = URI.parse url_string
@@ -51,5 +51,6 @@ class NotificationsController < ApplicationController
       render '/'
       return 202
     end
-    
+    def pgseguro
+    end
 end
