@@ -15,6 +15,42 @@ class ApplicationController < ActionController::Base
   helper_method :convert_bitcoin
   helper_method :is_admin?
   helper_method :archive_wallet
+  helper_method :itens_string
+  helper_method :params_post
+  helper_method :userphone
+  after_filter :cors_set_access_control_headers
+
+  # For all responses in this controller, return the CORS access control headers.
+
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST'
+    headers['Access-Control-Allow-Headers'] = '*'
+    headers['Access-Control-Request-Method'] = 'pgseguro'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
+  def params_post
+    result = "'email' => 'ricardo.malafaia1994@gmail.com', 'token' => '95112EE828D94278BD394E91C4388F20', "
+    itens = ""
+    order = Shoppe::Order.find(current_order.id)
+    order.order_items.each do |item|
+      id = id + 1
+      itens = itens + '"itemId' + id.to_s + '" => "' + id.to_s + '", ' + '"itemDescription"' + id.to_s + '" => "' + (item.ordered_item.full_name).to_s + '", ' + '"itemAmount' + id.to_s + '" => "' + (item.sub_total).to_s + '", '  + '"itemQuantity' + id.to_s + '" => "' + (item.quantity).to_s + '", '
+    end
+    result = result + itens + "'reference' => 'REF1234', 'senderName' => '" + username.to_s + "', 'senderEmail' => '" + useremail.to_s + "', 'shippingAddressStreet' =>  '" + params["pagamento"]["rua"].to_s + "',  'shippingAddressNumber' =>  '" + params["pagamento"]["numero"] + "' , 'shippingAddressComplement' => '" + params["pagamento"]["complemento"] + "', 'shippingAddressDistrict' => '" + params["pagamento"]["bairro"] + "', 'shippingAddressPostalCode' => '"+ params["pagamento"]["postcode"] + "', 'shippingAddressCity' => '" + params["pagamento"]["cidade"] + "', 'shippingAddressState' => '" + params["pagamento"]["estado"] +"', 'shippingAddressCountry' => '" + params["pagamento"]["pais"] + "'"
+    puts result
+    result
+  end
+  def itens_string
+    id = 0
+    string = ""
+    order = Shoppe::Order.find(current_order.id)
+    order.order_items.each do |item|
+      id = id + 1
+      string = string + '\&itemId' + id.to_s + '=' + id.to_s + '\&itemDescription' + id.to_s + '=' + (item.ordered_item.full_name).to_s + '&itemAmount' + id.to_s + '=' + (item.sub_total).to_s + '\&itemQuantity' + id.to_s + '=' + (item.quantity).to_s 
+    end
+    string
+  end
   def current_user 
     @current_user ||= Usuario.find(session[:user_id]) if session[:user_id] 
   end

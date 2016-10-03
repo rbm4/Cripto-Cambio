@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Krobellus Market</title>
+  <title>Cripto câmbio</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
@@ -34,7 +34,7 @@
 		<!-- Header -->
 			<header id="header">
 				<font size='4' >
-					<button href="/">Krobellus Market </button>
+					<button href="/">Criptocambio</button>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
 						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 

@@ -4,6 +4,11 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.new
   end
   def create
+    @customer = Shoppe::Customer.new
+    @customer.first_name = params["usuario"]["first_name"]
+    @customer.last_name = params["usuario"]["last_name"]
+    @customer.email = params["usuario"]["email"]
+    @customer.phone = params["usuario"]["fone"]
     @usuario = Usuario.new(usuario_params)
     @usuario.username.downcase!
     @usuario.email.downcase!
@@ -11,11 +16,12 @@ class UsuariosController < ApplicationController
       @logged = 'Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.'
       flash[:color] = 'valid'
     else 
-      flash[:notice] = 'Formulário inválido.'
+      @logged = 'Formulário inválido.'
       flash[:color] = 'invalid'
     end
     #encrypted_password= Digest::SHA1.hexdigest(password)
     @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
+    @customer.save
     @usuario.save
     render 'sessions/login'
   end
@@ -23,6 +29,6 @@ class UsuariosController < ApplicationController
   end
   private
   def usuario_params
-    params.require(:usuario).permit(:username,:email, :password, :password_confirmation)
+    params.require(:usuario).permit(:username,:email, :password, :password_confirmation, :first_name, :last_name)
   end
 end

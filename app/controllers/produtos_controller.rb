@@ -39,56 +39,58 @@ class ProdutosController < ApplicationController
        salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
     end
     def finalizar_compra_pagseguro
-        idcount = 0
-        pgto = Pagamento.new(pagamento_params)
+        
         order = Shoppe::Order.find(current_order.id)
-        builder = Nokogiri::XML::Builder.new(:encoding => 'ISO-8859-1') do |xml|
-                xml.checkout {
-                    xml.currency "BRL"
-                    xml.items {
-                        order.order_items.each do |item| #repetição para colocar itens
-                        idcount = idcount + 1
-                        xml.item {
-                            xml.id_ (idcount).to_s
-                            xml.description (item.ordered_item.full_name).to_s
-                            xml.amount (item.sub_total).to_s
-                            xml.quantity (item.quantity).to_s
-                            }
-                        end
-                        }
-                    xml.reference "REF1234"
-                    xml.sender{
-                        xml.name username.to_s
-                        xml.email useremail.to_s
-                        xml.phone{
-                            xml.areacode "81"
-                            xml.number "12344321"
-                        }
-                    }
-                    xml.shipping{
-                        xml.address{
-                            xml.street params["pagamento"]["rua"]
-                            xml.number params["pagamento"]["numero"]
-                            xml.complement params["pagamento"]["complemento"]
-                            xml.district params["pagamento"]["bairro"]
-                            xml.postalcode params["pagamento"]["postcode"]
-                            xml.city params["pagamento"]["cidade"]
-                            xml.state params["pagamento"]["estado"]
-                            xml.country params["pagamento"]["pais"]
-                        }
-                    }
-                }
+        payment = PagSeguro::PaymentRequest.new
+        payment.reference = order.id
+        payment.notification_url = 'https://bmarket-rbm4.c9users.io/pgseguro'
+        payment.redirect_url = 'https://bmarket-rbm4.c9users.io'
+        order.order_items.each do |product|
+            itens_string = product.ordered_item.full_name.to_s + ' ' + product.quantity.to_s + ' ,'
+            payment.items << {
+                id: product.id,
+                description: product.ordered_item.full_name,
+                amount: product.ordered_item.price,
+                quantity: product.quantity
+            }
         end
-        puts builder.to_xml
-        #http = Net::HTTP.new("https://ws.pagseguro.uol.com.br")
-        #response = http.post("/v2/checkout/email=ricardo.malafaia1994@gmail.com&token=00A92577FCAF42E094AC514713498B5F", builder.to_xml)
-        uri = URI('https://ws.pagseguro.uol.com.br/v2/checkout/email=ricardo.malafaia1994@gmail.com&token=00A92577FCAF42E094AC514713498B5F')
-        response = Net::HTTP.post_form(uri, 'xml' => builder.to_xml)
-        puts response
+        payment.extra_params << { senderEmail: useremail.to_s }
+       # payment.extra_params << { senderName: username.to_s }
+        payment.extra_params << { shippingAddressStreet: params["pagamento"]["rua"]}
+        payment.extra_params << { shippingType: '3'}
+        payment.extra_params << { shippingAddressNumber: params["pagamento"]["numero"]}
+        payment.extra_params << { shippingAddressComplement: params["pagamento"]["complemento"]}
+        payment.extra_params << { shippingAddressPostalCode: params["pagamento"]["postcode"]}
+        payment.extra_params << { shippingAddressCity: params["pagamento"]["cidade"]}
+        payment.extra_params << { shippingAddressState: params["pagamento"]["estado"]}
+	    payment.extra_params << { shippingAddressCountry: params["pagamento"]["pais"]}
+	    
+	    response = payment.register
+	    if response.errors.any?
+            raise response.errors.join("\n")
+        else
+            salvar_pagamento(:user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => order.total_before_tax, :usuario => username, :status => 'incompleta', :produtos => itens_string, :postcode => params["pagamento"]["postcode"] )
+            redirect_to response.url
+            end
     end
     private
     def salvar_pagamento(pagamento_params)
+        customer = current_user
         pagamento = Pagamento.new(pagamento_params)
+        order = Shoppe::Order.find(current_order.id)
+        #order.status = 'received'
+        #order.customer_id = customer.id
+        order.first_name = customer.first_name
+        order.last_name = customer.last_name
+        order.billing_address1 = params["pagamento"]["rua"]
+        order.billing_address2 = params["pagamento"]["numero"]
+        order.billing_address3 = params["pagamento"]["complemento"]
+        order.billing_address4 = params["pagamento"]["cidade"]
+        order.billing_postcode = params["pagamento"]["postcode"]
+        order.billing_country_id = '31'
+        order.email_address = useremail.to_s
+        order.phone_number = params["pagamento"]["endereco"]
+        order.confirm!
         pagamento.save
         session[:order_id] = nil
         @messages = 'Order has been placed successfully!'

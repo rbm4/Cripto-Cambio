@@ -14,12 +14,15 @@
 							<div class="content">
 								<section>
 									<div class="Sign_Form">
-                  <h1>Sign Up</h1>
+                  <h1>Formulário para cadastro:</h1>
                   <%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
-                  <p> Username:</br> <%= f.text_field :username %> </p>
+                  <p> Apelido:</br> <%= f.text_field :username %> </p>
                   <p> Email:</br> <%= f.text_field :email %> </p>
-                  <p> Password:</br> <%= f.password_field :password %></p>
-                  <p> Password Confirmation:</br> <%= f.password_field :password_confirmation %> </p>
+                  <p> Primeiro nome: <%= f.text_field :first_name %> </p>
+                  <p> Ultimo nome: <%= f.text_field :last_name %> </p>
+                  <p> Telefone: <%= f.text_field :fone %></p>
+                  <p> Senha:</br> <%= f.password_field :password %></p>
+                  <p> Confirme a senha:</br> <%= f.password_field :password_confirmation %> </p>
                   <%= f.submit :Signup %>
                   <% end %>
                   <% if @usuario.errors.any? %>

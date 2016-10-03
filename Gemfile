@@ -55,3 +55,5 @@ group :production do
   gem 'pg'
 end
 gem 'googlecharts', :require => "gchart"
+gem "pagseguro-oficial", "~> 2.5.0"
+gem 'rack-cors'

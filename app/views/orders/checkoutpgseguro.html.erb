@@ -28,8 +28,8 @@
     <dt>Complemento: <%= f.text_field :complemento %> </dt>
     <dt>Bairro: <%= f.text_field :bairro %> </dt>
     <dt>Cidade: <%= f.text_field :cidade %> </dt>
-    <dt>Estado: <%= f.text_field :estado %> </dt>
-    <dd><%= f.hidden_field :pais, :value => 'BRA' %> </dd>
+    <dt>Estado: <%= f.text_field :estado , :max => 2%> </dt>
+    <dd><%= f.collection_select :billing_country_id, Shoppe::Country.ordered, :id, :name, :include_blank => true %> </dd>
     <dd>Telefone de contato: <%= f.text_field :endereco %></dd>
     <dt>Valor total da compra em Reais (BRL): </dt>
     <dd><%= f.text_field :volume, :placeholder => volm, :value => volm.to_s, :disabled => true %></dd>

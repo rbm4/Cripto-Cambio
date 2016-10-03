@@ -5,7 +5,9 @@ class CreateUsuarios < ActiveRecord::Migration
       t.string :email
       t.string :encrypted_password 
       t.string :salt
-      t.string :torchat
+      t.string :first_name
+      t.string :last_name
+      t.string :fone
       t.timestamps null: false
     end
   end

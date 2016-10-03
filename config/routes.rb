@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   get '/setting' => 'sessions#setting'
   post '/blckrntf' => 'notifications#bitcoin'
   get '/blckrntf' => 'notifications#msg'
-  post '/pgseguro' => 'notification#pgseguro'
+  post '/pgseguro' => 'notifications#pgseguro'
   get '/checkoutps' => 'orders#checkoutpgseguro'
   
   # The priority is based upon order of creation: first created -> highest priority.

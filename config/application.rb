@@ -23,5 +23,15 @@ module Terremoto
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.action_dispatch.default_headers = {
+      'Access-Control-Allow-Origin' => 'https://sandbox.pagseguro.uol.com.br',
+      'Access-Control-Request-Method' => %w{POST}.join(",")
+    }
+    config.middleware.insert_before 0, "Rack::Cors" do
+    allow do
+      origins 'sandbox.pagseguro.uol.com.br'
+      resource '*', :headers => :any, :methods => :pgseguro
+    end
+  end
   end
 end

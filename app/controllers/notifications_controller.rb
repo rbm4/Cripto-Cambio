@@ -51,6 +51,16 @@ class NotificationsController < ApplicationController
       render '/'
       return 202
     end
-    def pgseguro
+    
+
+  def pgseguro
+    transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
+
+    if transaction.errors.empty?
+     puts 'TRANSAÇÃO RECEBIDA, '
+     #processar dados
     end
+
+    render nothing: true, status: 200
+  end
 end
