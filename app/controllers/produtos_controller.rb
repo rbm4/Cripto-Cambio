@@ -43,8 +43,8 @@ class ProdutosController < ApplicationController
         order = Shoppe::Order.find(current_order.id)
         payment = PagSeguro::PaymentRequest.new
         payment.reference = order.id
-        payment.notification_url = 'https://bmarket-rbm4.c9users.io/pgseguro'
-        payment.redirect_url = 'https://bmarket-rbm4.c9users.io'
+        payment.notification_url = 'https://mkta.herokuapp.com/pgseguro'
+        payment.redirect_url = 'https://mkta.herokuapp.com'
         order.order_items.each do |product|
             itens_string = product.ordered_item.full_name.to_s + ' ' + product.quantity.to_s + ' ,'
             payment.items << {
