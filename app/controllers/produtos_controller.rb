@@ -70,7 +70,7 @@ class ProdutosController < ApplicationController
             raise response.errors.join("\n")
         else
             salvar_pagamento(:user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => order.total_before_tax, :usuario => username, :status => 'incompleta', :produtos => itens_string, :postcode => params["pagamento"]["postcode"] )
-            #redirect_to response.url
+            redirect_to response.url
             end
     end
     private
@@ -90,7 +90,7 @@ class ProdutosController < ApplicationController
         order.billing_country_id = '31'
         order.email_address = useremail.to_s
         order.phone_number = params["pagamento"]["endereco"]
-        order.confirm!
+        #order.confirm!
         pagamento.save
         session[:order_id] = nil
         @messages = 'Order has been placed successfully!'
