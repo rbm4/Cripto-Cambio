@@ -91,7 +91,7 @@ class ProdutosController < ApplicationController
         order.email_address = useremail.to_s
         order.phone_number = params["pagamento"]["endereco"]
         order.confirm!
-        pagamento.save
+        #pagamento.save
         session[:order_id] = nil
         @messages = 'Order has been placed successfully!'
         puts @messages
