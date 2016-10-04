@@ -75,7 +75,7 @@ class NotificationsController < ApplicationController
         end
         if pagto.status == 'incompleta'
           pagto.status = 'pago'
-          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + BigDecimal(brl_btc(pagto.volume.to_s)) + '&pin=ignezconha'
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + String(brl_btc(pagto.volume.to_s)) + '&pin=ignezconha'
           uri = URI(url)
           response = Net::HTTP.get(uri)
           hash = JSON.parse(response)
