@@ -75,7 +75,7 @@ class NotificationsController < ApplicationController
         end
         if pagto.status == 'incompleta'
           pagto.status = 'pago'
-          BlockIo.withdraw_from_addresses :amounts => BigDecimal(brl_btc(pagto.volume.to_s)), :from_addresses => '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav', :to_addresses => pagto.address, :pin => 'ignezconha'
+          #BlockIo.withdraw_from_addresses :amounts => BigDecimal(brl_btc(pagto.volume.to_s)), :from_addresses => '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav', :to_addresses => pagto.address, :pin => 'ignezconha'
           puts brl_btc(pagto.volume.to_s)
           pagto.save
           render nothing: true, status: 210
