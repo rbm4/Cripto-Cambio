@@ -21,20 +21,14 @@ class ApplicationController < ActionController::Base
   after_filter :cors_set_access_control_headers
   helper_method :wich_status
   helper_method :brl_btc
-  helper_method :btc_brl
-  # For all responses in this controller, return the CORS access control headers.
-  def btc_brl(value)
-    convert_url = 'https://blockchain.info/tobrl?currency=BTC&value=' + value.to_s
-    convert_uri = URI(convert_url)
-    response_convert = Net::HTTP.get(convert_uri)
-    result = BigDecimal(response_convert)
-    result
-  end
+ 
   def brl_btc(value)
     convert_url = 'https://blockchain.info/tobtc?currency=BRL&value=' + value.to_s
     convert_uri = URI(convert_url)
     response_convert = Net::HTTP.get(convert_uri)
-    result = BigDecimal(response_convert) * 0.75
+    puts response_convert
+    result = BigDecimal(response_convert).mult(0.75,7) 
+    puts result
     result
   end
   def wich_status(x)

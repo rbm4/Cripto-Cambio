@@ -12,6 +12,7 @@ class CreatePagamentos < ActiveRecord::Migration
       t.string :produtos
       t.string :postcode
       t.string :pagseguro
+      t.string :txid_blockchain
       
 
       t.timestamps null: false

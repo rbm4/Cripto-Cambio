@@ -52,7 +52,8 @@ class NotificationsController < ApplicationController
       return 202
     end
     
-
+  def text
+  end
   def pgseguro
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
     puts transaction.reference
@@ -73,22 +74,27 @@ class NotificationsController < ApplicationController
           amount        = tag.at('amount').text
           puts "Descrição: #{description}, Quantitade: #{quantity}, Preço por item #{amount}"
         end
-        if pagto.status == 'incompleta'
+        puts pagto.status
+        if pagto.status.to_s == 'incompleta'
           pagto.status = 'pago'
-          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + String(brl_btc(pagto.volume.to_s)) + '&pin=ignezconha'
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&pin=ignezconha&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + String(brl_btc(pagto.volume.to_s))
           uri = URI(url)
-          response = Net::HTTP.get(uri)
+          response = Net::HTTP.get(uri) 
           hash = JSON.parse(response)
           puts hash
           if hash["data"]["error_message"] != nil
             @messages =  hash["data"]["error_message"]
-          else
-            @messages = "Valor retirado e transferido"
+            render nothing: true, status: 211
+            second = false
+            return
           end
-          puts brl_btc(pagto.volume.to_s)
+          @messages = ""
+          @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
           pagto.save
-          render 'notification/text', status: 210
+          puts @messages
+          render nothing: true, status: 210
           second = false
+          #pagto.txid_blockchain = params["data"]['txid']
         end
         puts "confirmação de pagamento repetida"
      end
