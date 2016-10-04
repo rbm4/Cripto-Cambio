@@ -38,14 +38,21 @@ td[type=finished]{
 										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %>
+										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
+										<p><tr>- Confirmação em andamento </tr>
+										<tr><b><%= h.volume %></b> <b>BRL</b></b></tr>
+										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
+										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
+										<tr>Pagamentos do pagseguro são confirmados automaticamente.</tr>
+										<% end %>
 										<% if h.usuario == username and h.status == 'waiting confirmation'%>
 										<p><tr>- Confirmação em andamento </tr>
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
 										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
 										<tr></tr> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
-										<% end %></font>
-										<% end %></font>
+										<% end %>
+										<% end %></font></font>
 									</table>
 									</div>
 									<p>Pedidos aceitos (Na fila para envio)</p>
@@ -73,16 +80,16 @@ td[type=finished]{
 									 			<tr>
 									 	  	    <td>Status</td>
 									 	  	    <td>Volume / Moeda</td>
-									 	  	    <td>Cod. rastreamento</td>
-									 	  	    <td>Admin que enviou</td>
-									 	  	    <td>Data de envio</td>
+									 	  	    <td>Identificador</td>
+									 	  	    <td>Tipo de operação</td>
+									 	  	    <td>Endereço que foi enviado</td>
 									 	  	    </tr>
 									 	  	    <% @pagamentos.each do |h| %>
 									 	  	    <% if h.usuario == username and h.status == 'send'%>
 									 	  	    <tr>
 									 	  	    <td type='finished'> Pedido enviado</td>
 									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
-									 	  	    <td type='finished'><%= h.label %> </td>
+									 	  	    <td type='finished'>Bitcoin </td>
 									 	  	    <td type='finished'><%= h.user_id%><br></td>
 									 	  	    <td type='finished'><%= h.endereco%></td>
 									 	  	    </tr>
@@ -91,11 +98,20 @@ td[type=finished]{
 									 	  	    <tr>
 									 	  	    <td type='finished'> Pedido Finalizado</td>
 									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
-									 	  	    <td type='finished'><%= h.label %> </td>
+									 	  	    <td type='finished'>Bitcoin </td>
 									 	  	    <td type='finished'><%= h.user_id%><br></td>
-									 	  	    <td type='finished'><%= h.endereco%></td>
+									 	  	    <td type='finished'><%= h.address%></td>
 									 	  	    </tr>
 									 	  	    <% end %>
+									 	  	    <% end %>
+									 	  	    <% if h.usuario == username and h.status == 'pago'%>
+									 	  	    <tr>
+									 	  	    	<td type='finished'> <%= link_to "Pedido Finalizado",  list_path(:id => h.pagseguro), method: "post" %></td>
+									 	  	    	<td type='finished'><b><%= h.volume %></b> <b>BRL</b></td>
+									 	  	    	<td type='finished'><%= h.pagseguro %> </td>
+									 	  	    	<td type='finished'>Pagseguro<br></td>
+									 	  	    	<td type='finished'><%= h.address%></td>	
+									 	  	    </tr>
 									 	  	    <% end %>
 										<% end %></font>
 									 	  	   	</table> 

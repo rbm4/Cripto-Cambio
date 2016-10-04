@@ -62,7 +62,7 @@ div{
 							<ul><% products.permalink %><li>
 							<h4><%= button_to "Detalhes", permalink: products.permalink %></h4>
 							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
-							<p><b>Preço: </b> <%= number_to_currency products.price %></th></p>
+							<p><b>Preço: </b> <%= number_to_currency products.price %> </th></p>
 							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
 							<% end %></div>
 							

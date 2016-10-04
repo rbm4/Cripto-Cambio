@@ -23,6 +23,7 @@
     <dd><%= f.hidden_field :email, :value => useremail %></dd>
     <dd><%= f.hidden_field :moeda, :value => "BRL" %> </dd>
     <dd>Preencha os campos a seguir com cautela, <b>eles não poderão ser modificados depois</b></dd>
+    <dt>Carteira Bitcoin que irá receber o volume: <%= f.text_field :address %></dt>
     <dt>Rua: <%= f.text_field :rua %></dt>
     <dt>Número: <%= f.text_field :numero %> </dt>
     <dt>Complemento: <%= f.text_field :complemento %> </dt>

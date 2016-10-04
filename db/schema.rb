@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160828062703) do
     t.string   "network"
     t.string   "produtos"
     t.string   "postcode"
+    t.string   "pagseguro"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

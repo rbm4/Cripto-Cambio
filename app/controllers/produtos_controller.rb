@@ -42,9 +42,9 @@ class ProdutosController < ApplicationController
         
         order = Shoppe::Order.find(current_order.id)
         payment = PagSeguro::PaymentRequest.new
-        payment.reference = order.id
-        payment.notification_url = 'https://mkta.herokuapp.com/pgseguro'
-        payment.redirect_url = 'https://mkta.herokuapp.com'
+        payment.reference = username.to_s + order.id.to_s
+        payment.notification_url = 'mkta.herokuapp.com/pgseguro'
+        payment.redirect_url = 'mkta.herokuapp.com/detalhes'
         order.order_items.each do |product|
             itens_string = product.ordered_item.full_name.to_s + ' ' + product.quantity.to_s + ' ,'
             payment.items << {
@@ -66,10 +66,14 @@ class ProdutosController < ApplicationController
 	    payment.extra_params << { shippingAddressCountry: params["pagamento"]["pais"]}
 	    
 	    response = payment.register
+	    code = payment.reference
+	    
+	    puts code
+	    puts response
 	    if response.errors.any?
             raise response.errors.join("\n")
         else
-            salvar_pagamento(:user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => order.total_before_tax, :usuario => username, :status => 'incompleta', :produtos => itens_string, :postcode => params["pagamento"]["postcode"] )
+            salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => order.total_before_tax, :usuario => username, :status => 'incompleta', :produtos => itens_string, :postcode => params["pagamento"]["postcode"] )
             redirect_to response.url
             end
     end
@@ -78,6 +82,7 @@ class ProdutosController < ApplicationController
         customer = current_user
         pagamento = Pagamento.new(pagamento_params)
         order = Shoppe::Order.find(current_order.id)
+        pagamento.address = params["pagamento"]["address"]
         #order.status = 'received'
         #order.customer_id = customer.id
         order.first_name = customer.first_name
@@ -101,7 +106,7 @@ class ProdutosController < ApplicationController
     end
     
     def pagamento_params
-        params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco, :produtos, :postcode)
+        params.require(:pagamento).permit(:user_id,:network, :address, :label, :volume, :usuario, :endereco, :produtos, :postcode, :pagseguro)
     end
     
 end

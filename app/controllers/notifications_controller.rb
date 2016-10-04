@@ -55,12 +55,37 @@ class NotificationsController < ApplicationController
 
   def pgseguro
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
+    puts transaction.reference
 
     if transaction.errors.empty?
-     puts 'TRANSAÇÃO RECEBIDA, '
-     #processar dados
+     cod = params["notificationCode"]
+     url1 = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/' + cod + '?email=ricardo.malafaia1994@gmail.com&token=CEB2E4B937F8426A8BE9DB80D6DCCA8A'
+     uri1 = URI(url1)
+     response = Net::HTTP.get(uri1)
+     @doc = Nokogiri::XML(response)
+     status = @doc.xpath("//status")
+     permission = Integer(status.to_s.match(/\d/).to_s)
+     if permission == 3
+        pagto = Pagamento.find_by_pagseguro(transaction.reference)
+        @doc.search('//item').each do |tag|
+          description   = tag.at('description').text
+          quantity      = tag.at('quantity').text
+          amount        = tag.at('amount').text
+          puts "Descrição: #{description}, Quantitade: #{quantity}, Preço por item #{amount}"
+        end
+        if pagto.status == 'incompleta'
+          pagto.status = 'pago'
+          BlockIo.withdraw_from_addresses :amounts => BigDecimal(brl_btc(pagto.volume.to_s)), :from_addresses => '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav', :to_addresses => pagto.address, :pin => 'ignezconha'
+          puts brl_btc(pagto.volume.to_s)
+          pagto.save
+          render nothing: true, status: 210
+          second = false
+        end
+        puts "confirmação de pagamento repetida"
+     end
     end
-
-    render nothing: true, status: 200
+    if second != false
+      render nothing: true, status: 200
+    end
   end
 end
