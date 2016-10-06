@@ -12,11 +12,18 @@
 label[type="descricao"]{
 	width: 10px; height: 55px 
 }
+
 div{ 
 
    
     
 }
+ .preco{
+ 	
+	margin-top: -7%;
+	height: 50px;
+ }
+
  .conteudo{
  	margin-top: -6%;
     margin-left:10%;
@@ -60,9 +67,9 @@ div{
 							<% prd.each do |products| %>
 							<div class="table_detalhes"><h3><%= products.name %></h3>
 							<ul><% products.permalink %><li>
-							<h4><%= button_to "Detalhes", permalink: products.permalink %></h4>
+							<h4><%= button_to "Comprar", permalink: products.permalink %></h4>
+							<p><div class='preco'><b>Preço de 1 <%= products.sku.upcase %> em outras moedas: </b> <%= String(standard_conversion(products.sku)).html_safe %> </th></p></div>
 							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
-							<p><b>Preço: </b> <%= number_to_currency products.price %> </th></p>
 							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
 							<% end %></div>
 							

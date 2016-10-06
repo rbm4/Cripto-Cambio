@@ -39,21 +39,20 @@ class ProdutosController < ApplicationController
        salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
     end
     def finalizar_compra_pagseguro
+        dados = type(String(params['edit']), String(params['pagamento']['sku']),String(params['pagamento']['volume']))
+        puts dados[1]
         
         order = Shoppe::Order.find(current_order.id)
         payment = PagSeguro::PaymentRequest.new
-        payment.reference = username.to_s + order.id.to_s
-        payment.notification_url = 'mkta.herokuapp.com/pgseguro'
-        payment.redirect_url = 'mkta.herokuapp.com/detalhes'
-        order.order_items.each do |product|
-            itens_string = product.ordered_item.full_name.to_s + ' ' + product.quantity.to_s + ' ,'
+        payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
+        #payment.notification_url = 'mkta.herokuapp.com/pgseguro'
+        #payment.redirect_url = 'mkta.herokuapp.com/detalhes'
             payment.items << {
-                id: product.id,
-                description: product.ordered_item.full_name,
-                amount: product.ordered_item.price,
-                quantity: product.quantity
+                id: 1,
+                description: 'Valor requisitado de: ' + params['pagamento']['volume'] + String(params['pagamento']['sku']) + ', Para ser pago em: ' + dados[0],
+                amount: dados[1],
+                quantity: '1'
             }
-        end
         payment.extra_params << { senderEmail: useremail.to_s }
        # payment.extra_params << { senderName: username.to_s }
         payment.extra_params << { shippingAddressStreet: params["pagamento"]["rua"]}
@@ -73,7 +72,7 @@ class ProdutosController < ApplicationController
 	    if response.errors.any?
             raise response.errors.join("\n")
         else
-            salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => order.total_before_tax, :usuario => username, :status => 'incompleta', :produtos => itens_string, :postcode => params["pagamento"]["postcode"] )
+            salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
             redirect_to response.url
             end
     end

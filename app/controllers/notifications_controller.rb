@@ -75,9 +75,10 @@ class NotificationsController < ApplicationController
           puts "Descrição: #{description}, Quantitade: #{quantity}, Preço por item #{amount}"
         end
         puts pagto.status
-        if pagto.status.to_s == 'incompleta'
+        # pagto.produtos é o tipo de moeda
+        if (pagto.status.to_s == 'incompleta' and pagto.produtos == 'btc')
           pagto.status = 'pago'
-          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&pin=ignezconha&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + String(brl_btc(pagto.volume.to_s))
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&pin=ignezconha&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + pagto.volume.to_s
           uri = URI(url)
           response = Net::HTTP.get(uri) 
           hash = JSON.parse(response)

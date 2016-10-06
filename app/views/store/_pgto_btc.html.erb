@@ -1,0 +1,16 @@
+<%= form_for :pagamento, :url => '/create_handler', :method => 'post' do |f| %>
+  <dl>
+    <dd><%= f.hidden_field :usuario, :value => username %> </dd>
+    <dd><%= f.hidden_field :email, :value => useremail %></dd>
+    <dd><%= f.hidden_field :moeda, :value => "BTC" %> </dd>
+    <dd>Preencha os campos a seguir com cautela, <b>eles não poderão ser modificados depois</b></dd>
+    <dt><%= f.label :endereco, 'Carteira de destino' %></dt>
+    <dd><%= f.text_field :address %></dd>
+    <dt>Volume desejado em bitcoins:></dt>
+    <dd><%= f.text_field :volume, :placeholder => volm, :value => volm.to_s, :disabled => true %></dd>
+    
+
+
+    <dd><%= f.submit 'Continuar', :%></dd>
+  </dl>
+<% end %>

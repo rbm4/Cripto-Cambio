@@ -21,7 +21,12 @@ class ApplicationController < ActionController::Base
   after_filter :cors_set_access_control_headers
   helper_method :wich_status
   helper_method :brl_btc
- 
+  helper_method :bitcoin_para_real
+  helper_method :type
+  helper_method :standard_conversion
+  helper_method :litecoin_para_bitcoin
+  
+  
   def brl_btc(value)
     convert_url = 'https://blockchain.info/tobtc?currency=BRL&value=' + value.to_s
     convert_uri = URI(convert_url)
@@ -30,6 +35,108 @@ class ApplicationController < ActionController::Base
     result = BigDecimal(response_convert).mult(0.75,7) 
     puts result
     result
+  end
+  def bitcoin_para_real(value)
+    convert_url = 'https://blockchain.info/ticker'
+    convert_uri = URI(convert_url)
+    response_convert = Net::HTTP.get(convert_uri)
+    hash = JSON.parse(response_convert)
+    conversao = hash['BRL']['last'] # 1 BTC
+    puts String(value) + '/' + String(conversao)
+    result = BigDecimal(value,7).mult(conversao,2)
+    result = result.mult(1.3,2) #valor em real
+    result
+  end
+  def litecoin_para_bitcoin
+    convert_url = 'https://shapeshift.io/marketinfo/ltc_btc'
+    convert_uri = URI(convert_url)
+    response_convert = Net::HTTP.get(convert_uri)
+    hash = JSON.parse(response_convert)
+    conversao = hash['rate'] # 1 ltc em btc
+    resultado = BigDecimal(conversao,5).mult(1.3,5)
+    resultado
+  end
+  def bitcoin_para_litecoin
+    convert_url = 'https://shapeshift.io/marketinfo/btc_ltc'
+    convert_uri = URI(convert_url)
+    response_convert = Net::HTTP.get(convert_uri)
+    hash = JSON.parse(response_convert)
+    conversao = hash['rate'] # 1 btc em ltc
+    resultado = BigDecimal(conversao,5).mult(1.3,5)
+    resultado
+  end
+  def litecoin_para_real
+    convert_url = 'https://www.mercadobitcoin.com.br/api/ticker_litecoin/'
+    convert_uri = URI(convert_url)
+    response_convert = Net::HTTP.get(convert_uri)
+    hash = JSON.parse(response_convert)
+    conversao = hash['ticker']['high'] # 1 ltc em real
+    resultado = BigDecimal(conversao,2).mult(1.3,2)
+    resultado
+  end
+  def standard_conversion(currency)
+    tags = ''
+    if currency == 'btc'
+      
+      tags << '<select multiple class="form-control">'
+      tags << '<option>'
+      tags << 'BRL: ' + String(bitcoin_para_real(1))
+      tags << '</option>'
+      tags << '<option>'
+      tags << 'LTC: ' + String(bitcoin_para_litecoin)
+      tags << '</option>'
+      tags << '</select>'
+      return tags
+    end
+    if currency == 'ltc'
+      tags << '<select multiple class="form-control">'
+      tags << '<option>'
+      tags << 'BTC: ' + String(litecoin_para_bitcoin)
+      tags << '</option>'
+      tags << '<option>'
+      tags << 'BRL: ' + String(litecoin_para_real)
+      tags << '</option>'
+      tags << '</select>'
+      return tags
+    end
+    
+  end
+  def type(commit, tipo_moeda, valor_moeda)
+        string = ""
+        fim = false
+        sum = false
+        commit.each_char do |h|
+            if h == '"' and fim == false
+                sum = true
+            end
+            if sum == true and h != '"' and h != "="
+                string << h
+                fim = true
+            end
+            
+            if h == '=' and fim == true
+                
+                sum = false
+            end
+        end
+        dados = Array.new
+        if string == 'pagseguro'
+            moeda = 'BRL'
+            dados[0] = moeda
+            
+            if tipo_moeda == 'btc'
+              dados[1] = bitcoin_para_real(valor_moeda) #quanto devo pagar em real
+            end
+        end
+        if string == 'bitcoin'
+          moeda = 'BTC'
+          dados['moeda'] = moeda
+        end
+        if string == 'litecoin'
+          moeda = 'LTC'
+          dados['moeda'] = moeda
+        end
+        dados
   end
   def wich_status(x)
     if x == '1'

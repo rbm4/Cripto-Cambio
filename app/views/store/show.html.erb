@@ -1,4 +1,5 @@
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
 	<style>
 	hr {
     display: block;
@@ -9,14 +10,33 @@
     border-style: inset;
     border-width: 1px;
 }
+input[type="image"]{
+    max-width:190px; /* you can use % */
+    height: auto;
+}
 label[type="descricao"]{
 	width: 10px; height: 55px 
 }
+input[type="text"] {
+	width: 470px;
+}
+input[id="volume"]{
+	width: 200px;
+}
+section {
+	
+}
+ .container{
+ 	margin-top: -7%;
+ }
 div{ 
 
    
     
 }
+ .content {
+ 	
+ }
  .conteudo{
  	margin-top: -6%;
     margin-left:10%;
@@ -34,8 +54,8 @@ div{
  }
  .table_foto{
  	position: absolute;
-	margin-left: 32%;
-	margin-top: -20%;
+	margin-left: 35%;
+	margin-top: -35%;
  }
  
 </style>
@@ -54,14 +74,35 @@ div{
 					
 						<!-- Content -->
 							<div class="content">
-								<h2><%= @messages %></h2>
+								<h2> Detalhes </h2>
+								<p><font size='4'><h2><%= @product.name %></p></h2
+								<p><b>Preço: </b> <div id="price"><%= @value %></div>
+								<%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
 								
-								<h2> DETALHES </h2>
-								<p><font size='4'>NOME: <%= @product.name %></p></h1><p><b>Preço: </b> <%= number_to_currency @product.price %></b>
-								<%= button_to "Colocar no carrinho", :controller => :store, :action => :buy, :permalink => @product.permalink %><div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div></p></font>
+								<dd><%= f.hidden_field :usuario, :value => username %> </dd>
+    							<dd><%= f.hidden_field :email, :value => useremail %></dd>
+    							<dt>Carteira que irá receber o volume: <%= f.text_field :address %></dt>
+    							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= f.text_field :volume, :id => "volume" %></dt>
+    							<%= f.hidden_field :sku, :value => @product.sku %>
+
+
+    							<dd><%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%></dd>
+    							<% if @product.sku != 'btc' %>
+    							
+    							<dd><%= submit_tag "BTC", :src => "/images/bitcoinbutton.jpg", :type => "image" , :name => 'edit[bitcoin]'%></dd>
+								<% end %>
+								
+								
+								
+								
+								<% end %>
+								<hr><%= simple_format @product.description %>
+								<hr><p><%= link_to "Voltar", '/store' %></p>
+								
+								<div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div></p></font>
                                   </p><BR><BR>
-                                  <hr><%= simple_format @product.description %>
-                                  <hr><p><%= link_to "Back to list", '/store' %></p>
+                                  
+                                  
 							</div>
 							
 					</section>
