@@ -88,49 +88,32 @@ div{
 								<h2> Detalhes </h2>
 								<p><font size='4'><h2><%= @product.name %></p></h2>
 								
+								<%= form_for :calculo, :url => '/calc' do |g| %>
 								
 								
-								<% if @carteira == nil %>
-								<%= form_for( :calculo, :url => '/calc', :method => 'post' )  do |g| %>
     							<dt>Carteira que irá receber o volume: <%= g.text_field :address %></dt>
-    							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume  %>
+    							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume %>
     							<%= g.hidden_field :permalink, :value => @product.permalink %>
-    							<%= g.hidden_field :moeda, :value => @product.sku %>
-    							<%= g.submit 'Calcular Preço' %>
-    							<% end %>
-    							<% else %>
-    								<%= form_for :calculo, :url => '/calc' do |g| %>
-    								<dt>Carteira que irá receber o volume: <%= g.text_field :address , :value => @carteira , :placeholder => @carteira %></dt>
-    								<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume , :value => @desejado, :placeholder => @desejado%>
-    								<%= g.hidden_field :permalink, :value => @product.permalink %>
-    								<%= g.hidden_field :moeda, :value => @product.sku %>
-    								<%= g.submit 'Calcular Preço' %>
-    							<% end %>
+    							<%= g.submit :Calcular %>
+    							
 								<% end %>
-								
-								<% if @render == true%>
 								<%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
 								<dd><%= f.hidden_field :usuario, :value => username %> </dd>
     							<dd><%= f.hidden_field :email, :value => useremail %></dd>
     							<%= f.hidden_field :sku, :value => @product.sku %>
-    							<dd><%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%> Preço: <%= @preco_pagseguro %></dd>
+    							<dd><%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%> 
     							
-    							
+    							Preço: <div id='mudar'><%= @preco_pagseguro %></dd></div>
     							<% if @product.sku != 'btc' %>
     							
     							<dd><%= submit_tag "BTC", :src => "/images/bitcoinbutton.jpg", :type => "image" , :name => 'edit[bitcoin]'%></dd>
-								
-								<% end %>
-								<% end%>
 								<% end %>
 								
 								
 								
 								
 								
-								
-								
-								
+								<% end %>
 								<hr><%= simple_format @product.description %>
 								<hr><p><%= link_to "Voltar", '/store' %></p>
 								

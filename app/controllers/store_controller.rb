@@ -6,6 +6,7 @@ class StoreController < ApplicationController
     end
 
     def show
+        @render = false
         @product = Shoppe::Product.root.find_by_permalink(params[:permalink])
     end
     def buy

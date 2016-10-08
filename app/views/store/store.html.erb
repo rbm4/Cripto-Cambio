@@ -12,6 +12,14 @@
 label[type="descricao"]{
 	width: 10px; height: 55px 
 }
+h3{
+	
+}
+ .nome {
+ 	margin-top:-10px;
+ 	margin-bottom:-15px;
+ 	position:static;
+ }
 
 div{ 
 
@@ -20,7 +28,7 @@ div{
 }
  .preco{
  	
-	margin-top: -7%;
+	margin-top: 5px;
 	height: 50px;
  }
 
@@ -61,15 +69,16 @@ div{
 					
 						<!-- Content -->
 							<div class="conteudo">
-								<%= @messages %>
+								
 							<% @products.each do |category, prd| %>
   							<h3><%= category.name %></h3>
 							<% prd.each do |products| %>
-							<div class="table_detalhes"><h3><%= products.name %></h3>
+							<div class="table_detalhes"><h3 class='nome'><b><%= products.name %></h3></b>
 							<ul><% products.permalink %><li>
-							<h4><%= button_to "Comprar", permalink: products.permalink %></h4>
+							
 							<p><div class='preco'><b>Preço de 1 <%= products.sku.upcase %> em outras moedas: </b> <%= String(standard_conversion(products.sku)).html_safe %> </th></p></div>
 							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
+							<h4><%= button_to "Comprar", permalink: products.permalink , :id => 'button_buy'%></h4>
 							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
 							<% end %></div>
 							
@@ -87,7 +96,7 @@ div{
 				</ul>
 				
 				<ul class="copyright">
-					<li>&copy; Krobellus market</li>
+					<li>&copy; Cripto Câmbio</li>
 				</ul>
 			
 			</footer>

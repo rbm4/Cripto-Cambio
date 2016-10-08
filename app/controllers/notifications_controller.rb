@@ -91,6 +91,7 @@ class NotificationsController < ApplicationController
           end
           @messages = ""
           @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
+          pagto.txid_blockchain = hash['data']['txid']
           pagto.save
           puts @messages
           render nothing: true, status: 210

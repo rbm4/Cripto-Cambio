@@ -72,12 +72,13 @@ td[type=finished]{
 										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
 										<% end %>
 										<% end %></font>
+										
 									</table>
 									<p>Transações fechadas.
 									Abaixo você encontrará a listagem de pedidos que você fez e que foram enviados.</p>
-									 
+									 <font size='2'>
 									<table style="width:100%">
-									 			<tr>
+									 		<h4>	<tr>
 									 	  	    <td>Status</td>
 									 	  	    <td>Volume / Moeda</td>
 									 	  	    <td>Identificador</td>
@@ -106,8 +107,8 @@ td[type=finished]{
 									 	  	    <% end %>
 									 	  	    <% if h.usuario == username and h.status == 'pago'%>
 									 	  	    <tr>
-									 	  	    	<td type='finished'> <%= link_to "Pedido Finalizado",  list_path(:id => h.pagseguro), method: "post" %></td>
-									 	  	    	<td type='finished'><b><%= h.volume %></b> <b>BRL</b></td>
+									 	  	    	<td type='finished'> <a href='https://tbtc.blockr.io/tx/info/<%= h.txid_blockchain %>'>Pedido Finalizado</a></td>
+									 	  	    	<td type='finished'><b><%= h.volume %></b> <b><%= h.produtos.upcase%> </b></td>
 									 	  	    	<td type='finished'><%= h.pagseguro %> </td>
 									 	  	    	<td type='finished'>Pagseguro<br></td>
 									 	  	    	<td type='finished'><%= h.address%></td>	
@@ -116,7 +117,7 @@ td[type=finished]{
 										<% end %></font>
 									 	  	   	</table> 
 							</div>
-							
+							</h4>
 					</section>
 				
 			</article>

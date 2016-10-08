@@ -26,6 +26,30 @@ class ApplicationController < ActionController::Base
   helper_method :standard_conversion
   helper_method :litecoin_para_bitcoin
   
+  def calcular_metodos
+    puts 'PRODUÇÃO'
+    @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
+    puts params['calculo']['moeda']
+    if params['calculo']['moeda'] == 'btc'
+      @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + 'BRL'
+      @carteira = params['calculo']['address']
+      @desejado = params['calculo']['volume']
+      puts 'render'
+      @render = true
+      render 'store/show'
+    end
+    if params['calculo']['moeda'] == 'ltc'
+      ltc_real = litecoin_para_real
+      decimal = BigDecimal(params['calculo']['volume'],5)
+      x_real = BigDecimal(ltc_real,5).mult(decimal,5)
+      @preco_pagseguro = String(x_real) + 'BRL'
+      @carteira = params['calculo']['address']
+      @desejado = params['calculo']['volume']
+      puts 'render'
+      @render = true
+      render 'store/show'
+    end
+  end
   
   def brl_btc(value)
     convert_url = 'https://blockchain.info/tobtc?currency=BRL&value=' + value.to_s
@@ -37,12 +61,18 @@ class ApplicationController < ActionController::Base
     result
   end
   def bitcoin_para_real(value)
+    
     convert_url = 'https://blockchain.info/ticker'
     convert_uri = URI(convert_url)
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
     conversao = hash['BRL']['last'] # 1 BTC
     puts String(value) + '/' + String(conversao)
+    if value == nil 
+      result = BidDecimal(params['dynamic']).mult(conversao,2)
+      @preco_pagseguro = result
+      render 'calculos'
+    end
     result = BigDecimal(value,7).mult(conversao,2)
     result = result.mult(1.3,2) #valor em real
     result
@@ -78,7 +108,7 @@ class ApplicationController < ActionController::Base
     tags = ''
     if currency == 'btc'
       
-      tags << '<select multiple class="form-control">'
+      tags << '<select multiple class="form-control"style="width:260px;line-height:60px;margin-left:25%;margin-top:-5%">'
       tags << '<option>'
       tags << 'BRL: ' + String(bitcoin_para_real(1))
       tags << '</option>'
@@ -89,7 +119,7 @@ class ApplicationController < ActionController::Base
       return tags
     end
     if currency == 'ltc'
-      tags << '<select multiple class="form-control">'
+      tags << '<select multiple class="form-control" style="width:260px;line-height:60px;margin-left:25%;margin-top:-5%">'
       tags << '<option>'
       tags << 'BTC: ' + String(litecoin_para_bitcoin)
       tags << '</option>'

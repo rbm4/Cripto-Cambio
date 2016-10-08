@@ -38,10 +38,10 @@
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
 						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 
-<p style="padding:4px;">
+<!-- <p style="padding:4px;">
   <!-- Você tem <%= pluralize current_order.total_items, 'item'%> em seu carrinho, com volume: 
   <%= number_to_currency current_order.total_before_tax %>. <a href= "/basket"><img src="/images/icon_cart.png" height="25" width="25"></a>
---> </p>
+ </p> -->
 <% end %></span>
 						  <% end %>
 						  <% else %>
