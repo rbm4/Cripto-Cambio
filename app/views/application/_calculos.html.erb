@@ -1,0 +1,16 @@
+<%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
+								<dd><%= f.hidden_field :usuario, :value => username %> </dd>
+    							<dd><%= f.hidden_field :email, :value => useremail %></dd>
+    							<%= f.hidden_field :sku, :value => @product.sku %>
+    							<%= f.hidden_field :volume, :value => @desejado %>
+    							<%= f.hidden_field :address, :value => @carteira %>
+    							<dd><%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%> Preço: <%= @preco_pagseguro %></dd>
+    							
+    							
+    							<% if @product.sku != 'btc' %>
+    							
+    							<dd><%= submit_tag "BTC", :src => "/images/bitcoinbutton.jpg", :type => "image" , :name => 'edit[bitcoin]'%> Preço: <%= @preco_bitcoin%></dd>
+								
+								<% end %>
+								<% end%>
+								

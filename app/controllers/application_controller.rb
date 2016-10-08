@@ -36,7 +36,10 @@ class ApplicationController < ActionController::Base
       @desejado = params['calculo']['volume']
       puts 'render'
       @render = true
-      render 'store/show'
+      #render 'store/show'
+      respond_to do | format |  
+        format.js {render :layout => false}  
+      end
     end
     if params['calculo']['moeda'] == 'ltc'
       ltc_real = litecoin_para_real
