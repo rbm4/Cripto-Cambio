@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/lian/bitcoin-ruby
+  revision: 2757271833d7931bbc0a0a796dab5360a7e74339
+  branch: master
+  specs:
+    bitcoin-ruby (0.0.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -235,6 +242,7 @@ GEM
     minitest (5.9.0)
     multi_json (1.12.1)
     net-ssh (3.0.2)
+    netrc (0.11.0)
     nifty-dialog (1.0.7)
     nifty-key-value-store (1.0.2)
     nifty-utils (1.0.9)
@@ -288,6 +296,10 @@ GEM
       polyamorous (~> 1.1)
     rdoc (4.2.2)
       json (~> 1.4)
+    rest-client (2.0.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -357,6 +369,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
+  bitcoin-ruby!
   block_io
   blockchain
   byebug
@@ -372,6 +385,7 @@ DEPENDENCIES
   pg
   rack-cors
   rails (= 4.2.6)
+  rest-client (~> 2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   shoppe (~> 1.0)

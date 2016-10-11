@@ -39,12 +39,32 @@ class ProdutosController < ApplicationController
        salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
     end
     def finalizar_compra_pagseguro
+        puts (String(params['edit']) + String(params['pagamento']['sku']) + String(params['pagamento']['volume']))
         dados = type(String(params['edit']), String(params['pagamento']['sku']),String(params['pagamento']['volume']))
-        puts dados[1]
+        puts dados[0]
+        #BRL = pagar com pagseguro
+        #BTC = pagar com bitcoin
         
         order = Shoppe::Order.find(current_order.id)
-        payment = PagSeguro::PaymentRequest.new
-        payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
+        if dados[0] == 'BTC'
+            bitcoinpay()
+            @transaction_status = hash["status"].to_s
+            net =  hash["data"]["network"].to_s
+            userid = hash["data"]["user_id"].to_s
+            @payment_address = hash["data"]["address"]
+            @identifier = hash["data"]["label"].to_s
+            puts @payment_address
+            notifyurl = 'https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + @payment_address + '&url=http://bmarkets.herokuapp.com/blckrntf'
+            #resposta = Net::HTTP.get('https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + @payment_address + '&url=https://bmarket-rbm4.c9users.io/blckrntf')
+            notifyuri = URI(notifyurl)
+            response2 = Net::HTTP.get(notifyuri)
+            hashntf = JSON.parse(response2)
+            puts hashntf
+            salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
+            render 'finalizar_compra'
+        elsif dados[0] == 'BRL'
+            payment = PagSeguro::PaymentRequest.new
+            payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
         #payment.notification_url = 'mkta.herokuapp.com/pgseguro'
         #payment.redirect_url = 'mkta.herokuapp.com/detalhes'
             payment.items << {
@@ -53,28 +73,21 @@ class ProdutosController < ApplicationController
                 amount: dados[1],
                 quantity: '1'
             }
-        payment.extra_params << { senderEmail: useremail.to_s }
-       # payment.extra_params << { senderName: username.to_s }
-        payment.extra_params << { shippingAddressStreet: params["pagamento"]["rua"]}
-        payment.extra_params << { shippingType: '3'}
-        payment.extra_params << { shippingAddressNumber: params["pagamento"]["numero"]}
-        payment.extra_params << { shippingAddressComplement: params["pagamento"]["complemento"]}
-        payment.extra_params << { shippingAddressPostalCode: params["pagamento"]["postcode"]}
-        payment.extra_params << { shippingAddressCity: params["pagamento"]["cidade"]}
-        payment.extra_params << { shippingAddressState: params["pagamento"]["estado"]}
-	    payment.extra_params << { shippingAddressCountry: params["pagamento"]["pais"]}
+            payment.extra_params << { senderEmail: useremail.to_s }
+            # payment.extra_params << { senderName: username.to_s }
 	    
-	    response = payment.register
-	    code = payment.reference
+	        response = payment.register
+	        code = payment.reference
 	    
-	    puts code
-	    puts response
-	    if response.errors.any?
-            raise response.errors.join("\n")
-        else
-            salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
-            redirect_to response.url
+	        puts code
+	    
+            if response.errors.any?
+                raise response.errors.join("\n")
+            else
+                salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
+                redirect_to response.url
             end
+        end
     end
     private
     def salvar_pagamento(pagamento_params)

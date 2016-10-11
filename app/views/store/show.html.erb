@@ -11,7 +11,10 @@
     border-style: inset;
     border-width: 1px;
 }
-
+input[id=calculo_address]:focus, input[id=calculo_volume]:focus{
+        color: white;
+        background: black;
+    }
 input[type="image"]{
     max-width:190px; /* you can use % */
     height: auto;
@@ -31,11 +34,22 @@ section {
  .container{
  	margin-top: -7%;
  }
+ td[id="preco_tipo"]{
+ 	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+ }
+ td[id='valor_preco']{
+ 	text-align: left;
+ 	vertical-align: middle;
+	line-height: 40px;
+ }
 div{ 
 
    
     
 }
+ 
  .content {
  	
  }
@@ -108,7 +122,7 @@ div{
 								
 								
 								
-								<div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=350px width=350px></div>
+								<div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=250px width=250px></div>
 								<div id="render"></div>
 								<hr><%= simple_format @product.description %></hr>
 								<hr><p><%= link_to "Voltar", '/store' %></p></hr>

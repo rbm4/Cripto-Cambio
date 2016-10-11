@@ -1,16 +1,43 @@
+
 <%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
+<% if @warning == false%>
+<font color='red' style='font:bold;'>Endereço de carteira Inválido.</font> <img src='images/warning.png' height='32' width='32'>
+<% elsif @warning == true %>
+ <font color='blue' style='bold'> Endereço verificado </font> <img src='images/verified.png' height='32' width='32'>
+ 
 								<dd><%= f.hidden_field :usuario, :value => username %> </dd>
     							<dd><%= f.hidden_field :email, :value => useremail %></dd>
     							<%= f.hidden_field :sku, :value => @product.sku %>
     							<%= f.hidden_field :volume, :value => @desejado %>
     							<%= f.hidden_field :address, :value => @carteira %>
-    							<dd><%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%> Preço: <%= @preco_pagseguro %></dd>
-    							
-    							
-    							<% if @product.sku != 'btc' %>
-    							
-    							<dd><%= submit_tag "BTC", :src => "/images/bitcoinbutton.jpg", :type => "image" , :name => 'edit[bitcoin]'%> Preço: <%= @preco_bitcoin%></dd>
-								
-								<% end %>
-								<% end%>
-								
+								<table style="width:45%">
+									 			<tr>
+									 	  	    <td id='preco_tipo'>Método de Pgot.</td>
+									 	  	    <td  id='valor_preco'>Estimativa</td>
+									 	  	    <td></td>
+									 	  	    <td></td>
+									 	  	    <td></td>
+									 	  	    </tr>
+									 	  	    
+									 	  	    
+									 	  	    <tr>
+									 	  	    <td type='finished' id='preco_tipo'> <%= submit_tag "Pagseguro", :src => "/images/pagseguro.gif", :type => "image" , :name => 'edit[pagseguro]'%> </td>
+									 	  	    <td type='finished' id='valor_preco'><b><%= @preco_pagseguro %></b></td>
+									 	  	    <td type='finished'></td>
+									 	  	    <td type='finished'><br></td>
+									 	  	    <td type='finished'></td>
+									 	  	    </tr>
+									 	  	    
+									 	  	    <% if @product.sku != 'btc' %>
+									 	  	    <tr>
+									 	  	    <td type='finished' id='preco_tipo'><%= submit_tag "BTC", :src => "/images/bitcoinbutton.jpg", :type => "image" , :name => 'edit[bitcoin]'%> </td>
+									 	  	    <td type='finished' id='valor_preco'><%= @preco_bitcoin %></td>
+									 	  	    <td type='finished'></td>
+									 	  	    <td type='finished'></td>
+									 	  	    <td type='finished'></td>
+									 	  	    </tr>
+									 	  	    <% end %>
+									 	  	    <% end%>
+									 	  	    
+										</font>
+									 	  	   	</table> <% end %>

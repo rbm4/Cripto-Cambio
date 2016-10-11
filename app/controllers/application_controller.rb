@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
+  require 'rest-client'
   require 'blockchain'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  helper_method :bitcoinpay
   protect_from_forgery with: :exception
   attr_accessor :viewname
   helper_method :useremail
@@ -28,10 +30,17 @@ class ApplicationController < ActionController::Base
   
   def calcular_metodos
     puts 'PRODUÇÃO'
+    
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
     puts params['calculo']['moeda']
     if params['calculo']['moeda'] == 'btc'
-      @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + 'BRL'
+      a = Bitcoin.valid_address? params['calculo']['address']
+      if  a == false
+        @warning = false
+      elsif a == true
+        @warning = true
+      end
+      @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + ' BRL'
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
       puts 'render'
@@ -41,16 +50,29 @@ class ApplicationController < ActionController::Base
         format.js {render :layout => false}  
       end
     end
-    if params['calculo']['moeda'] == 'ltc'
+    if params['calculo']['moeda'] == 'ltc' #ofertas de pgto para LITECOINS
+      
+      a = params['calculo']['address'].match(/^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/)
+      if  a == nil
+        @warning = false
+      elsif a != nil
+        @warning = true
+      end
       ltc_real = litecoin_para_real
       decimal = BigDecimal(params['calculo']['volume'],5)
       x_real = BigDecimal(ltc_real,5).mult(decimal,5)
-      @preco_pagseguro = String(x_real) + 'BRL'
+      @preco_pagseguro = String(x_real) + ' BRL'
+      btc_ltc = litecoin_para_bitcoin
+      x_btc = BigDecimal(btc_ltc,7).mult(decimal,7)
+      @preco_bitcoin = String(x_btc) + ' BTC'
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
       puts 'render'
       @render = true
-      render 'store/show'
+      #render 'store/show'
+      respond_to do | format |  
+        format.js {render :layout => false}  
+      end
     end
   end
   
@@ -160,10 +182,19 @@ class ApplicationController < ActionController::Base
             if tipo_moeda == 'btc'
               dados[1] = bitcoin_para_real(valor_moeda) #quanto devo pagar em real
             end
+            if tipo_moeda == 'ltc'
+              b = litecoin_para_real
+              decimal = BigDecimal(params['pagamento']['volume'],5)
+              x_real = BigDecimal(b,5).mult(decimal,5)
+              dados[1] = x_real
+            end
         end
         if string == 'bitcoin'
           moeda = 'BTC'
-          dados['moeda'] = moeda
+          dados[0] = moeda
+          if tipo_moeda == 'ltc'
+            puts 'compra de litecoins com bitcoin'
+          end
         end
         if string == 'litecoin'
           moeda = 'LTC'
@@ -310,5 +341,32 @@ class ApplicationController < ActionController::Base
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     puts hash
+  end
+  def bitcoinpay
+    
+
+    values = '{
+  "settled_currency": "BTC",
+  "return_url": "http://bmarket-rbm4.c9users.io",
+  "notify_url": "bmarket-rbm4.c9users.io/blckrntf",
+  "notify_email": "ricardo.malafaia1994@gmail.com",
+  "price": 0.009,
+  "currency": "BTC",
+  "reference": {
+    "customer_name": "Customer Name",
+    "order_number": 1,
+    "customer_email": "customer@example.com"
+  },
+  "item": "Order #1",
+  "description": "Oder #1 description"
+  }'
+
+headers = {
+  :content_type => 'application/json',
+  :authorization => 'Token EbJxAGwqAK24uamGI9dS9L70'
+}
+url = 'https://www.bitcoinpay.com/api/v1/payment/btc'
+response = RestClient.post url, values, headers
+puts response
   end
 end

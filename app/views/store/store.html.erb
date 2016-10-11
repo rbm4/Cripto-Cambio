@@ -19,6 +19,7 @@ h3{
  	margin-top:-10px;
  	margin-bottom:-15px;
  	position:static;
+ 	height: 70px;
  }
 
 div{ 
@@ -28,12 +29,16 @@ div{
 }
  .preco{
  	
-	margin-top: 5px;
-	height: 50px;
+	margin-top: -7%;
+	align="right";
+	margin-left: 23%;
+	margin-bottom: 25px;
+	height: 30px;
+	position:absolute;
  }
 
  .conteudo{
- 	margin-top: -6%;
+ 	margin-top: -10%;
     margin-left:10%;
     width: 80%;
  	padding: 10px;
@@ -49,8 +54,8 @@ div{
  }
  .table_foto{
  	position: relative;
-	margin-left: 80%;
-	margin-top: 2%;
+	margin-left: 75%;
+	margin-top: 45px;
  }
  
 </style>
@@ -76,7 +81,7 @@ div{
 							<div class="table_detalhes"><h3 class='nome'><b><%= products.name %></h3></b>
 							<ul><% products.permalink %><li>
 							
-							<p><div class='preco'><b>Preço de 1 <%= products.sku.upcase %> em outras moedas: </b> <%= String(standard_conversion(products.sku)).html_safe %> </th></p></div>
+							<p><b>Preço de 1 <%= products.sku.upcase %> em outras moedas:<div class='preco'> <%= String(standard_conversion(products.sku)).html_safe %> </th></p></div class='preco'>
 							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
 							<h4><%= button_to "Comprar", permalink: products.permalink , :id => 'button_buy'%></h4>
 							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
