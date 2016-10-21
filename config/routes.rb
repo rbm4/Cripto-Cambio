@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   post '/pgseguro' => 'notifications#pgseguro'
   get '/checkoutps' => 'orders#checkoutpgseguro'
   post '/calc' => 'application#calcular_metodos'
+  get '/paypal' => 'notifications#paypal'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

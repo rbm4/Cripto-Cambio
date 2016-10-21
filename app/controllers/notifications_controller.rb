@@ -1,6 +1,9 @@
 class NotificationsController < ApplicationController
     require 'net/http'
-    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro]
+    require 'paypal-sdk-rest'
+    include PayPal::SDK::REST
+    include PayPal::SDK::Core::Logging
+    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal]
     
     def balance_change url_string, xml_string
       uri = URI.parse url_string
@@ -11,6 +14,22 @@ class NotificationsController < ApplicationController
       response.body
       return 201
     end
+    def paypal
+     payment = Hash.new
+     payment['id'] = params['paymentId']
+     payment['type'] = params['token']
+     payment['payment_id'] = params['PayerID']
+     @payment = Payment.find(params['paymentId'])
+     payment['status'] = @payment.payer.status
+      if payment['status'] == 'VERIFIED'
+        pgto = Pagamento.find_by_endereco(payment['id'])
+        puts 'id do pagamento: ' + pgto.endereco
+        puts 'Endereco bitcoin de envio: ' + pgto.address
+        puts 'volume de bitcoin para enviar: ' + pgto.volume
+      end
+      return 205
+    end
+    
     def msgall
     end
     def msg

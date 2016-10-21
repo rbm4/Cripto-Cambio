@@ -27,6 +27,13 @@
 									 	  	    <td type='finished'><br></td>
 									 	  	    <td type='finished'></td>
 									 	  	    </tr>
+									 	  	    <tr>
+									 	  	    <td type='finished' id='preco_tipo'> <%= submit_tag "Paypal", :src => "/images/paynow.png", :type => "image" , :name => 'edit[paypal]'%> </td>
+									 	  	    <td type='finished' id='valor_preco'><b><%= @preco_pagseguro %></b></td>
+									 	  	    <td type='finished'></td>
+									 	  	    <td type='finished'><br></td>
+									 	  	    <td type='finished'></td>
+									 	  	    </tr>
 									 	  	    
 									 	  	    <% if @product.sku != 'btc' %>
 									 	  	    <tr>

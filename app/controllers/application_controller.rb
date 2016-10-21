@@ -29,7 +29,6 @@ class ApplicationController < ActionController::Base
   helper_method :litecoin_para_bitcoin
   
   def calcular_metodos
-    puts 'PRODUÇÃO'
     
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
     puts params['calculo']['moeda']
@@ -178,22 +177,44 @@ class ApplicationController < ActionController::Base
         if string == 'pagseguro'
             moeda = 'BRL'
             dados[0] = moeda
-            
+            dados[2] = 'pagseguro'  
             if tipo_moeda == 'btc'
               dados[1] = bitcoin_para_real(valor_moeda) #quanto devo pagar em real
             end
             if tipo_moeda == 'ltc'
-              b = litecoin_para_real
+              b = bitcoin_para_litecoin
               decimal = BigDecimal(params['pagamento']['volume'],5)
-              x_real = BigDecimal(b,5).mult(decimal,5)
-              dados[1] = x_real
+              x_litecoin = BigDecimal(b,5).mult(decimal,5)
+              dados[1] = x_litecoin
             end
+        end
+        if string == 'paypal'
+          moeda = 'BRL'
+          dados[0] = moeda
+          dados[2] = 'paypal'
+          if tipo_moeda == 'btc'
+            dados[1] = bitcoin_para_real(valor_moeda)
+          end
+          if tipo_moeda == 'ltc'
+              b = bitcoin_para_litecoin
+              decimal = BigDecimal(params['pagamento']['volume'],5)
+              x_litecoin = BigDecimal(b,5).mult(decimal,5)
+              dados[1] = x_litecoin
+          end
+          puts 'pagamento no paypal'
+          puts dados[1]
+          puts dados[2]
+          puts dados[0]
         end
         if string == 'bitcoin'
           moeda = 'BTC'
           dados[0] = moeda
           if tipo_moeda == 'ltc'
             puts 'compra de litecoins com bitcoin'
+            decimal = BigDecimal(params['pagamento']['volume'],5)
+            btc_ltc = litecoin_para_bitcoin
+            x_btc = BigDecimal(btc_ltc,7).mult(decimal,7)
+            dados[1] = x_btc
           end
         end
         if string == 'litecoin'
@@ -342,31 +363,13 @@ class ApplicationController < ActionController::Base
     hash = JSON.parse(response)
     puts hash
   end
-  def bitcoinpay
-    
-
-    values = '{
-  "settled_currency": "BTC",
-  "return_url": "http://bmarket-rbm4.c9users.io",
-  "notify_url": "bmarket-rbm4.c9users.io/blckrntf",
-  "notify_email": "ricardo.malafaia1994@gmail.com",
-  "price": 0.009,
-  "currency": "BTC",
-  "reference": {
-    "customer_name": "Customer Name",
-    "order_number": 1,
-    "customer_email": "customer@example.com"
-  },
-  "item": "Order #1",
-  "description": "Oder #1 description"
-  }'
-
-headers = {
-  :content_type => 'application/json',
-  :authorization => 'Token EbJxAGwqAK24uamGI9dS9L70'
-}
-url = 'https://www.bitcoinpay.com/api/v1/payment/btc'
-response = RestClient.post url, values, headers
-puts response
+  def bitcoinpay(valor_litecoin)
+    pem = BitPay::KeyUtils.generate_pem
+    client = BitPay::SDK::Client.new(api_uri: 'https://test.bitpay.com', pem: pem)
+    #client = BitPay::SDK::Client.new(pem: File.read('cripto_pem'))
+    client.pair_client(pairing_code: "4Jumkh2")
+    invoice = client.create_invoice(price: valor_litecoin, currency: 'BTC')
+    json = JSON.parse(invoice)
+    puts json
   end
 end

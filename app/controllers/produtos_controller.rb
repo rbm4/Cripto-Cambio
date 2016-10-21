@@ -5,8 +5,11 @@ class ProdutosController < ApplicationController
     require 'net/https'
     require 'json'
     require 'block_io'
+    require 'paypal-sdk-rest'
+    include PayPal::SDK::REST
     before_action :require_user, only: [:show, :solicitar_pagamento]
     BlockIo.set_options :api_key=> 'ac35-6ff5-e103-d1c3', :pin => 'Xatm@074', :version => 2
+    
     
     def list_all_payment
          @pagamento = Pagamento.find_by(address: params[:id])
@@ -42,12 +45,13 @@ class ProdutosController < ApplicationController
         puts (String(params['edit']) + String(params['pagamento']['sku']) + String(params['pagamento']['volume']))
         dados = type(String(params['edit']), String(params['pagamento']['sku']),String(params['pagamento']['volume']))
         puts dados[0]
+        puts dados[1]
         #BRL = pagar com pagseguro
         #BTC = pagar com bitcoin
         
         order = Shoppe::Order.find(current_order.id)
         if dados[0] == 'BTC'
-            bitcoinpay()
+            bitcoinpay(dados[1])
             @transaction_status = hash["status"].to_s
             net =  hash["data"]["network"].to_s
             userid = hash["data"]["user_id"].to_s
@@ -63,6 +67,7 @@ class ProdutosController < ApplicationController
             salvar_pagamento(:user_id => userid, :network => net, :address => @payment_address, :label => @identifier, :volume => pgto.volume, :usuario => pgto.usuario, :status => @transaction_status, :endereco => pgto.endereco, :produtos => pgto.produtos, :postcode => pgto.postcode)
             render 'finalizar_compra'
         elsif dados[0] == 'BRL'
+          if dados[2] == 'pagseguro'
             payment = PagSeguro::PaymentRequest.new
             payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
         #payment.notification_url = 'mkta.herokuapp.com/pgseguro'
@@ -87,7 +92,60 @@ class ProdutosController < ApplicationController
                 salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
                 redirect_to response.url
             end
+          end
+          if dados[2] == 'paypal'
+                return_paypal = "https://bmarket-rbm4.c9users.io/paypal"
+                cancel_paypal = "https://bmarket-rbm4.c9users.io"
+                
+                    # Build Payment object
+                    
+                    @payment = Payment.new({
+                        :intent => "sale",
+                        :redirect_urls => {
+    :return_url => return_paypal,
+    :cancel_url => cancel_paypal},
+                        :payer => {
+                            :payment_method => "paypal",
+                            :payer_id => username.to_s + order.id.to_s + params['pagamento']['sku']
+                        },
+                            #:funding_instruments => [{
+                                #:credit_card => {
+                                    #:type => "visa",
+                                    #:number => "4567516310777851",
+                                    #:expire_month => "11",
+                                    #:expire_year => "2018",
+                                    #:cvv2 => "874",
+                                    #:first_name => "Joe",
+                                    #:last_name => "Shopper",
+                                    #:billing_address => {
+                                        #:line1 => "52 N Main ST",
+                                        #:city => "Johnstown",
+                                        #:state => "OH",
+                                        #:postal_code => "43210",
+                                        #:country_code => "US" }}}]},
+                                        :transactions => [{
+                                            :item_list => {
+                                                :items => [{
+                                                    :name => "Fração de moeda",
+                                                    :sku => params['pagamento']['volume'] + String(params['pagamento']['sku']),
+                                                    :price => BigDecimal(dados[1],2),
+                                                    :currency => "BRL",
+                                                    :quantity => 1 }]},
+                                                    :amount => {
+                                                        :total => dados[1],
+                                                        :currency => "BRL" },
+                                                        :description => 'Valor requisitado de: ' + params['pagamento']['volume'] + String(params['pagamento']['sku']) + ', Para ser pago em: ' + dados[0] }]})
+                                                        # Create Payment and return the status(true or false)
+                                                        if @payment.create
+                                                            salvar_pagamento(:user_id => username, :network => 'paypal', :endereco => @payment.id, :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
+                                                            redirect_to @payment.links[1].href, :method => 'REDIRECT'
+                                                        else
+                                                            @payment.error  # Error Hash
+                                                        end
+          end        
         end
+    end
+    def executer
     end
     private
     def salvar_pagamento(pagamento_params)

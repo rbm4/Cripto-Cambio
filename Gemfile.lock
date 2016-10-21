@@ -53,6 +53,12 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bitpay-key-utils (2.0.1)
+      ecdsa (~> 1.2)
+    bitpay-sdk (2.4.4)
+      bitpay-key-utils (~> 2.0.0)
+      json (~> 1.8)
+      rack (~> 1.5)
     block_io (1.0.6)
       connection_pool (~> 2.0, >= 2.0.0)
       ecdsa (~> 1.2, >= 1.2.0)
@@ -254,6 +260,10 @@ GEM
       i18n (~> 0.7)
       json (~> 1.8)
       nokogiri (~> 1.6)
+    paypal-sdk-rest (1.4.9)
+      multi_json (~> 1.0)
+      uuidtools (~> 2.1)
+      xml-simple
     pbkdf2-ruby (0.2.1)
     pg (0.18.4)
     pkg-config (1.1.7)
@@ -357,6 +367,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
+    uuidtools (2.1.5)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -370,6 +381,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bitcoin-ruby!
+  bitpay-sdk
   block_io
   blockchain
   byebug
@@ -382,6 +394,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   nokogiri
   pagseguro-oficial (~> 2.5.0)
+  paypal-sdk-rest
   pg
   rack-cors
   rails (= 4.2.6)
