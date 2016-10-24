@@ -48,6 +48,7 @@ class ProdutosController < ApplicationController
         puts dados[1]
         #BRL = pagar com pagseguro
         #BTC = pagar com bitcoin
+        #paypal = pagar com paypal
         
         order = Shoppe::Order.find(current_order.id)
         if dados[0] == 'BTC'
@@ -142,6 +143,7 @@ class ProdutosController < ApplicationController
                                                         else
                                                             @payment.error  # Error Hash
                                                         end
+                                                        
           end        
         end
     end

@@ -33,12 +33,13 @@ class ApplicationController < ActionController::Base
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
     puts params['calculo']['moeda']
     if params['calculo']['moeda'] == 'btc'
-      a = Bitcoin.valid_address? params['calculo']['address']
-      if  a == false
-        @warning = false
-      elsif a == true
-        @warning = true
-      end
+      #a = Bitcoin.valid_address? params['calculo']['address']
+      @warning = true
+      #if  a == false
+      #  @warning = false
+      #elsif a == true
+      #  @warning = true
+      #end
       @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + ' BRL'
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
@@ -50,13 +51,13 @@ class ApplicationController < ActionController::Base
       end
     end
     if params['calculo']['moeda'] == 'ltc' #ofertas de pgto para LITECOINS
-      
-      a = params['calculo']['address'].match(/^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/)
-      if  a == nil
-        @warning = false
-      elsif a != nil
-        @warning = true
-      end
+      @warning = true #Sem validação de enderaço
+      #a = params['calculo']['address'].match(/^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/)
+      #if  a == nil
+      #  @warning = false
+      #elsif a != nil
+      #  @warning = true
+      #end
       ltc_real = litecoin_para_real
       decimal = BigDecimal(params['calculo']['volume'],5)
       x_real = BigDecimal(ltc_real,5).mult(decimal,5)
@@ -182,7 +183,7 @@ class ApplicationController < ActionController::Base
               dados[1] = bitcoin_para_real(valor_moeda) #quanto devo pagar em real
             end
             if tipo_moeda == 'ltc'
-              b = bitcoin_para_litecoin
+              b = litecoin_para_real
               decimal = BigDecimal(params['pagamento']['volume'],5)
               x_litecoin = BigDecimal(b,5).mult(decimal,5)
               dados[1] = x_litecoin
@@ -196,7 +197,7 @@ class ApplicationController < ActionController::Base
             dados[1] = bitcoin_para_real(valor_moeda)
           end
           if tipo_moeda == 'ltc'
-              b = bitcoin_para_litecoin
+              b = litecoin_para_real
               decimal = BigDecimal(params['pagamento']['volume'],5)
               x_litecoin = BigDecimal(b,5).mult(decimal,5)
               dados[1] = x_litecoin
@@ -219,7 +220,10 @@ class ApplicationController < ActionController::Base
         end
         if string == 'litecoin'
           moeda = 'LTC'
-          dados['moeda'] = moeda
+          dados[0] = moeda
+          if tipo_moeda =='btc'
+            puts 'compra de bitcoins com litecoins'
+          end
         end
         dados
   end

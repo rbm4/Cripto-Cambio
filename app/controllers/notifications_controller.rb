@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
     require 'paypal-sdk-rest'
     include PayPal::SDK::REST
     include PayPal::SDK::Core::Logging
-    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal]
+    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip]
     
     def balance_change url_string, xml_string
       uri = URI.parse url_string
@@ -19,18 +19,67 @@ class NotificationsController < ApplicationController
      payment['id'] = params['paymentId']
      payment['type'] = params['token']
      payment['payment_id'] = params['PayerID']
-     @payment = Payment.find(params['paymentId'])
-     payment['status'] = @payment.payer.status
-      if payment['status'] == 'VERIFIED'
-        pgto = Pagamento.find_by_endereco(payment['id'])
-        puts 'id do pagamento: ' + pgto.endereco
-        puts 'Endereco bitcoin de envio: ' + pgto.address
-        puts 'volume de bitcoin para enviar: ' + pgto.volume
-      end
-      return 205
+     @payment = Payment.find(payment['id'])
+     if @payment.execute( :payer_id => payment['payment_id'] )  # return true or false
+          @messages =  "Pagamento[#{@payment.id}] executado com sucesso"
+          pgto = Pagamento.find_by_endereco(payment['id'])
+          puts 'id do pagamento: ' + pgto.endereco
+          puts 'Endereco bitcoin de envio: ' + pgto.address
+          puts 'volume de bitcoin para enviar: ' + pgto.volume
+          if (pgto.status.to_s == 'incompleta' and pgto.produtos == 'btc')
+                pgto.status = 'pago'
+                url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses='+ @btc_address + '&to_addresses=' + pgto.address + '&amounts=' + pgto.volume.to_s
+                uri = URI(url)
+                response = Net::HTTP.get(uri) 
+                hash = JSON.parse(response)
+                puts hash
+            if hash["data"]["error_message"] != nil
+                @messages =  hash["data"]["error_message"]
+                puts @messages
+                render 'msg', status: 211
+                return
+            end
+              @messages = ""
+              @messages = "Valor transferido, identificador único: " + String(hash["data"]["txid"])
+              pgto.txid_blockchain = hash['data']['txid']
+              pgto.save
+              puts @messages
+              render 'msg', status: 210
+          end
+          if (pgto.status.to_s == 'incompleta' and pgto.produtos == 'ltc')
+                pgto.status = 'pago'
+                url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @ltc_pin + '&pin=' + @pin + '&from_addresses=' + @ltc_address + '&to_addresses=' + pgto.address + '&amounts=' + pgto.volume.to_s
+                uri = URI(url)
+                response = Net::HTTP.get(uri) 
+                hash = JSON.parse(response)
+                puts hash
+            if hash["data"]["error_message"] != nil
+                @messages =  hash["data"]["error_message"]
+                puts @messages
+                render 'msg', status: 211
+                return
+            end
+              @messages = ""
+              @messages = "Valor transferido, identificador único: " + String(hash["data"]["txid"])
+              pgto.txid_blockchain = hash['data']['txid']
+              pgto.save
+              puts @messages
+              render 'msg', status: 210
+          end
+     else
+          logger.error @payment.error.inspect
+     end
+     
+     return 205
     end
     
-    def msgall
+    def paypalnip
+      puts params['mc_gross']
+      status = params['payment_status']
+      if status == 'Completed'
+        puts 'Transação completa por NIP. Transferir bitcoins aqui? - notifications_controller#paypalnip'
+      end
+      return 200
     end
     def msg
     end 
@@ -97,7 +146,29 @@ class NotificationsController < ApplicationController
         # pagto.produtos é o tipo de moeda
         if (pagto.status.to_s == 'incompleta' and pagto.produtos == 'btc')
           pagto.status = 'pago'
-          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=ac35-6ff5-e103-d1c3&pin=ignezconha&from_addresses=2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav&to_addresses=' + pagto.address + '&amounts=' + pagto.volume.to_s
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses=' + @btc_address + '&to_addresses=' + pagto.address + '&amounts=' + pagto.volume.to_s
+          uri = URI(url)
+          response = Net::HTTP.get(uri) 
+          hash = JSON.parse(response)
+          puts hash
+          if hash["data"]["error_message"] != nil
+            @messages =  hash["data"]["error_message"]
+            render nothing: true, status: 211
+            second = false
+            return
+          end
+          @messages = ""
+          @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
+          pagto.txid_blockchain = hash['data']['txid']
+          pagto.save
+          puts @messages
+          render nothing: true, status: 210
+          second = false
+          #pagto.txid_blockchain = params["data"]['txid']
+        end
+        if (pagto.status.to_s == 'incompleta' and pagto.produtos == 'ltc')
+          pagto.status = 'pago'
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @ltc_pin + '&pin=' + @pin + '&from_addresses=' + @ltc_address + '&to_addresses=' + pagto.address + '&amounts=' + pagto.volume.to_s
           uri = URI(url)
           response = Net::HTTP.get(uri) 
           hash = JSON.parse(response)
