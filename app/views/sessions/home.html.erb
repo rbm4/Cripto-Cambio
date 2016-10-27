@@ -6,36 +6,39 @@
 -->
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.dropotron.min.js"></script>
-		<script src="js/jquery.scrolly.min.js"></script>
-		<script src="js/jquery.scrollgress.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-wide.css" />
-			<link rel="stylesheet" href="css/style-noscript.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+		<style>
+		b{
+			font-weight: bold;
+		}
+	a{
+    
+}
+.menu {
+	width: 150px;
+	height: 50px;
+   vertical-align: middle;
+   text-align: -10px;
+}
+text{
+	margin-top: 10%;
+}
+ article{
+ 	
+ 	margin-top: -10%;
+ 	padding: 10px;
+ 	
+ }
+		</style>
+	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[udolte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 	</head>
-	<body class="no-sidebar">
-	
-		
-		<!-- Main -->
+	<body>
 			<article id="main">
 
 				<header class="special container">
 	
-					<h2>Realize compras <strong>consulte seus pedidos pendentes</strong></h2>
-					<p>Leia abaixo as instruções.</p>
+					<h2></h2>
+					<p></p>
 				</header>
 					
 				<!-- One -->
@@ -44,27 +47,31 @@
 						<!-- Content -->
 							<div class="content">
 								<section>
-									 <table style="width:100%">
+									
+									<table style="width:100%">
 									 	  <tr>
-									 	  	    <td>Produto recente</td>
-									 	  	    <td>Produto recente</td>
-									 	  	    <td>Produto recente</td>
+									 	  	    <td></td>
+									 	  	    <td></td>
+									 	  	    <td></td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td><%= @dstqn[0] %></td>
-									 	  	    <td><%= @dstqn[1] %></td>
-									 	  	    <td><%= @dstqn[2] %></td>
+									 	  	    <td><b>Nome:</b> <%= String(username).capitalize %></td>
+									 	  	    <td></td>
+									 	  	    <td></td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	   	<td><a href='/store'><img src="<%=@dstqi[0] %>" height=250px width=250px></a></td>
-									 	  	   	<td><a href='/store'><img src="<%=@dstqi[1]%>" height=250px width=250px> </a></td>
+									 		  	<td><b>Email:</b> <%= String(useremail) %></td>
+									<!-- 	  	   	<td><a href='/store'><img src="<%=@dstqi[1]%>" height=250px width=250px> </a></td>
 									 	  	   	<td><a href='/store'><img src="<%=@dstqi[2]%>" height=250px width=250px> </a></td>
+									 	  	    --> </tr>
+									 	  	    <tr>
+									 	  	    	<td>Para mais detalhes, utilize o menu abaixo.</td>
 									 	  	    </tr>
 									 	  	   	</table> 
 									
 									<header>
-										<h3><li class='current'><a href="/detalhes" class= "button small">Transações</a></h3></li>
-										<h3><li class='current'><a href="/setting" class= "button small">Editar perfil</a></h3></li>
+										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
+										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>
 									</header>
 									
 								</section>

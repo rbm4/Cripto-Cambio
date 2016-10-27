@@ -14,7 +14,9 @@ class NotificationsController < ApplicationController
       response.body
       return 201
     end
+    
     def paypal
+     config_block
      payment = Hash.new
      payment['id'] = params['paymentId']
      payment['type'] = params['token']
@@ -81,8 +83,10 @@ class NotificationsController < ApplicationController
       end
       return 200
     end
+    
     def msg
     end 
+    
     def bitcoin
       
       puts 'NOTIFICAÇÃO:'
@@ -120,9 +124,11 @@ class NotificationsController < ApplicationController
       return 202
     end
     
-  def text
-  end
-  def pgseguro
+    def text
+    end
+    
+    def pgseguro
+    config_block
     transaction = PagSeguro::Transaction.find_by_notification_code(params[:notificationCode])
     puts transaction.reference
 
@@ -194,5 +200,5 @@ class NotificationsController < ApplicationController
     if second != false
       render nothing: true, status: 200
     end
-  end
+    end
 end
