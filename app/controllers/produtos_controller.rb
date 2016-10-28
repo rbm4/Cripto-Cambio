@@ -71,8 +71,8 @@ class ProdutosController < ApplicationController
           if dados[2] == 'pagseguro'
             payment = PagSeguro::PaymentRequest.new
             payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
-        #payment.notification_url = 'mkta.herokuapp.com/pgseguro'
-        #payment.redirect_url = 'mkta.herokuapp.com/detalhes'
+        payment.notification_url = 'criptocambio.jelasticlw.com.br/pgseguro'
+        payment.redirect_url = 'criptocambio.jelasticlw.com.br/detalhes'
             payment.items << {
                 id: 1,
                 description: 'Valor requisitado de: ' + params['pagamento']['volume'] + String(params['pagamento']['sku']) + ', Para ser pago em: ' + dados[0],
@@ -95,8 +95,8 @@ class ProdutosController < ApplicationController
             end
           end
           if dados[2] == 'paypal'
-                return_paypal = "https://bmarket-rbm4.c9users.io/paypal"
-                cancel_paypal = "https://bmarket-rbm4.c9users.io"
+                return_paypal = "https://criptocambio.jelasticlw.com.br/paypal"
+                cancel_paypal = "https://criptocambio.jelasticlw.com.br"
                 
                     # Build Payment object
                     

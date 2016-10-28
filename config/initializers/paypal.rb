@@ -11,7 +11,7 @@ PayPal::SDK::REST.set_config(
                     :client_secret => "EI3jZ8wuW12pWwn_XC7NQdBuAbvBTXWGcYWfGAXDIrXtGjvLvg_XJFLSIYdFusqT1oqFcgX4GU6UXF6p")
 
 @webhook = Webhook.new({
-    :url => "https://bmarket-rbm4.c9users.io/paypal",
+    :url => "https://criptocambio.jelasticlw.com.br/paypal",
     :event_types => [
         {
             :name => "PAYMENT.AUTHORIZATION.CREATED"
