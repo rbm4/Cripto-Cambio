@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       @messages = "Wow Welcome again, you logged in as #{@authorized_user.username}"
       redirect_to :controller => 'sessions', :action =>'home', :id => session[:user_id]
     else
-      @messages = "Invalid Username or Password"
+      @messages = "Email/Username ou senha inválidos."
       flash[:color]= "invalid"
       render "login"	 
     end

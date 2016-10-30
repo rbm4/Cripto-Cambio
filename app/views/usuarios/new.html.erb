@@ -1,41 +1,96 @@
+<head><style>
+	div {
+		
+	}
+	.first_name{
+		margin-top: -22.7%;
+		margin-left:30%;
+		position: relative;
+	}
+	.last_name{
+		margin-top: -11.5%;
+		margin-left: 60%;
+	}
+	.telefone{
+		margin-top: 0%;
+		margin-left: 60%;
+	}
+	.confirmation{
+		margin-top: -16.5%;
+		margin-left: 32%;
+	}
+	.content{
+ 	margin-top: -15%;
+    margin-left:10%;
+    width: 80%;
+ 	padding: 50px;
+ 	background-color: #FFFFFF;
+
+	}
+	.header{
+		position: static;
+	}
+	input[id="usuario_username"], input[id="usuario_first_name"], input[id="usuario_last_name"], input[id="usuario_username"], input[id="usuario_fone"], input[id="usuario_password"], input[id="usuario_password_confirmation"]{
+	width: 200px;
+		
+	}
+	input[id="usuario_email"]{
+		width: 400px;
+	}
+	input:focus{
+        color: white;
+        background: black;
+  }
+	article{
+ 	margin-top: -10%;
+  background-color: #cccccc;
+ }
+ section{
+ 	background-color: #cccccc;
+ }
+</style></head>
 <!-- Main -->
 			<article id="main">
 
 				<header class="special container">
-					<span class="icon fa-mobile"></span>
-					<h2>Preencha o formulário <strong></strong></h2>
-					<p>Consulte nossa loja, nossas ofertas e maneje suas transações.</p>
+					<div class="header"><% if @usuario.errors.any? %>
+								<h2><%= @logged %><strong></strong></h2>
+                  
+                  <% for message_error in @usuario.errors.full_messages %>
+                    <p>* <%= message_error %>
+                  <% end %></p></div>
+                  <% else %>
+                  	<h2>Preencha o formulário para cadastrar-se<strong></strong></h2>
+										<p>Criptomoedas com rapidez e praticidade.</p>
+                  
+                  <% end %>
+					
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 container">
+					<section class="wrapper container">
 					
 						<!-- Content -->
-							<div class="content">
-								<section>
-									<div class="Sign_Form">
+							<section class="content">
+							
+									
                   <h1>Formulário para cadastro:</h1>
+                  
                   <%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
-                  <p> Apelido:</br> <%= f.text_field :username %> </p>
-                  <p> Email:</br> <%= f.text_field :email %> </p>
-                  <p> Primeiro nome: <%= f.text_field :first_name %> </p>
-                  <p> Ultimo nome: <%= f.text_field :last_name %> </p>
-                  <p> Telefone: <%= f.text_field :fone %></p>
-                  <p> Senha:</br> <%= f.password_field :password %></p>
-                  <p> Confirme a senha:</br> <%= f.password_field :password_confirmation %> </p>
+                  Apelido: <%= f.text_field :username %> 
+                  Email: <%= f.text_field :email %> 
+                  <div class="first_name"> Primeiro nome: <%= f.text_field :first_name %> </div>
+                  <div class="last_name"> Ultimo nome: <%= f.text_field :last_name %> </div>
+                  <div class="telefone"> Telefone: <%= f.text_field :fone %></div><p>
+                   Senha: <%= f.password_field :password %>
+                   <div class="confirmation">Confirme a senha:</br> <%= f.password_field :password_confirmation %> <p></div>
                   <%= f.submit :Signup %>
                   <% end %>
-                  <% if @usuario.errors.any? %>
-                  <ul class="Signup_Errors">
-                    <% for message_error in @usuario.errors.full_messages %>
-                    <li>* <%= message_error %></li>
-                  <% end %>
-                  </ul>
-                  <% end %>
-                  </div>
-								</section>
-							</div>
-
+                  
+                  
+								
+							
+	</section>
 					</section>
 
 				

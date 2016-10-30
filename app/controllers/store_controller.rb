@@ -1,4 +1,5 @@
 class StoreController < ApplicationController
+    before_action :require_user, only: [:store,:show]
     
     def store
         @products = Shoppe::Product.root.ordered.includes(:product_categories, :variants)

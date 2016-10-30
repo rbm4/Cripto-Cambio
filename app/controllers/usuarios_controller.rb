@@ -15,15 +15,16 @@ class UsuariosController < ApplicationController
     if @usuario.save
       @logged = 'Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.'
       flash[:color] = 'valid'
+      @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
+      @customer.save
+      #@usuario.save
+      render 'sessions/login'
     else 
       @logged = 'Formulário inválido.'
+      render 'new'
       flash[:color] = 'invalid'
     end
     #encrypted_password= Digest::SHA1.hexdigest(password)
-    @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
-    @customer.save
-    @usuario.save
-    render 'sessions/login'
   end
   def contato
   end
