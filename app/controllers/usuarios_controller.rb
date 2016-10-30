@@ -17,7 +17,7 @@ class UsuariosController < ApplicationController
       flash[:color] = 'valid'
       @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
       @customer.save
-      #@usuario.save
+      @usuario.save
       render 'sessions/login'
     else 
       @logged = 'Formulário inválido.'
