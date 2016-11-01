@@ -69,7 +69,7 @@ td[type=finished]{
 									 	  	    <td>Identificador</td>
 									 	  	    <td>Tipo de operação</td>
 									 	  	    <td>Opções</td></td>
-									 	  	    </tr>
+									 	  	    </tr><font size='2'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'success'%>
 										<p><tr>- Aguardando pagamento </tr>
@@ -93,7 +93,7 @@ td[type=finished]{
 										<tr></tr> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %>
-										<% end %><
+										<% end %></font>
 									</table>
 									</div>
 									<hr>
@@ -107,6 +107,7 @@ td[type=finished]{
 									 	  	    <td>Tipo de operação</td>
 									 	  	    <td>Opções</td></td>
 									 	  	    </tr>
+									 	  	    <font size='2'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'accepted'%>
 										<tr>- Transação aceita. </tr>
@@ -116,7 +117,7 @@ td[type=finished]{
 										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
 										<% end %>
 										<% end %>
-										
+										</font>
 									</table>
 									<hr>
 									<p><h3>Transações fechadas.<br></h3>
@@ -129,7 +130,7 @@ td[type=finished]{
 									 	  	    <td>Identificador</td>
 									 	  	    <td>Tipo de operação</td>
 									 	  	    <td>Endereço que foi enviado</td>
-									 	  	    </tr>
+									 	  	    </tr><font size='2'>
 									 	  	    <% @pagamentos.each do |h| %>
 									 	  	    <% if h.usuario == username and h.status == 'send'%>
 									 	  	    <tr>
@@ -165,7 +166,7 @@ td[type=finished]{
 									 	  	    	<td type='finished'><%= h.address%></td>	
 									 	  	    </tr>
 									 	  	    <% end %>
-										<% end %>
+										<% end %></font>
 									 	  	   	</table> 
 							</div>
 							</h4>
