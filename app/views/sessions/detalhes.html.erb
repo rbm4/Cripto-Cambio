@@ -42,7 +42,9 @@ td[type=finished]{
  article{background-color: #cccccc;
  	
  }
- 
+ font {
+ 	font-size: 15px;
+ }
 </style>
 </head>
 <body class="contact">
@@ -130,7 +132,7 @@ td[type=finished]{
 									 	  	    <td>Identificador</td>
 									 	  	    <td>Tipo de operação</td>
 									 	  	    <td>Endereço que foi enviado</td>
-									 	  	    </tr><font size='2'>
+									 	  	    </tr><font size="2">
 									 	  	    <% @pagamentos.each do |h| %>
 									 	  	    <% if h.usuario == username and h.status == 'send'%>
 									 	  	    <tr>
