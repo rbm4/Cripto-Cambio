@@ -109,8 +109,14 @@ td[type=finished]{
 									 	  	    <tr>
 									 	  	    	<td type='finished'> <a href='https://tbtc.blockr.io/tx/info/<%= h.txid_blockchain %>'>Pedido Finalizado</a></td>
 									 	  	    	<td type='finished'><b><%= h.volume %></b> <b><%= h.produtos.upcase%> </b></td>
+									 	  	    	<% if h.network == 'pagseguro'%>
 									 	  	    	<td type='finished'><%= h.pagseguro %> </td>
 									 	  	    	<td type='finished'>Pagseguro<br></td>
+									 	  	    	<% end %>
+									 	  	    	<% if h.network == 'paypal'%>
+									 	  	    	<td type='finished'><%= h.endereco %> </td>
+									 	  	    	<td type='finished'>Paypal<br></td>
+									 	  	    	<% end %>
 									 	  	    	<td type='finished'><%= h.address%></td>	
 									 	  	    </tr>
 									 	  	    <% end %>
