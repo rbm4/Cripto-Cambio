@@ -1,11 +1,48 @@
 	<head>
 	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
 td[type=finished]{
  	color:blue;
  	text-align:center;
- 	
+ 	font-weight: bold;
  	
  }
+ h3{
+ 	font-weight: bold;
+ }
+ table {
+ 	border: 2px;
+ }
+ div[type=format_text]{
+ 	height: 100%;
+ 	width: 60%;
+ 	margin-left:auto;
+ 	margin-right:auto;
+ 	text-align: justify;
+ 	font-size: 15px;
+ }
+ section {
+ 	margin-top: -5%;
+ 	height: 100%;
+ 	width: 80%;
+ 	background-color: #FFFFFF;
+ 	text-align: center;
+ 	margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+ }
+ article{background-color: #cccccc;
+ 	
+ }
+ 
 </style>
 </head>
 <body class="contact">
@@ -18,26 +55,30 @@ td[type=finished]{
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 special container small">
+					<section >
 					
 						<!-- Content -->
 							<div class="content">
 								<h3><p>Pedidos pendentes</h3>
-								<font size="3">Se você já enviou o volume correto para o endereço clique em "Verificar pagamento" para confirmar o pagamento.<BR>Verifique as informações antes de finalizar a confirmação utilizando o botão "Editar dados".</font></p>
-									<table>
-										<font size="2"><th><tr>Status,            </tr></th>
-										<th><tr>Volume / Moeda,      </tr></th>
-										<th><tr>Pedido feito em,      </tr></th>
-										<th><tr>Opções          </tr></th>
-										<th><tr>Extras</tr></th></font>
-										<font size="3"><% @pagamentos.each do |h| %>
+								<div type='format_text'>Se você já enviou o volume correto para o endereço clique em "Verificar pagamento" para confirmar o pagamento. Verifique as informações antes de finalizar a confirmação utilizando o botão "Editar dados". (Esta sessão é para pagamentos em BITCOIN especificamente. Ou para pagamentos ainda não confirmados pela operadora selecionada.)</p></div>
+									<table style="width:100%">
+										
+											<tr>
+									 	  	    <td>Status</td>
+									 	  	    <td>Volume / Moeda</td>
+									 	  	    <td>Identificador</td>
+									 	  	    <td>Tipo de operação</td>
+									 	  	    <td>Opções</td></td>
+									 	  	    </tr>
+										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'success'%>
-										<font color='red'><p><tr>- Aguardando pagamento </tr>
+										<p><tr>- Aguardando pagamento </tr>
 										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
 										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
 										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %>
+										
 										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
 										<p><tr>- Confirmação em andamento </tr>
 										<tr><b><%= h.volume %></b> <b>BRL</b></b></tr>
@@ -52,17 +93,20 @@ td[type=finished]{
 										<tr></tr> </tr>
 										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
 										<% end %>
-										<% end %></font></font>
+										<% end %><
 									</table>
 									</div>
-									<p>Pedidos aceitos (Na fila para envio)</p>
-									<font size="3">Abaixo estão pagamentos já aceitos, porém ainda não foram enviados para o endereço cadastrado. Assim que forem enviados, você os verá em "Transações fechadas", no fim da página.</font></p>
-									<table border="1">
-										<font size="2" ><tr>Status,            </tr>
-										<th><tr>Volume / Moeda,      </tr></th>
-										<th><tr>Pedido Atualizado em,      </tr></th>
-										<th><tr>	Opções          </tr></th>
-										<th><tr>Extras</tr></th><br></font><font color='green'>
+									<hr>
+									<p><h3>Pedidos aceitos (Na fila para envio)<br></h3>
+									<div type="format_text">Abaixo estão pagamentos já aceitos, porém ainda não foram enviados para o endereço cadastrado. Assim que forem enviados, você os verá em "Transações fechadas", no fim da página.</div>
+									<table style="width:100%"></p>
+										<tr>
+									 	  	    <td>Status</td>
+									 	  	    <td>Volume / Moeda</td>
+									 	  	    <td>Identificador</td>
+									 	  	    <td>Tipo de operação</td>
+									 	  	    <td>Opções</td></td>
+									 	  	    </tr>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'accepted'%>
 										<tr>- Transação aceita. </tr>
@@ -71,14 +115,15 @@ td[type=finished]{
 										<tr>  </tr>
 										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
 										<% end %>
-										<% end %></font>
+										<% end %>
 										
 									</table>
-									<p>Transações fechadas.
-									Abaixo você encontrará a listagem de pedidos que você fez e que foram enviados.</p>
-									 <font size='2'>
+									<hr>
+									<p><h3>Transações fechadas.<br></h3>
+									<div type="format_text">Abaixo você encontrará a listagem de pedidos que você fez e que foram enviados, bem como os detalhes específicos de cada um.</p></div>
+									
 									<table style="width:100%">
-									 		<h4>	<tr>
+									 			<tr>
 									 	  	    <td>Status</td>
 									 	  	    <td>Volume / Moeda</td>
 									 	  	    <td>Identificador</td>
@@ -120,7 +165,7 @@ td[type=finished]{
 									 	  	    	<td type='finished'><%= h.address%></td>	
 									 	  	    </tr>
 									 	  	    <% end %>
-										<% end %></font>
+										<% end %>
 									 	  	   	</table> 
 							</div>
 							</h4>
