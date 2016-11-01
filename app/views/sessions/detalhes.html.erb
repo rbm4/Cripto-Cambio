@@ -73,26 +73,33 @@ td[type=finished]{
 									 	  	    </tr><font size='2'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'success'%>
-										<p><tr>- Aguardando pagamento </tr>
-										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
-										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
-										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
+									 	  	    <tr>
+									 	  	    <td type='waiting'> Aguardando pagamento</td>
+									 	  	    <td type='waiting'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
+									 	  	    <td type='waiting'><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></td>
+									 	  	    <td type='waiting'><%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %></td>
+									 	  	    </tr>
 										<% end %>
 										
-										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
-										<p><tr>- Confirmação em andamento </tr>
-										<tr><b><%= h.volume %></b> <b>BRL</b></b></tr>
-										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-										<tr></tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </tr>
-										<tr>Pagamentos do pagseguro são confirmados automaticamente.</tr>
+										<% if h.usuario ==username and h.status == 'incompleta' and (h.network == 'pagseguro' or h.network == 'paypal') %>
+										<tr>
+										<p><td type='waiting'> Confirmação em andamento </td>
+										<td type='waiting'><b><%= h.volume %></b> <b>BRL</b></b></td>
+										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
+										<td type='waiting'><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </td>
+										<% if h.network == 'pagseguro' %>
+										<td type='waiting'>Pagamentos do pagseguro são confirmados automaticamente.</tr>
+										<% else%>
+										<td type='waiting'>Pagamentos do paypal são confirmados automaticamente, se você realizou e não confirmou clique aqui.</tr>
+										</tr>
 										<% end %>
 										<% if h.usuario == username and h.status == 'waiting confirmation'%>
-										<p><tr>- Confirmação em andamento </tr>
-										<tr><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></tr>
-										<tr><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-										<tr></tr> </tr>
-										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</tr>
+										<p><td type='waiting'>- Confirmação em andamento </td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></td>
+										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
+										<td type='waiting'> Bitcoin </td>
+										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</td>
 										<% end %>
 										<% end %></font>
 									</table>
