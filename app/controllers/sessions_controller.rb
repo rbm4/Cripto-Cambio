@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
           end
         end
       end
-      
+      @total_btc = limite_compra_btc
       @atual = Usuario.find(params[:id])
     unless session[:user_id] == @atual.id
       @messages = "ERRO! Você não pode acessar esta página"

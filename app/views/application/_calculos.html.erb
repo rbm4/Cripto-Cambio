@@ -1,9 +1,18 @@
-
+<style>
+	dt{
+		font: bold;
+	}
+</style>
 <%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
+<% if @zero == false%>
 <% if @warning == false%>
 <font color='red' style='font:bold;'>Endereço de carteira Inválido.</font> <img src='images/warning.png' height='32' width='32'>
 <% elsif @warning == true %>
- <font color='blue' style='bold'> Endereço verificado </font> <img src='images/verified.png' height='32' width='32'>
+ <font color='blue' > <dt>Endereço verificado </font> <img src='images/verified.png' height='32' width='32'><br></dt>
+ <% if @limite == true %>
+ <font color='red' > <dt>Você selecionou mais do que o limite de compra.<br> Seu pedido foi ajustado para um volume de <%= @limit %> BTC</dt></font>
+ <% @desejado = @limit%>
+ <% end %>
  
 								<dd><%= f.hidden_field :usuario, :value => username %> </dd>
     							<dd><%= f.hidden_field :email, :value => useremail %></dd>
@@ -47,4 +56,7 @@
 									 	  	    <% end%>
 									 	  	    
 										</font>
-									 	  	   	</table> <% end %>
+									 	  	   	</table> <% end %> <% end %>
+									 	  	   	<% if @zero == true %>
+									 	  	   	<font color='red' > <dt> ERRO! Digite um valor válido. </font></dt>
+									 	  	   	<% end %>

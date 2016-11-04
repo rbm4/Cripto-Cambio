@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :bitcoinpay
   protect_from_forgery with: :exception
   attr_accessor :viewname
+  helper_method :limite_compra_btc
   helper_method :useremail
   helper_method :current_user
   helper_method :current_order
@@ -29,10 +30,32 @@ class ApplicationController < ActionController::Base
   helper_method :litecoin_para_bitcoin
   helper_method :config_block
   
+  def config_block
+    @ltc_pin = '6f1c-30d7-b5b1-adcf' #6bb1-0e02-7f29-de1b live
+    @btc_pin = 'ac35-6ff5-e103-d1c3' #ddcf-3881-8c4e-7590 live
+    @pin = 'ignezconha'
+    @ltc_address = '2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
+    @btc_address = '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
+    @network = 'BTCTEST' #usada no chain.so
+  end
+  
+  def limite_compra_btc
+    config_block
+    url_r = 'https://chain.so/api/v2/get_address_balance/' + @network + '/' + @btc_address
+    uri_r = URI(url_r)
+    response_r = Net::HTTP.get(uri_r)
+    hash = JSON.parse(response_r)
+    limite_compra = BigDecimal(hash["data"]["confirmed_balance"]).div(2,8)
+    limite_compra
+  end
+  
   def calcular_metodos
-    
+    @zero = false
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
-    puts params['calculo']['moeda']
+    if BigDecimal(params['calculo']['volume']) <= 0
+      @zero = true
+      
+    end
     if params['calculo']['moeda'] == 'btc'
       #a = Bitcoin.valid_address? params['calculo']['address']
       @warning = true
@@ -41,15 +64,21 @@ class ApplicationController < ActionController::Base
       #elsif a == true
       #  @warning = true
       #end
-      @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + ' BRL'
+      
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
-      puts 'render'
+      @limit = limite_compra_btc
       @render = true
-      #render 'store/show'
-      respond_to do | format |  
-        format.js {render :layout => false}  
+      if BigDecimal(limite_compra_btc,8) <= BigDecimal(@desejado,8)
+        @limite = true
+        @preco_pagseguro = String(bitcoin_para_real(@limit)) + ' BRL'
+      else
+        @preco_pagseguro = String(bitcoin_para_real(params['calculo']['volume'])) + ' BRL'
       end
+      respond_to do | format |  
+        format.js {render :layout => false}
+      end
+      
     end
     if params['calculo']['moeda'] == 'ltc' #ofertas de pgto para LITECOINS
       @warning = true #Sem validação de enderaço
@@ -76,13 +105,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  def config_block
-    @ltc_pin = '6f1c-30d7-b5b1-adcf' #6bb1-0e02-7f29-de1b live
-    @btc_pin = 'ac35-6ff5-e103-d1c3' #ddcf-3881-8c4e-7590 live
-    @pin = 'ignezconha'
-    @ltc_address = '2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
-    @btc_address = '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
-  end
+  
   def brl_btc(value)
     convert_url = 'https://blockchain.info/tobtc?currency=BRL&value=' + value.to_s
     convert_uri = URI(convert_url)

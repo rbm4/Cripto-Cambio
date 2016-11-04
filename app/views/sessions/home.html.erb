@@ -10,6 +10,9 @@
 		b{
 			font-weight: bold;
 		}
+		 article{background-color: #cccccc;
+ 	
+ }
 	a{
     
 }
@@ -27,6 +30,11 @@ text{
  	margin-top: -10%;
  	padding: 10px;
  	
+ }
+ div[class=limites]{
+ 	margin-left: auto;
+    margin-right: auto;
+    text-align: left;
  }
 		</style>
 	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
@@ -66,8 +74,15 @@ text{
 									 	  	    --> </tr>
 									 	  	    <tr>
 									 	  	    	<td>Para mais detalhes, utilize o menu abaixo.</td>
+									 	  	    	
 									 	  	    </tr>
 									 	  	   	</table> 
+									 	  	   	<div class="limites">
+									 	  	   		
+									 	  	   		Valor máximo disponível de compra de bitcoins: <%= @total_btc %> BTC
+									 	  	   	
+									 	  	   	
+									 	  	   	</div>
 									
 									<header>
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
