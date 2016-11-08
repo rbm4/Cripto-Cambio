@@ -16,6 +16,13 @@ td[type=finished]{
  	font-size: 15px;
  	
  }
+ td[type=waiting]{
+ 	
+ 	
+ 	font-weight: bold;
+ 	font-size: 15px;
+ 	
+ }
  h3{
  	font-weight: bold;
  }
@@ -66,18 +73,20 @@ td[type=finished]{
 										
 											<tr>
 									 	  	    <td>Status</td>
+									 	  	    <td>Endereço</td>
 									 	  	    <td>Volume / Moeda</td>
-									 	  	    <td>Identificador</td>
-									 	  	    <td>Tipo de operação</td>
+									 	  	    <td>Data</td>
+									 	  	    <td>Excluir</td>
 									 	  	    <td>Opções</td></td>
 									 	  	    </tr><font size='2'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'success'%>
 									 	  	    <tr>
 									 	  	    <td type='waiting'> Aguardando pagamento</td>
-									 	  	    <td type='waiting'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='waiting'> <%= h.address %></td>
+									 	  	    <td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></td>
 									 	  	    <td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </tr></b>
-									 	  	    <td type='waiting'><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></td>
+									 	  	    <td type='waiting'><%= link_to "Excluir",  list_path(:id => h.postcode), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %><br></td>
 									 	  	    <td type='waiting'><%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %></td>
 									 	  	    </tr>
 										<% end %>
@@ -85,17 +94,28 @@ td[type=finished]{
 										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
 										<tr>
 										<p><td type='waiting'> Confirmação em andamento </td>
-										<td type='waiting'><b><%= h.volume %></b> <b>BRL</b></b></td>
+										<td type='waiting'> <%= h.address %></td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
 										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
-										<td type='waiting'><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %> </td>
-										<td type='waiting'>Pagamentos do pagseguro são confirmados automaticamente.</tr>
+										<td type='waiting'><%= link_to "Excluir",  list_path(:id => h.id), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %> </td>
+										<td type='waiting'><a href="<%= h.endereco%>">Realizar pgto.</a></tr>
+										<% end %>
+										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'paypal' %>
+										<tr>
+										<p><td type='waiting'> Confirmação em andamento </td>
+										<td type='waiting'> <%= h.address %></td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
+										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
+										<td type='waiting'><%= link_to "Excluir",  list_path(:id => h.id), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %> </td>
+										<td type='waiting'><a href="<%= h.postcode%>">Realizar pgto.</a></tr>
 										<% end %>
 										<% if h.usuario == username and h.status == 'waiting confirmation'%>
 										<p><td type='waiting'>- Confirmação em andamento </td>
-										<td type='waiting'><b><%= h.volume %></b> <b><%= moeda(h.network)%></b></b></td>
+										<td type='waiting'> <%= h.address %></td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
 										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
-										<td type='waiting'> Bitcoin </td>
-										<tr>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</td>
+										<td type='waiting'> <%= link_to "Excluir",  list_path(:id => h.id), method: "post", confirm: "Esta ação não poderá ser desfeita, prosseguir?" %> </td>
+										<td>|<%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %>|</td>
 										<% end %>
 										<% end %></font>
 									</table>
@@ -107,18 +127,23 @@ td[type=finished]{
 										<tr>
 									 	  	    <td>Status</td>
 									 	  	    <td>Volume / Moeda</td>
-									 	  	    <td>Identificador</td>
+									 	  	    <td>Data</td>
 									 	  	    <td>Tipo de operação</td>
 									 	  	    <td>Opções</td></td>
 									 	  	    </tr>
 									 	  	    <font size='2'>
 										<% @pagamentos.each do |h| %>
 										<% if h.usuario == username and h.status == 'accepted'%>
-										<tr>- Transação aceita. </tr>
-										<tr><b><%= h.volume %></b> <b><%= moeda(h.network) %></b> </tr>
-										<tr><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </tr>
-										<tr>  </tr>
-										<tr><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
+										<td type='waiting'> Transação aceita. </td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %> </b> </td>
+										<td type='waiting'><% updata = h.updated_at.to_s.split(" ")%> <%= updata[0] %> </td>
+										<% if h.network == 'pagseguro'%>
+										<td type='waiting'> Pagseguro </td>
+										<% end %>
+										<% if h.network == 'paypal'%>
+										<td type='waiting'> Paypal </td>
+										<% end %>
+										<td type='waiting'><%= link_to "Detalhes",  list_path(:id => h.address), method: "post" %><br></div></tr>
 										<% end %>
 										<% end %>
 										</font>
@@ -139,7 +164,7 @@ td[type=finished]{
 									 	  	    <% if h.usuario == username and h.status == 'send'%>
 									 	  	    <tr>
 									 	  	    <td type='finished'> Pedido enviado</td>
-									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></td>
 									 	  	    <td type='finished'>Bitcoin </td>
 									 	  	    <td type='finished'><%= h.user_id%><br></td>
 									 	  	    <td type='finished'><%= h.endereco%></td>
@@ -148,7 +173,7 @@ td[type=finished]{
 									 	  	    <% if h.usuario == username and h.status == 'retirado'%>
 									 	  	    <tr>
 									 	  	    <td type='finished'> Pedido Finalizado</td>
-									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
+									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></td>
 									 	  	    <td type='finished'>Bitcoin </td>
 									 	  	    <td type='finished'><%= h.user_id%><br></td>
 									 	  	    <td type='finished'><%= h.address%></td>

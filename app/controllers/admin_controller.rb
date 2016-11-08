@@ -10,11 +10,36 @@ class AdminController < ApplicationController
         @pagamentos = Pagamento.all 
     end
     def finish
-         @pagamento = Pagamento.find_by(address: params[:id])
-         @endereco = @pagamento.endereco
-         @produtos = @pagamento.produtos
-         @vol = @pagamento.volume
-         @carteira = @pagamento.address
+         if params['type'] == 'pgseguro'
+             @pagamento = Pagamento.find_by_pagseguro(params[:id])
+         end
+         if params['type'] == 'paypal'
+             @pagamento = Pagamento.find_by_endereco(params[:id])
+         end
+         config_block
+         @pagamento.status = 'pago'
+         url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses=' + @btc_address + '&to_addresses=' + @pagamento.address + '&amounts=' + @pagamento.volume.to_s
+         uri = URI(url)
+         response = Net::HTTP.get(uri) 
+         hash = JSON.parse(response)
+         puts hash
+         if hash["data"]["error_message"] != nil
+           @messages =  hash["data"]["error_message"]
+           if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+             pagto.status = 'accepted'
+             pagto.save
+           end
+           render nothing: true, status: 211
+           second = false
+           return
+         end
+         @messages = ""
+         @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
+         @pagamento.txid_blockchain = hash['data']['txid']
+         @pagamento.save
+         puts @messages
+         render nothing: true, status: 210
+         second = false
     end
     def finalizar
         @pagamento = Pagamento.find_by(address: params[:pgto_address])

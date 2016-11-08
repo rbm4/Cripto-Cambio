@@ -13,11 +13,6 @@
 						<!-- Content -->
 							<div class="content">
 								<p>Endereço fisico da entrega: <%= label_tag @endereco, nil, placeholder: @endereco, disabled: true%></p>
-								<font>Produtos solicitados neste pedido: </font>
-								<% array = @produtos.split(",")%>
-								<p><% array.each do |h| %>
-								<%= h.sub(/[^$\w^]/, "") %> 
-								<% end %></p>
 								<p>Volume Solicitado neste pagamento: <%= @vol %></p>
 								<p>Endereço para pagamento: <%= @carteira %></p>
 								<p><a href="detalhes">Voltar</a></p>

@@ -12,11 +12,12 @@ class ProdutosController < ApplicationController
     
     
     def list_all_payment
-         @pagamento = Pagamento.find_by(address: params[:id])
-         @endereco = @pagamento.endereco
-         @produtos = @pagamento.produtos
-         @vol = @pagamento.volume
-         @carteira = @pagamento.address
+        puts params[:id]
+        Pagamento.destroy(params[:id])
+        @pagamentos = Pagamento.all
+        render 'sessions/detalhes'
+        
+        
         
     end
     def finalizar_compra
@@ -83,14 +84,30 @@ class ProdutosController < ApplicationController
             # payment.extra_params << { senderName: username.to_s }
 	    
 	        response = payment.register
-	        code = payment.reference
-	    
-	        puts code
-	    
+	        array = response.code.split('')
+	        count = 0
+	        result = ''
+	        array.each do | a |
+	            count = count + 1
+	            result << a
+	            if count == 8
+	                result << '-'
+	            end
+	            if count == 12
+	                result << '-'
+	            end
+	            if count == 16
+	                result << '-'
+	            end
+	            if count == 20
+	                result << '-'
+	            end
+	        end
+	        puts result
             if response.errors.any?
                 raise response.errors.join("\n")
             else
-                salvar_pagamento(:pagseguro => code, :user_id => username, :network => 'pagseguro', :endereco => params["pagamento"]["rua"].to_s + ' ' + params["pagamento"]["complemento"].to_s + ' ' + params["pagamento"]["cidade"].to_s  + ' ' + params["pagamento"]["estado"].to_s + ' ' + params["pagamento"]["postcode"].to_s + ' ' + params["pagamento"]["pais"].to_s   , :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
+                salvar_pagamento(:pagseguro => result, :user_id => username, :network => 'pagseguro', :endereco => response.url, :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => payment.reference )
                 redirect_to response.url
             end
           end
@@ -138,7 +155,7 @@ class ProdutosController < ApplicationController
                                                         :description => 'Valor requisitado de: ' + params['pagamento']['volume'] + String(params['pagamento']['sku']) + ', Para ser pago em: ' + dados[0] }]})
                                                         # Create Payment and return the status(true or false)
                                                         if @payment.create
-                                                            salvar_pagamento(:user_id => username, :network => 'paypal', :endereco => @payment.id, :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => params["pagamento"]["postcode"] )
+                                                            salvar_pagamento(:user_id => username, :network => 'paypal', :endereco => @payment.id, :volume => params['pagamento']['volume'], :usuario => username, :status => 'incompleta', :produtos => params['pagamento']['sku'], :postcode => @payment.links[1].href )
                                                             redirect_to @payment.links[1].href, :method => 'REDIRECT'
                                                         else
                                                             @payment.error  # Error Hash
@@ -151,22 +168,22 @@ class ProdutosController < ApplicationController
     end
     private
     def salvar_pagamento(pagamento_params)
-        customer = current_user
+        #customer = current_user
         pagamento = Pagamento.new(pagamento_params)
-        order = Shoppe::Order.find(current_order.id)
+        #order = Shoppe::Order.find(current_order.id)
         pagamento.address = params["pagamento"]["address"]
         #order.status = 'received'
         #order.customer_id = customer.id
-        order.first_name = customer.first_name
-        order.last_name = customer.last_name
-        order.billing_address1 = params["pagamento"]["rua"]
-        order.billing_address2 = params["pagamento"]["numero"]
-        order.billing_address3 = params["pagamento"]["complemento"]
-        order.billing_address4 = params["pagamento"]["cidade"]
-        order.billing_postcode = params["pagamento"]["postcode"]
-        order.billing_country_id = '31'
-        order.email_address = useremail.to_s
-        order.phone_number = params["pagamento"]["endereco"]
+        #order.first_name = customer.first_name
+        #order.last_name = customer.last_name
+        #order.billing_address1 = params["pagamento"]["rua"]
+        #order.billing_address2 = params["pagamento"]["numero"]
+        #order.billing_address3 = params["pagamento"]["complemento"]
+        #order.billing_address4 = params["pagamento"]["cidade"]
+        #order.billing_postcode = params["pagamento"]["postcode"]
+        #order.billing_country_id = '31'
+        #order.email_address = useremail.to_s
+        #order.phone_number = params["pagamento"]["endereco"]
         #order.confirm!
         pagamento.save
         session[:order_id] = nil

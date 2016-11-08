@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   attr_accessor :viewname
   helper_method :limite_compra_btc
+  helper_method :limite_compra_ltc
   helper_method :useremail
   helper_method :current_user
   helper_method :current_order
@@ -37,11 +38,21 @@ class ApplicationController < ActionController::Base
     @ltc_address = '2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
     @btc_address = '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
     @network = 'BTCTEST' #usada no chain.so
+    @network_ltc = 'LTCTEST'
   end
   
   def limite_compra_btc
     config_block
     url_r = 'https://chain.so/api/v2/get_address_balance/' + @network + '/' + @btc_address
+    uri_r = URI(url_r)
+    response_r = Net::HTTP.get(uri_r)
+    hash = JSON.parse(response_r)
+    limite_compra = BigDecimal(hash["data"]["confirmed_balance"]).div(2,8)
+    limite_compra
+  end
+  def limite_compra_ltc
+    config_block
+    url_r = 'https://chain.so/api/v2/get_address_balance/' + @network_ltc + '/' + @ltc_address
     uri_r = URI(url_r)
     response_r = Net::HTTP.get(uri_r)
     hash = JSON.parse(response_r)

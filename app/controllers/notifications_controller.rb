@@ -37,6 +37,10 @@ class NotificationsController < ApplicationController
                 puts hash
             if hash["data"]["error_message"] != nil
                 @messages =  hash["data"]["error_message"]
+                if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+                  pagto.status = 'accepted'
+                  pagto.save
+                end
                 puts @messages
                 render 'msg', status: 211
                 return
@@ -57,6 +61,10 @@ class NotificationsController < ApplicationController
                 puts hash
             if hash["data"]["error_message"] != nil
                 @messages =  hash["data"]["error_message"]
+                if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+                  pagto.status = 'accepted'
+                  pagto.save
+                end
                 puts @messages
                 render 'msg', status: 211
                 return
@@ -85,6 +93,7 @@ class NotificationsController < ApplicationController
     end
     
     def msg
+      
     end 
     
     def bitcoin
@@ -139,9 +148,10 @@ class NotificationsController < ApplicationController
      response = Net::HTTP.get(uri1)
      @doc = Nokogiri::XML(response)
      status = @doc.xpath("//status")
+     puts status
      permission = Integer(status.to_s.match(/\d/).to_s)
      if permission == 3
-        pagto = Pagamento.find_by_pagseguro(transaction.reference)
+        pagto = Pagamento.find_by_postcode(transaction.reference)
         @doc.search('//item').each do |tag|
           description   = tag.at('description').text
           quantity      = tag.at('quantity').text
@@ -159,6 +169,10 @@ class NotificationsController < ApplicationController
           puts hash
           if hash["data"]["error_message"] != nil
             @messages =  hash["data"]["error_message"]
+            if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+              pagto.status = 'accepted'
+              pagto.save
+            end
             render nothing: true, status: 211
             second = false
             return
@@ -181,6 +195,10 @@ class NotificationsController < ApplicationController
           puts hash
           if hash["data"]["error_message"] != nil
             @messages =  hash["data"]["error_message"]
+            if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+              pagto.status = 'accepted'
+              pagto.save
+            end
             render nothing: true, status: 211
             second = false
             return
