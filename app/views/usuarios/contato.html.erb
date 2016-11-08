@@ -1,9 +1,14 @@
 <!DOCTYPE HTML>
-<!--
-	Twenty by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<style>
+	article{
+ 	margin-top: -10%;
+  background-color: #cccccc;
+ }
+ input[type=text]:focus,textarea[name=message]:focus{
+        color: white;
+        background: black;
+    }
+</style>
 <html>
 	 
 	<body class="contact">
@@ -14,8 +19,8 @@
 
 				<header class="special container">
 					<span class="icon fa-envelope"></span>
-					<h2>Get In Touch</h2>
-					<p>Use the form below to give /dev/null a piece of your mind.</p>
+					<h2>Entre em contato</h2>
+					<p>Utilize o formulário abaixo para entrar em contato conosco, tirar dúvidas, e questionar pagamentos.</p> Utilize o identificador único, localizado na página de detalhes, para qualquer dúvida sobre pagamentos específicos.
 				</header>
 					
 				<!-- One -->
@@ -23,29 +28,30 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<form>
+								<%= form_for(:message, :url => {:controller => 'usuarios', :action => 'mail'}) do |f| %>
 									<div class="row half collapse-at-2">
 										<div class="6u">
-											<input type="text" name="name" placeholder="Name" />
+											<%= f.text_field :name, :type => 'text', :name => "name", :placeholder => username , :disabled => true %> 
 										</div>
 										<div class="6u">
-											<input type="text" name="email" placeholder="Email" />
+											<%= f.text_field :email, :type => 'text', :name => "email", :placeholder => useremail, :disabled => true %> 
 										</div>
 									</div>
 									<div class="row half">
 										<div class="12u">
-											<input type="text" name="subject" placeholder="Subject" />
+											<%= f.text_field :text, :type => 'text', :name => "subject", :placeholder => "Assunto" %> 
 										</div>
 									</div>
 									<div class="row half">
 										<div class="12u">
-											<textarea name="message" placeholder="Message" rows="7"></textarea>
+											<%= f.text_area :message, :name => "message", :placeholder => "Mensagem" %> 
 										</div>
 									</div>
 									<div class="row">
 										<div class="12u">
 											<ul class="buttons">
-												<li><input type="submit" class="special" value="Send Message" /></li>
+												<li><%= f.submit "Enviar", :type => "submit",  :class => "special" %></li>
+												<% end %>
 											</ul>
 										</div>
 									</div>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   get 'sessions/login'
-
+  post '/mailto' => 'usuarios#mail'
   get '/home' => 'sessions#home'
   get '/loginerror' => 'sessions#loginerror'
   get '/contato' => 'usuarios#contato'

@@ -1,5 +1,7 @@
 class UsuariosController < ApplicationController
   require 'digest/sha1'
+  before_action :require_user, only: [:contato, :mail]
+  
   def new
     @usuario = Usuario.new
   end
@@ -27,6 +29,15 @@ class UsuariosController < ApplicationController
     #encrypted_password= Digest::SHA1.hexdigest(password)
   end
   def contato
+  end
+  def mail
+    nome_user = params['name']
+    email_user = params['email']
+    titulo = params['subject']
+    mensagem = params['message']
+    
+    @messages = 'Sua mensagem foi enviada com sucesso!'
+    render 'sessions/loginerror'
   end
   private
   def usuario_params
