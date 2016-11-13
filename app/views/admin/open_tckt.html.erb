@@ -1,0 +1,86 @@
+<style>
+	article{
+ 	background-color: #cccccc;
+ 	margin-top: -10%;
+ 	padding: 10px;
+ 	
+ }
+ td[type=bold]{
+ 	
+ 	border: 2px;
+ 	border-style: solid;
+ 	font-weight: bold;
+ 	font-size: 15px;
+ 	
+ }
+</style>
+<body class="contact">
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<table style="width:100%">
+								<tr >
+									<td> Usuário que abriu </td>
+									<td> Título do ticket </td>
+									<td> Status </td>
+									<td> Email do usuário</td>
+									</tr>
+								
+								<tr>
+								<td type='bold'><%= @ticket.user.capitalize %> </td>
+								<td type='bold'><%= @ticket.title.capitalize %> </td>
+								<td type='bold'><%= @ticket.status.capitalize %> </td>
+								<td type='bold'><%= @ticket.email %></td>
+								</tr>
+								</table>
+								
+								<tr><td></td>
+								
+								<td>Conteúdo do ticket</td>
+								<td></td>
+								</p>
+								</tr>
+								<tr>
+									<td>
+										
+									</td><%= form_for(:message, :url => {:controller => 'admin', :action => 'resposta'}) do |f| %>
+									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true %></div></td>
+									<p>Resposta do ticket: </p>
+									<%= f.text_area :resposta %>
+									<%= f.hidden_field :admin_name, :value => username.capitalize %>
+									<%= f.hidden_field :id, :value => @ticket.id %>
+									<%= f.submit "Responder" %>
+									<% end %>
+								</tr>
+								
+								
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

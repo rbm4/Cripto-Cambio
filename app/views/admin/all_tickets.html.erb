@@ -1,0 +1,72 @@
+<style>
+	article{
+ 	background-color: #cccccc;
+ 	margin-top: -10%;
+ 	padding: 10px;
+ 	
+ }
+ td[type=bold]{
+ 	
+ 	border: 2px;
+ 	border-style: solid;
+ 	font-weight: bold;
+ 	font-size: 15px;
+ 	
+ }
+
+ table{
+ 	border: 2px;
+ 	border-style: solid;
+    
+ }
+</style>
+<body class="contact">
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<table style="width:100%">
+								<tr >
+									<td> Usuário que abriu </td>
+									<td> Título do ticket </td>
+									<td> Status </td>
+									<td> Opções </td>
+									</tr>
+								<p><% @tickets.each do | h |%>
+								<tr>
+								<td type='bold'><%= h.user.capitalize %> </td>
+								<td type='bold'><%= h.title.capitalize %> </td>
+								<td type='bold'><%= h.status.capitalize %> </td>
+								<td type='bold'><%= link_to "Abrir",  ticket_path(:id => h.id), method: "post" %></td>
+								</p><% end %>
+								</tr></table>
+								
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

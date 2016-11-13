@@ -4,7 +4,7 @@
  	margin-top: -10%;
   background-color: #cccccc;
  }
- input[type=text]:focus,textarea[name=message]:focus{
+ input[type=text]:focus,textarea[name=message]:focus, input[class=form]{
         color: white;
         background: black;
     }
@@ -31,15 +31,17 @@
 								<%= form_for(:message, :url => {:controller => 'usuarios', :action => 'mail'}) do |f| %>
 									<div class="row half collapse-at-2">
 										<div class="6u">
-											<%= f.text_field :name, :type => 'text', :name => "name", :placeholder => username , :disabled => true %> 
+											<%= f.text_field :dummy1, :type => 'text', :class => "form", :name => "name", :disabled => true, value: username.to_s.capitalize, :required => true %> 
+											<%= f.hidden_field :name, :name => "name", value: username.to_s%>
 										</div>
 										<div class="6u">
-											<%= f.text_field :email, :type => 'text', :name => "email", :placeholder => useremail, :disabled => true %> 
+											<%= f.text_field :dummy2, :type => 'text', :class => "form", :name => "email", :disabled => true, value: useremail.to_s, :required => true %> 
+											<%= f.hidden_field :email, value: useremail.to_s, :name => "email"%>
 										</div>
 									</div>
 									<div class="row half">
 										<div class="12u">
-											<%= f.text_field :text, :type => 'text', :name => "subject", :placeholder => "Assunto" %> 
+											<%= f.text_field :text, :type => 'text', :name => "subject", :placeholder => "Assunto" , :maxlength => 25%> 
 										</div>
 									</div>
 									<div class="row half">

@@ -335,6 +335,10 @@ class ApplicationController < ActionController::Base
   def require_user 
     redirect_to '/login' unless current_user 
   end
+  def require_admin
+    @messages = 'Esta ação necessita permissão administrativa.'
+    redirect_to 'session/loginerror' unless is_admin?
+  end
   
   def require_logout
     redirect_to '/' if current_user

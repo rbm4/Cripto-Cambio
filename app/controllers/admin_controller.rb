@@ -1,13 +1,50 @@
 class AdminController < ApplicationController
+    
+    before_action :require_admin
+    
     def home
         @count = 0
         @numeros = Pagamento.where(status: "accepted")
         @numeros.each do
             @count = @count + 1
         end
+        @opened = 0
+        @tickets = Ticket.where(status: "aberto")
+        @tickets.each do
+            @opened = @opened + 1
+        end
+    end
+    def resposta
+        @ticket = Ticket.find(params[:id])
+        @texto = @ticket.conteudo
+        @ticket.conteudo << '\n'
+        @ticket.conteudo << '------------------------------------------------------------------------------------------------------'
+        @ticket.conteudo << 'Ticket respondido pelo admin: ' + params[:admin_name]
+        @ticket.conteudo << params[:resposta]
+        @ticket.conteudo << '------------------------------------------------------------------------------------------------------'
+        @ticket.status = "respondido"
+        if @ticket.save
+            @messages = "Resposta salva e enviada ao usuário."
+            render 'sessions/loginerror'
+        else
+            @messages = "Ocorreu algum erro. Tente novamente."
+            render 'sessions/loginerror'
+        end
     end
     def orders
         @pagamentos = Pagamento.all 
+    end
+    def all_tickets
+        @tickets = Ticket.all
+    end
+    def open_tckt
+        @ticket = Ticket.find(params[:id])
+        @nome = @ticket.user
+        @texto = @ticket.conteudo
+        @titulo = @ticket.title
+        @email = @ticket.email
+        @ticket.status = "lido"
+        @ticket.save
     end
     def finish
          if params['type'] == 'pgseguro'

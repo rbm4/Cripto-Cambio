@@ -31,13 +31,19 @@ class UsuariosController < ApplicationController
   def contato
   end
   def mail
-    nome_user = params['name']
-    email_user = params['email']
-    titulo = params['subject']
-    mensagem = params['message']
-    
-    @messages = 'Sua mensagem foi enviada com sucesso!'
-    render 'sessions/loginerror'
+    ticket = Ticket.new
+    ticket.user = params['name']
+    ticket.title = params['subject']
+    ticket.conteudo = params['message']
+    ticket.email = params['email']
+    ticket.status = 'aberto'
+    if ticket.save
+      @messages = 'Sua mensagem foi enviada com sucesso!'
+      render 'sessions/loginerror'
+    else
+      @messages = "Algum erro ocorreu. Por favor, tente novamente!"
+      render 'sessions/loginerror'
+    end
   end
   private
   def usuario_params

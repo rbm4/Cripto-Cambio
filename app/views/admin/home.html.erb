@@ -16,6 +16,12 @@
     border-style: inset;
     border-width: 1px;
 }
+article{
+ 	background-color: #cccccc;
+ 	margin-top: -10%;
+ 	padding: 10px;
+ 	
+ }
 td[type="title"]{
 	text-align:center;
 	font-size:25px;
@@ -69,7 +75,7 @@ input[type=submit]{
 									 	  	    <tr>
 									 	  	    <td type="menu"><%= button_to "Promote", promote_path %></td>
 									 	  	    <td type="menu"><%= button_to "Aguardando envio: " + @count.to_s, payment_path%></td>
-									 	  	    <td type="menu"><%= button_to "Novas: " + @count.to_s, msgs_path, :method => 'get' %></td>
+									 	  	    <td type="menu"><%= button_to "Novas: " + @opened.to_s, msgs_path, :method => 'get' %></td>
 									 	  	    </tr>
 									 	  	    <tr>
 									 	  	   	<td type="menu"><%= button_to "Demote", demote_path %></td>

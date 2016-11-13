@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   get 'sessions/login'
+  post '/ticket' => 'admin#open_tckt'
   post '/mailto' => 'usuarios#mail'
+  post '/submit_tckt' => 'admin#resposta'
   get '/home' => 'sessions#home'
   get '/loginerror' => 'sessions#loginerror'
   get '/contato' => 'usuarios#contato'
@@ -42,7 +44,7 @@ Rails.application.routes.draw do
   post '/confirmation' => 'notifications#balance_change'
   get '/promote' => 'admin#promo'
   get '/demote' => 'admin#demo'
-  get '/msgs' => 'notifications#msg'
+  get '/msgs' => 'admin#all_tickets'
   get '/msgall' => 'notifications#msgall'
   get '/setting' => 'sessions#setting'
   post '/blckrntf' => 'notifications#bitcoin'
