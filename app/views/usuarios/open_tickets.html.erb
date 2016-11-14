@@ -33,22 +33,28 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<%= link_to "Voltar", :controller => 'admin', :action =>'home', :id => session[:user_id]%>
+								<%= link_to "Voltar", :controller => 'sessions', :action =>'home', :id => session[:user_id]%>
+
 								<table style="width:100%">
 								<tr >
-									<td> Usuário que abriu </td>
-									<td> Título do ticket </td>
+									<td> Assunto </td>
 									<td> Status </td>
 									<td> Opções </td>
 									</tr>
+								<% contador = 0%>
 								<p><% @tickets.each do | h |%>
+								
+								<% if h.user == username %>
+								<% contador = contador + 1%>
 								<tr>
-								<td type='bold'><%= h.user.capitalize %> </td>
 								<td type='bold'><%= h.title.capitalize %> </td>
 								<td type='bold'><%= h.status.capitalize %> </td>
-								<td type='bold'><%= link_to "Abrir",  ticket_path(:id => h.id), method: "post" %></td>
-								</p><% end %>
-								</tr></table>
+								<td type='bold'><%= link_to "Abrir", :url => {:controller => 'usuarios', :action =>'open_tickets'}, :id => h.id, :method => 'post' %></td>
+								</p><% end %><% end %></tr></table>
+								<% if contador == 0%>
+								Você não possui nenhum ticket aberto! Acesse a sessão de contato para abrir.
+								<% end %>
+								
 								
 							</div>
 							

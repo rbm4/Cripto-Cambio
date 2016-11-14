@@ -85,9 +85,9 @@ div{
 							<ul><% products.permalink %><li>
 							
 							<p><b>Preço de 1 <%= products.sku.upcase %> em outras moedas:<div class='preco'> <%= String(standard_conversion(products.sku)).html_safe %> </th></p></div class='preco'>
-							<p><%= label_tag  "descricao" , products.short_description , disabled: true %></b></span></p>
-							<h4><%= button_to "Comprar", permalink: products.permalink , :id => 'button_buy'%></h4>
-							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><hr> </th><% end %>
+							<p><%= label_tag  "descricao" , products.short_description.html_safe , disabled: true %></b>
+							<h4><%= button_to "Comprar", permalink: products.permalink , :id => 'button_buy'%></p></span></h4>
+							</div></li></ul><th> <div class="table_foto"><img src=<%= products.in_the_box%> alt="prev" height=250px width=250px></div><br><br><hr> </th><% end %>
 							<% end %></div>
 							
 							

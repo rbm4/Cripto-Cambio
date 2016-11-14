@@ -27,20 +27,19 @@
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 special container small">
+					<section class="wrapper style4 special container">
 					
 						<!-- Content -->
 							<div class="content">
+							<%= link_to "Voltar", '/tickets' %>
 								<table style="width:100%">
 								<tr >
-									<td> Usuário que abriu </td>
 									<td> Assunto </td>
 									<td> Status </td>
-									<td> Email do usuário</td>
+									<td> Email </td>
 									</tr>
 								
 								<tr>
-								<td type='bold'><%= @ticket.user.capitalize %> </td>
 								<td type='bold'><%= @ticket.title.capitalize %> </td>
 								<td type='bold'><%= @ticket.status.capitalize %> </td>
 								<td type='bold'><%= @ticket.email %></td>
@@ -56,14 +55,32 @@
 								<tr>
 									<td>
 										
-									</td><%= form_for(:message, :url => {:controller => 'admin', :action => 'resposta'}) do |f| %>
-									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true %></div></td>
-									<p>Resposta do ticket: </p>
+									</td><%= form_for(:message, :url => {:controller => 'usuarios', :action => 'resposta'}) do |f| %>
+									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true, size: "25x7" %></div></td>
+									
+									<% if @ticket.status == 'aguardando resposta do usuário'%>
+									<p>Respoder ticket: </p>
 									<%= f.text_area :resposta %>
-									<%= f.hidden_field :admin_name, :value => username.capitalize %>
+									<%= f.hidden_field :user_name, :value => username %>
 									<%= f.hidden_field :id, :value => @ticket.id.to_s %>
 									<%= f.submit "Responder" %>
 									<% end %>
+									<% end %>
+									
+									<% if @ticket.status == 'respondido'%>
+									<p><b>Esta resposta resolveu seu problema?</b></p>
+
+
+									<%= form_for(:resposta, :url => {:controller => 'usuarios', :action => 'my_ticket'}) do |g| %>
+									<%= g.hidden_field :solve, :value => true %>
+									<%= g.hidden_field :id, :value => @ticket.id.to_s %>
+									<%= g.submit "Sim" %>
+									<%= g.submit "Não" %>
+									<% end%>
+
+									<% end %>
+
+									 
 								</tr>
 								
 								

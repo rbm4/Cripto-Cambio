@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20161109033335) do
     t.string   "produtos"
     t.string   "postcode"
     t.string   "pagseguro"
+    t.string   "txid_blockchain"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "txid_blockchain"
   end
 
   create_table "produtos", force: :cascade do |t|

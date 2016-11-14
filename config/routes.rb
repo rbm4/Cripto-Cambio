@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
+  get '/tickets' => 'usuarios#open_tickets'
+  get '/yesno' => 'usuarios#open_tickets'
+  post '/yesno' => 'usuarios#my_ticket'
+  post '/ticketawnser' => 'usuarios#resposta'
   get 'sessions/login'
   post '/ticket' => 'admin#open_tckt'
   post '/mailto' => 'usuarios#mail'
@@ -23,8 +27,6 @@ Rails.application.routes.draw do
   get '/register' => 'usuarios#new'
   get '/create' => 'usuarios#new'
   post '/create' => 'usuarios#create'
-  get '/sdisplay' => 'sensores#display'
-  get '/mjolnir' => 'sensores#mjolnir'
   get '/charte' => 'sensores#charte'
   get '/chamados' => 'sensores#smart'
   post "/store" => "store#show", as: "product"

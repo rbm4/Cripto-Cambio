@@ -337,11 +337,11 @@ class ApplicationController < ActionController::Base
   end
   def require_admin
     @messages = 'Esta ação necessita permissão administrativa.'
-    redirect_to 'session/loginerror' unless is_admin?
+    render 'sessions/loginerror' unless is_admin?
   end
   
   def require_logout
-    redirect_to '/' if current_user
+    rendirect_to '/' if current_user
   end
   def useremail
     if @current_user == nil

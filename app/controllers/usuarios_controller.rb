@@ -1,9 +1,29 @@
 class UsuariosController < ApplicationController
   require 'digest/sha1'
-  before_action :require_user, only: [:contato, :mail]
+  before_action :require_user, only: [:contato, :mail, :my_ticket, :open_tickets]
   
   def new
     @usuario = Usuario.new
+  end
+  def open_tickets
+    @tickets = Ticket.all
+    if params['method'] == 'post'
+      @ticket = Ticket.find(params['id'])
+      render 'myticket'
+    end
+  end
+  def my_ticket
+    @tickets = Ticket.all
+    @ticket = Ticket.find(params['resposta']['id'])
+    if params['commit'] == "Sim"
+      @ticket.status = 'fechado'
+      @ticket.save
+      render 'open_tickets'
+    end
+    if params['commit'] == "Não"
+      @ticket.status = 'aguardando resposta do usuário'
+      render 'usuarios/myticket'
+    end
   end
   def create
     @customer = Shoppe::Customer.new
@@ -38,11 +58,31 @@ class UsuariosController < ApplicationController
     ticket.email = params['email']
     ticket.status = 'aberto'
     if ticket.save
-      @messages = 'Sua mensagem foi enviada com sucesso!'
+      @messages = "Sua mensagem foi enviada com sucesso! Por favor, aguarde para futuro contato.\n Você pode consultar o status do seu ticket na área de 'Inicio' "
       render 'sessions/loginerror'
     else
       @messages = "Algum erro ocorreu. Por favor, tente novamente!"
       render 'sessions/loginerror'
+    end
+  end
+  def resposta
+    @ticket = Ticket.find(params['message']['id'])
+    @texto = @ticket.conteudo
+    @ticket.conteudo << "\n"
+    @ticket.conteudo << '------------------------------------------------------------------------------------------------------'
+    @ticket.conteudo << "\n"
+    @ticket.conteudo << 'Ticket respondido: ' + params['message']['user_name']
+    @ticket.conteudo << "\n"
+    @ticket.conteudo << params['message']['resposta']
+    @ticket.conteudo << "\n"
+    @ticket.conteudo << "------------------------------------------------------------------------------------------------------\n"
+    @ticket.status = "aberto"
+    if @ticket.save
+         @messages = "Sua mensagem foi enviada com sucesso! Por favor, aguarde para futuro contato.\n Você pode consultar o status do seu ticket na área de 'Inicio' "
+         render 'sessions/loginerror'
+    else
+         @messages = "Ocorreu algum erro. Tente novamente."
+         render 'sessions/loginerror'
     end
   end
   private

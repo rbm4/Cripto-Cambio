@@ -15,13 +15,16 @@ class AdminController < ApplicationController
         end
     end
     def resposta
-        @ticket = Ticket.find(params[:id])
+        @ticket = Ticket.find(params['message']['id'])
         @texto = @ticket.conteudo
-        @ticket.conteudo << '\n'
+        @ticket.conteudo << "\n"
         @ticket.conteudo << '------------------------------------------------------------------------------------------------------'
-        @ticket.conteudo << 'Ticket respondido pelo admin: ' + params[:admin_name]
-        @ticket.conteudo << params[:resposta]
-        @ticket.conteudo << '------------------------------------------------------------------------------------------------------'
+        @ticket.conteudo << "\n"
+        @ticket.conteudo << 'Ticket respondido pelo admin: ' + params['message']['admin_name']
+        @ticket.conteudo << "\n"
+        @ticket.conteudo << params['message']['resposta']
+        @ticket.conteudo << "\n"
+        @ticket.conteudo << "------------------------------------------------------------------------------------------------------\n"
         @ticket.status = "respondido"
         if @ticket.save
             @messages = "Resposta salva e enviada ao usuário."
@@ -43,8 +46,10 @@ class AdminController < ApplicationController
         @texto = @ticket.conteudo
         @titulo = @ticket.title
         @email = @ticket.email
-        @ticket.status = "lido"
-        @ticket.save
+        if @ticket.status == "aberto"
+            @ticket.status = "aguardando resposta"
+            @ticket.save
+        end
     end
     def finish
          if params['type'] == 'pgseguro'
