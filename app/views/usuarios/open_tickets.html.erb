@@ -49,7 +49,7 @@
 								<tr>
 								<td type='bold'><%= h.title.capitalize %> </td>
 								<td type='bold'><%= h.status.capitalize %> </td>
-								<td type='bold'><%= link_to "Abrir", :url => {:controller => 'usuarios', :action =>'open_tickets'}, :id => h.id, :method => 'post' %></td>
+								<td type='bold'><%= link_to "Abrir", :url => '/yesno', :id => h.id, :method => 'post' %></td>
 								</p><% end %><% end %></tr></table>
 								<% if contador == 0%>
 								Você não possui nenhum ticket aberto! Acesse a sessão de contato para abrir.

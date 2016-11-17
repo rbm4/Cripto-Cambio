@@ -1,5 +1,13 @@
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript">
+
+	</script>
+	<script type="text/javascript">
+function loading()
+{
+ $('#render').html('<img src="images/loading.gif" height="84" width="84" />');
+}
+</script>
 	
 	<style>
 	hr {
@@ -70,7 +78,7 @@ div{
  }
  .table_foto{
  	position: absolute;
-	margin-left: 35%;
+	margin-left: 42%;
 	margin-top: -25%;
  }
  
@@ -101,7 +109,7 @@ div{
     							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume  %>
     							<%= g.hidden_field :permalink, :value => @product.permalink %>
     							<%= g.hidden_field :moeda, :value => @product.sku %>
-    							<%= g.submit 'Calcular Preço' %>
+    							<%= g.submit 'Calcular Preço', :onClick => "loading();" %>
     							<% end %>
     							<% else %>
     								<%= form_for :calculo, :url => '/calc' do |g| %>
@@ -109,16 +117,9 @@ div{
     								<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume , :value => @desejado, :placeholder => @desejado%>
     								<%= g.hidden_field :permalink, :value => @product.permalink %>
     								<%= g.hidden_field :moeda, :value => @product.sku %>
-    								<%= g.submit 'Calcular Preço' %>
+    								<%= g.submit 'Calcular Preço', :onClick => "loading();" %>
     							<% end %>
 								<% end %>
-								
-								<% if @render == true%>
-								<% end %>
-								
-								
-								
-								
 								
 								
 								

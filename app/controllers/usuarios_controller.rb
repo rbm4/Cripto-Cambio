@@ -18,11 +18,13 @@ class UsuariosController < ApplicationController
     if params['commit'] == "Sim"
       @ticket.status = 'fechado'
       @ticket.save
-      render 'open_tickets'
     end
     if params['commit'] == "Não"
       @ticket.status = 'aguardando resposta do usuário'
-      render 'usuarios/myticket'
+      @ticket.save
+    end
+    respond_to do | format |  
+        format.js {render :layout => false}
     end
   end
   def create

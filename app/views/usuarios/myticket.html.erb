@@ -18,6 +18,12 @@
  	
  }
 </style>
+<script type="text/javascript">
+function loading()
+{
+ $('#render').html('<img src="images/loading.gif" height="84" width="84" />');
+}
+</script>
 <body class="contact">
 		<!-- Main -->
 			<article id="main">
@@ -55,8 +61,8 @@
 								<tr>
 									<td>
 										
-									</td><%= form_for(:message, :url => {:controller => 'usuarios', :action => 'resposta'}) do |f| %>
-									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true, size: "25x7" %></div></td>
+									</td><div id="render"><%= form_for(:message, :url => {:controller => 'usuarios', :action => 'resposta'}) do |f| %>
+									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true, size: "25x7" %></td>
 									
 									<% if @ticket.status == 'aguardando resposta do usuário'%>
 									<p>Respoder ticket: </p>
@@ -71,11 +77,11 @@
 									<p><b>Esta resposta resolveu seu problema?</b></p>
 
 
-									<%= form_for(:resposta, :url => {:controller => 'usuarios', :action => 'my_ticket'}) do |g| %>
+									<%= form_for(:resposta, :url => {:controller => 'usuarios', :action => 'my_ticket'}, :remote => true, :onClick => "loading()") do |g| %>
 									<%= g.hidden_field :solve, :value => true %>
 									<%= g.hidden_field :id, :value => @ticket.id.to_s %>
 									<%= g.submit "Sim" %>
-									<%= g.submit "Não" %>
+									<%= g.submit "Não" %></div>
 									<% end%>
 
 									<% end %>

@@ -1,0 +1,14 @@
+<%= form_for(:message, :url => {:controller => 'usuarios', :action => 'resposta'}) do |f| %>
+									<td type='bold'><%= f.text_area "Texto", :value => @ticket.conteudo, disabled: true, size: "25x7" %></div></td>
+									
+									<% if @ticket.status == 'aguardando resposta do usuário'%>
+									<p>Respoder ticket: </p>
+									<%= f.text_area :resposta %>
+									<%= f.hidden_field :user_name, :value => username %>
+									<%= f.hidden_field :id, :value => @ticket.id.to_s %>
+									<%= f.submit "Responder" %>
+									<% end %>
+									<% end %>
+									<% if @ticket.status == 'fechado'%>
+									<p>Trabalhamos duro para atender nossos usuários da melhor forma possível!</p>Agradecemos o seu contato e o convidamos para comentar sobre nossos serviços na seção de <%= link_to "Avaliação", "/avail", :id => current_user.id %>, ou voltar ao <%= link_to "Inicio", "/home", :id => current_user.id %>, se preferir.
+									<% end %>
