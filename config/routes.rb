@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
+  post '/coinpay' => 'notifications#coinpay'
   get '/tickets' => 'usuarios#open_tickets'
   get '/yesno' => 'usuarios#open_tickets'
   post '/yesno' => 'usuarios#my_ticket'

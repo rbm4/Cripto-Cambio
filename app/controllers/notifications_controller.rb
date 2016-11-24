@@ -3,7 +3,26 @@ class NotificationsController < ApplicationController
     require 'paypal-sdk-rest'
     include PayPal::SDK::REST
     include PayPal::SDK::Core::Logging
-    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip]
+    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip, :coinpay]
+    
+    def coinpay
+      @pgto = Pagamento.new
+      params['ipn_id'] 
+      if params['merchant'] == 'b1e3df05f8a772fc276f4b79aef1c551'
+      end
+      if params['status'] >= '100'
+      end
+      array = params['item_name'].split('/')
+      puts 'enviar volume para carteira ' + array[0]
+      puts 'moeda: ' + array[1]
+      puts 'quantia: ' + array[2]
+      puts 'notificação chegou'
+      return 200
+    
+      
+      #Parameters: "txn_id"=>"CPAK66ELODNBAV3TE8U29WYYPB", "status"=>"0", "status_text"=>"Waiting for buyer funds...", "currency1"=>"BTC", "currency2"=>"LTC", "amount1"=>"1.366E-5", "amount2"=>"0.0026", "subtotal"=>"1.366E-5", "shipping"=>"0", "tax"=>"0", "fee"=>"1.0E-5", "item_amount"=>"1.366E-5", "item_name"=>"FracaoBTC", "quantity"=>"1", "first_name"=>"krobellus", "last_name"=>"alperte", "email"=>"krobellus@protonmail.ch", "received_amount"=>"0", "received_confirms"=>"0"}
+    
+    end
     
     def balance_change url_string, xml_string
       uri = URI.parse url_string

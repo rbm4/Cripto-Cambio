@@ -2,19 +2,19 @@ development:
   adapter: postgresql
   encoding: unicode #unicode
   database: deepmarket
-  host: localhost
-  pool: 5
-  username: krobellus
-  password: Xatm@074
+  #host: localhost
+  #pool: 5
+  username: krobellus #ubuntu 
+  password: Xatm@074 #password 
 
 test:
   adapter: postgresql
   encoding: unicode #unicode
   database: deepmarket
-  host: localhost
-  pool: 5
-  username: krobellus
-  password: Xatm@074
+  #host: localhost
+  #pool: 5
+  username: krobellus #ubuntu 
+  password: Xatm@074 #password 
 
 # MySQL.  Versions 5.0+ are recommended.
 #
