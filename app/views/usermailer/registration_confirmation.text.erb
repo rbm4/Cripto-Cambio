@@ -1,0 +1,5 @@
+Olá <%= @user.first_name %>,
+
+Obrigado por se registrar! Você está prestes a realizar compras de bitcoin e litecoins com a melhor facilidade e praticidade!
+
+<%= link_to "Confirmar", :controller => 'usuarios', :action => 'confirm_email', :id => @user.confirm_token, :host => "localhost", :port => 3000 %>

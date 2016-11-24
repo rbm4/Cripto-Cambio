@@ -1,5 +1,6 @@
 class Usuario < ActiveRecord::Base
     attr_accessor :password
+    before_create :confirmation_token
     EMAIL_REGEX = /\A([\w+\-]\.?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
     validates :username, :presence => true, :uniqueness => true, :length => { :in => 3..20 }
     validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
@@ -16,8 +17,19 @@ class Usuario < ActiveRecord::Base
         else
             return false
         end
+    end
+    def email_activate
+        self.email_confirmed = true
+        self.confirm_token = nil
+        save!(:validate => false)
     end   
     def match_password(login_password="")
         encrypted_password == Digest::SHA1.hexdigest(login_password)
+    end
+    private
+    def confirmation_token
+      if self.confirm_token.blank?
+          self.confirm_token = SecureRandom.urlsafe_base64.to_s
+      end
     end
 end

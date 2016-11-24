@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   require 'rest-client'
+  require 'sendgrid-ruby'
+  include SendGrid
   require 'blockchain'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -7,6 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   attr_accessor :viewname
   helper_method :limite_compra_btc
+  helper_method :confirmar_email
   helper_method :limite_compra_ltc
   helper_method :useremail
   helper_method :current_user
@@ -31,6 +34,29 @@ class ApplicationController < ActionController::Base
   helper_method :litecoin_para_bitcoin
   helper_method :config_block
   
+  def confirmar_email(user)
+    string_body = ""
+    string_body << "Olá "
+    string_body << user.first_name.capitalize + " " + user.last_name.capitalize
+    string_body << "<br>"
+    string_body << "Obrigado por se registrar!<br> Você esta prestes a realizar compras de bitcoin e litecoins com a melhor facilidade e praticidade!<br>"
+    string_body << "\n"
+    string_body << ("Confirme seu email clicando no link:" + "<a href='http://localhost:3000/confirmation?id=" + user.confirm_token.to_s + "'> Confirmar </a>")
+    
+    from = Email.new(email: 'admin@cptcambio.com')
+    subject = 'Confirmação de registro Cripto Cambio'
+    to = Email.new(email: user.email)
+    content = Content.new(type: 'text/html', value: string_body)
+    mail = Mail.new(from, subject, to, content)
+
+    sg = SendGrid::API.new(api_key: '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')
+    response = sg.client.mail._("send").post(request_body: mail.to_json)
+    puts 'email enviado aqui'
+    puts response.status_code
+    puts response.body
+    puts response.headers
+
+  end
   def config_block
     @ltc_pin = '6f1c-30d7-b5b1-adcf' #6bb1-0e02-7f29-de1b live
     @btc_pin = 'ac35-6ff5-e103-d1c3' #ddcf-3881-8c4e-7590 live

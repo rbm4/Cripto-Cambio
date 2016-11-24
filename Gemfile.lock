@@ -315,6 +315,7 @@ GEM
       rubyzip
       spreadsheet (> 0.6.4)
     ruby-ole (1.2.12)
+    ruby_http_client (3.0.0)
     rubyzip (1.2.0)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -326,6 +327,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sendgrid-ruby (4.0.6)
+      ruby_http_client (~> 3.0.0)
     shoppe (1.1.2)
       awesome_nested_set (~> 3.0.2)
       bcrypt (>= 3.1.2, < 3.2)
@@ -401,6 +404,7 @@ DEPENDENCIES
   rest-client (~> 2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  sendgrid-ruby
   shoppe (~> 1.0)
   spring
   turbolinks
@@ -408,4 +412,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

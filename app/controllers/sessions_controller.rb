@@ -8,9 +8,14 @@ class SessionsController < ApplicationController
   def login_attempt
     @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
     if @authorized_user
-      session[:user_id] = @authorized_user.id
-      @messages = "Wow Welcome again, you logged in as #{@authorized_user.username}"
-      redirect_to :controller => 'sessions', :action =>'home', :id => session[:user_id]
+      if @authorized_user.email_confirmed == true
+        session[:user_id] = @authorized_user.id
+        @messages = "Wow Welcome again, you logged in as #{@authorized_user.username}"
+        redirect_to :controller => 'sessions', :action =>'home', :id => session[:user_id]
+      else
+        @messages = "Email não confirmado, ainda. Por favor, confira sua caixa de entrada ou caixa de SPAM em busca do email de confirmação."
+        render "login"
+      end
     else
       @messages = "Email/Username ou senha inválidos."
       flash[:color]= "invalid"

@@ -36,11 +36,14 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.new(usuario_params)
     @usuario.username.downcase!
     @usuario.email.downcase!
+
     if @usuario.save
-      @logged = 'Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.'
+      @logged = "Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.\n Por favor, acesse seu email para confirmar o registro."
       flash[:color] = 'valid'
       @usuario.encrypted_password = Digest::SHA1.hexdigest(@usuario.password)
+      @usuario.email_confirmed = false
       @customer.save
+      confirmar_email(@usuario)
       @usuario.save
       render 'sessions/login'
     else 
@@ -48,7 +51,6 @@ class UsuariosController < ApplicationController
       render 'new'
       flash[:color] = 'invalid'
     end
-    #encrypted_password= Digest::SHA1.hexdigest(password)
   end
   def contato
   end
@@ -85,6 +87,18 @@ class UsuariosController < ApplicationController
     else
          @messages = "Ocorreu algum erro. Tente novamente."
          render 'sessions/loginerror'
+    end
+  end
+  def confirm_email
+    user = Usuario.find_by_confirm_token(params[:id])
+    if user
+      user.email_activate
+      user.save
+      @logged = "Parabéns! Seu email foi confirmado! Faça login para prosseguir."
+      render 'sessions/login'
+    else
+      @logged = "Usuário inexistente."
+      render 'sessions/login'
     end
   end
   private
