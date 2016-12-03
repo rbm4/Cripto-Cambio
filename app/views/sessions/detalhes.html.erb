@@ -10,10 +10,11 @@
     border-width: 1px;
 }
 td[type=finished]{
- 	color:blue;
+	font-family: "Courier New", Times, serif;
+ 	
  	text-align:center;
  	font-weight: bold;
- 	font-size: 15px;
+ 	font-size: 12px;
  	border: 2px;
  	border-style: solid;
  	
@@ -24,7 +25,7 @@ td[type=finished]{
  	border: 2px;
  	border-style: solid;
  	font-weight: bold;
- 	font-size: 15px;
+ 	font-size: 10px;
  	
  }
  h3{
@@ -93,6 +94,16 @@ td[type=finished]{
 									 	  	    <td type='waiting'><%= link_to "Excluir",  list_path(:id => h.postcode), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %><br></td>
 									 	  	    <td type='waiting'><%= link_to "Verificar Pagamento",  submit_path(:id => h.address), method: "post" %></td>
 									 	  	    </tr>
+										<% end %>
+										
+										<% if h.usuario ==username and h.status == 'Aguardando pgto' and h.network == 'coinpayments' %>
+										<tr>
+										<p><td type='waiting'> Aguardando pagamento </td>
+										<td type='waiting'> <%= h.address %></td>
+										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
+										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
+										<td type='waiting'><%= link_to "Excluir",  list_path(:id => h.id), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %> </td>
+										<td type='waiting'><a href="<%= h.endereco%>">Realizar pgto.</a></tr>
 										<% end %>
 										
 										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
@@ -195,6 +206,10 @@ td[type=finished]{
 									 	  	    	<% if h.network == 'paypal'%>
 									 	  	    	<td type='finished'><%= h.endereco %> </td>
 									 	  	    	<td type='finished'>Paypal<br></td>
+									 	  	    	<% end %>
+									 	  	    	<% if h.network == 'coinpayments'%>
+									 	  	    	<td type='finished'><%= h.postcode %> </td>
+									 	  	    	<td type='finished'>CoinPayments.net<br></td>
 									 	  	    	<% end %>
 									 	  	    	<td type='finished'><%= h.address%></td>	
 									 	  	    </tr>

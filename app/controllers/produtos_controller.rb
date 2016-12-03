@@ -16,9 +16,42 @@ class ProdutosController < ApplicationController
         Pagamento.destroy(params[:id])
         @pagamentos = Pagamento.all
         render 'sessions/detalhes'
-        
-        
-        
+    end
+    def save_coinpay
+        pgto = Pagamento.new
+        order = Shoppe::Order.find(current_order.id)
+        #params = {'cmd' => '_pay', 'reset' => '1', 'merchant' => 'b1e3df05f8a772fc276f4b79aef1c551', 'item_name' => id, 'currency' => pagar_em , 'amountf' => volume, 'quantity' => '1', 'allow_quantity' => '0', 'want_shipping' => '0', 'success_url' => 'https://mkta.herokuapp.com/', 'cancel_url' => 'https://mkta.herokuapp.com/', 'ipn_url' => 'https://bmarket-rbm4.c9users.io/coinpay', 'allow_extra' => '0'}
+        #resposta = Net::HTTP.post_form(URI.parse('https://www.coinpayments.net/index.php'), params)
+        pgto.user_id = params['coinpay']['item_name'] + '/' + order.id.to_s
+        pgto.address = params['coinpay']['address']
+        pgto.status = 'Aguardando pgto'
+        if params['coinpay']['sku'] != "btc"
+            @moeda = "BTC"
+            if params['coinpay']['sku'] == "ltc" #colocar abaixo conversao de todas as moedas diferentes de BTC para BTC em valor
+                @preco_bitcoin = litecoin_para_x_bitcoin(BigDecimal(params['coinpay']['volume']))
+            end
+        else
+            @moeda = "USD"
+            string = 'https://blockchain.info/pt/ticker' 
+            btc_desejado = String(BigDecimal(BigDecimal(params['coinpay']['volume']).mult(1.3,8)))
+            uri = URI(string)
+            response = Net::HTTP.get(uri)
+            json = JSON.parse(response)
+            dec = BigDecimal(json["USD"]["last"],8)
+            @preco_bitcoin = dec.mult(BigDecimal(btc_desejado),8)
+            
+        end
+        pgto.usuario = params['coinpay']['usuario']
+        pgto.volume = params['coinpay']['volume']
+        pgto.network = 'coinpayments'
+        pgto.produtos = params['coinpay']['sku']
+        pgto.postcode = params['coinpay']['item_name'] + '/' + order.id.to_s
+        pgto.save!
+        @id = params['coinpay']['item_name'] + '/' + order.id.to_s
+        session[:order_id] = nil
+        respond_to do | format |  
+            format.js {render :layout => false}  
+        end
     end
     def finalizar_compra
        pgto = Pagamento.new(pagamento_params)

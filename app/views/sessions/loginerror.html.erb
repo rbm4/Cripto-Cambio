@@ -19,7 +19,7 @@
 					
 						<!-- Content -->
 							<div class="content">
-								<%= label_tag @messages, nil, placeholder: @messages, disabled: true%>
+								<%= @messages.html_safe %>
 							</div>
 							
 					</section>

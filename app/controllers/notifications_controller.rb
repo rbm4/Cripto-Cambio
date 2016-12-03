@@ -5,24 +5,79 @@ class NotificationsController < ApplicationController
     include PayPal::SDK::Core::Logging
     skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip, :coinpay]
     
-    def coinpay
-      @pgto = Pagamento.new
-      params['ipn_id'] 
-      if params['merchant'] == 'b1e3df05f8a772fc276f4b79aef1c551'
+  def coinpay
+    config_block
+    params['ipn_id'] 
+    if params['merchant'] == 'b1e3df05f8a772fc276f4b79aef1c551'
+      puts 'notificação chegou'
+      if params['status'] == '1'
+        puts 'pagamento recebido, esperando confirmação'
       end
       if params['status'] >= '100'
+        puts 'pagamento confirmado, enviando...'
+        array = params['item_name'].split('/')
+        puts 'enviar volume para carteira ' + array[0]
+        puts 'moeda: ' + array[1]
+        puts 'quantia: ' + array[2]
+        puts 'id da compra: ' + array[3]
+        
+        pagto = Pagamento.find_by_postcode(params['item_name'])
+        if (pagto.status.to_s == 'Aguardando pgto' and pagto.produtos == 'btc')
+          pagto.status = 'pago'
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses=' + @btc_address + '&to_addresses=' + array[0] + '&amounts=' + array[2].to_s
+          uri = URI(url)
+          response = Net::HTTP.get(uri) 
+          hash = JSON.parse(response)
+          puts hash
+          if hash["data"]["error_message"] != nil
+            @messages =  hash["data"]["error_message"]
+            if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+              pagto.status = 'accepted'
+              pagto.save
+            end
+            render nothing: true, status: 211
+            second = false
+            return
+          end
+          @messages = ""
+          @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
+          pagto.txid_blockchain = hash['data']['txid']
+          pagto.save
+          puts @messages
+          render nothing: true, status: 210
+          second = false
+          #pagto.txid_blockchain = params["data"]['txid']
+        end
+        if (pagto.status.to_s == 'Aguardando pgto' and pagto.produtos == 'ltc')
+          pagto.status = 'pago'
+          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @ltc_pin + '&pin=' + @pin + '&from_addresses=' + @ltc_address + '&to_addresses=' + array[0] + '&amounts=' + array[2].to_s
+          uri = URI(url)
+          response = Net::HTTP.get(uri) 
+          hash = JSON.parse(response)
+          puts hash
+          if hash["data"]["error_message"] != nil
+            @messages =  hash["data"]["error_message"]
+            if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
+              pagto.status = 'accepted'
+              pagto.save
+            end
+            render nothing: true, status: 211
+            second = false
+            return
+          end
+          @messages = ""
+          @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
+          pagto.txid_blockchain = hash['data']['txid']
+          pagto.save
+          puts @messages
+          render nothing: true, status: 210
+          second = false
+          #pagto.txid_blockchain = params["data"]['txid']
+        end
       end
-      array = params['item_name'].split('/')
-      puts 'enviar volume para carteira ' + array[0]
-      puts 'moeda: ' + array[1]
-      puts 'quantia: ' + array[2]
-      puts 'notificação chegou'
-      return 200
-    
-      
       #Parameters: "txn_id"=>"CPAK66ELODNBAV3TE8U29WYYPB", "status"=>"0", "status_text"=>"Waiting for buyer funds...", "currency1"=>"BTC", "currency2"=>"LTC", "amount1"=>"1.366E-5", "amount2"=>"0.0026", "subtotal"=>"1.366E-5", "shipping"=>"0", "tax"=>"0", "fee"=>"1.0E-5", "item_amount"=>"1.366E-5", "item_name"=>"FracaoBTC", "quantity"=>"1", "first_name"=>"krobellus", "last_name"=>"alperte", "email"=>"krobellus@protonmail.ch", "received_amount"=>"0", "received_confirms"=>"0"}
-    
     end
+  end
     
     def balance_change url_string, xml_string
       uri = URI.parse url_string

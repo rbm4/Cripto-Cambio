@@ -1,3 +1,5 @@
+
+
 <style>
 	dt{
 		font: bold;
@@ -51,25 +53,19 @@
 									 	  	   	<% if @zero == true %>
 									 	  	   	<font color='red' > <dt> ERRO! Digite um valor válido. </font></dt>
 									 	  	   	<% end %>
-									 	  	   	<% if @product.sku != 'btc' %>
+									 	  	   	
 									 	  	   	<tr>
-									 	  	   	<form action="https://www.coinpayments.net/index.php" method="post">
-									 	  	    <input type="hidden" name="cmd" value="_pay">
-									 	  	    <input type="hidden" name="reset" value="1">
-									 	  	    <input type="hidden" name="merchant" value="b1e3df05f8a772fc276f4b79aef1c551">
-									 	  	    <input type="hidden" name="item_name" value=<%= @carteira + '/' + @product.sku + '/' + @desejado %>>
-									 	  	    <input type="hidden" name="currency" value="BTC">
-									 	  	    <input type="hidden" name="amountf" value=<%= @preco_bitcoin.to_s %>>
-									 	  	    <input type="hidden" name="quantity" value="1">
-									 	  	    <input type="hidden" name="allow_quantity" value="0">
-									 	  	    <input type="hidden" name="want_shipping" value="0">
-									 	  	    <input type="hidden" name="success_url" value="https://mkta.herokuapp.com/">
-									 	  	    <input type="hidden" name="cancel_url" value="https://mkta.herokuapp.com/">
-									 	  	    <input type="hidden" name="ipn_url" value="https://bmarket-rbm4.c9users.io/coinpay">
-									 	  	    <input type="hidden" name="allow_extra" value="0">
-									 	  	    <td type='finished' id='preco_tipo'><input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Compre com CoinPayments.net"></td>
-									 	  	    <td type='finished' id='valor_preco'><%= @preco_bitcoin %></td>
+									 	  	   	<%= form_for :coinpay, :url => '/coinpaymentsave', :method => 'post', :remote => true do |g| %>
+									 	  	   	<%= g.hidden_field :usuario, :value => username %>
+    											<%= g.hidden_field :email, :value => useremail %>
+    											<%= g.hidden_field :sku, :value => @product.sku %>
+    											<%= g.hidden_field :volume, :value => String(@desejado) %>
+    											<%= g.hidden_field :address, :value => @carteira.to_s %>
+									 	  	    <%= g.hidden_field :item_name, :value => @carteira + '/' + @product.sku + '/' + String(@desejado) %>
+									 	  	    
+									 	  	    <td type='finished' id='preco_tipo'><%= g.submit "CriptoPay", :src => "https://www.coinpayments.net/images/pub/buynow-wide-blue.png", :type => "image" %> 
+									 	  	    <td type='finished' id='valor_preco'> Pague em outras criptomoedas!</td> <% end %>
 </form>											<td type='finished'></td>
 									 	  	    <td type='finished'></td>
 									 	  	    <td type='finished'></td>
-									 	  	    </tr> <% end %>
+									 	  	    </tr>

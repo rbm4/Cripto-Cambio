@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
   helper_method :standard_conversion
   helper_method :litecoin_para_bitcoin
   helper_method :config_block
+  helper_method :litecoin_para_x_bitcoin
   
   def confirmar_email(user)
     string_body = ""
@@ -127,15 +128,26 @@ class ApplicationController < ActionController::Base
       #end
       ltc_real = litecoin_para_real
       decimal = BigDecimal(params['calculo']['volume'],5)
-      x_real = BigDecimal(ltc_real,5).mult(decimal,5)
-      @preco_pagseguro = String(x_real) + ' BRL'
+      
       btc_ltc = litecoin_para_bitcoin
-      x_btc = BigDecimal(btc_ltc,7).mult(decimal,7)
-      @preco_bitcoin = String(x_btc) + ' BTC'
+      
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
       puts 'render'
+      
       @render = true
+      if BigDecimal(limite_compra_ltc,8) <= BigDecimal(@desejado,8)
+          @limite = true
+          x_real = BigDecimal(ltc_real,5).mult(limite_compra_ltc,5)
+          @preco_pagseguro = String(x_real) + ' BRL'
+          x_btc = BigDecimal(btc_ltc,7).mult(limite_compra_ltc,7)
+          @preco_bitcoin = String(x_btc) + ' BTC'
+      else
+          x_real = BigDecimal(ltc_real,5).mult(decimal,5)
+          @preco_pagseguro = String(x_real) + ' BRL'
+          x_btc = BigDecimal(btc_ltc,7).mult(decimal,7)
+          @preco_bitcoin = String(x_btc) + ' BTC'
+      end
       #render 'store/show'
       respond_to do | format |  
         format.js {render :layout => false}  
@@ -161,7 +173,7 @@ class ApplicationController < ActionController::Base
     conversao = hash['BRL']['last'] # 1 BTC
     puts String(value) + '/' + String(conversao)
     if value == nil 
-      result = BidDecimal(params['dynamic']).mult(conversao,2)
+      result = BigDecimal(params['dynamic']).mult(conversao,2)
       @preco_pagseguro = result
       render 'calculos'
     end
@@ -186,6 +198,16 @@ class ApplicationController < ActionController::Base
     conversao = hash['rate'] # 1 btc em ltc
     resultado = BigDecimal(conversao,5).mult(1.3,5)
     resultado
+  end
+  def litecoin_para_x_bitcoin(valor_litecoin)
+    convert_url = 'https://shapeshift.io/marketinfo/ltc_btc'
+    convert_uri = URI(convert_url)
+    response_convert = Net::HTTP.get(convert_uri)
+    hash = JSON.parse(response_convert)
+    conversao = hash['rate'] # 1 btc em ltc
+    resultado = BigDecimal(conversao,5).mult(1.3,5) #valor de 1 btc em ltc no meu site
+    result = BigDecimal(resultado,5).mult(valor_litecoin,5)
+    result
   end
   def litecoin_para_real
     convert_url = 'https://www.mercadobitcoin.com.br/api/ticker_litecoin/'
@@ -437,14 +459,5 @@ class ApplicationController < ActionController::Base
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     puts hash
-  end
-  def bitcoinpay(valor_litecoin)
-    pem = BitPay::KeyUtils.generate_pem
-    client = BitPay::SDK::Client.new(api_uri: 'https://test.bitpay.com', pem: pem)
-    #client = BitPay::SDK::Client.new(pem: File.read('cripto_pem'))
-    client.pair_client(pairing_code: "4Jumkh2")
-    invoice = client.create_invoice(price: valor_litecoin, currency: 'BTC')
-    json = JSON.parse(invoice)
-    puts json
   end
 end

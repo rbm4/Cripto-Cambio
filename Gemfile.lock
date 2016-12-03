@@ -81,6 +81,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    coinpayments (0.0.3)
+      hashie
+      httparty (~> 0.13.1)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     css_parser (1.4.5)
@@ -212,6 +215,7 @@ GEM
       activesupport (>= 3)
     haml (4.0.7)
       tilt
+    hashie (3.4.6)
     http (2.0.3)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -221,6 +225,9 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.8.2.3)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -247,6 +254,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     net-ssh (3.0.2)
     netrc (0.11.0)
     nifty-dialog (1.0.7)
@@ -390,6 +398,7 @@ DEPENDENCIES
   byebug
   chartkick (~> 2.0, >= 2.0.2)
   coffee-rails (~> 4.1.0)
+  coinpayments
   css_parser
   googlecharts
   groupdate
