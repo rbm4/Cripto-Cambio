@@ -33,7 +33,17 @@ class ApplicationController < ActionController::Base
   helper_method :standard_conversion
   helper_method :litecoin_para_bitcoin
   helper_method :config_block
-  helper_method :litecoin_para_x_bitcoin
+  helper_method :litecoin_para_x_bitcoin, :block_address
+  
+  def block_address(moeda)
+    if moeda == 'btc'
+      url = "https://tbtc.blockr.io/tx/info/"
+    end
+    if moeda == 'ltc'
+      url = "https://chain.so/tx/LTCTEST/"
+    end
+    url
+  end
   
   def confirmar_email(user)
     string_body = ""

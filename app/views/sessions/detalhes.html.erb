@@ -103,7 +103,9 @@ td[type=finished]{
 										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
 										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
 										<td type='waiting'><%= link_to "Excluir",  list_path(:id => h.id), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %> </td>
-										<td type='waiting'><a href="<%= h.endereco%>">Realizar pgto.</a></tr>
+										<td type='waiting'><%= link_to "Realizar pgto",  do_path(:id => h.id), method: "post", confirm: "Esta ação não poderá ser desfeita, prosseguir?" %>
+										
+										</tr>
 										<% end %>
 										
 										<% if h.usuario ==username and h.status == 'incompleta' and h.network == 'pagseguro' %>
@@ -197,7 +199,7 @@ td[type=finished]{
 									 	  	    <% end %>
 									 	  	    <% if h.usuario == username and h.status == 'pago'%>
 									 	  	    <tr>
-									 	  	    	<td type='finished'> <a href='https://tbtc.blockr.io/tx/info/<%= h.txid_blockchain %>'>Pedido Finalizado</a></td>
+									 	  	    	<td type='finished'> <a href='<%= block_address(h.produtos) %><%= h.txid_blockchain %>'>Pedido Finalizado</a></td>
 									 	  	    	<td type='finished'><b><%= h.volume %></b> <b><%= h.produtos.upcase%> </b></td>
 									 	  	    	<% if h.network == 'pagseguro'%>
 									 	  	    	<td type='finished'><%= h.pagseguro %> </td>
