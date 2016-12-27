@@ -73,7 +73,7 @@ td[type=finished]{
 						<!-- Content -->
 							<div class="content">
 								<h3><p>Pedidos pendentes</h3>
-								<div type='format_text'>Se você já enviou o volume correto para o endereço clique em "Verificar pagamento" para confirmar o pagamento. Verifique as informações antes de finalizar a confirmação utilizando o botão "Editar dados". (Esta sessão é para pagamentos em BITCOIN especificamente. Ou para pagamentos ainda não confirmados pela operadora selecionada.)</p></div>
+								<div type='format_text'>Abaixo você poderá vizualizar pagamentos que inicou mas não terminou. Você tem a opção de abandoná-los (excluir) ou realizá-los, para receber a quantia especificada no endereço especificado.</p></div>
 									<table style="width:100%">
 										
 											<tr>
@@ -103,7 +103,7 @@ td[type=finished]{
 										<td type='waiting'><b><%= h.volume %></b> <b><%= h.produtos.upcase %></b></b></td>
 										<td type='waiting'><% data = h.created_at.to_s.split(" ") %> <%= data[0]%> </td></b>
 										<td type='waiting'><%= link_to "Excluir",  list_path(:id => h.id), method: "post", data: { confirm: "Esta ação não poderá ser desfeita, prosseguir?"} %> </td>
-										<td type='waiting'><%= link_to "Realizar pgto",  do_path(:id => h.id), method: "post", confirm: "Esta ação não poderá ser desfeita, prosseguir?" %>
+										<td type='waiting'><%= link_to "Realizar pgto",  do_path(:id => h.id), method: "post" %>
 										
 										</tr>
 										<% end %>

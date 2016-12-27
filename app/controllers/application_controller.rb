@@ -37,10 +37,10 @@ class ApplicationController < ActionController::Base
   
   def block_address(moeda)
     if moeda == 'btc'
-      url = "https://tbtc.blockr.io/tx/info/"
+      url = "https://btc.blockr.io/tx/info/"
     end
     if moeda == 'ltc'
-      url = "https://chain.so/tx/LTCTEST/"
+      url = "https://chain.so/tx/LTC/"
     end
     url
   end
@@ -69,13 +69,13 @@ class ApplicationController < ActionController::Base
 
   end
   def config_block
-    @ltc_pin = '6f1c-30d7-b5b1-adcf' #6bb1-0e02-7f29-de1b live
-    @btc_pin = 'ac35-6ff5-e103-d1c3' #ddcf-3881-8c4e-7590 live
+    @ltc_pin = '6bb1-0e02-7f29-de1b' #'6f1c-30d7-b5b1-adcf' 
+    @btc_pin = 'ddcf-3881-8c4e-7590' #'ac35-6ff5-e103-d1c3'
     @pin = 'ignezconha'
-    @ltc_address = '2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
-    @btc_address = '2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
-    @network = 'BTCTEST' #usada no chain.so
-    @network_ltc = 'LTCTEST'
+    @ltc_address = '3BzasVQdbaa8s76vEfGoQRTU5jmbrfgM4B' #'2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
+    @btc_address = '32rcoqy2RGWybkpbfEHyXpryzBLx7LLBTF' #'2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
+    @network = 'BTC' #usada no chain.so
+    @network_ltc = 'LTC'
   end
   
   def limite_compra_btc
@@ -105,13 +105,13 @@ class ApplicationController < ActionController::Base
       
     end
     if params['calculo']['moeda'] == 'btc'
-      #a = Bitcoin.valid_address? params['calculo']['address']
-      @warning = true
-      #if  a == false
-      #  @warning = false
-      #elsif a == true
-      #  @warning = true
-      #end
+      a = Bitcoin.valid_address? params['calculo']['address']
+      #@warning = true
+      if  a == false
+        @warning = false
+      elsif a == true
+        @warning = true
+      end
       
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
@@ -129,13 +129,13 @@ class ApplicationController < ActionController::Base
       
     end
     if params['calculo']['moeda'] == 'ltc' #ofertas de pgto para LITECOINS
-      @warning = true #Sem validação de enderaço
-      #a = params['calculo']['address'].match(/^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/)
-      #if  a == nil
-      #  @warning = false
-      #elsif a != nil
-      #  @warning = true
-      #end
+      #@warning = true #Sem validação de enderaço
+      a = params['calculo']['address'].match(/^L[a-km-zA-HJ-NP-Z1-9]{26,33}$/)
+      if  a == nil
+        @warning = false
+      elsif a != nil
+        @warning = true
+      end
       ltc_real = litecoin_para_real
       decimal = BigDecimal(params['calculo']['volume'],5)
       

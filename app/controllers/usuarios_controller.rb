@@ -5,6 +5,9 @@ class UsuariosController < ApplicationController
   def new
     @usuario = Usuario.new
   end
+  def edit
+    @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
+  end
   def open_tickets
     @tickets = Ticket.all
     if params['method'] == 'post'

@@ -17,6 +17,34 @@ class ProdutosController < ApplicationController
         @pagamentos = Pagamento.all
         render 'sessions/detalhes'
     end
+    def pagar_coinpayment
+        pgto = Pagamento.find(params[:id])
+        puts pgto.address
+        puts pgto.network
+        puts pgto.produtos
+        puts pgto.volume
+        puts pgto.user_id
+        @id = pgto.user_id
+        if pgto.produtos != "btc"
+            @moeda = "BTC"
+            if pgto.produtos == "ltc"
+                @preco_bitcoin = litecoin_para_x_bitcoin(BigDecimal(pgto.volume))
+                puts @preco_bitcoin
+            end
+        else
+            @moeda = "USD"
+            string = 'https://blockchain.info/pt/ticker' 
+            btc_desejado = String(BigDecimal(BigDecimal(pgto.volume).mult(1.3,8)))
+            uri = URI(string)
+            response = Net::HTTP.get(uri)
+            json = JSON.parse(response)
+            dec = BigDecimal(json["USD"]["last"],8)
+            @preco_bitcoin = dec.mult(BigDecimal(btc_desejado),8)
+            puts @preco_bitcoin
+        end
+        @coinpay = true
+        render 'sessions/loginerror'
+    end
     def save_coinpay
         pgto = Pagamento.new
         order = Shoppe::Order.find(current_order.id)

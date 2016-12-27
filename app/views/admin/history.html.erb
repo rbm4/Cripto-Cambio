@@ -38,30 +38,23 @@ td{
 									 			<tr>
 									 	  	    <td>Status</td>
 									 	  	    <td>Volume / Moeda</td>
-									 	  	    <td>Admin que enviou</td>
-									 	  	    <td>Data de envio</td>
-									 	  	    <td>Retirar volume</td>
+									 	  	    <td>User_id</td>
+									 	  	    <td>Detalhes completos</td>
 									 	  	    </tr>
 									 	  	    <% @pagamentos.each do |h| %>
-									 	  	    <% if h.status == 'send'%>
+									 	  	    
 									 	  	    <tr>
-									 	  	    <td type='finished'> Enviado</td>
+									 	  	    <td type='finished'> <%= h.status %></td>
 									 	  	    <td type='finished'><b><%= h.volume %></b> <b><%= moeda(h.network) %></b></td>
-									 	  	    <td type='finished'><%= h.user_id%><br></td>
-									 	  	    <td type='finished'><%= h.endereco%></td>
-									 	  	    <td type='finished'>
-									 	  	    	<% volume = BigDecimal(h.volume) - BigDecimal('0.00020')%>
-									 	  	    	<%= form_tag("/volm", method: 'post') do %>
-									 	  	    	<%= hidden_field_tag 'address', h.address %>
-									 	  	    	<%= hidden_field_tag 'amount', volume %>
-													<%= submit_tag("Retirada")%>
-									 	  	    	<% end %>	
+									 	  	    <td type='finished'><%= h.user_id %><br></td>
+									 	  	    <td type='finished'><a href="/detalhes">Detalhes</a>
 									 	  	    	
 									 	  	    	</td>
 									 	  	    </tr>
-									 	  	    <% end %>
+									 	  	    
 										<% end %></font>
 									 	  	   	</table>
+								<%= link_to "Voltar", :controller => 'admin', :action =>'home', :id => session[:user_id]%>
 							</div>
 							
 					</section>

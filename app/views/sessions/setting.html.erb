@@ -1,2 +1,52 @@
-<h1>Sessions#setting</h1>
-<p>Find me in app/views/sessions/setting.html.erb</p>
+<style>
+	article{
+ 	margin-top: -7%;
+  background-color: #cccccc;
+ }
+  
+</style>
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+								Apelido: <%= f.text_field :username, :placeholder => user.username %>
+								Por questão de segurança, o email não pode ser alterado. <%= f.text_field :username, :placeholder => user.email, :disabled => true %>
+								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :placeholder => user.first_name %> </div>
+                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :placeholder => user.last_name %> </div>
+                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :placeholder => user.fone %></div><p>
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+								<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

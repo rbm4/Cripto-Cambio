@@ -19,7 +19,12 @@
 					
 						<!-- Content -->
 							<div class="content">
+								
+								<% if @coinpay == true %>
+								<%= render :partial => 'produtos/coinpay'%>
+								<% else %>
 								<%= @messages.html_safe %>
+								<% end %>
 							</div>
 							
 					</section>
