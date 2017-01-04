@@ -1,4 +1,5 @@
 class Usuario < ActiveRecord::Base
+    require 'securerandom'
     attr_accessor :password
     before_create :confirmation_token
     EMAIL_REGEX = /\A([\w+\-]\.?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
@@ -6,6 +7,10 @@ class Usuario < ActiveRecord::Base
     validates :email, :presence => true, :uniqueness => true, :format => EMAIL_REGEX
     validates :password, :confirmation => true #password_confirmation attr
     validates_length_of :password, :in => 6..20, :on => :create
+    def generate_token
+        self.confirm_token = SecureRandom.urlsafe_base64.to_s
+        self.save
+    end
     def self.authenticate(username_or_email="", login_password="")
         if  EMAIL_REGEX.match(username_or_email)    
             user = Usuario.find_by_email(username_or_email)

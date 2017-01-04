@@ -39,6 +39,7 @@ article{
 					
 						<!-- Content -->
 							<div class="content">
+								<font color='red'><%= @messages %></font>
 								<%= label_tag @logged, nil, disabled: true%>
 								<div class= "Sign_Form">
                                 <%= form_tag(:controller => 'sessions', :action => 'login_attempt') do %>
@@ -48,9 +49,7 @@ article{
                                 <% end %>
                                 <ul class="Signin_Errors">
                                 <a href="/forget">Esqueceu a senha?</a>
-                                <% if (@messages.to_s == '') == false ;%>
-                                <li><%= text_field_tag :error, nil, placeholder: @messages, disabled: true, size: 15%></li>
-                                <% end %>
+                                
                                 </ul>
                                 </div>
 							</div>

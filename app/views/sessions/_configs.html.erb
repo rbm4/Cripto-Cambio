@@ -1,0 +1,54 @@
+                                <% if @basicinfo == true %>
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+								Por questão de segurança, o email só pode ser alterado mediante contato por ticket. <%= f.text_field :username, :value => user.email, :disabled => true %>
+								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
+                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
+                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :value => user.fone %></div><p>
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+                  				<% normal = false%>
+								<% end %>
+								<% end %>
+								<% if @wallets == true %>
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+								
+								<div class="bitcoin"> Carteira Bitcoin padrão: <%= f.text_field :first_name, :value => user.bitcoin %> </div>
+                  				<div class="last_name"> Carteira Litecoin Padrão: <%= f.text_field :last_name, :value => user.litecoin %> </div>
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+                  				<% normal = false %>
+                  				<% end %>
+                  				<% end %>
+                  				<% if @notifications == true %>
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+								Apelido: <%= f.text_field :username, :placeholder => user.username %>
+								Todas as notificações estão desativadas até futuras implementações a medida da demanda.
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+                  				<% normal = false %>
+                  				<% end %>
+                  				<% end %>
+                  				<% if @seguranca == true %>
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+                  				<div class="senha_nova"> Digite uma senha nova: <%= f.password_field :senha_nova, :placeholder => 'Senha Nova' %></div><p>
+                  				<div class="senha_confirm"> Confirme a senha: <%= f.password_field :senha_confirm, :placeholder => 'Confirme senha' %></div><p>
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+                  				<% normal = false %>
+                  				<% end %>
+                  				<% end %>
+                  				<% if @normal == true %>
+								<% user = current_user %>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
+								Por questão de segurança, o email só pode ser alterado mediante contato por ticket. <%= f.text_field :username, :value => user.email, :disabled => true %>
+								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
+                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
+                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :value => user.fone %></div><p>
+                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Alterações' %>
+                  				<% end %>
+                  				<% end %>

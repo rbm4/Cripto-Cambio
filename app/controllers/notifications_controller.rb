@@ -11,6 +11,9 @@ class NotificationsController < ApplicationController
     if params['merchant'] == 'b1e3df05f8a772fc276f4b79aef1c551'
       puts 'notificação chegou'
       if params['status'] == '1'
+        pagto = Pagamento.find_by_postcode(params['item_name'])
+        pagto.status = 'accepted'
+        pagto.save
         puts 'pagamento recebido, esperando confirmação'
       end
       if params['status'] >= '100'

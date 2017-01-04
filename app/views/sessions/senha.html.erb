@@ -1,0 +1,47 @@
+<style>
+	article{
+ 	margin-top: -7%;
+  background-color: #cccccc;
+ }
+  
+</style>
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								Preencha o Formulário abaixo com seu Email ou Username, se for um usuário / email válido, enviaremos um email com um link para recuperação da senha.
+								<%= form_tag(:controller => 'sessions', :action => 'recuperar_senha') do %>
+                                <%= text_field_tag :username_or_email, nil, placeholder: 'Username ou Email' %></p>
+                                <%= submit_tag("Enviar") %>
+                                <% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

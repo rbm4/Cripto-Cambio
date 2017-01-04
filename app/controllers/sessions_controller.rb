@@ -5,7 +5,67 @@ class SessionsController < ApplicationController
   def login
     #Login Form
   end
-  def login_attempt
+  def senha
+    #senha form
+  end
+ 
+  def change
+    token = params['usuario']['token']
+    @user = Usuario.find_by_confirm_token(token)
+    if params['usuario']['senha_nova'] == params['usuario']['senha_confirm']
+      #senhas conferem
+      @user.encrypted_password = Digest::SHA1.hexdigest(params['usuario']['senha_nova'])
+      @user.confirm_token = nil
+      @user.save
+      @messages = "Você reiniciou sua senha. Faça login a seguir: "
+    end
+    render 'login'
+  end
+  def recuperar_senha
+    @authorized_user = Usuario.find_by_username(params[:username_or_email])
+    if @authorized_user == nil
+      puts 'email'
+      @authorized_user = Usuario.find_by_email(params[:username_or_email])
+    end
+    if @authorized_user != nil
+      puts @authorized_user.username
+      @authorized_user.generate_token
+      if @authorized_user.save
+        string_body = ""
+        string_body << "Olá "
+        string_body << @authorized_user.first_name.capitalize + " " + @authorized_user.last_name.capitalize
+        string_body << "<br>"
+        string_body << "Você iniciou um processo de reinicialização de sua senha.<br> Se não foi você, por favor, ignore este email."
+        string_body << "\n"
+        string_body << ("Confirme a troca de senha clicando no link:" + "<a href='https://bmarket-rbm4.c9users.io/recover?id=" + @authorized_user.confirm_token.to_s + "'> Confirmar </a>")
+    
+        from = Email.new(email: 'admin@cptcambio.com')
+        subject = 'Mudança de senha - Cptcambio'
+        to = Email.new(email: @authorized_user.email)
+        content = Content.new(type: 'text/html', value: string_body)
+        mail = Mail.new(from, subject, to, content)
+
+        sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+        response = sg.client.mail._("send").post(request_body: mail.to_json)
+        puts 'email enviado aqui'
+        puts response.status_code
+        puts response.body
+        puts response.headers
+      end
+    end
+    @messages = 'Se as informações estiverem corretas, um email de recuperação será enviado para o email cadastrado do usuário informado. <br> <a href="/login">Voltar</a>'
+    render 'loginerror'
+  end
+  def recover
+    if @user_reset = Usuario.find_by_confirm_token(params[:id])
+      @recover = true
+      
+      @token = @user_reset.confirm_token 
+     
+      render 'recover'
+    end
+  end
+  def login_attempt 
     @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
     if @authorized_user
       if @authorized_user.email_confirmed == true
@@ -95,7 +155,22 @@ class SessionsController < ApplicationController
         params.require(:pagamento).permit(:address, :volume) 
   end
   def setting
-    @user = Usuario.find_by_id(session[:id])
-    puts @user
+    option = params['menu']
+    if option == 'Informações básicas'
+      @basicinfo = true
+      render 'setting'
+    elsif option == 'Carteiras'
+      @wallets = true
+      render 'setting'
+    elsif option == 'Notificações por email'
+      @notifications = true
+      render 'setting'
+    elsif option == 'Segurança'
+      @seguranca = true
+      render 'setting'
+    else
+      @normal = true
+      render 'setting'
+    end
   end
 end

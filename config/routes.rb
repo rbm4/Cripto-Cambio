@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
+  get '/forget' => 'sessions#senha'
+  post '/recuperar' => 'sessions#recuperar_senha'
+  get '/recover' => 'sessions#recover'
+  post '/change' => 'sessions#change'
   post '/coinpay' => 'notifications#coinpay'
   post '/coinpaymentsave' => 'produtos#save_coinpay'
   get '/tickets' => 'usuarios#open_tickets'
@@ -22,7 +26,7 @@ Rails.application.routes.draw do
   get '/detalhes' => 'sessions#detalhes'
   post '/create_handler' => 'produtos#finalizar_compra'
   post '/create_handlerps' => 'produtos#finalizar_compra_pagseguro'
-  get 'sessions/setting'
+  #post 'sessions/setting' => 'sessions#setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
   post 'login_attempt' => 'sessions#login_attempt'
@@ -53,7 +57,7 @@ Rails.application.routes.draw do
   get '/demote' => 'admin#demo'
   get '/msgs' => 'admin#all_tickets'
   get '/msgall' => 'notifications#msgall'
-  get '/setting' => 'sessions#setting'
+  match '/setting' => 'sessions#setting', via: [:get, :post]
   post '/blckrntf' => 'notifications#bitcoin'
   get '/blckrntf' => 'notifications#msg'
   post '/pgseguro' => 'notifications#pgseguro'

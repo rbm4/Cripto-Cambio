@@ -3,6 +3,12 @@
  	margin-top: -7%;
   background-color: #cccccc;
  }
+ input[name=menu] {
+    height: 40px;
+    width: 50%;
+    background-color: powderblue;
+    font-size: 50%;
+}
   
 </style>
 <body class="contact">
@@ -18,17 +24,20 @@
 					<section class="wrapper style4 special container small">
 					
 						<!-- Content -->
+						<%= link_to "Voltar", :controller => 'sessions', :action =>'home', :id => session[:user_id]%>
+						<%= form_for(:config, :url => {:controller => 'sessions', :action => 'setting'}) do |j| %>
+						<table style="height:45%">
+									 			<tr>
+									 	  	    <td id='preco_tipo'><%= j.submit 'Informações básicas', :name => 'menu'  %></td>
+									 	  	    <td  id='valor_preco'><%= j.submit 'Carteiras', :name => 'menu'  %></td>
+									 	  	    <td><%= j.submit 'Notificações', :name => 'menu'  %></td>
+									 	  	    <td><%= j.submit 'Segurança', :name => 'menu'  %></td>
+									 	  	    </tr>
+									 	  	    </table>
+						<% end %>
 							<div class="content">
-								<% user = current_user %>
-								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-								Apelido: <%= f.text_field :username, :placeholder => user.username %>
-								Por questão de segurança, o email não pode ser alterado. <%= f.text_field :username, :placeholder => user.email, :disabled => true %>
-								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :placeholder => user.first_name %> </div>
-                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :placeholder => user.last_name %> </div>
-                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :placeholder => user.fone %></div><p>
-                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
-								<% end %>
+								<%= render :partial => 'configs'%>
+								
 							</div>
 							
 					</section>

@@ -50,6 +50,10 @@
 									 	  	    
 										</font>
 									 	  	   	</table> <% end %> <% end %>
+									 	  	   	<% if @warning == false%>
+									 	  	   	
+									 	  	   	<% elsif @warning == true %>
+									 	  	   	
 									 	  	   	<% if @zero == true %>
 									 	  	   	<font color='red' > <dt> ERRO! Digite um valor válido. </font></dt>
 									 	  	   	<% end %>
@@ -68,4 +72,4 @@
 </form>											<td type='finished'></td>
 									 	  	    <td type='finished'></td>
 									 	  	    <td type='finished'></td>
-									 	  	    </tr>
+									 	  	    </tr> <% end %>

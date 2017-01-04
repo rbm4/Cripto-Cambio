@@ -1,0 +1,54 @@
+<style>
+	article{
+ 	margin-top: -7%;
+  background-color: #cccccc;
+ }
+  
+</style>
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								
+								<% if @recover == true %>
+								Preencha a nova senha a seguir:
+								<%= form_for(:usuario, :url => { :controller => 'sessions', :action => 'change'}) do |h| %>
+       							<%= h.password_field :senha_nova, placeholder: 'Senha nova' %></p>
+       							<%= h.password_field :senha_confirm, placeholder: 'Confirme a senha' %></p>
+       							<%= h.hidden_field :token, :value => @token %>
+       							<%= h.submit('Enviar') %> 
+       							<% end %>
+								<% else %>
+								<%= @messages.html_safe %>
+								<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>
