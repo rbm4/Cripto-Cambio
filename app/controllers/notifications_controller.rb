@@ -220,7 +220,7 @@ class NotificationsController < ApplicationController
 
     if transaction.errors.empty?
      cod = params["notificationCode"]
-     url1 = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/' + cod + '?email=ricardo.malafaia1994@gmail.com&token=CEB2E4B937F8426A8BE9DB80D6DCCA8A'
+     url1 = 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/' + cod + '?email=ricardo.malafaia1994@gmail.com&token=CEB2E4B937F8426A8BE9DB80D6DCCA8A'
      uri1 = URI(url1)
      response = Net::HTTP.get(uri1)
      @doc = Nokogiri::XML(response)
