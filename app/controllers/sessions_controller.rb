@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
         string_body << "<br>"
         string_body << "Você iniciou um processo de reinicialização de sua senha.<br> Se não foi você, por favor, ignore este email."
         string_body << "\n"
-        string_body << ("Confirme a troca de senha clicando no link: <a href='" + ENV[LOCAL_URL] + "/recover?id=" + @authorized_user.confirm_token.to_s + "'> Confirmar </a>")
+        string_body << ("Confirme a troca de senha clicando no link: <a href='" + ENV["LOCAL_URL"] + "/recover?id=" + @authorized_user.confirm_token.to_s + "'> Confirmar </a>")
     
         from = Email.new(email: 'admin@cptcambio.com')
         subject = 'Mudança de senha - Cptcambio'
