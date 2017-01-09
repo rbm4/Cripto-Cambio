@@ -56,7 +56,7 @@
 									 	  	   	
 									 	  	   	<% if @zero == true %>
 									 	  	   	<font color='red' > <dt> ERRO! Digite um valor válido. </font></dt>
-									 	  	   	<% end %>
+									 	  	   	<% else %>
 									 	  	   	
 									 	  	   	<tr>
 									 	  	   	<%= form_for :coinpay, :url => '/coinpaymentsave', :method => 'post', :remote => true do |g| %>
@@ -72,4 +72,4 @@
 </form>											<td type='finished'></td>
 									 	  	    <td type='finished'></td>
 									 	  	    <td type='finished'></td>
-									 	  	    </tr> <% end %>
+									 	  	    </tr> <% end %> <% end %>

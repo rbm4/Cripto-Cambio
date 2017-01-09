@@ -2,6 +2,7 @@
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
 								<p>Nesta sessão é possível fazer a troca de informações básicas de contato.</p>
+								<%= f.hidden_field :username_or_email, :value => user.email %>
 								<div class='left_text'>Email*: </div> <div class="basic_infos"><%= f.text_field :username, :value => user.email, :disabled => true %></div>
 								<div class='left_text'>Primeiro nome:</div><div class="basic_infos">  <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
                   				<div class='left_text'>Ultimo nome:</div> <div class="basic_infos">  <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
@@ -37,6 +38,7 @@
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
 								<p>Nesta sessão é possível apenas trocar a senha. </p>
+								<%= f.hidden_field :username_or_email, :value => user.email %>
                   				<div class='left_text'>Digite uma senha nova:</div> <div class="senhas">  <%= f.password_field :senha_nova, :placeholder => 'Senha Nova' %></div>
                   				<div class='left_text'>Confirme a senha:</div> <div class="senhas"> <%= f.password_field :senha_confirm, :placeholder => 'Confirme senha' %></div><p>
                   				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>

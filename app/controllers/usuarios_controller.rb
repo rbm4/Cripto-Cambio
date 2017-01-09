@@ -7,6 +7,7 @@ class UsuariosController < ApplicationController
   end
   def edit
     @authorized_user = Usuario.authenticate(params["usuario"]["username_or_email"],params["usuario"]["password"])
+   
     if current_user == @authorized_user
       if params["commit"] == "Salvar Informações"
         @authorized_user.first_name = params["usuario"]["first_name"]
@@ -20,6 +21,28 @@ class UsuariosController < ApplicationController
         @authorized_user.litecoin = params["usuario"]["litecoin"]
         @authorized_user.save
         render 'sessions/setting'
+      end
+      if params["commit"] == "Salvar Nova senha"
+        if params["usuario"]["senha_nova"] == params["usuario"]["senha_confirm"]
+          @authorized_user.encrypted_password = Digest::SHA1.hexdigest(params['usuario']["senha_nova"])
+          @authorized_user.save
+        end
+        @messages = 'As senhas não correspondem, tente novamente.<br> <a href="/setting?menu=Segurança">Voltar</a>'
+        render 'sessions/loginerror'
+      end
+    else
+      if params["commit"] == "Salvar Informações"
+        @messages = 'A senha inserida não corresponde a sua senha.<br> Por favor, tente novamente <a href="/setting?menu=Segurança">Voltar</a>'
+        render 'sessions/loginerror'
+      elsif params["commit"] == "Salvar Carteiras"
+        @messages = 'A senha inserida não corresponde a sua senha.<br> Por favor, tente novamente <a href="/setting?menu=Carteiras">Voltar</a>'
+        render 'sessions/loginerror'
+      elsif params["commit"] == "Salvar Nova senha"
+        @messages = 'A senha inserida não corresponde a sua senha.<br> Por favor, tente novamente <a href="/setting?menu=Segurança">Voltar</a>'
+        render 'sessions/loginerror'
+      else
+        @messages = 'A senha inserida não corresponde a sua senha.<br> Por favor, tente novamente <a href="/setting">Voltar</a>'
+        render 'sessions/loginerror'
       end
     end
   end
@@ -54,6 +77,7 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.new(usuario_params)
     @usuario.username.downcase!
     @usuario.email.downcase!
+    @usuario.fone = @customer.phone
 
     if @usuario.save
       @logged = "Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.\n Por favor, acesse seu email para confirmar o registro."
