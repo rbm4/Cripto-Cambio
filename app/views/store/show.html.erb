@@ -37,6 +37,10 @@ input[type="text"] {
 input[id="volume"]{
 	width: 200px;
 }
+font[id="aviso"]{
+	font-size: 70%;	
+	font-weight: bold;
+}
 section {
 	
 }
@@ -79,7 +83,7 @@ div{
  }
  .table_foto{
  	position: absolute;
-	margin-left: 42%;
+	margin-left: 40%;
 	margin-top: -25%;
  }
  
@@ -102,11 +106,27 @@ div{
 								<h2> Detalhes </h2>
 								<p><font size='4'><h2><%= @product.name %></p></h2>
 								
+								<p>Valor máximo disponível de compra: <BR>
+									<% if @product.name.downcase == 'fração de bitcoin' %>
+ 								-> Bitcoins: <%= limite_compra_btc %> BTC
+ 								<% if current_user.bitcoin != nil %><br>
+ 								<b><font id="aviso">* O endereço de recebimento foi preenchido com sua carteira padrão</font></b>
+ 								<% end %>
+ 									<% elsif @product.name.downcase == 'fração de litecoin' %>
+								-> Litecoins: <%= limite_compra_ltc %> LTC
+								<% if current_user.litecoin != nil %><br>
+ 								<font id="aviso"><b>* O endereço de recebimento foi preenchido com sua carteira padrão</font></b>
+ 								<% end %>
+								<% end %></p>
 								
 								
 								<% if @carteira == nil %>
 								<%= form_for( :calculo, :url => '/calc', :method => 'post' , :remote => true )  do |g| %>
-    							<dt>Carteira que irá receber o volume: <%= g.text_field :address %></dt>
+								<% if @product.name.downcase == 'fração de bitcoin' %>
+    							<dt>Carteira que irá receber o volume: <%= g.text_field :address, :value => current_user.bitcoin %></dt>
+    							<% elsif @product.name.downcase == 'fração de litecoin' %>
+    							<dt>Carteira que irá receber o volume: <%= g.text_field :address, :value => current_user.litecoin %></dt>
+    							<% end %>
     							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume  %>
     							<%= g.hidden_field :permalink, :value => @product.permalink %>
     							<%= g.hidden_field :moeda, :value => @product.sku %>

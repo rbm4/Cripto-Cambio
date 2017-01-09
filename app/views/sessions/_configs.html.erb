@@ -1,54 +1,60 @@
                                 <% if @basicinfo == true %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-								Por questão de segurança, o email só pode ser alterado mediante contato por ticket. <%= f.text_field :username, :value => user.email, :disabled => true %>
-								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
-                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
-                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :value => user.fone %></div><p>
-                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
+								<p>Nesta sessão é possível fazer a troca de informações básicas de contato.</p>
+								<div class='left_text'>Email*: </div> <div class="basic_infos"><%= f.text_field :username, :value => user.email, :disabled => true %></div>
+								<div class='left_text'>Primeiro nome:</div><div class="basic_infos">  <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
+                  				<div class='left_text'>Ultimo nome:</div> <div class="basic_infos">  <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
+                  				<div class='left_text'>Telefone:</div> <div class="basic_infos">  <%= f.text_field :fone, :value => user.fone %></div><p>
+                  				<div class='left_text'><font type='warning'>* O email só poderá ser trocado mediante abertura de ticket.</font></div>
+                  				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Informações' %>
                   				<% normal = false%>
 								<% end %>
 								<% end %>
 								<% if @wallets == true %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-								
-								<div class="bitcoin"> Carteira Bitcoin padrão: <%= f.text_field :first_name, :value => user.bitcoin %> </div>
-                  				<div class="last_name"> Carteira Litecoin Padrão: <%= f.text_field :last_name, :value => user.litecoin %> </div>
-                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
+								<p>Nesta sessão é possível gereciar seus endereços de carteiras.</p>
+								<%= f.hidden_field :username_or_email, :value => user.email %>
+								<div class="left_text"> Carteira Bitcoin padrão:</div> <div class="wallets"><%= f.text_field :bitcoin, :value => user.bitcoin, :id => "carteira" %> </div>
+                  				<div class="left_text"> Carteira Litecoin Padrão:</div> <div class="wallets"><%= f.text_field :litecoin, :value => user.litecoin, :id => "carteira" %> </div>
+                  				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Carteiras' %>
                   				<% normal = false %>
                   				<% end %>
                   				<% end %>
                   				<% if @notifications == true %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-								Apelido: <%= f.text_field :username, :placeholder => user.username %>
-								Todas as notificações estão desativadas até futuras implementações a medida da demanda.
+								<p>Todas as notificações estão desativadas até futuras implementações a medida da demanda.</p>
                   				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
+                  				<%= f.submit 'Salvar Notificações' %>
                   				<% normal = false %>
                   				<% end %>
                   				<% end %>
                   				<% if @seguranca == true %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-                  				<div class="senha_nova"> Digite uma senha nova: <%= f.password_field :senha_nova, :placeholder => 'Senha Nova' %></div><p>
-                  				<div class="senha_confirm"> Confirme a senha: <%= f.password_field :senha_confirm, :placeholder => 'Confirme senha' %></div><p>
-                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
+								<p>Nesta sessão é possível apenas trocar a senha. </p>
+                  				<div class='left_text'>Digite uma senha nova:</div> <div class="senhas">  <%= f.password_field :senha_nova, :placeholder => 'Senha Nova' %></div>
+                  				<div class='left_text'>Confirme a senha:</div> <div class="senhas"> <%= f.password_field :senha_confirm, :placeholder => 'Confirme senha' %></div><p>
+                  				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Nova senha' %>
                   				<% normal = false %>
                   				<% end %>
                   				<% end %>
                   				<% if @normal == true %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
-								Por questão de segurança, o email só pode ser alterado mediante contato por ticket. <%= f.text_field :username, :value => user.email, :disabled => true %>
-								<div class="first_name"> Primeiro nome: <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
-                  				<div class="last_name"> Ultimo nome: <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
-                  				<div class="telefone"> Telefone: <%= f.text_field :fone, :value => user.fone %></div><p>
-                  				Para confirmar alterações, insira sua senha: <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Alterações' %>
+								<p>Nesta sessão é possível fazer a troca de informações básicas de contato.</p>
+								<div class='left_text'>Email*: </div> <div class="basic_infos"><%= f.text_field :username, :value => user.email, :disabled => true %></div>
+								<%= f.hidden_field :username_or_email, :value => user.email %>
+								<div class='left_text'>Primeiro nome:</div><div class="basic_infos">  <%= f.text_field :first_name, :value => user.first_name.capitalize %> </div>
+                  				<div class='left_text'>Ultimo nome:</div> <div class="basic_infos">  <%= f.text_field :last_name, :value => user.last_name.capitalize %> </div>
+                  				<div class='left_text'>Telefone:</div> <div class="basic_infos">  <%= f.text_field :fone, :value => user.fone %></div><p>
+                  				<div class='left_text'><font type='warning'>* O email só poderá ser trocado mediante abertura de ticket.</font></div>
+                  				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
+                  				<%= f.submit 'Salvar Informações' %>
                   				<% end %>
                   				<% end %>

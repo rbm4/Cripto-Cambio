@@ -90,21 +90,6 @@ class SessionsController < ApplicationController
     redirect_to '/' 
   end
   def home
-      params[:featured] = "1"
-      @destaques = Shoppe::Product.root.ordered
-      @destaques = @destaques.group_by(&:product_category)
-      count = 0
-      @dstqn = Array.new
-      @dstqi = Array.new
-      @destaques.each do |h|
-        h[1].each do |g|
-          if g.featured == true
-            count = count + 1
-            @dstqn.append(g.name)
-            @dstqi.append(g.in_the_box)
-          end
-        end
-      end
       @total_btc = limite_compra_btc
       @total_ltc = limite_compra_ltc
       @atual = Usuario.find(params[:id])
@@ -162,7 +147,7 @@ class SessionsController < ApplicationController
     elsif option == 'Carteiras'
       @wallets = true
       render 'setting'
-    elsif option == 'Notificações por email'
+    elsif option == 'Notificações'
       @notifications = true
       render 'setting'
     elsif option == 'Segurança'

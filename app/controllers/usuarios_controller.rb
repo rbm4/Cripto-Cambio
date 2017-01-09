@@ -6,7 +6,22 @@ class UsuariosController < ApplicationController
     @usuario = Usuario.new
   end
   def edit
-    @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
+    @authorized_user = Usuario.authenticate(params["usuario"]["username_or_email"],params["usuario"]["password"])
+    if current_user == @authorized_user
+      if params["commit"] == "Salvar Informações"
+        @authorized_user.first_name = params["usuario"]["first_name"]
+        @authorized_user.last_name = params["usuario"]["last_name"]
+        @authorized_user.fone = params["usuario"]["fone"]
+        @authorized_user.save
+        render 'setting'
+      end
+      if params["commit"] == "Salvar Carteiras"
+        @authorized_user.bitcoin = params["usuario"]["bitcoin"]
+        @authorized_user.litecoin = params["usuario"]["litecoin"]
+        @authorized_user.save
+        render 'sessions/setting'
+      end
+    end
   end
   def open_tickets
     @tickets = Ticket.all

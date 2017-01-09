@@ -25,7 +25,7 @@ class NotificationsController < ApplicationController
         puts 'id da compra: ' + array[3]
         
         pagto = Pagamento.find_by_postcode(params['item_name'])
-        if (pagto.status.to_s == 'Aguardando pgto' and pagto.produtos == 'btc')
+        if (pagto.status.to_s == 'accepted' and pagto.produtos == 'btc')
           pagto.status = 'pago'
           url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses=' + @btc_address + '&to_addresses=' + array[0] + '&amounts=' + array[2].to_s
           uri = URI(url)
@@ -51,7 +51,7 @@ class NotificationsController < ApplicationController
           second = false
           #pagto.txid_blockchain = params["data"]['txid']
         end
-        if (pagto.status.to_s == 'Aguardando pgto' and pagto.produtos == 'ltc')
+        if (pagto.status.to_s == 'accepted' and pagto.produtos == 'ltc')
           pagto.status = 'pago'
           url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @ltc_pin + '&pin=' + @pin + '&from_addresses=' + @ltc_address + '&to_addresses=' + array[0] + '&amounts=' + array[2].to_s
           uri = URI(url)

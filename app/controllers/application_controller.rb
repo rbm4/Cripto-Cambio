@@ -80,20 +80,19 @@ class ApplicationController < ActionController::Base
   
   def limite_compra_btc
     config_block
-    url_r = 'https://chain.so/api/v2/get_address_balance/' + @network + '/' + @btc_address
+    url_r = 'https://blockchain.info/q/addressbalance/' + @btc_address
     uri_r = URI(url_r)
     response_r = Net::HTTP.get(uri_r)
-    hash = JSON.parse(response_r)
-    limite_compra = BigDecimal(hash["data"]["confirmed_balance"]).div(2,8)
+    limite_compra = BigDecimal(response_r).div(2,8).div(100000000,8)
     limite_compra
   end
   def limite_compra_ltc
     config_block
-    url_r = 'https://chain.so/api/v2/get_address_balance/' + @network_ltc + '/' + @ltc_address
+    url_r = 'http://ltc.blockr.io/api/v1/address/info/' + @ltc_address
     uri_r = URI(url_r)
     response_r = Net::HTTP.get(uri_r)
     hash = JSON.parse(response_r)
-    limite_compra = BigDecimal(hash["data"]["confirmed_balance"]).div(2,8)
+    limite_compra = BigDecimal(String(hash["data"]["balance"])).div(2,8)
     limite_compra
   end
   
