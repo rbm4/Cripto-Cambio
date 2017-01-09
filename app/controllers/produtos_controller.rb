@@ -173,8 +173,8 @@ class ProdutosController < ApplicationController
             end
           end
           if dados[2] == 'paypal'
-                return_paypal = "https://mkta.herokuapp.com/paypal"
-                cancel_paypal = "https://mkta.herokuapp.com"
+                return_paypal = ENV[LOCAL_URL] + "/paypal"
+                cancel_paypal = ENV[LOCAL_URL] + "/paypal_cancel"
                 
                     # Build Payment object
                     
