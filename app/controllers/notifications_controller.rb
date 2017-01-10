@@ -155,6 +155,7 @@ class NotificationsController < ApplicationController
           end
      else
           logger.error @payment.error.inspect
+          @messages = @payment.error.inspect
      end
      
      return 205
