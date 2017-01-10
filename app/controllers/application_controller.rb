@@ -115,6 +115,7 @@ class ApplicationController < ActionController::Base
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
       @limit = limite_compra_btc
+      @currency = 'BTC'
       @render = true
       if BigDecimal(limite_compra_btc,8) <= BigDecimal(@desejado,8)
         @limite = true
@@ -143,7 +144,8 @@ class ApplicationController < ActionController::Base
       @carteira = params['calculo']['address']
       @desejado = params['calculo']['volume']
       puts 'render'
-      
+      @limit = limite_compra_ltc
+      @currency = 'LTC'
       @render = true
       if BigDecimal(limite_compra_ltc,8) <= BigDecimal(@desejado,8)
           @limite = true
@@ -191,22 +193,34 @@ class ApplicationController < ActionController::Base
     result
   end
   def litecoin_para_bitcoin
-    convert_url = 'https://shapeshift.io/marketinfo/ltc_btc'
+    convert_url = 'https://www.mercadobitcoin.net/api/ticker_litecoin/'
     convert_uri = URI(convert_url)
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
-    conversao = hash['rate'] # 1 ltc em btc
-    resultado = BigDecimal(conversao,5).mult(1.3,5)
-    resultado
+    conversao = hash['ticker']['high'] # 1 ltc em BRL
+    resultado = BigDecimal(conversao,5).mult(1.3,5) # 1 ltc em BRL + 30%
+    bitcoin_em_real = 'https://www.mercadobitcoin.net/api/ticker/'
+    convert_uri2 = URI(bitcoin_em_real)
+    response = Net::HTTP.get(convert_uri2)
+    hash = JSON.parse(response)
+    bitcoin_real = hash['ticker']['high']
+    real = BigDecimal(resultado,8).div(BigDecimal(bitcoin_real,8),8)
+    real 
   end
   def bitcoin_para_litecoin
-    convert_url = 'https://shapeshift.io/marketinfo/btc_ltc'
+    convert_url = 'https://www.mercadobitcoin.net/api/ticker/'
     convert_uri = URI(convert_url)
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
-    conversao = hash['rate'] # 1 btc em ltc
-    resultado = BigDecimal(conversao,5).mult(1.3,5)
-    resultado
+    conversao = hash['ticker']['high'] # 1 btc em R$
+    convert_url2 = 'https://www.mercadobitcoin.net/api/ticker_litecoin/'
+    convert_uri2 = URI(convert_url2)
+    response_convert2 = Net::HTTP.get(convert_uri2)
+    hash2 = JSON.parse(response_convert2)
+    conversao2 = hash2['ticker']['high'] # 1 ltc em BRL
+    resultado = BigDecimal(conversao,2).mult(1.3,2)
+    real = resultado.div(BigDecimal(conversao2,2),8)
+    real
   end
   def litecoin_para_x_bitcoin(valor_litecoin)
     convert_url = 'https://shapeshift.io/marketinfo/ltc_btc'

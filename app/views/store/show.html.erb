@@ -130,7 +130,13 @@ div{
     							<dt>Digite o Volume desejado em <%= @product.sku.upcase %> <%= g.text_field :volume  %>
     							<%= g.hidden_field :permalink, :value => @product.permalink %>
     							<%= g.hidden_field :moeda, :value => @product.sku %>
+    							<% if BigDecimal(limite_compra_btc,8) == 0 and @product.name.downcase == 'fração de bitcoin' %>
+    							<font color='red'>Desculpe. Não há saldo suficiente em caixa para venda no momento. Por quê não tenta novamente mais tarde?</font>
+    							<% elsif BigDecimal(limite_compra_ltc,8) == 0 and @product.name.downcase == 'fração de litecoin' %>
+    							<font color='red'>Desculpe. Não há saldo suficiente em caixa para venda no momento. Por quê não tenta novamente mais tarde?</font>
+    							<% else %>
     							<%= g.submit 'Calcular Preço', :onClick => "loading();" %>
+    							<% end %>
     							<% end %>
     							<% else %>
     								<%= form_for :calculo, :url => '/calc' do |g| %>

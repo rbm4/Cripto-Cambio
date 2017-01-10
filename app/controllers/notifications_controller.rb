@@ -155,7 +155,9 @@ class NotificationsController < ApplicationController
           end
      else
           logger.error @payment.error.inspect
-          @messages = @payment.error.message
+          if @payment.error.message == "The instrument presented was either declined by the processor or bank, or it can't be used for this payment."
+            @messages = "<p>Sua compra não foi efetivada com sucesso. A opção de pagamento apresentada foi negada pelo processante ou o banco.<br> verifique se você selecionou uma quantidade mínima de volume aceita pelo seu cartão / banco.</p> <br>Você pode excluir o pagamento atual ou tentar realizar outro ou tentar fazer o mesmo pagamento novamente na sessão de <a href='/detalhes'>Transações</a>"
+          end
      end
      
      return 205

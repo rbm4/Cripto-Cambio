@@ -12,7 +12,7 @@
 <% elsif @warning == true %>
  <font color='blue' > <dt>Endereço verificado </font> <img src='images/verified.png' height='32' width='32'><br></dt>
  <% if @limite == true %>
- <font color='red' > <dt>Você selecionou mais do que o limite de compra.<br> Seu pedido foi ajustado para um volume de <%= @limit %> BTC</dt></font>
+ <font color='red' > <dt>Você selecionou mais do que o limite de compra.<br> Seu pedido foi ajustado para um volume de <%= @limit %> <%= @currency %></dt></font>
  <% @desejado = @limit%>
  <% end %>
  
