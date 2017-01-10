@@ -7,8 +7,8 @@ include PayPal::SDK::Core::Logging
 
 PayPal::SDK::REST.set_config(
                     :mode => "live", # "sandbox" or "live"
-                    :client_id => 'Abg_mhCUNxW4qavtKUIKBXc_suOiDl9LelgpCHcBw9zqAI5cAbVHEy2Wg8TzMkyU_kOoOMhxhz2mmC4C',
-                    :client_secret => "EI3jZ8wuW12pWwn_XC7NQdBuAbvBTXWGcYWfGAXDIrXtGjvLvg_XJFLSIYdFusqT1oqFcgX4GU6UXF6p")
+                    :client_id => ENV["PAYPAL_ID"],
+                    :client_secret => ENV["PAYPAL_SECRET"])
 
 #@webhook = Webhook.new({
 #    :url => "https://mkta.herokuapp.com/paypal",
