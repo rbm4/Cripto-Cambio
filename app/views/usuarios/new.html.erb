@@ -2,36 +2,28 @@
 	div {
 		
 	}
-	.first_name{
-		margin-top: -22.7%;
-		margin-left:30%;
-		position: relative;
-	}
-	.last_name{
-		margin-top: -11.5%;
-		margin-left: 60%;
-	}
-	.telefone{
-		margin-top: 0%;
-		margin-left: 60%;
-	}
-	.confirmation{
-		margin-top: -16.5%;
-		margin-left: 32%;
+	
+	.row{
+		column-count: 3;
+		
 	}
 	.content{
- 	margin-top: -15%;
-    margin-left:10%;
-    width: 80%;
+ 	margin-top: -5%;
  	padding: 50px;
- 	background-color: #FFFFFF;
+ 	background: #FFFFFF;
+ 	height: 550px;
 
+	}
+	.center{
+		margin: auto;
+		width: 99%;
 	}
 	.header{
 		position: static;
 	}
 	input[id="usuario_username"], input[id="usuario_first_name"], input[id="usuario_last_name"], input[id="usuario_username"], input[id="usuario_fone"], input[id="usuario_password"], input[id="usuario_password_confirmation"]{
-	width: 200px;
+	width: 240px;
+	padding: 9px;
 		
 	}
 	input[id="usuario_email"]{
@@ -48,19 +40,28 @@
  section{
  	background-color: #cccccc;
  }
-</style></head>
+ .class=content{
+ 	
+ }
+ 
+</style>
+
+  		
+  		
+  
+  </head>
 <!-- Main -->
 			<article id="main">
 
 				<header class="special container">
-					<div class="header"><% if @usuario.errors.any? %>
+					<% if @usuario.errors.any? %>
 								<h2><%= @logged %><strong></strong></h2>
                   
                   <% for message_error in @usuario.errors.full_messages %>
                     <p>* <%= message_error %>
                   <% end %></p></div>
                   <% else %>
-                  	<h2>Preencha o formulário para cadastrar-se<strong></strong></h2>
+                  	<h3>Preencha o formulário para cadastrar-se</h3>
 										<p>Criptomoedas com rapidez e praticidade.</p>
                   
                   <% end %>
@@ -71,21 +72,37 @@
 					<section class="wrapper container">
 					
 						<!-- Content -->
-							<section class="content">
-							
-									
-                  <h1>Formulário para cadastro:</h1>
-                  
-                  <%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
-                  Apelido: <%= f.text_field :username %> 
-                  Email: <%= f.text_field :email %> 
-                  <div class="first_name"> Primeiro nome: <%= f.text_field :first_name %> </div>
-                  <div class="last_name"> Ultimo nome: <%= f.text_field :last_name %> </div>
-                  <div class="telefone"> Telefone: <%= f.text_field :fone %></div><p>
-                   Senha: <%= f.password_field :password %>
-                   <div class="confirmation">Confirme a senha:</br> <%= f.password_field :password_confirmation %> <p></div>
-                  <%= f.submit :Signup %>
+							<div class="content">
+								<h3>Formulário para cadastro:</h3>
+								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'create'}) do |f| %>
+							<table style="width:85%" cellspacing="10">
+								  <tr>
+								  	    <td>Apelido:<br></td>
+								  	    <td>Primeiro nome:</td> 
+								  	    <td>Ultimo nome:</td>
+								  	    </tr>
+								  	    
+								  	    <tr>
+								  	    <td><%= f.text_field :username %></td>
+								  	    <td><%= f.text_field :first_name %> </td> 
+								  	    <td> <%= f.text_field :last_name %> </td>
+								  	    </tr>
+								  	    <tr>
+								  	    <td>Senha:</td>
+								  	    <td>Confirme a senha:</td> 
+								  	    <td>Telefone:</td>
+								  	    </tr>
+								  	    <tr>
+								  	    <td><%= f.password_field :password %></td>
+								  	    <td><%= f.password_field :password_confirmation %></td> 
+								  	    <td><%= f.text_field :fone %></td>
+								  	    </tr>
+								  	    </table>
+					
+                  <p>Email: <%= f.text_field :email %> </p>
+                  <%= f.submit :Cadastrar %> </div>
                   <% end %>
+                  
                   
                   
 								
