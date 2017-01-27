@@ -45,8 +45,7 @@
                   				<%= f.submit 'Salvar Nova senha' %>
                   				<% normal = false %>
                   				<% end %>
-                  				<% end %>
-                  				<% if @normal == true %>
+                  				<% elsif @seguranca == nil and @notifications == nil and @wallets == nil and @basicinfo == nil %>
 								<% user = current_user %>
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
 								<p>Nesta sessão é possível fazer a troca de informações básicas de contato.</p>
