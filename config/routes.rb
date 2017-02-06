@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
-  get '/blockchain' => 'application#consulta_blockchain'
+  post '/blockchain' => 'application#consulta_blockchain'
   get '/forget' => 'sessions#senha'
   post '/recuperar' => 'sessions#recuperar_senha'
   get '/recover' => 'sessions#recover'
