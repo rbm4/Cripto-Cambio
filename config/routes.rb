@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   get '/paypal' => 'notifications#paypal'
   post '/paypal' => 'notifications#paypal'
   post '/paypalnip' => 'notifications#paypalnip'
+  get '/howworks' => 'usuarios#howworks'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

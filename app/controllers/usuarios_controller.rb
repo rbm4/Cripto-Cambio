@@ -1,7 +1,10 @@
 class UsuariosController < ApplicationController
   require 'digest/sha1'
-  before_action :require_user, only: [:contato, :mail, :my_ticket, :open_tickets]
+  before_action :require_user, only: [:contato, :mail, :my_ticket, :open_tickets, :edit]
   
+  def howworks
+    #Gráfico de funcionalidade
+  end
   def new
     @usuario = Usuario.new
   end
