@@ -1,0 +1,56 @@
+{
+  "license" : "(ISC OR GPL-3.0)",
+  "name": "blockchain-wallet-service",
+  "version": "0.22.4",
+  "description": "Blockchain.info wallet api service",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blockchain/service-my-wallet-v3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blockchain/service-my-wallet-v3/issues"
+  },
+  "bin": {
+    "blockchain-wallet-service": "./bin/cli.js"
+  },
+  "engines": {
+    "node": ">= 0.12.0",
+    "npm": ">= 2.12.0"
+  },
+  "scripts": {
+    "start": "node_modules/nodemon/bin/nodemon.js scripts/start.js",
+    "start:debug": "node-debug scripts/start.js",
+    "test": "node_modules/mocha/bin/mocha test/*.spec.js --timeout 5000",
+    "test:int": "node_modules/mocha/bin/mocha test/integration.js --timeout 5000",
+    "lint": "node_modules/.bin/standard src/*.js"
+  },
+  "author": "Justin Tormey <justin@blockchain.info>",
+  "dependencies": {
+    "blockchain-wallet-service": "~0.22.4",
+    "basic-auth": "~1.0.3",
+    "bitcoinjs-lib": "~2.2.0",
+    "blockchain-wallet-client-prebuilt": "3.22.*",
+    "blockchain.info": "~2.2.2",
+    "body-parser": "~1.14.1",
+    "commander": "~2.9.0",
+    "express": "~4.13.3",
+    "json-rpc2": "~1.0.2",
+    "q": "~1.4.1",
+    "request-promise": "^2.0.1",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "~3.4.1",
+    "chai-as-promised": "^5.2.0",
+    "mocha": "~2.3.4",
+    "node-env-file": "~0.1.8",
+    "nodemon": "~1.8.1",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "standard": "~8.6.0"
+  },
+"scripts": {
+    "postinstall": "blockchain-wallet-service start -p 80 -b cptwallets.herokuapp.com"
+	}
+}
