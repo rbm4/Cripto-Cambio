@@ -49,5 +49,8 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "standard": "~8.6.0"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }
