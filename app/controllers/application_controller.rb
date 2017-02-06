@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
     limite_compra
   end
   def consulta_blockchain
-    url_r = '127.0.0.1:3000/merchant/1b258f5b-d87e-402d-b475-20e0e13dda2a/balance?password="Xatm@074"'
+    url_r = 'http://127.0.0.1:3000/merchant/1b258f5b-d87e-402d-b475-20e0e13dda2a/balance?password="Xatm@074"'
     uri_r = URI(url_r)
     @messages = Net::HTTP.get(uri_r)
     render 'sessions/loginerror' 
