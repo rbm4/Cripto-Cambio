@@ -68,12 +68,12 @@ input[type=submit]{
 								    <h1>MENUS</h1>
 									 <table style="width:100%">
 									 	  <tr>
-									 	  	    <td type="title">Usuarios</td>
+									 	  	    <td type="title">Blockchain.info</td>
 									 	  	    <td type="title">Pagamentos</td>
 									 	  	    <td type="title">Mensagens</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td type="menu"><%= button_to "Promote", promote_path %></td>
+									 	  	    <td type="menu"><%= button_to "Teste de Node.js", blockchain_path %></td>
 									 	  	    <td type="menu"><%= button_to "Aguardando envio: " + @count.to_s, payment_path%></td>
 									 	  	    <td type="menu"><%= button_to "Novas: " + @opened.to_s, msgs_path, :method => 'get' %></td>
 									 	  	    </tr>

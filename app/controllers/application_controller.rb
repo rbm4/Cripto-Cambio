@@ -86,6 +86,12 @@ class ApplicationController < ActionController::Base
     limite_compra = BigDecimal(response_r).div(2,8).div(100000000,8)
     limite_compra
   end
+  def consulta_blockchain
+    url_r = '127.0.0.1:3000/merchant/1b258f5b-d87e-402d-b475-20e0e13dda2a/balance?password="Xatm@074"'
+    uri_r = URI(url_r)
+    @messages = Net::HTTP.get(uri_r)
+    render 'sessions/loginerror' 
+  end
   def limite_compra_ltc
     config_block
     url_r = 'http://ltc.blockr.io/api/v1/address/info/' + @ltc_address
