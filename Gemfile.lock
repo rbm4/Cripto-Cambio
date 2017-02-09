@@ -320,6 +320,8 @@ GEM
       polyamorous (~> 1.1)
     rdoc (4.2.2)
       json (~> 1.4)
+    recaptcha (4.1.0)
+      json
     rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -418,6 +420,7 @@ DEPENDENCIES
   rack-cors
   rails (= 4.2.6)
   rails_12factor
+  recaptcha (~> 4.1)
   rest-client (~> 2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
