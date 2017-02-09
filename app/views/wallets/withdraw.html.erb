@@ -1,0 +1,149 @@
+<head>
+	<style>
+	hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+label[type="descricao"]{
+	width: 10px; height: 55px 
+}
+h3{
+	
+}
+ .nome {
+ 	margin-top:-10px;
+ 	margin-bottom:-15px;
+ 	position:static;
+ 	height: 70px;
+ }
+
+div{ 
+
+   
+    
+}
+.minimal{
+	position: absolute;
+}
+.centralize{
+	text-align: center;
+	font-size: 120%;
+	font-style: bold;
+}
+ .preco{
+ 	
+	margin-top: -7%;
+	align="right";
+	margin-left: 25%;
+	margin-bottom: 25px;
+	height: 30px;
+	position:absolute;
+ }
+
+ .conteudo{
+ 	margin-top: -10%;
+    margin-left:10%;
+    width: 80%;
+ 	padding: 10px;
+ 	background-color: #FFFFFF;
+ }
+ .table_detalhes {
+ 	position: absolute;
+ 	text-align: left;
+ 	margin-top: 0%;
+ 	margin-left: 9%;
+ 	margin-right: 14%;
+ 	width: 80%;
+ 	
+ }
+ .table_foto{
+ 	position: relative;
+	margin-left: 75%;
+	margin-top: 45px;
+ }
+ input[id=quantidade],[id=destino]{
+ 	font-size: 80%;
+ 	padding: 3px;
+ 	height: 35px;
+ 	width: 400px;
+ }
+ article{
+ 	background-color: #cccccc;
+ }
+</style>
+
+</head>
+<body>
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					
+					
+						<!-- Content -->
+							<div class="conteudo">
+								
+							<p><div class="centralize">Utilize o formulário abaixo para retirar seus volumes para um outro endereço.</p><font color="red"><%= @messages%></font></div>
+							
+							<%= form_tag(:controller => 'wallets', :action => 'withdraw_remove') %>
+							
+							
+							Selecione qual moeda deseja retirar: <%= select_tag  "moeda", raw("<option>Moeda:</option><option>BTC</option><option>ETH</option>"), class: "progress_and_message", data: { remote: true, url: url_for( action: :withdraw_helper), progress_bar: "progress_bar_div_id",    update: "message_div_id" } %> <br>
+							 <table style="width:25%">
+  							<tr>
+    							<td>Valor disponível:</td>
+    							<td><div id="value"> </div></td>
+    							<td></td>
+  							</tr>
+  							</table>
+  							<table >
+  							<tr>
+    							<td><font color='red'>O valor de transferência é irrestrito. e será de acordo com o volume atual que a carteira se encontra.</font></td>
+    							<td></td>
+    							<td></td>
+  							</tr>
+  							</table>
+  							<table style="width:60%">
+  							<tr>
+    							<td><font color='red'>Por questão de custos da tecnologia, a retirada é de no mínimo:</font></td>
+    							<td><div id="minimal"> </div></td>
+    							<td></td>
+  							</tr>
+							</table> 
+							 
+							<p>Valor a ser tranferido: <%= text_field_tag "quantidade" %></p>
+							<p>Endereço de destino: <%= text_field_tag "destino" %></p>
+							<%= submit_tag "Transferir" %>
+							</div>
+							
+							
+							
+					
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Cripto Câmbio</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

@@ -18,7 +18,13 @@
 								<%= form_for(:usuario, :url => {:controller => 'usuarios', :action => 'edit'}) do |f| %>
 								<p>Nesta sessão é possível gereciar seus endereços de carteiras.</p>
 								<%= f.hidden_field :username_or_email, :value => user.email %>
+								<% atual = current_user %>
+								<% if atual.coinbasebtc == true %>
+								<font size='5px' color='red'>* Você possui um endereço vinculado ao site, sendo assim não pode mudar o endereço padrão.</font>
+								<div class="left_text"> Carteira Bitcoin padrão:<font color='red'>*</font></div> <div class="wallets"><%= f.text_field :bitcoin, :value => user.bitcoin, :id => "carteira", :disabled => true %> </div>
+								<% else %>
 								<div class="left_text"> Carteira Bitcoin padrão:</div> <div class="wallets"><%= f.text_field :bitcoin, :value => user.bitcoin, :id => "carteira" %> </div>
+								<% end %>
                   				<div class="left_text"> Carteira Litecoin Padrão:</div> <div class="wallets"><%= f.text_field :litecoin, :value => user.litecoin, :id => "carteira" %> </div>
                   				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
                   				<%= f.submit 'Salvar Carteiras' %>

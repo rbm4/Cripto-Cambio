@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+	<%= favicon_link_tag 'favicon.ico' %>
 	<style>
 	
 
@@ -10,8 +10,17 @@
  	font-family: "Times New Roman", Georgia, Serif;
  }
  article{
- 	margin-top: -5%;
+ 	margin-top: -3%;
   background-color: #cccccc;
+ }
+ div[class=saldos]{
+ 	position: absolute;
+ 	background-color: white;
+ 	left: 0;
+ 	padding: 5px;
+ }
+ div[class=errorspeech]{
+ 	  text-align: left;
  }
 	</style>
   <title>Cripto câmbio</title>
@@ -67,15 +76,10 @@
 		<!-- Header -->
 			<header id="header">
 				<font size='4' >
-					<button href="/">Criptocambio</button>
+					<a href="/"><img src="images/flag.png" widht="40px" height="40px" alt="www.cptcambio.com"></a>
 					<% if session[:user_id] != nil %>
 						  <% if session[:user_id] == current_user.id ;%>
-						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b><% if current_order %> 
-<!-- <p style="padding:4px;">
-  <!-- Você tem <%= pluralize current_order.total_items, 'item'%> em seu carrinho, com volume: 
-  <%= number_to_currency current_order.total_before_tax %>. <a href= "/basket"><img src="/images/icon_cart.png" height="25" width="25"></a>
- </p> -->
-<% end %></span>
+						  <span>Seja bem vindo <b><%= label_tag username, nil, placeholder: username, disabled: true%></b>!</span>
 						  <% end %>
 						  <% else %>
 						  <strong><a href="login">Visitante?</a></strong>
@@ -107,9 +111,22 @@
 						  <% end %>
 						  
 						</li>
+						
 					</ul>
+					 
 				</nav>
+				<div class="saldos">
+					<% if current_user != nil and current_user.coinbasebtc == true%>
+					<img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= balance_btc_coinbase %>BTC
+					<% end %>
+					<% if current_user != nil and current_user.coinbaseeth == true%>
+					<img src="images/eth.png" width="20px" height="20px" alt="Bitcoin"> => 0.00000000 ETH
+					<% end %><br>
+					<a href="/transfer">Transferir</a>
+				</div>
+			
 			</header>
+
 <%= yield %>
 
 </body>

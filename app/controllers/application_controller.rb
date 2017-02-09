@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   helper_method :litecoin_para_bitcoin
   helper_method :config_block
   helper_method :litecoin_para_x_bitcoin, :block_address
+  helper_method :balance_btc_coinbase
   
   def block_address(moeda)
     if moeda == 'btc'
@@ -43,6 +44,18 @@ class ApplicationController < ActionController::Base
       url = "https://chain.so/tx/LTC/"
     end
     url
+  end
+  def balance_btc_coinbase
+        client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+        client.accounts.each do |account|
+            balance = account.balance
+            puts "#{account.name}: #{balance.amount} #{balance.currency}"
+            puts account.transactions
+            if account.name == current_user.username + '@cptcambio.com'
+                return String(balance.amount) + " "
+            end
+        end
+    return 'Erro! solicite novo endereço '
   end
   
   def confirmar_email(user)
@@ -411,6 +424,15 @@ class ApplicationController < ActionController::Base
   end
   def require_user 
     redirect_to '/login' unless current_user 
+  end
+  def require_wallet
+    user = current_user
+    if user.coinbasebtc == true or user.coinbaseeth == true
+      
+    else
+      @messages = "Você precisa ter, no mínimo, 1 carteira vinculada a sua conta para acessar essa sessão. Você pode solicitar no menu 'editar perfil'"
+    end
+    redirect_to 'sessions/loginerror' unless (user.coinbasebtc == true or user.coinbaseeth == true)
   end
   def require_admin
     @messages = 'Esta ação necessita permissão administrativa.'

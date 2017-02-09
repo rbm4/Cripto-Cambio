@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104153037) do
+ActiveRecord::Schema.define(version: 20170208195852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -385,6 +385,9 @@ ActiveRecord::Schema.define(version: 20170104153037) do
     t.string   "confirm_token"
     t.string   "bitcoin"
     t.string   "litecoin"
+    t.boolean  "coinbasebtc"
+    t.boolean  "coinbaseeth"
+    t.string   "ethereum"
   end
 
 end

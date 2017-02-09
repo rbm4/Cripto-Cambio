@@ -81,6 +81,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    coinbase (4.1.0)
     coinpayments (0.0.3)
       hashie
       httparty (~> 0.13.1)
@@ -403,6 +404,7 @@ DEPENDENCIES
   byebug
   chartkick (~> 2.0, >= 2.0.2)
   coffee-rails (~> 4.1.0)
+  coinbase
   coinpayments
   css_parser
   googlecharts

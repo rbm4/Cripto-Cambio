@@ -63,3 +63,5 @@ gem 'bitcoin-ruby', git: 'https://github.com/lian/bitcoin-ruby', branch: 'master
 gem 'rest-client', '~> 2.0'
 gem 'bitpay-sdk', :require => 'bitpay_sdk'
 gem 'paypal-sdk-rest'
+gem 'coinbase'
+gem 'recaptcha', '~> 4.1'
