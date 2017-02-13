@@ -10,6 +10,9 @@
 		b{
 			font-weight: bold;
 		}
+		.font{
+			font-size:70%;
+		}
 		div[class="row"]{
 		background-color: white;
 		border: 1px solid;
@@ -19,12 +22,13 @@
     	margin: 0 auto;
   		width: 90%;
 		}
+		
 	a{
     
 }
 .menu {
 	width: 150px;
-	height: 50px;
+	height: 55px;
    vertical-align: middle;
    text-align: -10px;
 }
@@ -76,16 +80,22 @@ text{
 									 	  	    <td></td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td><b>Nome:</b> <%= String(username).capitalize %></td>
+									 	  	    <td><b>Nome:</b> <%= String(current_user.first_name).capitalize + " #{current_user.last_name.capitalize}" %></td>
 									 	  	    <td></td>
 									 	  	    <td></td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 		  	<td><b>Email:</b> <%= String(useremail) %></td>
-									
+									 		  	<td><b>Email:</b> <%= String(current_user.email) %></td>
+												
 									 	  	   </tr>
+									 	  	   <% if current_user.coinbasebtc == true %>
+									 	  	   <tr>
+									 	  	   	<td><b>Endereço bitcoin: <font color="red"><%= current_user.bitcoin %></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima.</b></td>
+									 	  	   	
+									 	  	   </tr>
+									 	  	   <% end %>
 									 	  	    <tr>
-									 	  	    	<td>Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.</td>
+									 	  	   	<td> <b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br></b></td>
 									 	  	    	
 									 	  	    </tr>
 									 	  	   	</table> 
@@ -102,6 +112,10 @@ text{
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
 										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>
 										<h3><li class='current'><a href="/tickets" class= "button small menu"><text>Tickets abertos</a></text></h3></li>
+										<% if current_user.coinbasebtc == true %>
+										<% else %>
+										<h3><li class='current'><a href="/criar_carteira" class="button small menu"><text>Criar carteira BTC</text></a></li></h3>
+										<% end %>
 									</header>
 									<br>
 										<img src="images/cartoes.png" alt="Cartões aceitos" ><br>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proporcao: MyString
+  usuario: MyString
+  sorteavel: false
+
+two:
+  proporcao: MyString
+  usuario: MyString
+  sorteavel: false

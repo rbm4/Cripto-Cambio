@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   require 'rest-client'
   require 'sendgrid-ruby'
+  require 'coinbase/wallet'
   include SendGrid
   require 'blockchain'
   # Prevent CSRF attacks by raising an exception.
@@ -8,33 +9,9 @@ class ApplicationController < ActionController::Base
   helper_method :bitcoinpay
   protect_from_forgery with: :exception
   attr_accessor :viewname
-  helper_method :limite_compra_btc
-  helper_method :confirmar_email
-  helper_method :limite_compra_ltc
-  helper_method :useremail
-  helper_method :current_user
-  helper_method :current_order
-  helper_method :has_order?
-  helper_method :username
-  helper_method :receber_pagamento
-  helper_method :moeda
-  helper_method :buy
-  helper_method :convert_bitcoin
-  helper_method :is_admin?
-  helper_method :archive_wallet
-  helper_method :itens_string
-  helper_method :params_post
-  helper_method :userphone
+  helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status
-  helper_method :brl_btc
-  helper_method :bitcoin_para_real
-  helper_method :type
-  helper_method :standard_conversion
-  helper_method :litecoin_para_bitcoin
-  helper_method :config_block
-  helper_method :litecoin_para_x_bitcoin, :block_address
-  helper_method :balance_btc_coinbase
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase
   
   def block_address(moeda)
     if moeda == 'btc'
@@ -49,10 +26,10 @@ class ApplicationController < ActionController::Base
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
         client.accounts.each do |account|
             balance = account.balance
-            puts "#{account.name}: #{balance.amount} #{balance.currency}"
-            puts account.transactions
+            #puts "#{account.name}: #{balance.amount} #{balance.currency}"
+            #puts account.transactions
             if account.name == current_user.username + '@cptcambio.com'
-                return String(balance.amount) + " "
+                return String(BigDecimal(balance.amount,8)) + " "
             end
         end
     return 'Erro! solicite novo endereço '
@@ -430,9 +407,9 @@ class ApplicationController < ActionController::Base
     if user.coinbasebtc == true or user.coinbaseeth == true
       
     else
-      @messages = "Você precisa ter, no mínimo, 1 carteira vinculada a sua conta para acessar essa sessão. Você pode solicitar no menu 'editar perfil'"
+      @messages = "Você precisa ter, no mínimo, 1 carteira vinculada a sua conta para acessar essa sessão. Você pode solicitar no menu 'Inicio'<br> <a href='/'>Voltar</a>"
     end
-    redirect_to 'sessions/loginerror' unless (user.coinbasebtc == true or user.coinbaseeth == true)
+    render '/sessions/loginerror' unless (user.coinbasebtc == true or user.coinbaseeth == true)
   end
   def require_admin
     @messages = 'Esta ação necessita permissão administrativa.'

@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   post '/create_wallet' => 'wallets#create_btc_wallet'
   get '/helper_withdraw' => 'wallets#withdraw_helper'
+  get '/criar_carteira' => 'wallets#terms'
+  get '/apostas/index' => 'apostas#index'
   post '/withdraw_exec' => 'wallets#withdraw_remove'
   get '/transfer' => 'wallets#withdraw'
   post '/blockchain' => 'application#consulta_blockchain'

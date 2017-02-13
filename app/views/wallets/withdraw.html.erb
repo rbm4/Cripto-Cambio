@@ -27,8 +27,20 @@ div{
    
     
 }
+.box{
+	border: 3px;
+	width: 85%;
+	border-style:dotted solid;
+	padding: 9px;
+	background-image: url("images/pic04.jpg");
+    background-repeat: no-repeat;
+     background-size: 100% 100%;
+}
 .minimal{
 	position: absolute;
+}
+.minima{
+	font-size: 70%;
 }
 .centralize{
 	text-align: center;
@@ -66,6 +78,10 @@ div{
 	margin-left: 75%;
 	margin-top: 45px;
  }
+ font[class="red"]{
+ 	color: rgb(192,63,66);
+ 	font-style:bold;
+ }
  input[id=quantidade],[id=destino]{
  	font-size: 80%;
  	padding: 3px;
@@ -93,7 +109,7 @@ div{
 						<!-- Content -->
 							<div class="conteudo">
 								
-							<p><div class="centralize">Utilize o formulário abaixo para retirar seus volumes para um outro endereço.</p><font color="red"><%= @messages%></font></div>
+							<p><div class="centralize">Utilize o formulário abaixo para retirar seus volumes para um outro endereço.</p><font color="red"><% if @messages != nil %> <%= @messages.html_safe %> <% end %></font></div>
 							
 							<%= form_tag(:controller => 'wallets', :action => 'withdraw_remove') %>
 							
@@ -106,23 +122,24 @@ div{
     							<td></td>
   							</tr>
   							</table>
+  							<div class="box">
   							<table >
   							<tr>
-    							<td><font color='red'>O valor de transferência é irrestrito. e será de acordo com o volume atual que a carteira se encontra.</font></td>
+    							<td><font class="red">O valor de transferência é irrestrito. e será de acordo com o volume atual que a carteira se encontra.</font></td>
     							<td></td>
     							<td></td>
   							</tr>
   							</table>
-  							<table style="width:60%">
+  							<table style="width:67%">
   							<tr>
-    							<td><font color='red'>Por questão de custos da tecnologia, a retirada é de no mínimo:</font></td>
-    							<td><div id="minimal"> </div></td>
-    							<td></td>
+    							<td><font class="red">Por questão de custos da tecnologia, a retirada é de no mínimo:</font></td>
+    							<td> </td>
+    							<td class="minima"><div id="minimal"></div></td>
   							</tr>
 							</table> 
-							 
-							<p>Valor a ser tranferido: <%= text_field_tag "quantidade" %></p>
-							<p>Endereço de destino: <%= text_field_tag "destino" %></p>
+							 </div>
+							<p>Valor a ser transferido: <%= text_field_tag "quantidade", @amount_transfer, :placeholder => "0.0000000" %></p>
+							<p>Endereço de destino: <%= text_field_tag "destino" , @address_form, :placeholder => "Exemplo: 1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV" %></p>
 							<%= submit_tag "Transferir" %>
 							</div>
 							
