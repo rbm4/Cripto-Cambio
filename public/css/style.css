@@ -44,7 +44,7 @@
 		transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 		color: #3fb1a3;
 		text-decoration: none;
-		
+		border-bottom: dotted 1px;
 	}
 
 		a:hover {
@@ -536,6 +536,8 @@
 			background: #83d3c9;
 			border-color: #83d3c9;
 			color: white !important;
+			width: 15px;
+			height: auto;
 		}
 
 			input[type="button"].special:hover,
@@ -673,7 +675,7 @@
 					color: inherit;
 					display: inline-block;
 					line-height: 1em;
-					
+					padding: 0.6em 0.75em;
 					text-decoration: none;
 				}
 
