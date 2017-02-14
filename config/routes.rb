@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/criar_carteira' => 'wallets#terms'
   get '/apostas/index' => 'apostas#index'
   post '/withdraw_exec' => 'wallets#withdraw_remove'
-  get '/transfer' => 'wallets#withdraw'
+  post '/transfer' => 'wallets#withdraw'
   post '/blockchain' => 'application#consulta_blockchain'
   get '/forget' => 'sessions#senha'
   post '/recuperar' => 'sessions#recuperar_senha'

@@ -9,6 +9,13 @@
  	font-size: 17.9px;
  	font-family: "Times New Roman", Georgia, Serif;
  }
+ form.button_to{
+ 	font-size: 13px;
+ 	width: 174=5px;
+ 	height: auto;
+ 	padding: 0px 0px;
+ 	border-radius: 2px;
+ }
 
  article{
  	margin-top: -3%;
@@ -128,7 +135,7 @@
 					<% if current_user != nil and current_user.coinbaseeth == true%>
 					<img src="images/eth.png" width="20px" height="20px" alt="Bitcoin"> => 0.00000000 ETH
 					<% end %><br>
-					<a href="/transfer">Transferir</a>
+					<%= button_to "Transferir", "/transfer", :id => "transfer" %>
 				</div>
 				<% end %>
 			
