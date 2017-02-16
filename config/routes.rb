@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   post '/create_wallet' => 'wallets#create_btc_wallet'
+  get '/apostas/dynamic' => 'apostas#dynamic'
   get '/helper_withdraw' => 'wallets#withdraw_helper'
   get '/criar_carteira' => 'wallets#terms'
   get '/apostas/index' => 'apostas#index'
+  post '/apostas/sorteio' => 'apostas#sorteio'
+  get '/apostas/btc_loteria' => 'apostas#btc_lotery_form'
+  post '/apostas/btc_loteria' => 'apostas#buy_btc_ticket'
+  post '/apostas/dynamic' => 'apostas#calcular_tickets'
   post '/withdraw_exec' => 'wallets#withdraw_remove'
   post '/transfer' => 'wallets#withdraw'
   post '/blockchain' => 'application#consulta_blockchain'

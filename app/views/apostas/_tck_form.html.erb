@@ -1,0 +1,4 @@
+<%= form_for "ticketbtcs", :url=> {:action => :buy_btc_ticket} do |h|%>
+<%= h.hidden_field "preco", :value => @qtd %>
+<%= h.submit "Comprar tickets", :class => "small", :remote => true %>
+<% end %>

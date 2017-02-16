@@ -3,6 +3,10 @@
     margin-top: 5%;
     background-color: rgb(108, 75, 55);
   }
+  .button{
+    color:white;
+    height: 50px;
+  }
   .banner{
     background-repeat:no-repeat;
     left: 50%;
@@ -228,66 +232,60 @@ td{
       <table style="width:100%;background-repeat:repeat-x;" background="images/nav_bg.jpg" cellspacing="10">
 								  <tr>
 								  	    <td><img src="images/nav_dvd.jpg" height="46" width="37"></td>
-								  	    <td><a href="#" class="navbar2">Como Jogar</a></td> 
+								  	    <td><a href="howtoplay" class="navbar2">Como Jogar</a></td> 
 								  	    <td><img src="images/nav_dvd.jpg" height="46" width="37"></td>
 								  	    <td><a href="btc_loteria" class="navbar2">Loteria BTC</a></td>
 								  	    <td><img src="images/nav_dvd.jpg" height="46" width="37"></td>
 								  	    <td><a href="#" class="navbar2">Loteria ETH</a></td>
 								  	    <td><img src="images/nav_dvd.jpg" height="46" width="37"></td>
-								  	    <td><a href="#" class="navbar2">Como funciona?</a></td>
+								  	    <td><a href="detalhes" class="navbar2">Como funciona?</a></td>
 								  	    </tr>
 			</table>
     
     <table style="width:15%;margin-left:15%;" align="left" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <td class="head-1" style="background-repeat:no-repeat;" bgcolor="#14100C" background="images/onl_pokr_lnks.jpg" valign="middle" >Menu de apostas</td>
+        <td class="head-1" style="background-repeat:no-repeat;" bgcolor="#14100C" background="images/onl_pokr_lnks.jpg" valign="middle" style="padding:5px;">Menu de apostas</td>
       </tr>
-      <td class="head-1" bgcolor="#14100C" align="left" ><img src="images/bult.jpg" height="11" width="11"><a href="#" class="navbar3">Any Casino Poker Link</a></td>
+      <%= form_for "ticket" do |j| %>
+      <tr>
+      <td class="head-1" bgcolor="#14100C" align="left" style="padding:5px;"><%= j.text_field :numero_tck, :placeholder => "N° de tickets", data: { remote: true, url: url_for( action: :calcular_tickets) } %></td>
+      </tr><% end %>
+      <tr>
+        <td class="txt-2" bgcolor="#14100C" align="left" style="padding:5px;"> 1 Ticket = 0.0003 BTC</td> 
+      </tr>
+      <tr>
+        <tr><td class="txt-2" bgcolor="#14100C" style="padding:5px;" >Total: <b id="substituir"></b> </td>
+      </tr>
+      <tr>
+        <td class="txt-2" bgcolor="#14100C" align="left" style="padding:5px;"><p>Seus tickets: <%= @tickets %></td>
+      </tr>
+      <tr>
+      <td bgcolor="#14100C" style="padding:5px;"> <b id="submit"></b></td>
+      </tr>
+      
+      
         </table>
-        
         <table border="0" bgcolor="#14100C" align="center" cellpadding="0" cellspacing="0" style="width:50%;padding:10px;" >
-          <tbody><tr>
-            <td height="25" valign="top" width="680">&nbsp;</td>
-          </tr>
-          <tr>
-            <td valign="top" width="680"><table border="0" cellpadding="0" cellspacing="0" width="680">
-              <tbody><tr>
-                <td class="head-3" valign="middle" width="622">CPT Casa de apostas<hr></td
-              </tr>
-              
-            </tbody></table></td>
-          </tr>
-          <tr>
-            <td class="txt-2" valign="top" width="680" style="padding:10px;">Nesta sessão você poderá conhecer a LOTERIA BITCOIN e ETHEREUM! Aqui você terá todas as informações de como funcionam nossos sorteios, com toda a transparência nos processor que definem o ganhador!<br>
-            
-              <br>              Abaixo você terá detalhamento de como funcionam as loterias e os links para acessá-las.<hr> </td>
-          </tr>
-          
-          <tr>
-            <td valign="top" width="680"><table border="0" cellpadding="0" cellspacing="0" width="680">
-              <tbody><tr>
-          
-                <td class="head-3" valign="middle" width="622">Loterias funcionais:</td>
-              </tr>
-              <tr>
-                <td class="txt-1"> <br> - Bitcoin <br> - Ethereum (beta) </td>
-              </tr>
-            </tbody></table></td>
+          <tbody>
           <tr>
             <td class="head-4" style="background-repeat:no-repeat;" background="images/casino_name.jpg" height="35" valign="middle" width="680"><div style="padding-left:35px;padding-top:3px;">Loteria ฿itcoin</div></td>
           </tr>
           <tr>
-            <td valign="top" width="680"><table style="background-repeat:repeat-y;" background="images/casino_bg.jpg" border="0" cellpadding="0" cellspacing="0" width="680">
+            <td valign="top" width="680"><table style="background-repeat:repeat-y;" background="images/casino_bg.jpg" border="0" cellpadding="0" cellspacing="0" width="680"><td class="txt-2"><div id="message"><% if @messages != nil %> <%= @messages.html_safe %>  </div></td>
+            <% end %>
               <tbody><tr>
                 <td valign="top" width="680"><img src="images/casino_top.jpg" height="3" width="680"></td>
               </tr>
               <tr>
                 <td valign="top" width="680"><table align="center" border="0" cellpadding="0" cellspacing="0" width="645">
-                  <tbody><tr>
-                    <td valign="top" width="155"><a href="#"><img src="images/btcassino.png" border="0" height="107" width="140"></a></td>
-                    <td class="txt-2" valign="middle" width="490" style="padding:10px;">A loteria bitcoin premia 10 jogadores mensalmente. O prêmio é entregue instantâneamente após o sorteio, permitindo o usuário jogar novamente com facilidade!<br>
-                      <br>                      É necessário ter uma conta bitcoin integrada a sua conta em nosso site para utilizar os serviços de loteria.</td>
+                  <tbody>
+                  <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> </div></b>
+                  	<tr>
+                    <td class="txt-2" valign="middle" width="490" style="padding:10px;">Confira a baixo as premiações do sorteio <%= @sorteio_numero %>.</td>
                   </tr>
+                  <tr><td>
+                  	 1- <%= @premiacoes[0] %> BTC<br> 2- <%= @premiacoes[1] %> BTC <br> 3- <%= @premiacoes[2] %> BTC<br> 4- <%= @premiacoes[3] %> BTC<br> 5- <%= @premiacoes[4] %> BTC<br> 6- <%= @premiacoes[5] %> BTC<br> 7- <%= @premiacoes[6] %> BTC<br> 8- <%= @premiacoes[7] %> BTC<br> 9- <%= @premiacoes[8] %> BTC<br> 10- <%= @premiacoes[9] %> BTC<br>
+                  </td></tr>
                 </tbody></table></td>
               </tr>
               <tr>
@@ -298,34 +296,6 @@ td{
                 <td valign="top" width="680"><img src="images/casino_btm.jpg" height="3" width="680"></td>
               </tr>
             </tbody></table></td>
-          </tr>
-          <tr>
-            <td class="head-4" style="background-repeat:no-repeat;" background="images/casino_name.jpg" height="35" valign="middle" width="680"><div style="padding-left:35px;padding-top:3px;">Loteria Ethereum (beta)</div></td>
-          </tr>
-          <tr>
-            <td valign="top" width="680"><table style="background-repeat:repeat-y;" background="images/casino_bg.jpg" border="0" cellpadding="0" cellspacing="0" width="680">
-              <tbody><tr>
-                <td valign="top" width="680"><img src="images/casino_top.jpg" height="3" width="680"></td>
-              </tr>
-              <tr>
-                <td valign="top" width="680"><table align="center" border="0" cellpadding="0" cellspacing="0" width="645">
-                  <tbody><tr>
-                    <td valign="top" width="155"><a href="#"><img src="images/eth.png" border="0" height="107" width="140"></a></td>
-                    <td class="txt-2" valign="middle" width="490" style="padding:10px;">A loteria ethereum premia 10% dos jogadores mensalmente, estando em fase beta não implementada ainda. O prêmio é entregue instantâneamente após o sorteio, permitindo o usuário jogar novamente com facilidade! podendo aplicar ou comprar bitcoins / litecoins.<br>
-                      <br>                      É necessário ter uma conta ethereum integrada a sua conta em nosso site para utilizar os serviços de loteria.</td>
-                  </tr>
-                </tbody></table></td>
-              </tr>
-              <tr>
-                <td height="8" valign="top" width="680"><br>
-</td>
-              </tr>
-              <tr>
-                <td valign="top" width="680"><img src="images/casino_btm.jpg" height="3" width="680"></td>
-              </tr>
-            </tbody></table></td>
-          </tr>
-          
         </tbody></table></td>
       </tr>
     </tbody></table></td>
