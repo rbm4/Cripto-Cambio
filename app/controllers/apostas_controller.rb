@@ -79,7 +79,7 @@ class ApostasController < ApplicationController
         j = Ticketbtc.all.where(:sorteavel => true)
         total_sorteavel = 0
         j.each do |h|
-            total_sorteavel = Integer(total_sortteavel) + Integer(h.proporcao)
+            total_sorteavel = Integer(total_sorteavel) + Integer(h.proporcao)
         end
         decimal_sorteavel = BigDecimal(total_sorteavel,8)
         decimal_preco = BigDecimal(0.0003,8)
@@ -116,9 +116,6 @@ class ApostasController < ApplicationController
         
         proporcoes_premios.each do |k|
             premiado = rand(0...total_sorteavel)
-            puts "premiado"
-            puts premiado
-            puts "premiado"
             client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
             primary_account = client.primary_account
             client.accounts.each do |account|
@@ -129,11 +126,10 @@ class ApostasController < ApplicationController
                 if premiado != nil and account.name == piscina_tickets[premiado]
                     if piscina_tickets[premiado] != nil
                         j = Ticketbtc.all.where(:sorteavel => true,  :usuario => account.name).take
-                        puts 'jota'
-                        puts j
-                        puts 'jota'
                         if  j.sorteavel == true
-                            puts "Enviar bitcoins aqui para o ganhador #{account.name}, no valor de #{k * BigDecimal(String(balance),8)}" 
+                            username = account.name.chomp("@cptcambio.com")
+                            user_premiado = Usuario.find_by_username(username)
+                            puts "Enviar bitcoins aqui para o ganhador #{account.name}, no valor de #{k * BigDecimal(String(balance),8)}, para o endereço #{user_premiado.bitcoin}" 
                             j.sorteavel = false
                             j.save
                             total_sorteavel = Integer(total_sorteavel) - Integer(j.proporcao)
