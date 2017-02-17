@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   post '/create_wallet' => 'wallets#create_btc_wallet'
+  get '/apostas/howtoplay' => 'apostas#como_jogar'
+  get '/apostas/detalhes' => 'apostas#detalhes'
   get '/apostas/dynamic' => 'apostas#dynamic'
   get '/helper_withdraw' => 'wallets#withdraw_helper'
   get '/criar_carteira' => 'wallets#terms'
