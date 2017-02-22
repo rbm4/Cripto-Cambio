@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   post '/create_wallet' => 'wallets#create_btc_wallet'
+  match '/coinbase_notification' => 'wallets#notifications', via: [:get, :post]
   get '/apostas/howtoplay' => 'apostas#como_jogar'
   get '/apostas/detalhes' => 'apostas#detalhes'
   get '/apostas/dynamic' => 'apostas#dynamic'

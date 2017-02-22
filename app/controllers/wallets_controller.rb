@@ -6,13 +6,9 @@ class WalletsController < ApplicationController
         usuario = current_user
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
         account = client.create_account(name: String(current_user.username) + '@cptcambio.com')
-        puts account.name
-        puts account.balance
         #saldo = account.balance
         #primary_account = client.get_primary_account
-        address = account.create_address(callback_url: 'https://www.cptcambio.com/coinbase_notification')
-        puts address
-        puts address["address"]
+        address = account.create_address(callback_url: ENV['LOCAL_URL'] + '/coinbase_notification')
         usuario.bitcoin = address["address"]
         usuario.coinbasebtc = true
         usuario.save
@@ -24,6 +20,9 @@ class WalletsController < ApplicationController
     end
     def terms
         
+    end
+    def notifications
+        return 201
     end
     def withdraw_helper
         puts 'helper chamado'

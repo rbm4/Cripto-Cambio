@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho
   
   def block_address(moeda)
     if moeda == 'btc'
@@ -34,7 +34,29 @@ class ApplicationController < ActionController::Base
         end
     return 'Erro! solicite novo endereço '
   end
-  
+  def parabenizar_ganho(user)
+        string_body = ""
+        string_body << "Olá "
+        string_body << user.first_name.capitalize + " " + user.last_name.capitalize
+        string_body << "<br>"
+        string_body << "Obrigado por utilizar nossos serviços!<br> Gostaríamos de parabenizá-lo(a) por ter jogado e ganhado em nossa loteria!!<br>"
+        string_body << "\n"
+        string_body << "Faça login em nosso site para verificar e/ou transferir o valor ganho."
+        
+        from = Email.new(email: 'no-reply@cptcambio.com')
+        subject = 'Loterias CPT Cambio'
+        to = Email.new(email: user.email)
+        content = Content.new(type: 'text/html', value: string_body)
+        mail = Mail.new(from, subject, to, content)
+    
+        sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+        response = sg.client.mail._("send").post(request_body: mail.to_json)
+        puts 'email enviado aqui'
+        puts response.status_code
+        puts response.body
+        puts response.headers
+    
+  end
   def confirmar_email(user)
     string_body = ""
     string_body << "Olá "
