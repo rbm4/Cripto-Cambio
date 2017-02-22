@@ -1,6 +1,6 @@
 class ApostasController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => [:sorteio]
-    before_action :require_user
+    before_action :require_user, :only => [:btc_lotery_form, :buy_btc_ticket, :dynamic, :premiacoes_btc, :como_jogar, :detalhes]
     
     def index
     end
