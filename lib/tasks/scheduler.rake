@@ -4,6 +4,7 @@ require 'date'
 
 desc "This task is called by the Heroku scheduler add-on"
 task :roll_lottery_btc => :environment do
+    if data_sorteio = Time.now.strftime("%d") == "28"
         loterium = Loterium.new
         tickets = Ticketbtc.all.where(:sorteavel => true)
         total_sorteavel = 0
@@ -75,4 +76,6 @@ task :roll_lottery_btc => :environment do
         end
         
         puts "Sorteio realizado, todos os tickets estão não sorteáveis, aplicar nova data de sorteio."
+    end
+    puts "Data errada, não realizar sorteio."
 end
