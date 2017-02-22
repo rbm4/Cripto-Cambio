@@ -20,7 +20,8 @@ class ApostasController < ApplicationController
     end
     def buy_btc_ticket
         premiacoes_btc
-        if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) < 0
+        btc_lotery_form
+        if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) <= 0
             @messages = "Número inválido. Tente novamente"
             render "/apostas/btc_lotery_form"
             return

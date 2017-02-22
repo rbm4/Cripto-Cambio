@@ -279,7 +279,16 @@ td{
               <tr>
                 <td valign="top" width="680"><table align="center" border="0" cellpadding="0" cellspacing="0" width="645">
                   <tbody>
-                  <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> </div></b>
+                  <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> <br> 
+                  Data do próximo sorteio: 
+                  <% all = Loterium.all %>
+                  <% g = all[0]%>
+                  <% if g == nil%>
+                  Não há previsão.
+                  <% else %>
+                  <%= (Date.parse(g.data) + 31 ) %>
+                  <% end %>
+                  </div></b>
                   	<tr>
                     <td class="txt-2" valign="middle" width="490" style="padding:10px;">Confira a baixo as premiações do sorteio <%= @sorteio_numero %>.</td>
                   </tr>

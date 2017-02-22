@@ -1,5 +1,6 @@
 require 'net/http'
 require 'coinbase/wallet'
+require 'date'
 
 desc "This task is called by the Heroku scheduler add-on"
 task :roll_lottery_btc => :environment do
@@ -37,16 +38,14 @@ task :roll_lottery_btc => :environment do
                             user_premiado = Usuario.find_by_username(username)
                             loterium.parabenizar_ganho(user_premiado, k * BigDecimal(String(balance),8), "nSylUdM6pXq78")
                             puts "Enviar bitcoins aqui para o ganhador #{account.name}, no valor de #{k * BigDecimal(String(balance),8)}, para o endereço #{user_premiado.bitcoin}"
-                            if user_premiado.username + '@cptcambio.com' == account.name + '@cptcambio.com'
-                                    @messages = primary_account.send( :to => user_premiado.bitcoin, :amount => k * BigDecimal(String(balance),8), :currency => 'BTC')
+                            if user_premiado.username + '@cptcambio.com' == account.name
+                                    @messages = primary_account.send( :to => user_premiado.bitcoin, :amount => (k * BigDecimal(String(balance),8)), :currency => 'BTC')
                                     print @messages
                             end
                             j.sorteavel = false
                             j.save
                             total_sorteavel = Integer(total_sorteavel) - Integer(j.proporcao)
                             piscina_tickets.reject! { |n| n == j.usuario }
-                            puts piscina_tickets
-                            puts total_sorteavel
                         else
                             puts "usuário já premiado, fazer algo"
                         end
@@ -56,5 +55,24 @@ task :roll_lottery_btc => :environment do
                 end
             end
         end
-        puts "Sorteio realizado"
+        j = Ticketbtc.all.where(:sorteavel => true)
+        j.each do |g|
+            g.sorteavel = false
+            g.save
+        end
+        data_sorteio = Time.now.strftime("%d/%m/%Y")
+        all = Loterium.all
+        g = all[0]
+        if g == nil
+            f = Loterium.new
+            f.data = data_sorteio
+            f.save
+        else
+            a_date = Date.parse(g.data)
+            b_date = a_date + 31
+            g.data = b_date
+            g.save
+        end
+        
+        puts "Sorteio realizado, todos os tickets estão não sorteáveis, aplicar nova data de sorteio."
 end
