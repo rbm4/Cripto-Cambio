@@ -1,5 +1,6 @@
 class ApostasController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => [:sorteio]
+    before_action :require_user
     
     def index
     end
