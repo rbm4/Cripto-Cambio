@@ -48,6 +48,12 @@ class ApostasController < ApplicationController
                         t.proporcao = params['ticketbtcs']['preco']
                         t.sorteavel = true
                         t.save
+                        arquivo_log = File.open("./statistics/tickets_comprados.log", "r")
+                        anterior = arquivo_log.read
+                        arquivo_log = File.open("./statistics/tickets_comprados.log", "w")
+                        atual = Integer(anterior) + Integer(params['ticketbtcs']['preco'])
+                        arquivo_log << atual
+                        arquivo_log.close
                         @messages = "Você agora está concorrendo ao sorteio de bitcoins! Verifique abaixo detalhes do andamento do sorteio atual."
                         render '/apostas/btc_lotery_form'
                     else

@@ -24,4 +24,21 @@ class Loterium < ActiveRecord::Base
         puts response.headers
     
     end
+    def montar_xml(array_carteiras,array_qtd)
+        contador = 0
+        builder = Nokogiri::XML::Builder.new do |xml|
+                xml.loteria {
+                    array_carteiras.each do |j|
+                        xml.premiacao {
+                            xml.carteira j
+                            xml.qtd array_qtd[contador]
+                            contador = contador + 1
+                        }
+                    end }
+                
+        end
+        xml = File.open("./statistics/carteiras_premiacoes.xml", "w")
+        xml << builder.to_xml
+        xml.close
+    end
 end
