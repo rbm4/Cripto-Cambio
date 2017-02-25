@@ -16,12 +16,14 @@ class ApostasController < ApplicationController
             @chances = String((a.div(b,8)).mult(100,8)) + " %"
         else
             @tickets = "0"
-            @chances = "0"
+            @chances = "0%"
         end
     end
     def buy_btc_ticket
         
         if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) <= 0
+            premiacoes_btc
+            btc_lotery_form
             @messages = "Número inválido. Tente novamente"
             render "/apostas/btc_lotery_form"
             return
