@@ -58,9 +58,11 @@ class ApostasController < ApplicationController
                         premiacoes_btc
                         btc_lotery_form
                         render '/apostas/btc_lotery_form'
+                        return
                     elsif params['ticketbtcs']['preco'] == "0"
                         @messages = "Valor de compra 0, nada foi feito."
                         render '/apostas/btc_lotery_form'
+                        return
                     elsif t == nil #ticket não existe, criar novo
                         t = Ticketbtc.new
                         t.usuario = current_user.email
@@ -101,12 +103,14 @@ class ApostasController < ApplicationController
                     premiacoes_btc
                     btc_lotery_form
                     render '/apostas/btc_lotery_form'
+                    return
                 else
                     @messages = "Você não tem saldo suficiente para realizar esta operação. Por favor, utilize o menu '<a href='/store'>Loja</a>' para comprar bitcoins, ou então envie bitcoins para o seu endereço associado."
                     puts @messages
                     premiacoes_btc
                     btc_lotery_form
                     render '/apostas/btc_lotery_form'
+                    return
                 end
             end
         end
