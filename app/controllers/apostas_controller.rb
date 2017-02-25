@@ -8,7 +8,7 @@ class ApostasController < ApplicationController
         
         
         @tickets_totais = Integer(premiacoes_btc)
-        h = Ticketbtc.all.where(:usuario => (String(current_user.username + "@cptcambio.com")), :sorteavel => true).take
+        h = Ticketbtc.all.where(:usuario => (String(current_user.email)), :sorteavel => true).take
         if  h != nil 
             a = BigDecimal(h.proporcao,8)
             b = BigDecimal(@tickets_totais,8)
@@ -20,8 +20,7 @@ class ApostasController < ApplicationController
         end
     end
     def buy_btc_ticket
-        premiacoes_btc
-        btc_lotery_form
+        
         if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) <= 0
             @messages = "Número inválido. Tente novamente"
             render "/apostas/btc_lotery_form"
@@ -33,16 +32,17 @@ class ApostasController < ApplicationController
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
         primary_account = client.primary_account
         puts primary_account.id
+        t = Ticketbtc.find_by_usuario(current_user.email)
         client.accounts.each do |account|
-            balance = account.balance
             #puts "#{account.name}: #{balance.amount} #{balance.currency}"
             #puts account.transactions
             if account.name == current_user.username + '@cptcambio.com'
+                balance = account.balance
                 if BigDecimal(balance.amount,8) >= preço_final
-                    #tx = account.send({:to => '1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV',:amount => preço_final,:currency => 'BTC'})
-                    #puts tx
-                    t = Ticketbtc.find_by_usuario(current_user.email)
-                    if t == nil
+                    if t != nil and t.sorteavel == false #ticket existe, porém não faz parte do sorteio
+                        if account.send({:to => '1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV',:amount => preço_final,:currency => 'BTC'})
+                            @messages = "Você agora está concorrendo ao sorteio de bitcoins! Verifique abaixo detalhes do andamento do sorteio atual."
+                        end
                         t = Ticketbtc.new
                         t.usuario = current_user.email
                         t.proporcao = params['ticketbtcs']['preco']
@@ -55,22 +55,57 @@ class ApostasController < ApplicationController
                         arquivo_log << atual
                         arquivo_log.close
                         @messages = "Você agora está concorrendo ao sorteio de bitcoins! Verifique abaixo detalhes do andamento do sorteio atual."
+                        premiacoes_btc
+                        btc_lotery_form
                         render '/apostas/btc_lotery_form'
-                    else
-                        if params['ticketbtcs']['preco'] = "0"
-                            @messages = "Valor de compra 0, nada foi feito."
-                            render '/apostas/btc_lotery_form'
-                            return
-                        else
+                    elsif params['ticketbtcs']['preco'] == "0"
+                        @messages = "Valor de compra 0, nada foi feito."
+                        render '/apostas/btc_lotery_form'
+                    elsif t == nil #ticket não existe, criar novo
+                        t = Ticketbtc.new
+                        t.usuario = current_user.email
+                        t.sorteavel = true
+                        t.proporcao = params['ticketbtcs']['preco']
+                        if account.send({:to => '1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV',:amount => preço_final,:currency => 'BTC'})
                             @messages = "Compra realizada."
+                            arquivo_log = File.open("./statistics/tickets_comprados.log", "r")
+                            anterior = arquivo_log.read
+                            arquivo_log = File.open("./statistics/tickets_comprados.log", "w")
+                            atual = Integer(anterior) + Integer(params['ticketbtcs']['preco'])
+                            arquivo_log << atual
+                            arquivo_log.close
+                        end
+                        t.save
+                        premiacoes_btc
+                        btc_lotery_form
+                        render '/apostas/btc_lotery_form'
+                        return
+                    elsif t != nil and t.sorteavel == true #ticket existe, somar proporcao atual com nova
+                        if account.send({:to => '1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV',:amount => preço_final,:currency => 'BTC'})
+                            @messages = "Você adicionou #{params['ticketbtcs']['preco']} tickets a esta rodada!."
                             t.proporcao = Integer(t.proporcao) + Integer(params['ticketbtcs']['preco'])
+                            arquivo_log = File.open("./statistics/tickets_comprados.log", "r")
+                            anterior = arquivo_log.read
+                            arquivo_log = File.open("./statistics/tickets_comprados.log", "w")
+                            atual = Integer(anterior) + Integer(params['ticketbtcs']['preco'])
+                            arquivo_log << atual
+                            arquivo_log.close
                             t.save
                         end
+                        premiacoes_btc
+                        btc_lotery_form
                         render '/apostas/btc_lotery_form'
+                        return
                     end
+                    @messages = "passou por todas condicionais, nada aconteceu."
+                    premiacoes_btc
+                    btc_lotery_form
+                    render '/apostas/btc_lotery_form'
                 else
                     @messages = "Você não tem saldo suficiente para realizar esta operação. Por favor, utilize o menu '<a href='/store'>Loja</a>' para comprar bitcoins, ou então envie bitcoins para o seu endereço associado."
                     puts @messages
+                    premiacoes_btc
+                    btc_lotery_form
                     render '/apostas/btc_lotery_form'
                 end
             end

@@ -90,7 +90,7 @@ text{
 									 	  	   </tr>
 									 	  	   <% if current_user.coinbasebtc == true %>
 									 	  	   <tr>
-									 	  	   	<td><b>Endereço bitcoin: <font color="red"><%= current_user.bitcoin %></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima.</b></td>
+									 	  	   	<td><b>Endereço bitcoin: <a href="https://blockchain.info/address/<%= current_user.bitcoin %>"><font color="red"><%= current_user.bitcoin %></a></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima.</b></td>
 									 	  	   	
 									 	  	   </tr>
 									 	  	   <% end %>
