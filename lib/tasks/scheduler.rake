@@ -4,13 +4,12 @@ require 'date'
 
 desc "This task is called by the Heroku scheduler add-on"
 task :roll_lottery_btc => :environment do
+    loterium = Loterium.new
     logr = "Script de loteria rodado no dia: "
     logr << Time.now.strftime("%d/%m/%y\n")
-    string_premiados = ""
     array_carteiras = []
     array_qtd = []
-    if data_sorteio = Time.now.strftime("%d") == "24"
-        loterium = Loterium.new
+    if data_sorteio = Time.now.strftime("%d") == "01"
         tickets = Ticketbtc.all.where(:sorteavel => true)
         total_sorteavel = 0
         usuarios = []
