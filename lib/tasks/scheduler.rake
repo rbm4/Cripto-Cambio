@@ -9,7 +9,7 @@ task :roll_lottery_btc => :environment do
     logr << Time.now.strftime("%d/%m/%y\n")
     array_carteiras = []
     array_qtd = []
-    if data_sorteio = Time.now.strftime("%d") == "28"
+    if data_sorteio = Time.now.strftime("%d") == "01"
         puts "data correta"
         tickets = Ticketbtc.all.where(:sorteavel => true)
         total_sorteavel = 0
