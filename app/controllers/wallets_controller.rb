@@ -1,6 +1,6 @@
 class WalletsController < ApplicationController
     require 'coinbase/wallet'
-    before_action :require_wallet, only: [:withdraw, :withdraw_helper]
+    before_action :require_wallet, only: [:withdraw, :withdraw_helper, :notifications]
     
     def create_btc_wallet
         usuario = current_user
@@ -22,7 +22,14 @@ class WalletsController < ApplicationController
         
     end
     def notifications
-        return 201
+        endereco = params["address"]
+        valor_movido = params["amont"]
+        id = params["transaction"]["id"]
+        logr = ""
+        logr << "\nTransação registrada no endereço #{endereco}, movendo um montante equivalente a #{valor_movido} com o ID de transação #{id}"
+        arquivo_log = File.open("./statistics/transacoes.log", "a")
+        arquivo_log << logr
+        arquivo_log.close
     end
     def withdraw_helper
         puts 'helper chamado'
