@@ -6,17 +6,20 @@ class ApostasController < ApplicationController
     end
     def btc_lotery_form
         
-        
+        proporcao_total = 0
         @tickets_totais = Integer(premiacoes_btc)
-        h = Ticketbtc.all.where(:usuario => (String(current_user.email)), :sorteavel => true).take
-        if  h != nil 
-            a = BigDecimal(h.proporcao,8)
+        h = Ticketbtc.all.where(:usuario => (String(current_user.email)), :sorteavel => true)
+        if  h != nil
+            h.each do |m|
+                proporcao_total = proporcao_total + Integer(m.proporcao)
+            end
+            a = BigDecimal(proporcao_total,8)
             b = BigDecimal(@tickets_totais,8)
-            @tickets = h.proporcao 
+            @tickets = proporcao_total
             @chances = String((a.div(b,8)).mult(100,8)) + " %"
         else
             @tickets = "0"
-            @chances = "0%"
+            @chances = "0 %"
         end
     end
     def buy_btc_ticket

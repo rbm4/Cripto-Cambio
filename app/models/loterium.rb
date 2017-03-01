@@ -9,6 +9,7 @@ class Loterium < ActiveRecord::Base
         string_body << "Obrigado por utilizar nossos serviços!<br> Gostaríamos de parabenizá-lo(a) por ter jogado e ganhado em nossa loteria!!<br>"
         string_body << "\n"
         string_body << "Faça login em nosso site para verificar e/ou transferir o valor ganho.\n Saldo adicionado a sua conta: #{qtd} BTC"
+        string_body << "<a href='www.cptcambio.com/apostas/btc_loteria>Clique aqui</a> para entrar em nosso site.<br> É importante lembrar que, devido as características da tecnologia bitcoin, é possível que se você logar no momento em que este email fora enviado, seu saldo ainda não esteja contabilizado em sua conta, mas é só aguardar as confirmações da rede! :)"
         
         from = Email.new(email: 'no-reply@cptcambio.com')
         subject = 'Loterias CPT Cambio'
@@ -18,10 +19,10 @@ class Loterium < ActiveRecord::Base
         half = "SG.5oYiMlhETWqmzae45XVnSA.Re1Bovb"
         sg = SendGrid::API.new(api_key: half + "NhVX4E5NxybXsCFKjzPuN72" + bot)
         response = sg.client.mail._("send").post(request_body: mail.to_json)
-        puts 'email enviado aqui'
+        #puts 'email enviado aqui'
         puts response.status_code
-        puts response.body
-        puts response.headers
+        #puts response.body
+        #puts response.headers
     
     end
     def montar_xml(array_carteiras,array_qtd)
