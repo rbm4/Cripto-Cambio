@@ -62,11 +62,11 @@ class ApplicationController < ActionController::Base
     string_body << "Olá "
     string_body << user.first_name.capitalize + " " + user.last_name.capitalize
     string_body << "<br>"
-    string_body << "Obrigado por se registrar!<br> Você esta prestes a realizar compras de bitcoin e litecoins com a melhor facilidade e praticidade!<br>"
+    string_body << "Obrigado por se registrar!<br> Você esta prestes a realizar compras de bitcoin e litecoins com a melhor facilidade e praticidade!<br> Tendo também acesso a todos os nossos serviços integrados de loteria, para mais detalhes, confirme seu email e confira! <br>"
     string_body << "\n"
     string_body << ("Confirme seu email clicando no link: <a href='" + ENV["LOCAL_URL"] + "/confirmation?id=" + user.confirm_token.to_s + "'> Confirmar </a>")
     
-    from = Email.new(email: 'admin@cptcambio.com')
+    from = Email.new(email: 'No-reply@cptcambio.com')
     subject = 'Confirmação de registro Cripto Cambio'
     to = Email.new(email: user.email)
     content = Content.new(type: 'text/html', value: string_body)
