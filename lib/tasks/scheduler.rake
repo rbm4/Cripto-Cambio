@@ -53,7 +53,7 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
                         j = Ticketbtc.all.where(:sorteavel => true,  :usuario => user_premiado.email).take
                         logr << "Enviado bitcoins aqui para o ganhador #{user_premiado.email}, no valor de #{premio_string}, para o endereço #{user_premiado.bitcoin}\n"
                         primary_account.send( :to => user_premiado.bitcoin, :amount => premio_string, :currency => 'BTC')
-                        loterium.parabenizar_ganho(user_premiado, premio_string, "nSylUdM6pXq78")
+                        loterium.parabenizar_ganho(user_premiado, premio_string, chave.sendgrid)
                         doc = File.open("./statistics/carteiras_premiacoes.xml", "r")
                         xml_str = String(doc.read)
                         doc = Nokogiri::XML(xml_str)

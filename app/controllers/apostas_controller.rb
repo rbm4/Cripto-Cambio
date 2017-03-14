@@ -31,7 +31,7 @@ class ApostasController < ApplicationController
             render "/apostas/btc_lotery_form"
             return
         end
-        preço = 0.0003
+        preço = 0.0001
         decimal_params = BigDecimal(params['ticketbtcs']['preco'],1)
         preço_final = decimal_params.mult(preço,8)
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
@@ -122,7 +122,7 @@ class ApostasController < ApplicationController
     end
     def dynamic
         decimal_params = BigDecimal(params['ticket']['numero_tck'],1)
-        preco = BigDecimal(0.0003,8)
+        preco = BigDecimal(0.0001,8)
         @valor = decimal_params.mult(preco,8)
         puts @valor
         @qtd = params['ticket']['numero_tck']
@@ -136,7 +136,7 @@ class ApostasController < ApplicationController
             total_sorteavel = Integer(total_sorteavel) + Integer(h.proporcao)
         end
         decimal_sorteavel = BigDecimal(total_sorteavel,8)
-        decimal_preco = BigDecimal(0.0003,8)
+        decimal_preco = BigDecimal(0.0001,8)
         decimal_desconto = BigDecimal(0.92,2)
         valor_total = (decimal_sorteavel.mult(decimal_preco,8)).mult(decimal_desconto,8)
         @premiacoes[0] = BigDecimal(valor_total,8).mult(0.4,8)
