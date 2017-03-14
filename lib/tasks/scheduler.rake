@@ -1,9 +1,18 @@
 require 'net/http'
 require 'coinbase/wallet'
-require 'date'
+require 'date' 
 
 desc "This task is called by the Heroku scheduler add-on"
-task :roll_lottery_btc => :environment do
+task :teste_keys, [:secret, :key, :sendgrid] => :environment do |t, chave|
+    chave.with_defaults(:secret => "default_secret_value", :key => "default_keyex_value", :sendgrid => "default_sendgrid_value")
+    # args[:arg1] and args[:arg2] contain the arg values, subject to the defaults
+    puts chave.secret
+    puts chave.key
+    puts chave.sendgrid
+end
+#rake roll_lottery_btc[1,2,3]
+task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
+    chave.with_defaults(:secret => "default_secret_value", :key => "default_keyex_value", :sendgrid => "default_sendgrid_value")
     loterium = Loterium.new
     logr = "Script de loteria rodado no dia: "
     logr << Time.now.strftime("%d/%m/%y\n")
@@ -29,7 +38,7 @@ task :roll_lottery_btc => :environment do
         contador_xml = 0
         proporcoes_premios.each do |k|
             premiado = rand(0...total_sorteavel)
-            client = Coinbase::Wallet::Client.new(api_key: "GqUS7XSpoyz5PCI0", api_secret: "G8yoJwK4yBCaQn6OTbFORuSume7r0B4V")
+            client = Coinbase::Wallet::Client.new(api_key: chave.key, api_secret: chave.secret)
             primary_account = client.primary_account
             client.accounts.each do |account|
                 balance = primary_account.balance

@@ -42,4 +42,8 @@ class Loterium < ActiveRecord::Base
         xml << builder.to_xml
         xml.close
     end
+    def secret_keys
+        puts ENV["COINBASE_KEY"]
+        puts ENV["COINBASE_SECRET"]
+    end
 end
