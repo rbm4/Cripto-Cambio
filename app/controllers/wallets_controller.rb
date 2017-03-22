@@ -8,7 +8,7 @@ class WalletsController < ApplicationController
         account = client.create_account(name: String(current_user.username) + '@cptcambio.com')
         #saldo = account.balance
         #primary_account = client.get_primary_account
-        address = account.create_address(callback_url: ENV['LOCAL_URL'] + '/coinbase_notification')
+        address = account.create_address
         usuario.bitcoin = address["address"]
         usuario.coinbasebtc = true
         usuario.save
