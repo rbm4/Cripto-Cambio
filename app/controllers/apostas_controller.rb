@@ -215,5 +215,17 @@ class ApostasController < ApplicationController
     end
     def detalhes
     end
-    
+    def stats
+        @maiores_premiados_btc = Premiado.all.order('qtd_btc desc')
+        i = 0
+        o = 9
+        @array = []
+        while i <= o do
+            @array[i] = @maiores_premiados_btc[i]
+            
+            i += 1
+        end
+        puts @array[0].endereco
+        puts @array[1].endereco
+    end
 end

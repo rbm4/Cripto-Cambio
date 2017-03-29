@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  endereco: MyString
+  qtd_btc: MyString
+  qtd_eth: MyString
+
+two:
+  endereco: MyString
+  qtd_btc: MyString
+  qtd_eth: MyString

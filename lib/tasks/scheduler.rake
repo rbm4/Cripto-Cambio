@@ -35,7 +35,6 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
         end
         
         proporcoes_premios = [0.40,0.20,0.11,0.09,0.07,0.05,0.04,0.03,0.015,0.005].to_a
-        contador_xml = 0
         proporcoes_premios.each do |k|
             premiado = rand(0...total_sorteavel)
             client = Coinbase::Wallet::Client.new(api_key: chave.key, api_secret: chave.secret)
@@ -54,23 +53,15 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
                         logr << "Enviado bitcoins aqui para o ganhador #{user_premiado.email}, no valor de #{premio_string}, para o endereço #{user_premiado.bitcoin}\n"
                         primary_account.send( :to => user_premiado.bitcoin, :amount => premio_string, :currency => 'BTC')
                         loterium.parabenizar_ganho(user_premiado, premio_string, chave.sendgrid)
-                        doc = File.open("./statistics/carteiras_premiacoes.xml", "r")
-                        xml_str = String(doc.read)
-                        doc = Nokogiri::XML(xml_str)
-                        add = true
-                        doc.xpath('//premiacao').each do |thing|
-                                if thing.at_xpath('carteira') != nil and thing.at_xpath('carteira').content == user_premiado.bitcoin
-                                    calc = BigDecimal(thing.at_xpath('qtd').content,8) + (k * BigDecimal(String(balance),8))
-                                    array_carteiras[contador_xml] = thing.at_xpath('carteira').content 
-                                    array_qtd[contador_xml] = calc
-                                    contador_xml = contador_xml + 1
-                                    add = false
-                                end
-                        end
-                        if add == true
-                            array_carteiras[contador_xml] = user_premiado.bitcoin
-                            array_qtd[contador_xml] = (k * BigDecimal(String(balance),8))
-                            contador_xml = contador_xml + 1
+                        b = Premiado.find_by_endereco(user_premiado.bitcoin) #estatísticas, para salvar todos os usuários premiados
+                        if b == nil
+                            b = Premiado.new
+                            b.endereco = user_premiado.bitcoin
+                            b.qtd_btc = premio_string
+                            b.save
+                        else
+                            b.qtd_btc = BigDecimal(b.qtd_btc,8) + BigDecimal(premio_string,8)
+                            b.save
                         end
                         j.sorteavel = false
                         j.save

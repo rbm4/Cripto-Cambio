@@ -92,7 +92,7 @@ class SessionsController < ApplicationController
   def home
       @total_btc = limite_compra_btc
       @total_ltc = limite_compra_ltc
-      @atual = Usuario.find(params[:id])
+      @atual = current_user
     unless session[:user_id] == @atual.id
       @messages = "ERRO! Você não pode acessar esta página"
       render 'sessions/loginerror'
