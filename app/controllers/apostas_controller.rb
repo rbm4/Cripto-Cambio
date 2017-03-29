@@ -225,7 +225,5 @@ class ApostasController < ApplicationController
             
             i += 1
         end
-        puts @array[0].endereco
-        puts @array[1].endereco
     end
 end
