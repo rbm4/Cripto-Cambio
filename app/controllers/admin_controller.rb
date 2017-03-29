@@ -116,5 +116,6 @@ class AdminController < ApplicationController
     def promo
     end
     def demo
+        @users = Usuario.all
     end
 end

@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   post '/volm' => 'admin#take'
   post '/confirmation' => 'notifications#balance_change'
   get '/promote' => 'admin#promo'
-  get '/demote' => 'admin#demo'
+  post '/demote' => 'admin#demo'
   get '/msgs' => 'admin#all_tickets'
   get '/msgall' => 'notifications#msgall'
   match '/setting' => 'sessions#setting', via: [:get, :post]

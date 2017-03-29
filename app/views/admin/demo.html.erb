@@ -1,0 +1,75 @@
+<style>
+	article{
+ 	background-color: #cccccc;
+ 	margin-top: -10%;
+ 	padding: 10px;
+ 	
+ }
+ td[type=bold]{
+ 	
+ 	border: 2px;
+ 	border-style: solid;
+ 	font-weight: bold;
+ 	font-size: 15px;
+ 	
+ }
+
+ table{
+ 	border: 2px;
+ 	border-style: solid;
+    
+ }
+</style>
+<body class="contact">
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<%= link_to "Voltar", :controller => 'admin', :action =>'home', :id => session[:user_id]%>
+								<table style="width:100%">
+								<tr >
+									<td> Nome do usuário </td>
+									<td> Email </td>
+									<td> Confirmado </td>
+									<td> Nome </td>
+									<td> Fone </td>
+									</tr>
+								<p><% @users.each do | h |%>
+								<tr>
+								<td type='bold'><%= h.username.capitalize %> </td>
+								<td type='bold'><%= h.email.capitalize %> </td>
+								<td type='bold'><%= String(h.email_confirmed).capitalize %> </td>
+								<td type='bold'><%= h.first_name.capitalize %> <%= h.last_name.capitalize %></td>
+								<td type='bold'><%= h.fone %> </td>
+								</p><% end %>
+								</tr></table>
+								
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Krobellus market</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>
