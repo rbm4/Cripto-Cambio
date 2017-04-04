@@ -65,13 +65,22 @@ class SessionsController < ApplicationController
       render 'recover'
     end
   end
-  def login_attempt 
+  def login_attempt
+    parameters = {'secret' => ENV["CAPTCHA_KEY"], 'response' => params["g-recaptcha-response"]}
+    x = Net::HTTP.post_form(URI.parse('https://www.google.com/recaptcha/api/siteverify'), parameters)
+    hash = JSON.parse(x.body)
     @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
     if @authorized_user
-      if @authorized_user.email_confirmed == true
-        session[:user_id] = @authorized_user.id
-        @messages = "Wow Welcome again, you logged in as #{@authorized_user.username}"
-        redirect_to :controller => 'sessions', :action =>'home', :id => session[:user_id]
+      if @authorized_user.email_confirmed == true 
+        if hash["success"] == true
+            session[:user_id] = @authorized_user.id
+            @messages = "Wow Welcome again, you logged in as #{@authorized_user.username}"
+            redirect_to :controller => 'sessions', :action =>'home', :id => session[:user_id]
+        else
+          @messages = "Captcha Inválido."
+          render "login"
+          return
+        end
       else
         @messages = "Email não confirmado, ainda. Por favor, confira sua caixa de entrada ou caixa de SPAM em busca do email de confirmação."
         render "login"
