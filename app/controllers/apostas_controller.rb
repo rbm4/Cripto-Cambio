@@ -45,7 +45,7 @@ class ApostasController < ApplicationController
                 balance = account.balance
                 if BigDecimal(balance.amount,8) >= preço_final
                     if t != nil and t.sorteavel == false #ticket existe, porém não faz parte do sorteio
-                        if account.send({:to => '1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV',:amount => preço_final,:currency => 'BTC'})
+                        if account.send({:to => 'ricardo.malafaia1994@gmail.com',:amount => preço_final,:currency => 'BTC'})
                             @messages = "Você agora está concorrendo ao sorteio de bitcoins! Verifique abaixo detalhes do andamento do sorteio atual."
                         end
                         t = Ticketbtc.new
