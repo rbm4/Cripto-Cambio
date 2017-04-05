@@ -82,17 +82,21 @@ class ProdutosController < ApplicationController
         end
     end
     def finalizar_compra
-       pgto = Pagamento.new(pagamento_params)
-       url = 'https://block.io/api/v2/get_new_address/?api_key=ac35-6ff5-e103-d1c3'
-       uri = URI(url)
-       response = Net::HTTP.get(uri)
-       hash = JSON.parse(response)
-       @transaction_status = hash["status"].to_s
-       net =  hash["data"]["network"].to_s
-       userid = hash["data"]["user_id"].to_s
-       @payment_address = hash["data"]["address"]
-       @identifier = hash["data"]["label"].to_s
-       puts @payment_address
+        parameters = {'secret' => ENV["CAPTCHA_KEY"], 'response' => params["g-recaptcha-response"]}
+        x = Net::HTTP.post_form(URI.parse('https://www.google.com/recaptcha/api/siteverify'), parameters)
+        hash = JSON.parse(x.body)
+        if hash["success"] == true
+            pgto = Pagamento.new(pagamento_params)
+            url = 'https://block.io/api/v2/get_new_address/?api_key=ac35-6ff5-e103-d1c3'
+            uri = URI(url)
+            response = Net::HTTP.get(uri)
+            hash = JSON.parse(response)
+            @transaction_status = hash["status"].to_s
+            net =  hash["data"]["network"].to_s
+            userid = hash["data"]["user_id"].to_s
+            @payment_address = hash["data"]["address"]
+            @identifier = hash["data"]["label"].to_s
+        end
        
        
        notifyurl = 'https://block.io/api/v2/create_notification/?api_key=ac35-6ff5-e103-d1c3&type=address&address=' + @payment_address + '&url=http://bmarkets.herokuapp.com/blckrntf'

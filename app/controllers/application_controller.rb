@@ -115,6 +115,18 @@ class ApplicationController < ActionController::Base
   end
   
   def calcular_metodos
+    parameters = {'secret' => ENV["CAPTCHA_KEY"], 'response' => params["g-recaptcha-response"]}
+    x = Net::HTTP.post_form(URI.parse('https://www.google.com/recaptcha/api/siteverify'), parameters)
+    hash = JSON.parse(x.body)
+    if hash["success"] != true
+      @captcha = false
+      respond_to do | format |  
+        format.js {render :layout => false}  
+      end
+      return
+    elsif hash["success"] == true
+      @captcha = true
+    end
     @zero = false
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
     if BigDecimal(params['calculo']['volume']) <= 0

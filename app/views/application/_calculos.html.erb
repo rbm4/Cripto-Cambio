@@ -5,6 +5,7 @@
 		font: bold;
 	}
 </style>
+<% if @captcha == true%>
 <%= form_for :pagamento, :url => '/create_handlerps', :method => 'post' do |f| %>
 <% if @zero == false%>
 <% if @warning == false%>
@@ -73,3 +74,6 @@
 									 	  	    <td type='finished'></td>
 									 	  	    <td type='finished'></td>
 									 	  	    </tr> <% end %> <% end %>
+									 	  	    <% else %>
+									 	  	    Captcha inválido!! faça o teste do captcha e clique em "calcular" novamente.
+									 	  	    <% end %>

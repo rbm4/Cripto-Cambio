@@ -43,9 +43,9 @@ article{
 								<%= label_tag @logged, nil, disabled: true%>
 								<div class= "Sign_Form">
                                 <%= form_tag(:controller => 'sessions', :action => 'login_attempt') do %>
-                                <div class="g-recaptcha" data-sitekey="6LeGcxsUAAAAAIYoK-i5Zpeu58qj8e_72WgbkQLX"></div>
                                 <%= text_field_tag :username_or_email, nil, placeholder: 'Username ou Email' %></p>
                                 <p><%= password_field_tag :login_password, nil, placeholder: 'Senha' %></p>
+                                <div class="g-recaptcha" data-sitekey="6LeGcxsUAAAAAIYoK-i5Zpeu58qj8e_72WgbkQLX"></div><br>
                                 <%= submit_tag("Log In") %>
                                 <% end %>
                                 <ul class="Signin_Errors">
