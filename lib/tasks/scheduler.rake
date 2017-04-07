@@ -51,7 +51,7 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
                         user_premiado = Usuario.find_by_username(username)
                         j = Ticketbtc.all.where(:sorteavel => true,  :usuario => user_premiado.email).take
                         logr << "Enviado bitcoins aqui para o ganhador #{user_premiado.email}, no valor de #{premio_string}, para o endereço #{user_premiado.bitcoin}\n"
-                        primary_account.send( :to => user_premiado.bitcoin, :amount => premio_string, :currency => 'BTC')
+                        client.transfer("6f067e3d-b3aa-574f-b92e-461eda70a37b", {:to => account.id, :amount => premio_string, :currency => 'BTC'})
                         loterium.parabenizar_ganho(user_premiado, premio_string, chave.sendgrid)
                         b = Premiado.find_by_endereco(user_premiado.bitcoin) #estatísticas, para salvar todos os usuários premiados
                         if b == nil
