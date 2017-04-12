@@ -29,7 +29,7 @@
       </tr>
       <%= form_for "ticket" do |j| %>
       <tr>
-      <td class="head-1" bgcolor="#14100C" align="left" style="padding:5px;"></td>
+      <td class="head-1" bgcolor="#14100C" align="left" style="padding:5px;"><%= j.number_field :numero_tck, :placeholder => "N° de tickets", data: { remote: true, url: url_for( action: :calcular_tickets) } %></td>
       </tr><% end %>
       <tr>
         <td class="txt-2" bgcolor="#14100C" align="left" style="padding:5px;"> 1 Ticket = 0.0001 BTC</td> 
