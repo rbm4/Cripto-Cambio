@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="loteria_btc.css">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 
 <div class="body2" width="80%">
@@ -70,16 +69,6 @@
                   <tbody>
                   <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> <br> 
                   Data do próximo sorteio:
-                  <div id="defaultCountdown"></div>
-                  <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-4715900-1");
-pageTracker._initData();
-pageTracker._trackPageview();
-</script>
                   <% all = Loterium.all %>
                   <% g = all[0]%>
                   <% if g == nil%>
