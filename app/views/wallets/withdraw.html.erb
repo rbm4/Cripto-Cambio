@@ -1,5 +1,11 @@
 <head>
 	<style>
+	b{
+		font-weight: bold;
+	}
+	.font{
+		font-size:70%;
+	}
 	hr {
     display: block;
     margin-top: 0.5em;
@@ -114,8 +120,8 @@ div{
 							<%= form_tag(:controller => 'wallets', :action => 'withdraw_remove') %>
 							
 							
-							Selecione qual moeda deseja retirar: <%= select_tag  "moeda", raw("<option>Moeda:</option><option>BTC</option><option>ETH</option>"), class: "progress_and_message", data: { remote: true, url: url_for( action: :withdraw_helper), progress_bar: "progress_bar_div_id",    update: "message_div_id" } %> <br>
-							 <table style="width:25%">
+							Selecione qual moeda deseja retirar: <%= select_tag  "moeda", raw("<option>Moeda:</option><option>BTC</option><option>ETH</option>"), data: { remote: true, url: url_for( action: :withdraw_helper) } %> <br>
+							 <table style="width:27%">
   							<tr>
     							<td>Valor disponível:</td>
     							<td><div id="value"> </div></td>
@@ -123,7 +129,7 @@ div{
   							</tr>
   							</table>
   							<div class="box">
-  							<table >
+  							<table>
   							<tr>
     							<td><font class="red">O valor de transferência é irrestrito. e será de acordo com o volume atual que a carteira se encontra.</font></td>
     							<td></td>
@@ -140,6 +146,8 @@ div{
 							 </div>
 							<p>Valor a ser transferido: <%= text_field_tag "quantidade", @amount_transfer, :placeholder => "0,0000000" %></p>
 							<p>Endereço de destino: <%= text_field_tag "destino" , @address_form, :placeholder => "Exemplo: 1PwgjmKHv7LpAEJYwfS5FmLMfGACUk2eRV" %></p>
+							<div class="g-recaptcha" data-sitekey="6LeGcxsUAAAAAIYoK-i5Zpeu58qj8e_72WgbkQLX"></div><br>
+							<p><b class="font">Por favor, verifique se todos os dados estão preenchidos corretamente! A transferência de bitcoins não pode ser desfeita pela característica da tecnlogia.</p></b>
 							<%= submit_tag "Transferir" %>
 							</div>
 							

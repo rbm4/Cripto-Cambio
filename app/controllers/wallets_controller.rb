@@ -48,40 +48,47 @@ class WalletsController < ApplicationController
         end
     end
     def withdraw_remove
-        @messages = ""
-        if params["moeda"] == "Moeda:"
-            @messages << "Selecione uma moeda para transferir."
-        end
-        if params["quantidade"].match(/[a-zA-Z]/) or params["quantidade"] == "" or params["destino"] == ""
-            @messages  << 'Formulário com dados inválidos. Preencha-o novamente.<br>'
-            renderi = true
-        else 
-            @amount_transfer = params['quantidade']
-        end
-        if (Bitcoin.valid_address? params['destino']) == false
-            @messages << 'O endereço bitcoin digitado é inválido!<br>'
-            renderi = true
-        else
-            @address_form = params['destino']
-        end
-        if (BigDecimal(params['quantidade'],8) + BigDecimal("0.0004", 8)) >= BigDecimal(balance_btc_coinbase,8)
-            renderi = true
-            @messages << "Seu saldo não condiz com o valor que você está tentando transferir.<br>"
-        end
-        if renderi == true
-            render 'withdraw'
-            return
-        end
-        
-        client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
-        client.accounts.each do |account|
-            balance = account.balance
-            puts "#{account.name}: #{balance.amount} #{balance.currency}"
-            puts account.transactions
-            if account.name == current_user.username + '@cptcambio.com'
-                @messages = account.send( :to => params['destino'], :amount => params['quantidade'], :currency => 'BTC')
-                print @messages
+        hash = captcha(params["g-recaptcha-response"])
+        if hash["success"] == true    
+            @messages = ""
+            if params["moeda"] == "Moeda:"
+                @messages << "Selecione uma moeda para transferir.<br>"
+                renderi = true
             end
+            if params["quantidade"].match(/[a-zA-Z]/) or params["quantidade"] == "" or params["destino"] == ""
+                @messages  << 'Formulário com dados inválidos. Preencha-o novamente.<br>'
+                renderi = true
+            else 
+                @amount_transfer = params['quantidade']
+            end
+            if (Bitcoin.valid_address? params['destino']) == false
+                @messages << 'O endereço bitcoin digitado é inválido!<br>'
+                renderi = true
+            else
+                @address_form = params['destino']
+            end
+            if (BigDecimal(params['quantidade'],8) + BigDecimal("0.0004", 8)) >= BigDecimal(balance_btc_coinbase,8)
+                renderi = true
+                @messages << "Seu saldo não condiz com o valor que você está tentando transferir.<br>"
+            end
+            if renderi == true
+                render 'withdraw'
+                return
+            end
+            params['quantidade'].gsub!(',','.')
+            client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+            client.accounts.each do |account|
+                balance = account.balance
+                puts "#{account.name}: #{balance.amount} #{balance.currency}"
+                puts account.transactions
+                if account.name == current_user.username + '@cptcambio.com'
+                    @messages = account.send( :to => params['destino'], :amount => params['quantidade'], :currency => 'BTC')
+                    print @messages
+                end
+            end
+        else
+            @messages = "Captcha inválido! Tente novamente."
+            render 'withdraw'
         end
     end
 end

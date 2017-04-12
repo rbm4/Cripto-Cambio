@@ -122,9 +122,9 @@ class ApostasController < ApplicationController
     end
     def dynamic
         decimal_params = BigDecimal(params['ticket']['numero_tck'],1)
-        preco = BigDecimal(0.0001,8)
+        preco = BigDecimal(0.0001,8) 
         @valor = decimal_params.mult(preco,8)
-        puts @valor
+        @valor = @valor + BigDecimal(0.00045,8)
         @qtd = params['ticket']['numero_tck']
         @valor
     end
