@@ -61,7 +61,10 @@
               <% end %>
               </table><br>
               <br><br>
-              <br> <a href="detalhes"> </a><BR>
+              <br> 
+              <% tck = File.open("./statistics/tickets_comprados.log", "rb") %>
+              <% total_tck = tck.read %>
+              Total de tickets comprados durante todos os sorteios já realizados: <%= total_tck %> <a href="detalhes"></a><BR>
               <br><br></p><hr> </td>
           </tr>
           
@@ -69,10 +72,12 @@
             <td valign="top" width="680"><table border="0" cellpadding="0" cellspacing="0" width="680">
               <tbody><tr>
           
-                <td class="head-3" valign="middle" width="622">Cripto Cambio exchange Loterias</td>
+                <td class="head-3" valign="middle" width="622">Cripto Cambio exchange Loterias<br> <h1>Log:</h1> </td>
               </tr>
               <tr>
-                <td class="txt-1"> <br>  </td>
+                <td class="txt-1"> <br> <% file = File.open("./statistics/loteria.log", "rb") %>
+                <% content = file.read %>
+                <%= content.force_encoding("UTF-8").html_safe %></td>
               </tr>
             </tbody></table></td>
           

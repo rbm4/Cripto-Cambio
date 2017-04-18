@@ -67,18 +67,30 @@
               <tr>
                 <td valign="top" width="680"><table align="center" border="0" cellpadding="0" cellspacing="0" width="645">
                   <tbody>
-                  <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> <br> 
+                  <b class="txt-2"><div style="border:5px;">Seus tickets: <%= @tickets %> <br> Tickets totais: <%= @tickets_totais %> <br> Chance de ganhar algum prêmio: <%= @chances %> <br> <br>
                   Data do próximo sorteio:
                   <% all = Loterium.all %>
                   <% g = all[0]%>
                   <% if g == nil%>
                   Não há previsão.
                   <% else %>
-                  <%= (Date.parse(g.data) + 31 ) %>
+                  <% mes = Time.now.strftime("%m") %>
+                  <% ano = Time.now.strftime("%y") %>
+                  <% if mes == "12" %>
+                  <% mes = "01" %>
+                  <% ano = Integer(ano) + 1 %>
+                  <% else %>
+                  <% mes = Integer(mes) + 1 %>
+                  <% if mes <= 10 %>
+                  <% mes = "0" + String(mes)%>
+                  <% end %>
+                  <% end %>
+                  <% string_data = "01/#{mes}/#{ano}"%>
+                  <%= string_data %>
                   <% end %>
                   </div></b>
                   	<tr>
-                    <td class="txt-2" valign="middle" width="490" style="padding:10px;">Confira a baixo as premiações do sorteio <%= @sorteio_numero %>.</td>
+                    <td class="txt-2" valign="middle" width="490" style="padding:10px;">Confira abaixo as premiações do sorteio <%= @sorteio_numero %>.</td>
                   </tr>
                   <tr><td>
                   	 1- <%= @premiacoes[0] %> BTC<br> 2- <%= @premiacoes[1] %> BTC <br> 3- <%= @premiacoes[2] %> BTC<br> 4- <%= @premiacoes[3] %> BTC<br> 5- <%= @premiacoes[4] %> BTC<br> 6- <%= @premiacoes[5] %> BTC<br> 7- <%= @premiacoes[6] %> BTC<br> 8- <%= @premiacoes[7] %> BTC<br> 9- <%= @premiacoes[8] %> BTC<br> 10- <%= @premiacoes[9] %> BTC<br>

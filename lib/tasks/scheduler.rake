@@ -94,11 +94,10 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
             g.save
         end
         
-        logr << "Sorteio realizado, todos os tickets estão não sorteáveis, aplicar nova data de sorteio.\n"
-        logr << "Concluindo log.\n-------------------------\n"
+        logr << "Sorteio realizado, todos os tickets estão não sorteáveis, aplicar nova data de sorteio.<br>"
+        logr << "Concluindo log.<br>-------------------------<br>"
     else
-        logr << "Data errada, não realizar sorteio.\n"
-        logr << "Concluindo log.\n-------------------------\n"
+        #data errada, não fazer nada.
     end
     loging = loterium.montar_xml(array_carteiras,array_qtd)
     arquivo_log = File.open("./statistics/loteria.log", "a") do |j|
