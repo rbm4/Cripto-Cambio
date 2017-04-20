@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
       end
       
       @carteira = params['calculo']['address']
-      @desejado = BidgDecimal(params['calculo']['volume'].sub!(',','.'),8)
+      @desejado = BigDecimal(params['calculo']['volume'].sub!(',','.'),8)
       @limit = limite_compra_btc
       @currency = 'BTC'
       @render = true
@@ -181,7 +181,7 @@ class ApplicationController < ActionController::Base
       btc_ltc = litecoin_para_bitcoin
       
       @carteira = params['calculo']['address']
-      @desejado = params['calculo']['volume']
+      @desejado = BigDecimal(params['calculo']['volume'].sub!(',','.'),8)
       puts 'render'
       @limit = limite_compra_ltc
       @currency = 'LTC'
