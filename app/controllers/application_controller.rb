@@ -139,9 +139,8 @@ class ApplicationController < ActionController::Base
     end
     @zero = false
     @product = Shoppe::Product.root.find_by_permalink(params['calculo']['permalink'])
-    if BigDecimal(params['calculo']['volume']) <= 0
-      @zero = true
-      
+    if BigDecimal(params['calculo']['volume'].sub!(',','.'),8) <= 0
+      @zero = true  
     end
     if params['calculo']['moeda'] == 'btc'
       a = Bitcoin.valid_address? params['calculo']['address']
@@ -153,8 +152,7 @@ class ApplicationController < ActionController::Base
       end
       
       @carteira = params['calculo']['address']
-      @desejado = params['calculo']['volume']
-      @desejado.sub!(',','.')
+      @desejado = BidgDecimal(params['calculo']['volume'].sub!(',','.'),8)
       @limit = limite_compra_btc
       @currency = 'BTC'
       @render = true
