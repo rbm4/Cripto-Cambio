@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
       end
       
       @carteira = params['calculo']['address']
-      @desejado = params['calculo']['volume']
+      @desejado = params['calculo']['volume'].sub!(',','.')
       @limit = limite_compra_btc
       @currency = 'BTC'
       @render = true

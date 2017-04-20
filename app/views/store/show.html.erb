@@ -122,7 +122,7 @@ div{
 								
 								<% if @carteira == nil %>
 								<%= form_for( :calculo, :url => '/calc', :method => 'post' , :remote => true )  do |g| %>
-								<div class="g-recaptcha" data-sitekey="6LeGcxsUAAAAAIYoK-i5Zpeu58qj8e_72WgbkQLX"></div><br>
+								<div class="captcha"><div class="g-recaptcha" data-sitekey="6LeGcxsUAAAAAIYoK-i5Zpeu58qj8e_72WgbkQLX"></div></div><br>
 								<% if @product.name.downcase == 'fração de bitcoin' %>
     							<dt>Carteira que irá receber o volume: <%= g.text_field :address, :value => current_user.bitcoin %></dt>
     							<% elsif @product.name.downcase == 'fração de litecoin' %>
