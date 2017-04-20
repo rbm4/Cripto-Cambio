@@ -23,29 +23,20 @@ class NotificationsController < ApplicationController
         puts 'moeda: ' + array[1]
         puts 'quantia: ' + array[2]
         puts 'id da compra: ' + array[3]
-        
         pagto = Pagamento.find_by_postcode(params['item_name'])
         if (pagto.status.to_s == 'accepted' and pagto.produtos == 'btc')
           pagto.status = 'pago'
-          url = 'https://block.io/api/v2/withdraw_from_addresses/?api_key=' + @btc_pin + '&pin=' + @pin + '&from_addresses=' + @btc_address + '&to_addresses=' + array[0] + '&amounts=' + array[2].to_s
-          uri = URI(url)
-          response = Net::HTTP.get(uri) 
-          hash = JSON.parse(response)
-          puts hash
-          if hash["data"]["error_message"] != nil
-            @messages =  hash["data"]["error_message"]
-            if BigDecimal(hash['data']['available_balance'],8) <= BigDecimal(hash['data']['minimum_balance_needed'],8)
-              pagto.status = 'accepted'
-              pagto.save
-            end
-            render nothing: true, status: 211
-            second = false
-            return
+          client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+          client.accounts.each do |account|
+              if account.name == 'cpt_vendas'
+                  if account.send( :to => array[0], :amount => array[2].to_s, :currency => 'BTC')
+                    pagto.save
+                  end
+              end
           end
           @messages = ""
           @messages = "Valor retirado e transferido, identificador único: " + String(hash["data"]["txid"])
-          pagto.txid_blockchain = hash['data']['txid']
-          pagto.save
+          #pagto.txid_blockchain = hash['data']['txid']
           puts @messages
           render nothing: true, status: 210
           second = false

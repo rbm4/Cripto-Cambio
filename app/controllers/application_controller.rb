@@ -98,10 +98,14 @@ class ApplicationController < ActionController::Base
   
   def limite_compra_btc
     config_block
-    url_r = 'https://blockchain.info/q/addressbalance/' + @btc_address
-    uri_r = URI(url_r)
-    response_r = Net::HTTP.get(uri_r)
-    limite_compra = BigDecimal(response_r).div(2,8).div(100000000,8)
+    balance = 0
+    client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+    client.accounts.each do |account|
+      if account.name == "cpt_vendas"
+        balance = account.balance
+      end
+    end
+    limite_compra = BigDecimal(balance.amount).div(2,8)
     limite_compra
   end
   def consulta_blockchain

@@ -137,8 +137,8 @@ class ProdutosController < ApplicationController
           if dados[2] == 'pagseguro'
             payment = PagSeguro::PaymentRequest.new
             payment.reference = username.to_s + order.id.to_s + params['pagamento']['sku']
-        payment.notification_url = 'mkta.herokuapp.com/pgseguro'
-        payment.redirect_url = 'mkta.herokuapp.com/detalhes'
+            payment.notification_url = 'mkta.herokuapp.com/pgseguro'
+            payment.redirect_url = 'mkta.herokuapp.com/detalhes'
             payment.items << {
                 id: 1,
                 description: 'Valor requisitado de: ' + params['pagamento']['volume'] + String(params['pagamento']['sku']) + ', Para ser pago em: ' + dados[0],
@@ -147,28 +147,26 @@ class ProdutosController < ApplicationController
             }
             payment.extra_params << { senderEmail: useremail.to_s }
             # payment.extra_params << { senderName: username.to_s }
-	    
-	        response = payment.register
-	        array = response.code.split('')
-	        count = 0
-	        result = ''
-	        array.each do | a |
-	            count = count + 1
-	            result << a
-	            if count == 8
-	                result << '-'
-	            end
-	            if count == 12
-	                result << '-'
-	            end
-	            if count == 16
-	                result << '-'
-	            end
-	            if count == 20
-	                result << '-'
-	            end
-	        end
-	        puts result
+            response = payment.register
+            array = response.code.split('')
+            count = 0
+            result = ''
+            array.each do | a |
+                count = count + 1
+                result << a
+                if count == 8
+                    result << '-'
+                end
+                if count == 12
+                    result << '-'
+                end
+                if count == 16
+                    result << '-'
+                end
+                if count == 20
+                    result << '-'
+                end
+            end
             if response.errors.any?
                 raise response.errors.join("\n")
             else
@@ -185,8 +183,8 @@ class ProdutosController < ApplicationController
                     @payment = Payment.new({
                         :intent => "sale",
                         :redirect_urls => {
-    :return_url => return_paypal,
-    :cancel_url => cancel_paypal},
+                            :return_url => return_paypal,
+                            :cancel_url => cancel_paypal},
                         :payer => {
                             :payment_method => "paypal",
                             :payer_id => username.to_s + order.id.to_s + params['pagamento']['sku']
