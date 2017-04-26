@@ -26,6 +26,25 @@
 	a{
     
 }
+table.qr-code {
+  width: 150px;
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+table.qr-code td {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+  width: 5px;
+  height: 3px;
+}
+table.qr-code td.black { background-color: #000; }
+table.qr-code td.white { background-color: #fff; }
 .menu {
 	width: 150px;
 	height: 55px;
@@ -72,42 +91,31 @@ text{
 						<!-- Content -->
 							<div class="content">
 								<section>
+									<b>Nome:</b> <%= String(current_user.first_name).capitalize + " #{current_user.last_name.capitalize}" %><br>
+									<b>Email:</b> <%= String(current_user.email) %><br>
+									<% if current_user.coinbasebtc == true %>
+									<b>Endereço bitcoin: <a href="https://blockchain.info/address/<%= current_user.bitcoin %>"><font color="red"><%= current_user.bitcoin %></a></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima ou escaneie o QR code abaixo em seu aplicativo preferido.</b>
 									
-									<table style="width:100%">
-									 	  <tr>
-									 	  	    <td></td>
-									 	  	    <td></td>
-									 	  	    <td></td>
-									 	  	    </tr>
-									 	  	    <tr>
-									 	  	    <td><b>Nome:</b> <%= String(current_user.first_name).capitalize + " #{current_user.last_name.capitalize}" %></td>
-									 	  	    <td></td>
-									 	  	    <td></td>
-									 	  	    </tr>
-									 	  	    <tr>
-									 		  	<td><b>Email:</b> <%= String(current_user.email) %></td>
-												
-									 	  	   </tr>
-									 	  	   <% if current_user.coinbasebtc == true %>
-									 	  	   <tr>
-									 	  	   	<td><b>Endereço bitcoin: <a href="https://blockchain.info/address/<%= current_user.bitcoin %>"><font color="red"><%= current_user.bitcoin %></a></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima.</b></td>
-									 	  	   	
-									 	  	   </tr>
-									 	  	   <% end %>
-									 	  	    <tr>
-									 	  	   	<td> <b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br></b></td>
-									 	  	    	
-									 	  	    </tr>
-									 	  	   	</table> 
-									 	  	   	<div class="cartoes">
-									 	  	   		
-									 	  	   		Métodos de pagamento aceitos:<br>
-									 	  	   		 <img src="images/debito.png" alt="Cartões aceitos" > 
-									 	  	   	
-									 	  	   	
-									 	  	   	</div>
-									 	  	    
 									
+									<table class="qr-code">
+										<% @qr.modules.each_index do |x| %>
+  											<tr>
+  											<% @qr.modules.each_index do |y| %>
+  											<% if @qr.dark?(x,y) %>
+  											<td class="black"/>
+  											<% else %>
+  											<td class="white"/>
+  											<% end %>
+  											<% end %>
+  											</tr>
+  											<% end %>
+  											</table>
+  										<% end %>
+									<b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br></b>
+						 	  	   	<div class="cartoes">
+						 	  	   		Métodos de pagamento aceitos:<br>
+						 	  	   		 <img src="images/debito.png" alt="Cartões aceitos" > 
+									</div>
 									<header>
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
 										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>
