@@ -332,6 +332,8 @@ GEM
       nokogiri
       rubyzip
       spreadsheet (> 0.6.4)
+    rqrcode (0.10.1)
+      chunky_png (~> 1.0)
     rqrcode-with-patches (0.6.0)
       chunky_png
     ruby-ole (1.2.12)
@@ -428,6 +430,7 @@ DEPENDENCIES
   rails_12factor
   recaptcha (~> 4.1)
   rest-client (~> 2.0)
+  rqrcode
   rqrcode-with-patches
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
