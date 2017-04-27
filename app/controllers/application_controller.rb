@@ -87,8 +87,8 @@ class ApplicationController < ActionController::Base
 
   end
   def config_block
-    @ltc_pin = '6bb1-0e02-7f29-de1b' #'6f1c-30d7-b5b1-adcf' 
-    @btc_pin = 'ddcf-3881-8c4e-7590' #'ac35-6ff5-e103-d1c3'
+    @ltc_pin = ENV["BLOCK_KEY_LTC"] 
+    @btc_pin = ENV["BLOCK_KEY_BTC"]
     @pin = 'ignezconha'
     @ltc_address = '3BzasVQdbaa8s76vEfGoQRTU5jmbrfgM4B' #'2N4NyoMF6dx2UaueReFmRbHcYi5JvgumS3P'
     @btc_address = '32rcoqy2RGWybkpbfEHyXpryzBLx7LLBTF' #'2MxtY8jatyCQsXvthjy49GyQoeomtvBoTav'
