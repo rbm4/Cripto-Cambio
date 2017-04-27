@@ -8,7 +8,6 @@ class ProdutosController < ApplicationController
     require 'paypal-sdk-rest'
     include PayPal::SDK::REST
     before_action :require_user, only: [:show, :solicitar_pagamento]
-    BlockIo.set_options :api_key=> 'ac35-6ff5-e103-d1c3', :pin => 'Xatm@074', :version => 2
     
     
     def list_all_payment
