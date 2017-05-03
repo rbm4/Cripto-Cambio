@@ -24,7 +24,7 @@ class ApostasController < ApplicationController
     end
     def buy_btc_ticket
         
-        if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) <= 0
+        if params['ticketbtcs']['preco'].match(/[a-zA-Z]/) or Integer(params['ticketbtcs']['preco']) <= 0 #Validação de input
             premiacoes_btc
             btc_lotery_form
             @messages = "Número inválido. Tente novamente"
@@ -33,18 +33,14 @@ class ApostasController < ApplicationController
         end
         preço = 0.0001
         decimal_params = BigDecimal(params['ticketbtcs']['preco'],1)
-        preço_final = decimal_params.mult(preço,8)
+        preço_final = (decimal_params.mult(preço,8)) 
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
-        primary_account = client.primary_account
-        puts primary_account.id
         t = Ticketbtc.find_by_usuario(current_user.email)
         client.accounts.each do |account|
-            #puts "#{account.name}: #{balance.amount} #{balance.currency}"
-            #puts account.transactions
             if account.name == current_user.username + '@cptcambio.com'
                 balance = account.balance
-                if BigDecimal(balance.amount,8) >= preço_final
-                    if t != nil and t.sorteavel == false #ticket existe, porém não faz parte do sorteio
+                if BigDecimal(balance.amount,8) >= (preço_final + 0.0005)   #compara saldo que ele quer comprar junto com o cálculo prévio do custo da transação
+                    if t != nil and t.sorteavel == false                    #ticket existe, porém não faz parte do sorteio
                         if client.transfer(account.id, {:to => '6f067e3d-b3aa-574f-b92e-461eda70a37b', :amount => preço_final, :currency => 'BTC'}) 
                             @messages = "Você agora está concorrendo ao sorteio de bitcoins! Verifique abaixo detalhes do andamento do sorteio atual."
                         end
@@ -64,11 +60,11 @@ class ApostasController < ApplicationController
                         btc_lotery_form
                         render '/apostas/btc_lotery_form'
                         return
-                    elsif params['ticketbtcs']['preco'] == "0"
+                    elsif params['ticketbtcs']['preco'] == "0"              #usuário tentou comprar 0 tickets
                         @messages = "Valor de compra 0, nada foi feito."
                         render '/apostas/btc_lotery_form'
                         return
-                    elsif t == nil #ticket não existe, criar novo
+                    elsif t == nil                                          #ticket não existe, criar novo
                         t = Ticketbtc.new
                         t.usuario = current_user.email
                         t.sorteavel = true
@@ -124,7 +120,7 @@ class ApostasController < ApplicationController
         decimal_params = BigDecimal(params['ticket']['numero_tck'],1)
         preco = BigDecimal(0.0001,8) 
         @valor = decimal_params.mult(preco,8)
-        @valor = @valor + BigDecimal(0.00045,8)
+        @valor = @valor + BigDecimal(0.0005,8)
         @qtd = params['ticket']['numero_tck']
         @valor
     end

@@ -16,9 +16,7 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
     loterium = Loterium.new
     logr = "Script de loteria rodado no dia: "
     logr << Time.now.strftime("%d/%m/%y\n")
-    array_carteiras = []
-    array_qtd = []
-    if data_sorteio = Time.now.strftime("%d") == "01"
+    if Time.now.strftime("%d") == "01"
         puts "data correta"
         tickets = Ticketbtc.all.where(:sorteavel => true)
         total_sorteavel = 0
@@ -80,27 +78,14 @@ task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
             g.sorteavel = false
             g.save
         end
-        data_sorteio = Time.now.strftime("%d/%m/%Y")
-        all = Loterium.all
-        g = all[0]
-        if g == nil
-            f = Loterium.new
-            f.data = data_sorteio
-            f.save
-        else
-            a_date = Date.parse(g.data)
-            b_date = a_date + 31
-            g.data = b_date
-            g.save
-        end
         
         logr << "Sorteio realizado, todos os tickets estão não sorteáveis, aplicar nova data de sorteio.<br>"
         logr << "Concluindo log.<br>-------------------------<br>"
     else
         #data errada, não fazer nada.
     end
-    loging = loterium.montar_xml(array_carteiras,array_qtd)
     arquivo_log = File.open("./statistics/loteria.log", "a") do |j|
         j << logr
+        j.close
     end
 end
