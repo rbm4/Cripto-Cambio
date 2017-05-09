@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
       render 'calculos'
     end
     result = BigDecimal(value,7).mult(conversao,2)
-    result = result.mult(1.3,2) #valor em real
+    result = result.mult(1.25,2) #valor em real
     result
   end
   def litecoin_para_bitcoin
@@ -240,7 +240,7 @@ class ApplicationController < ActionController::Base
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
     conversao = hash['ticker']['high'] # 1 ltc em BRL
-    resultado = BigDecimal(conversao,5).mult(1.3,5) # 1 ltc em BRL + 30%
+    resultado = BigDecimal(conversao,5).mult(1.25,5) # 1 ltc em BRL + 30%
     bitcoin_em_real = 'https://www.mercadobitcoin.net/api/ticker/'
     convert_uri2 = URI(bitcoin_em_real)
     response = Net::HTTP.get(convert_uri2)
@@ -260,7 +260,7 @@ class ApplicationController < ActionController::Base
     response_convert2 = Net::HTTP.get(convert_uri2)
     hash2 = JSON.parse(response_convert2)
     conversao2 = hash2['ticker']['high'] # 1 ltc em BRL
-    resultado = BigDecimal(conversao,2).mult(1.3,2)
+    resultado = BigDecimal(conversao,2).mult(1.25,2)
     real = resultado.div(BigDecimal(conversao2,2),8)
     real
   end
@@ -270,7 +270,7 @@ class ApplicationController < ActionController::Base
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
     conversao = hash['rate'] # 1 btc em ltc
-    resultado = BigDecimal(conversao,5).mult(1.3,5) #valor de 1 btc em ltc no meu site
+    resultado = BigDecimal(conversao,5).mult(1.25,5) #valor de 1 btc em ltc no meu site
     result = BigDecimal(resultado,5).mult(valor_litecoin,5)
     result
   end
@@ -280,7 +280,7 @@ class ApplicationController < ActionController::Base
     response_convert = Net::HTTP.get(convert_uri)
     hash = JSON.parse(response_convert)
     conversao = hash['ticker']['high'] # 1 ltc em real
-    resultado = BigDecimal(conversao,2).mult(1.3,2)
+    resultado = BigDecimal(conversao,2).mult(1.25,2)
     resultado
   end
   def standard_conversion(currency)
