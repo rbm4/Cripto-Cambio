@@ -142,8 +142,8 @@ class ApplicationController < ActionController::Base
     if (BigDecimal(params['calculo']['volume'].sub!(',','.'),8) <= 0) 
       @zero = true  
     end
-    if BigDecimal(params['calculo']['volume'],8) >= 0.0001
-      @zero = false
+    if BigDecimal(params['calculo']['volume'],8) <= 0.0001
+      @zero = true
     end
     if params['calculo']['moeda'] == 'btc'
       a = Bitcoin.valid_address? params['calculo']['address']
