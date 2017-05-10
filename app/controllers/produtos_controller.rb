@@ -33,7 +33,7 @@ class ProdutosController < ApplicationController
         else
             @moeda = "USD"
             string = 'https://blockchain.info/pt/ticker' 
-            btc_desejado = String(BigDecimal(BigDecimal(pgto.volume).mult(1.3,8)))
+            btc_desejado = String(BigDecimal(BigDecimal(pgto.volume).mult(1.25,8)))
             uri = URI(string)
             response = Net::HTTP.get(uri)
             json = JSON.parse(response)
@@ -60,7 +60,7 @@ class ProdutosController < ApplicationController
         else
             @moeda = "USD"
             string = 'https://blockchain.info/pt/ticker' 
-            btc_desejado = String(BigDecimal(BigDecimal(params['coinpay']['volume']).mult(1.3,8)))
+            btc_desejado = String(BigDecimal(BigDecimal(params['coinpay']['volume']).mult(1.25,8)))
             uri = URI(string)
             response = Net::HTTP.get(uri)
             json = JSON.parse(response)
