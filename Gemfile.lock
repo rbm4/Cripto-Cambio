@@ -219,6 +219,7 @@ GEM
     haml (4.0.7)
       tilt
     hashie (3.4.6)
+    hashlib (0.0.35)
     http (2.0.3)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -419,6 +420,7 @@ DEPENDENCIES
   css_parser
   googlecharts
   groupdate
+  hashlib (~> 0.0.35)
   http
   jbuilder (~> 2.0)
   nokogiri

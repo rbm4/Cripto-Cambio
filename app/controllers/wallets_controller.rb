@@ -15,6 +15,17 @@ class WalletsController < ApplicationController
         @messages = '<div class="errorspeech">Seu endereço bitcoin: <font color="red">' + address["address"] + '</font><br>' + '<p>Parabéns! Você acabou de criar o endereço acima e associá-lo a sua conta.</p> <p><j>Com ele, você poderá utilizar nossos serviços com maior praticidade, adicionando créditos ao nosso site apenas enviando bitcoins para o endereço em destaque!<br> Melhorando sua comodidade na aquisição de nossos serviços e agilidade na compra de produtos.</j></div>'
         render 'sessions/loginerror'
     end
+    def create_ltc_wallet
+        usuario = current_user
+        client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+        account = client.create_account(name: String(current_user.username) + '@cptcambio.com(LTC)', :currency => "LTC")
+        address = account.create_address
+        usuario.litecoin = address["address"]
+        #usuario.coinbaseltc = true
+        usuario.save
+        @messages = '<div class="errorspeech">Seu endereço litecoin: <font color="red">' + address["address"] + '</font><br>' + '<p>Parabéns! Você acabou de criar o endereço acima e associá-lo a sua conta.</p> <p><j>Com ele, você poderá utilizar nossos serviços com maior praticidade, adicionando créditos ao nosso site apenas enviando bitcoins para o endereço em destaque!<br> Melhorando sua comodidade na aquisição de nossos serviços e agilidade na compra de produtos.</j></div>'
+        render 'sessions/loginerror'
+    end
     def withdraw
         
     end

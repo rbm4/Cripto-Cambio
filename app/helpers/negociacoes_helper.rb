@@ -1,0 +1,2 @@
+module NegociacoesHelper
+end
