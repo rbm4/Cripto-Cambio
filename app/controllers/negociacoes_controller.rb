@@ -35,21 +35,26 @@ class NegociacoesController < ApplicationController
         #tapi_secret = "1ebda7d457ece1330dff1c9e04cd62c4e02d1835968ff89d2fb2339f06f73028"
         host = 'http://www.mercadobitcoin.com.br'
         request_path = '/tapi/v3/'
-        tapi_nonce = Time.now.to_i
-        params = {'tapi_method': 'get_account_info', 'tapi_nonce': tapi_nonce}
-        params = URI.encode_www_form(params)
-        params_string = request_path + '?' + params
+        tapi_nonce = (Time.now.to_i)*1000
+        params = {
+            'tapi_nonce': tapi_nonce,
+            'tapi_method': 'list_orders', 
+            'coin_pair': "BRLLTC",
+            
+        }
+        p params
+        params2 = URI.encode_www_form(params)
+        params_string = request_path + '?' + params2
         #params_string = "/tapi/v3/?tapi_method=list_orders&tapi_nonce=1"
         #parâmetros gerados
-        
+        #1494977670719
+        #1494985086
         
         a = OpenSSL::Digest.new('sha512')
         #gerar hmac
         h = OpenSSL::HMAC.new(tapi_secret, a)
         h.update(params_string)
         tapi_mac = h.hexdigest()
-
-        #http://ruby-doc.org/stdlib-2.1.2/libdoc/digest/rdoc/Digest/HMAC.html
         # Gerar cabeçalho da requisição
         headers = {
             'Content-type': 'application/x-www-form-urlencoded',
@@ -57,36 +62,41 @@ class NegociacoesController < ApplicationController
             'TAPI-MAC': tapi_mac
         }
         
-        uri = URI.parse(host + params_string)
+        #uri = URI.parse(host + params_string)
+        uri = URI.parse(host + '/tapi/v3/?')
         #htp = Net::HTTP::Post.new(a)
-        http = Net::HTTP.new(uri.host, uri.port)
+        http = Net::HTTP.new(uri.host, 443)
         http.use_ssl = true
-        http.ssl_version = "SSLv23_client"
+        http.ssl_version = :TLSv1
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         request = Net::HTTP::Post.new(uri.to_s, initheader = headers)
+        request.set_form_data(params)
         response = http.request(request)
-       
       
         #response = htp.request(uri.path, headers)
-        @messages << response.code
-        p response.body
-        p response.header
-        if response.code == "301"
-            response.header.each_header {|key,value| @messages << "<br>#{key} = #{value}" }
-            @messages << "<br>"
-            request.header.each_header {|key,value| @messages << "<br>#{key} = #{value}" }
+        json = JSON.parse(response.body)
+        @messages << "<table style='width:100%;padding: 15px;'><tr>"
+        @messages << "<th>ID</th>"
+        @messages << "<th>Par<th>"
+        @messages << "<th>Status</th>"
+        @messages << "<th>Execucoes?</th>"
+        @messages << "<th>Tipo</th>"
+        @messages << "<th>volume</th>"
+        @messages << "<th>Preco limite</th>"
+        @messages << "<th>taxa</th>"
+        @messages << "</tr>"
+        json["response_data"]["orders"].each do |q|
+            @messages << "<th>" + q["order_id"].to_s + "</th>"
+            @messages << "<th>" + q["coin_pair"].to_s + "</th>"
+            @messages << "<th>" + q["status"].to_s + "</th>"
+            @messages << "<th>" + q["has_fills"].to_s + "</th>"
+            @messages << "<th>" + q["order_type"].to_s + "</th>"
+            @messages << "<th>" + q["quantity"].to_s + "</th>"
+            @messages << "<th>" + q["limit_price"].to_s + "</th>"
+            @messages << "<th>" + q["fee"].to_s + "</th>"
+            @messages << "</tr>"
         end
-        
-       # res = Net::HTTP.start('www.mercadobitcoin.com.br') do |http|
-    #        req = Net::HTTP::Post.new('/tapi/v3/?tapi_method=list_order')
-    ##        req['Content-Type'] = 'application/x-www-form-urlencoded'
-     #       req['TAPI-ID'] = tapi_id
-     #       req['TAPI-MAC'] = tapi_mac
-     #       puts req['Content-type']
-     #       http.request(req)
-     #   end
-     #   @messages << res.code
-     #   puts res.to_json
+        @messages << "</table>"
         render 'sessions/loginerror'
     end
 end
