@@ -251,6 +251,11 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    mbtc (0.0.3)
+      httparty
+      methadone
+    methadone (1.9.5)
+      bundler
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -423,6 +428,7 @@ DEPENDENCIES
   hashlib (~> 0.0.35)
   http
   jbuilder (~> 2.0)
+  mbtc
   nokogiri
   pagseguro-oficial (~> 2.5.0)
   paypal-sdk-rest

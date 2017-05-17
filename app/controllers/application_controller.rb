@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   require 'blockchain'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  skip_before_action :verify_authenticity_token, :only => [:test_post]
   helper_method :bitcoinpay
   protect_from_forgery with: :exception
   attr_accessor :viewname
@@ -533,5 +534,8 @@ class ApplicationController < ActionController::Base
     response = Net::HTTP.get(uri)
     hash = JSON.parse(response)
     puts hash
+  end
+  def test_post
+    puts "houve um post aqui"
   end
 end
