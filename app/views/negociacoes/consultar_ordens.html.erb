@@ -1,0 +1,57 @@
+<style>
+	article{
+ 	margin-top: -7%;
+  background-color: #cccccc;
+ }
+ j{
+ 	font-size: 90%;
+ }
+ td{
+ 	width: 25px;
+ }
+ table{
+ 	border:1px;
+ }
+  
+</style>
+<body class="contact">
+	
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 special container small">
+					
+						<!-- Content -->
+							<div class="content">
+								
+								<% if @coinpay == true %>
+								<%= render :partial => 'produtos/coinpay'%>
+								<% else %>
+								<b><%= @messages.html_safe %></b>
+								<% end %>
+							</div>
+							
+					</section>
+				
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Cripto Cambio Exchange</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<style>
+		b{
+			font-weight: bold;
+		}
+		.font{
+			font-size:70%;
+		}
+		div[class="row"]{
+		background-color: white;
+		border: 1px solid;
+    	border-radius: 5px;
+    	padding: 8px;
+    	font-size: 70%;
+    	margin: 0 auto;
+  		width: 90%;
+		}
+		
+	a{
+    
+}
+table.qr-code {
+  width: 150px;
+  height: 150px;
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+table.qr-code td {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+  width: 5px;
+  height: 3px;
+}
+table.qr-code td.black { background-color: #000; }
+table.qr-code td.white { background-color: #fff; }
+.menu {
+	width: 150px;
+	height: 55px;
+   vertical-align: middle;
+   text-align: -10px;
+}
+text{
+	margin-top: 10%;
+}
+ article{
+ 	background-color: #cccccc;
+ 	margin-top: -16.5%;
+ 	
+ 	
+ }
+ div[class=limites]{
+ 	margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+ }
+ div[class=cartoes]{
+ 	position: absolute;
+  	left: 43%;
+  	width: 300px;
+  	height: 200px;
+  	border: 1px;
+ }
+		</style>
+	<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		<!--[udolte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+	</head>
+	<body>
+			<article id="main">
+
+				<header class="special container">
+	
+					<h2></h2>
+					<p></p>
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container small">
+					
+						<!-- Content -->
+							<div class="content">
+								<section>
+									<p>Preço da última ordem de LTC no MBTC: R$<b><%= @ticker_ltc %></b><br>
+									Sua última compra foi feita no preço unitário de: R$<b><%= @last_buy %></b><br>
+									Volume da sua útima compra: <b><%= @volume_comprado %></b><br>
+									Obtendo, com isso: <%= @return %></p>
+									
+									<p>Para obter lucro, você precisará vender as <b><%= @return %> LTC</b> a um preço médio de <b>R$<%= @profit %></b> para ter <b>R$<%= @estimativa %></b> de crédito no mercado.<br>
+									A taxa cobrada nessa venda foi de <%= @tax_ltc %></p>
+									Sua última venda teve um preço médio de <b><%= @limite %></b>, com volume de venda <b><%= @volumes %></b><br>
+									Você deve ter recebido <%= @taxado %>, a taxa real estimada é: <b>R$<%= @tax_fee %></b><br>
+									Para obter lucro você deve comprar ao preço unitário de <b>R$<%= BigDecimal(@buy_price,2) %></b>
+									<%= @warnings %>
+									<header>
+										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
+										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>
+										<h3><li class='current'><a href="/tickets" class= "button small menu"><text>Tickets abertos</a></text></h3></li>
+									</header>
+									<br>
+								</section>
+							</div>
+
+					</section>
+
+				<!-- Two -->
+					<section class="wrapper style1 container special">
+						<div class="row">
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>O que é Bitcoin?</h3>
+									</header>
+									<p>Entender o Bitcoin é simples. Ele é uma tecnologia digital que permite reproduzir em pagamentos eletrônicos a eficiência dos pagamento com cédulas.</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="https://www.youtube.com/watch?v=FZsXZXrSUlc" class="button small">Aprenda mais!</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>Confiabilidade e segurança das transações</h3>
+									</header>
+									<p>Tenha acesso a todas as transações que você já fez utilizando o menu "Transações" acima, ou então abra um ticket!</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="contato" class="button small">Abrir um Tciket</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>100% de privacidade</h3>
+									</header>
+									<p>Cadastre-se agora mesmo e saiba sobre como adquirir nossos produtos!</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="howworks" class="button small">Saiba como funciona!</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+						</div>
+					</section>
+					
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Cripto Cambio Exchange</li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>
