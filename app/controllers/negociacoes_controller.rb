@@ -45,7 +45,7 @@ class NegociacoesController < ApplicationController
         #preco_unitario = BigDecimal(hash['ticker']['last'],2)
         
         @messages = ""
-        @ticker_ltc = BigDecimal(hash['ticker']['last'],2) 
+        @ticker_ltc = hash['ticker']['buy']
         @last_buy = preco_comprado
         @volume_comprado = volume_desejado_moeda
         @return = resultado_em_coin
@@ -73,7 +73,42 @@ class NegociacoesController < ApplicationController
         @buy_qtd = "x"
         
         
+        #verificar saldos
+        account_inf = account_info
+        account_inf["response_data"]["balance"].each do |m|
+            if m[0].to_s.upcase == "BRL"
+                @real_saldo = m[1]["total"].to_s
+            elsif m[0].to_s.upcase == "BTC"
+                @btc_saldo = m[1]["total"].to_s
+                if m[1]["amount_open_orders"] >= 1
+                    @btc_orders = m[1]["amount_open_orders"]
+                end
+            elsif m[0].to_s.upcase == "LTC"
+                @ltc_saldo = m[1]["total"].to_s
+                if m[1]["amount_open_orders"] >= 1
+                    @ltc_orders = m[1]["amount_open_orders"]
+                end
+            end
+        end
         
+        #verificar ordem de compra, cancelar e criar com 1% abaixo do valor de @ticker_ltc
+        #verificar se preço atual de venda está acima do preço mínimo para lucro:
+        if @profit <= @ticker_ltc #se sim, coloque o preço para venda a mais
+           @sell_price_ltc = hash['ticker']['sell'] * 1.01
+        else                    
+           @sell_price_ltc = @profit 
+        end
+        
+        
+        #verificar se o preço de compra está muito abaixo do ticker, ajustar caso diferença maior que 2%
+        if @buy_price <= (hash['ticker']['buy']*0.97) #preço de compra menor que o atual. É mais de 2%?
+            @buy_price_ltc = @ticker_ltc * 0.985
+        elsif @buy_price >= hash['ticker']['buy'] #preço de compra é maior que o ticker atual
+            @buy_price_ltc = @ticker_ltc * 0.985
+        else
+            @buy_price_ltc = @buy_price
+        end
+        @warnings = "<br>Você precisa vender suas litecoins a um preço de #{@sell_price_ltc}<br>E comprar litecoin a um preço de #{@buy_price_ltc}"
     end
     
     def consultar_ordens
@@ -159,7 +194,8 @@ class NegociacoesController < ApplicationController
             @messages << '</tr>'
         end
         @messages << "</table>"
-        render 'consultar_ordens'
+        @messages = 0
+        return json
     end
     def cancel_order
         params["order"]["id"]

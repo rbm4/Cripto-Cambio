@@ -92,7 +92,7 @@ text{
 						<!-- Content -->
 							<div class="content">
 								<section>
-									<p>Preço da última ordem de LTC no MBTC: R$<b><%= @ticker_ltc %></b><br>
+									<p>Preço da ordem de compra LTC mais alta no MBTC: R$<b><%= @ticker_ltc %></b><br>
 									Sua última compra foi feita no preço unitário de: R$<b><%= @last_buy %></b><br>
 									Volume da sua útima compra: <b><%= @volume_comprado %></b><br>
 									Obtendo, com isso: <%= @return %></p>
@@ -101,7 +101,12 @@ text{
 									A taxa cobrada nessa venda foi de <%= @tax_ltc %></p>
 									Sua última venda teve um preço médio de <b><%= @limite %></b>, com volume de venda <b><%= @volumes %></b><br>
 									Você deve ter recebido <%= @taxado %>, a taxa real estimada é: <b>R$<%= @tax_fee %></b><br>
-									Para obter lucro você deve comprar ao preço unitário de <b>R$<%= BigDecimal(@buy_price,2) %></b>
+									Para obter lucro você deve comprar ao preço unitário de <b>R$<%= BigDecimal(@buy_price,2) %></b><br>
+									<p>Seus saldos são:<br>
+									Real: <b>R$<%= @real_saldo %><br></b>
+									Litecoin: <b><%= @ltc_saldo %> LTC<% if @ltc_orders.to_i >= 1 %></b>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
+									Bitcoin: <b><%= @btc_saldo %> BTC<% if @btc_orders.to_i >= 1 %></b>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
+									</p>
 									<%= @warnings %>
 									<header>
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
