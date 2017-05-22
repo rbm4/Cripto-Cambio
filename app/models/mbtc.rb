@@ -8,6 +8,7 @@ class Mbtc < ActiveRecord::Base
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         request = Net::HTTP::Post.new(uri.to_s, initheader = header)
         request.set_form_data(param)
+        p header["content-type"]
         response = http.request(request)
       
         #comparar solicitação e ver 
@@ -260,7 +261,7 @@ class Mbtc < ActiveRecord::Base
         headers = {
             "content-type": "application/x-www-form-urlencoded",
             "TAPI-ID": tapi_id,
-            "TAPI-MAC": tapi_mac
+            "TAPI-MAC": tapi_mac,
         }
         sleep(1) #forçar espera, para nonce ser diferente sempre
         return headers, params
