@@ -258,7 +258,7 @@ class Mbtc < ActiveRecord::Base
         tapi_mac = h.hexdigest()
         # Gerar cabeçalho da requisição
         headers = {
-            "Content-type": "application/x-www-form-urlencoded",
+            "content-type": "application/x-www-form-urlencoded",
             "TAPI-ID": tapi_id,
             "TAPI-MAC": tapi_mac
         }
