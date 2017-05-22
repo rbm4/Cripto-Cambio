@@ -10,6 +10,19 @@ task :teste_keys, [:secret, :key, :sendgrid] => :environment do |t, chave|
     puts chave.key
     puts chave.sendgrid
 end
+
+task :overview_mbtc, [:secret, :key] => :environment do |t, chave|
+    chave.with_defaults(:secret => "default_secret_value", :key => "default_keyex_value")
+    mercado_bitcoin = Mbtc.new
+    html = mercado_bitcoin.overview_mbtc(chave.secret,chave.key).to_s
+    arquivo_log = File.open("./app/views/admin/negociacoes.log.html", "a") do |j|
+        j << html
+        j << "<br>-----------------------------------------------------------------------------<br>"
+        j.close
+    end
+end
+
+
 #rake roll_lottery_btc[1,2,3]
 task :roll_lottery_btc, [:secret, :key, :sendgrid] => :environment do |t, chave|
     chave.with_defaults(:secret => "default_secret_value", :key => "default_keyex_value", :sendgrid => "default_sendgrid_value")

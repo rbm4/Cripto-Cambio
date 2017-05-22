@@ -104,10 +104,10 @@ text{
 									Para obter lucro você deve comprar ao preço unitário de <b>R$<%= BigDecimal(@buy_price,2) %></b><br>
 									<p>Seus saldos são:<br>
 									Real: <b>R$<%= @real_saldo %><br></b>
-									Litecoin: <b><%= @ltc_saldo %> LTC<% if @ltc_orders.to_i >= 1 %></b>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
-									Bitcoin: <b><%= @btc_saldo %> BTC<% if @btc_orders.to_i >= 1 %></b>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
+									Litecoin: <b><%= @ltc_saldo %> LTC</b><% if @ltc_orders.to_i >= 1 %>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
+									Bitcoin: <b><%= @btc_saldo %> BTC</b><% if @btc_orders.to_i >= 1 %>, Com <b><%= @ltc_orders %></b> abertas. <% end %><br>
 									</p>
-									<%= @warnings %>
+									<%= @warnings.html_safe %>
 									<header>
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
 										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>

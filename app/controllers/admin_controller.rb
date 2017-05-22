@@ -14,6 +14,9 @@ class AdminController < ApplicationController
             @opened = @opened + 1
         end
     end
+    def mbtc_log
+        render 'negociacoes.log'
+    end
     def resposta
         @ticket = Ticket.find(params['message']['id'])
         @texto = @ticket.conteudo

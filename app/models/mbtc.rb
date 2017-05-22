@@ -1,5 +1,4 @@
-class NegociacoesController < ApplicationController
-    
+class Mbtc < ActiveRecord::Base
     def requisicao_html(header,param)
         host = 'http://www.mercadobitcoin.com.br'
         uri = URI.parse(host + '/tapi/v3/?')
@@ -14,11 +13,10 @@ class NegociacoesController < ApplicationController
         #comparar solicitação e ver 
         return JSON.parse(response.body)
     end
-    def overview_mbtc
+    def overview_mbtc(secret,key)
         #requisição de informações do mercado
-        cabeca, parametros = header("list_orders","BRLLTC","[4]","1","")                      #fazer headers
+        cabeca, parametros = header("list_orders","BRLLTC","[4]","1","",secret,key)                      #fazer headers
         json = requisicao_html(cabeca,parametros)                                          #obter JSON das últimas ordens de compra feitas
-        
         #informações da última compra
         qtd = json["response_data"]["orders"][0]["quantity"]
         limit = json["response_data"]["orders"][0]["limit_price"]
@@ -54,8 +52,9 @@ class NegociacoesController < ApplicationController
         @tax_ltc = fee
         
         #verificar última venda
-        cabeca, parametros = header("list_orders","BRLLTC","[4]","2","")                      #fazer headers orderm btc/ltc abertas
+        cabeca, parametros = header("list_orders","BRLLTC","[4]","2","",secret,key)                      #fazer headers orderm btc/ltc abertas
         vendas = requisicao_html(cabeca,parametros)                                        #receber json
+
         qtd = BigDecimal(vendas["response_data"]["orders"][0]["quantity"],8)               # Litecoin
         limit = BigDecimal(vendas["response_data"]["orders"][0]["limit_price"],8)          # real
         fee = BigDecimal(vendas["response_data"]["orders"][0]["fee"],8)                    # litecoin
@@ -71,11 +70,10 @@ class NegociacoesController < ApplicationController
         @taxado = valor_taxado
         @tax_fee = fee
         @buy_price = valor_compra
-        @buy_qtd = "x"
         
         
         #verificar saldos
-        account_inf = account_info
+        account_inf = account_info(secret,key)
         account_inf["response_data"]["balance"].each do |m|
             if m[0].to_s.upcase == "BRL"
                 @real_saldo = m[1]["available"].to_s
@@ -111,7 +109,7 @@ class NegociacoesController < ApplicationController
         end
         @warnings = "<br>Você precisa vender suas litecoins a um preço de <b>R$#{@sell_price_ltc}</b><br>E comprar litecoin a um preço de <b>R$#{@buy_price_ltc}</b>"
         
-        a_cabeca, a_parametros = header("list_orders","BRLLTC","[2]","","")
+        a_cabeca, a_parametros = header("list_orders","BRLLTC","[2]","","",secret,key)
         a_json = requisicao_html(a_cabeca, a_parametros)
         
         ordens_compra = []
@@ -121,9 +119,9 @@ class NegociacoesController < ApplicationController
                 ordens_compra.append(h["order_id"])
                 @warnings << "<br>Ordem #{h['order_id']} é uma ordem de compra de <b>#{h['quantity']} LTC</b>, pelo preço unitário de #{h['limit_price']}"
                 if BigDecimal(h['limit_price'],2) <= (@ticker_ltc * 0.975) #O preço de compra é 2,5% menor que o preço atual?
-                    cancel_order(h['order_id'],"BRLLTC")
+                    cancel_order(h['order_id'],"BRLLTC",secret,key)
                     x = (Float(@real_saldo) / 2) / (Float(hash['ticker']['buy']))                                #calcular saldo, para saber quantia de moeda a comprar
-                    place_buy_order("BRLLTC",x,@buy_price_ltc)
+                    place_buy_order("BRLLTC",x,@buy_price_ltc,secret,key)
                     @warnings << ", esta ordem foi cancelada.<br> Foi criada uma com o preço referente ao correto: R$#{@buy_price_ltc} de limite, com volume de #{x} litecoin (metade do que seu saldo pode comprar)."
                 end
             elsif h["status"] == 2 and h["order_type"] == 2
@@ -137,42 +135,40 @@ class NegociacoesController < ApplicationController
                 half_saldo = (Float(@real_saldo) / 2).round(2)
                 x2 = (Float(half_saldo) / 2) / (Float(hash['ticker']['buy']))
                 if x2 > 0.009
-                    if k = place_buy_order("BRLLTC",x2,@buy_price_ltc)
-                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível"
+                    if k = place_buy_order("BRLLTC",x2,@buy_price_ltc,secret,key)
+                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x3}, pelo preço #{@buy_price_ltc}"
                     end
                 elsif (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5) > 0.009
                     x3 =  (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5)
-                    if k = place_buy_order("BRLLTC",x3,@buy_price_ltc)
-                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível"
+                    if k = place_buy_order("BRLLTC",x3,@buy_price_ltc,secret,key)
+                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x3}, pelo preço #{@buy_price_ltc}"
                     end
                 end
         end
         
         #verificar saldo em litecoins e criar ordens de venda
         if Float(@ltc_saldo) > 0.009
-            if sell_json = place_sell_order("BRLLTC",(Float(@ltc_saldo).round(8)),Float(@sell_price_ltc).round(5))
-                p sell_json
+            if place_sell_order("BRLLTC",(Float(@ltc_saldo).round(8)),Float(@sell_price_ltc).round(5),secret,key)
                 @warnings << "<br>Ordem de venda de litecoin adicionada."
             end
         end
+        return @warnings
     end
-    def place_sell_order(par,quantia,limit_price)
-        headers, params = header("place_sell_order",par,quantia,limit_price,"")
+    def place_sell_order(par,quantia,limit_price,secret,key)
+        headers, params = header("place_sell_order",par,quantia,limit_price,"",secret,key)
         json = requisicao_html(headers,params)
         return json
     end
-    def place_buy_order(par,quantia,limit_price)
+    def place_buy_order(par,quantia,limit_price,secret,key)
         h = quantia.round(8)
-        headers, params = header("place_buy_order",par,h,limit_price,"")
+        headers, params = header("place_buy_order",par,h,limit_price,"",secret,key)
         json = requisicao_html(headers,params)
         return json
     end
-    def consultar_ordens
+    def account_info(secret,key)
         @messages = ''
         host = 'http://www.mercadobitcoin.com.br'
-        headers, params = header("list_orders","BRLLTC","","","")
-        
-        #realizar solicitação HTML
+        headers, params = header("get_account_info","","","","",secret,key)
         uri = URI.parse(host + '/tapi/v3/?')
         http = Net::HTTP.new(uri.host, 443)
         http.use_ssl = true
@@ -184,83 +180,17 @@ class NegociacoesController < ApplicationController
       
         #comparar solicitação e ver 
         json = JSON.parse(response.body)
-        @messages << "<table style='width:100%'><tr>"
-        @messages << "<td>ID</td>"
-        @messages << "<td>Par</td>"
-        @messages << "<td>Status</td>"
-        @messages << "<td>Execucoes?</td>"
-        @messages << "<td>Tipo</td>"
-        @messages << "<td>volume</td>"
-        @messages << "<td>Preco limite</td>"
-        @messages << "<td>taxa</td>"
-        @messages << "</tr>"
-        json["response_data"]["orders"].each do |q|
-            @messages << "<tr>"
-            @messages << "<td>" + q["order_id"].to_s + "</td>"
-            @messages << "<td>" + q["coin_pair"].to_s + "</td>"
-            #diferenciar status das ordens
-            if q["status"] == 2
-                @messages << "<td>Aberta</td>"
-            elsif q["status"] == 3
-                @messages << "<td>Cancelada</td>"
-            elsif q["status"] == 4
-                @messages << "<td>Concluída</td>"
-            end
-            @messages << "<td>" + q["has_fills"].to_s + "</td>"
-            #diferenciar tipo de ordem
-            if q["order_type"] == 1
-                @messages << "<td>Compra</td>"
-            elsif q["order_type"] == 2
-                @messages << "<td>Venda</td>"
-            end
-            @messages << "<td>" + q["quantity"].to_s + "</td>"
-            @messages << "<td>" + q["limit_price"].to_s + "</td>"
-            @messages << "<td>" + q["fee"].to_s + "</td>"
-            @messages << "</tr>"
-        end
-        @messages << "</table>"
-    end
-    def account_info
-        @messages = ''
-        host = 'http://www.mercadobitcoin.com.br'
-        headers, params = header("get_account_info","","","","")
-        uri = URI.parse(host + '/tapi/v3/?')
-        http = Net::HTTP.new(uri.host, 443)
-        http.use_ssl = true
-        http.ssl_version = :TLSv1
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        request = Net::HTTP::Post.new(uri.to_s, initheader = headers)
-        request.set_form_data(params)
-        response = http.request(request)
-      
-        #comparar solicitação e ver 
-        json = JSON.parse(response.body)
-        @messages << "<p>Saldos:<p><table style='width:70%'>"
-        @messages << "<td>Moeda</td>"
-        @messages << "<td>Disponivel</td>"
-        @messages << "<td>Total</td>"
-        @messages << "<td>Ordens abertas</td>"
-        json["response_data"]["balance"].each do |m|
-            @messages << '<tr>'
-            @messages << '<td>' + m[0].to_s.upcase + '</td>'
-            @messages << '<td>' + m[1]["available"].to_s + '</td>'
-            @messages << '<td>' + m[1]["total"].to_s + '</td>'
-            @messages << '<td>' + m[1]["amount_open_orders"].to_s + '</td>'
-            @messages << '</tr>'
-        end
-        @messages << "</table>"
-        @messages = 0
         return json
     end
-    def cancel_order(id_ordem,par)
-        headers, parametros = header("cancel_order",par,"","",id_ordem)
+    def cancel_order(id_ordem,par,secret,key)
+        headers, parametros = header("cancel_order",par,"","",id_ordem,secret,key)
         json = requisicao_html(headers,parametros)
         
         return json
     end
-    def header(metodo,par,status,tipo,id)
-        tapi_id = ENV['TAPI_ID_MERCADO_BTC']
-        tapi_secret = ENV['TAPI_KEY_MERCADO_BTC']
+    def header(metodo,par,status,tipo,id,secret,key)
+        tapi_id = secret
+        tapi_secret = key
         request_path = '/tapi/v3/'
         tapi_nonce = (Time.now.to_i)*1000
         

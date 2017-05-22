@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   post '/paypal' => 'notifications#paypal'
   post '/paypalnip' => 'notifications#paypalnip'
   get '/howworks' => 'usuarios#howworks'
-  post '/post_mercado_btc' => 'negociacoes#overview_mbtc'
+  post '/post_mercado_btc' => 'admin#mbtc_log'
   post '/orders_btc' => 'negociacoes#consultar_ordens'
   post '/info' => 'negociacoes#account_info'
   
