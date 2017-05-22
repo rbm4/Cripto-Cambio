@@ -1,7 +1,7 @@
 class Mbtc < ActiveRecord::Base
     def requisicao_html(header,param)
-        host = 'http://www.mercadobitcoin.com.br'
-        uri = URI.parse(host + '/tapi/v3/?')
+        host = "http://www.mercadobitcoin.com.br"
+        uri = URI.parse(host + "/tapi/v3/?")
         http = Net::HTTP.new(uri.host, 443)
         http.use_ssl = true
         http.ssl_version = :TLSv1
@@ -32,18 +32,18 @@ class Mbtc < ActiveRecord::Base
         #Abaixo são os cálculos de quanto é preciso vender a quanto para obter lucro
         
         taxa_lucro = 1.017                                                      #necessário para lucrar a partir do preco_comprado
-        minimo_lucro= preco_comprado * taxa_lucro                               #porcentagem de venda no valor de [hash['ticker']['sell'] tirando o lucro e a taxa do mercado
+        minimo_lucro= preco_comprado * taxa_lucro                               #porcentagem de venda no valor de [hash["ticker"]["sell"] tirando o lucro e a taxa do mercado
         tax_real = tax_coin * minimo_lucro                                      #taxa em real no ato da venda
         estimativa_lucro_real = (minimo_lucro * resultado_em_coin) - tax_real
         
-        convert_url = 'https://www.mercadobitcoin.com.br/api/ticker_litecoin/'
+        convert_url = "https://www.mercadobitcoin.com.br/api/ticker_litecoin/"
         convert_uri = URI(convert_url)
         response_convert = Net::HTTP.get(convert_uri)
         hash = JSON.parse(response_convert)
-        #preco_unitario = BigDecimal(hash['ticker']['last'],2)
+        #preco_unitario = BigDecimal(hash["ticker"]["last"],2)
         
         @messages = ""
-        @ticker_ltc = hash['ticker']['buy']
+        @ticker_ltc = hash["ticker"]["buy"]
         @last_buy = preco_comprado
         @volume_comprado = volume_desejado_moeda
         @return = resultado_em_coin
@@ -92,17 +92,17 @@ class Mbtc < ActiveRecord::Base
         
         #verificar ordem de compra, cancelar e criar com 1% abaixo do valor de @ticker_ltc
         #verificar se preço atual de venda está acima do preço mínimo para lucro:
-        if @profit <= hash['ticker']['sell'] #se sim, coloque o preço para venda a mais
-           @sell_price_ltc = hash['ticker']['sell'] * 1.01
+        if @profit <= hash["ticker"]["sell"] #se sim, coloque o preço para venda a mais
+           @sell_price_ltc = hash["ticker"]["sell"] * 1.01
         else                    
            @sell_price_ltc = @profit 
         end
         
         
         #verificar se o preço de compra está muito abaixo do ticker, ajustar caso diferença maior que 2%
-        if @buy_price <= (hash['ticker']['buy']*0.97) #preço de compra menor que o atual. É mais de 2%?
+        if @buy_price <= (hash["ticker"]["buy"]*0.97) #preço de compra menor que o atual. É mais de 2%?
             @buy_price_ltc = @ticker_ltc * 0.985
-        elsif @buy_price >= hash['ticker']['buy'] #preço de compra é maior que o ticker atual
+        elsif @buy_price >= hash["ticker"]["buy"] #preço de compra é maior que o ticker atual
             @buy_price_ltc = @ticker_ltc * 0.985
         else
             @buy_price_ltc = @buy_price
@@ -117,7 +117,7 @@ class Mbtc < ActiveRecord::Base
         a_json["response_data"]["orders"].each do |h|
             if h["status"] == 2 and h["order_type"] == 1
                 ordens_compra.append(h["order_id"])
-                @warnings << "<br>Ordem #{h['order_id']} é uma ordem de compra de <b>#{h['quantity']} LTC</b>, pelo preço unitário de #{h['limit_price']}"
+                @warnings << "<br>Ordem #{h["order_id"]} é uma ordem de compra de <b>#{h["quantity"]} LTC</b>, pelo preço unitário de #{h["limit_price"]}"
                 if BigDecimal(h['limit_price'],2) <= (@ticker_ltc * 0.975) #O preço de compra é 2,5% menor que o preço atual?
                     cancel_order(h['order_id'],"BRLLTC",secret,key)
                     x = (Float(@real_saldo) / 2) / (Float(hash['ticker']['buy']))                                #calcular saldo, para saber quantia de moeda a comprar
@@ -196,71 +196,71 @@ class Mbtc < ActiveRecord::Base
         
         if metodo == "list_orders" and status == "" and tipo == ""
             params = {
-                'tapi_nonce': tapi_nonce,
-                'tapi_method': metodo, 
-                'coin_pair': par,
+                "tapi_nonce": tapi_nonce,
+                "tapi_method": metodo, 
+                "coin_pair": par,
                 
             }
         elsif metodo == "place_sell_order"
         params = {
-                'tapi_method': metodo,
-                'tapi_nonce': tapi_nonce,
-                'coin_pair': par,
-                'quantity': status,
-                'limit_price': tipo,
+                "tapi_method": metodo,
+                "tapi_nonce": tapi_nonce,
+                "coin_pair": par,
+                "quantity": status,
+                "limit_price": tipo,
         }
         elsif metodo == "get_account_info"
             params = {
-                'tapi_nonce': tapi_nonce,
-                'tapi_method': metodo,
+                "tapi_nonce": tapi_nonce,
+                "tapi_method": metodo,
             }
         elsif metodo == "place_buy_order"
             params = {
-                'tapi_method': metodo,
-                'tapi_nonce': tapi_nonce,
-                'coin_pair': par,
-                'quantity': status,
-                'limit_price': tipo,
+                "tapi_method": metodo,
+                "tapi_nonce": tapi_nonce,
+                "coin_pair": par,
+                "quantity": status,
+                "limit_price": tipo,
             }
         elsif metodo == "list_orders" and status != "" and tipo != ""
             params = {
-                'tapi_nonce': tapi_nonce,
-                'tapi_method': metodo,
-                'status_list': status,
-                'order_type': tipo,
-                'coin_pair': par,
+                "tapi_nonce": tapi_nonce,
+                "tapi_method": metodo,
+                "status_list": status,
+                "order_type": tipo,
+                "coin_pair": par,
             }
         elsif metodo == "list_orders" and status != "" and tipo == ""
             params = {
-                'tapi_nonce': tapi_nonce,
-                'tapi_method': metodo,
-                'status_list': status,
-                'coin_pair': par,
+                "tapi_nonce": tapi_nonce,
+                "tapi_method": metodo,
+                "status_list": status,
+                "coin_pair": par,
             }
         elsif metodo == "cancel_order"
             params = {
-                'tapi_method': metodo,
-                'tapi_nonce': tapi_nonce,
-                'order_id': id,
-                'coin_pair': par,
+                "tapi_method": metodo,
+                "tapi_nonce": tapi_nonce,
+                "order_id": id,
+                "coin_pair": par,
             }
         else
-            raise 'Parâmetro de método passado errado'
+            raise "Parâmetro de método passado errado"
         end
         params2 = URI.encode_www_form(params)
-        params_string = request_path + '?' + params2
+        params_string = request_path + "?" + params2
         #parâmetros gerados
         
-        a = OpenSSL::Digest.new('sha512')
+        a = OpenSSL::Digest.new("sha512")
         #gerar hmac
         h = OpenSSL::HMAC.new(tapi_secret, a)
         h.update(params_string)
         tapi_mac = h.hexdigest()
         # Gerar cabeçalho da requisição
         headers = {
-            'Content-type': 'application/x-www-form-urlencoded',
-            'TAPI-ID': tapi_id,
-            'TAPI-MAC': tapi_mac
+            "Content-type": "application/x-www-form-urlencoded",
+            "TAPI-ID": tapi_id,
+            "TAPI-MAC": tapi_mac
         }
         sleep(1) #forçar espera, para nonce ser diferente sempre
         return headers, params
