@@ -137,7 +137,7 @@ class Mbtc < ActiveRecord::Base
                 x2 = (Float(half_saldo) / 2) / (Float(hash['ticker']['buy']))
                 if x2 > 0.009
                     if k = place_buy_order("BRLLTC",x2,@buy_price_ltc,secret,key)
-                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x3}, pelo preço #{@buy_price_ltc}"
+                        @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x2}, pelo preço #{@buy_price_ltc}"
                     end
                 elsif (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5) > 0.009
                     x3 =  (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5)
