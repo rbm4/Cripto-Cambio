@@ -8,7 +8,6 @@ class Mbtc < ActiveRecord::Base
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         request = Net::HTTP::Post.new(uri.to_s, initheader = header)
         request.set_form_data(param)
-        p header["content-type"]
         response = http.request(request)
       
         #comparar solicitação e ver 
@@ -108,7 +107,8 @@ class Mbtc < ActiveRecord::Base
         else
             @buy_price_ltc = @buy_price
         end
-        @warnings = "<br>Você precisa vender suas litecoins a um preço de <b>R$#{@sell_price_ltc}</b><br>E comprar litecoin a um preço de <b>R$#{@buy_price_ltc}</b>"
+        @warnings = Time.now.to_s + "<br>"
+        @warnings << "<br>Você precisa vender suas litecoins a um preço de <b>R$#{@sell_price_ltc}</b><br>E comprar litecoin a um preço de <b>R$#{@buy_price_ltc}</b>"
         
         a_cabeca, a_parametros = header("list_orders","BRLLTC","[2]","","",secret,key)
         a_json = requisicao_html(a_cabeca, a_parametros)
@@ -120,10 +120,13 @@ class Mbtc < ActiveRecord::Base
                 ordens_compra.append(h["order_id"])
                 @warnings << "<br>Ordem #{h["order_id"]} é uma ordem de compra de <b>#{h["quantity"]} LTC</b>, pelo preço unitário de #{h["limit_price"]}"
                 if BigDecimal(h['limit_price'],2) <= (@ticker_ltc * 0.975) #O preço de compra é 2,5% menor que o preço atual?
-                    cancel_order(h['order_id'],"BRLLTC",secret,key)
+                    if cancel_order(h['order_id'],"BRLLTC",secret,key)
+                        @warnings << ", esta ordem foi cancelada.<br>"
+                    end
                     x = (Float(@real_saldo) / 2) / (Float(hash['ticker']['buy']))                                #calcular saldo, para saber quantia de moeda a comprar
-                    place_buy_order("BRLLTC",x,@buy_price_ltc,secret,key)
-                    @warnings << ", esta ordem foi cancelada.<br> Foi criada uma com o preço referente ao correto: R$#{@buy_price_ltc} de limite, com volume de #{x} litecoin (metade do que seu saldo pode comprar)."
+                    if place_buy_order("BRLLTC",x,@buy_price_ltc,secret,key)
+                        @warnings << "Foi criada uma com o preço referente ao correto: R$#{@buy_price_ltc} de limite, com volume de #{x} litecoin (metade do que seu saldo pode comprar)."
+                    end
                 end
             elsif h["status"] == 2 and h["order_type"] == 2
                 ordens_venda.append(h["order_id"])
@@ -132,6 +135,7 @@ class Mbtc < ActiveRecord::Base
         end
         
         #criar ordem de compra / vendas com os saldos atuais
+        
         if Float(@real_saldo) > 0 #verificar se há saldo livre, se sim, criar ordem baseado na metade do saldo livre
                 half_saldo = (Float(@real_saldo) / 2).round(2)
                 x2 = (Float(half_saldo) / 2) / (Float(hash['ticker']['buy']))

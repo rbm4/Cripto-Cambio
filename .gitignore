@@ -16,4 +16,4 @@
 !/log/.keep
 /tmp
 /statistics/*
-#/app/views/admin/negociacoes.log.html
+/app/views/admin/negociacoes.log.html
