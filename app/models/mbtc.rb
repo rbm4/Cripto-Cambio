@@ -109,6 +109,8 @@ class Mbtc < ActiveRecord::Base
         end
         @warnings = Time.now.to_s + "<br>"
         @warnings << "<br>Você precisa vender suas litecoins a um preço de <b>R$#{@sell_price_ltc}</b><br>E comprar litecoin a um preço de <b>R$#{@buy_price_ltc}</b>"
+        @buy_price_ltc = Float(@buy_price_ltc).round(5)
+        
         
         a_cabeca, a_parametros = header("list_orders","BRLLTC","[2]","","",secret,key)
         a_json = requisicao_html(a_cabeca, a_parametros)
@@ -137,14 +139,15 @@ class Mbtc < ActiveRecord::Base
         #criar ordem de compra / vendas com os saldos atuais
         
         if Float(@real_saldo) > 0 #verificar se há saldo livre, se sim, criar ordem baseado na metade do saldo livre
-                half_saldo = (Float(@real_saldo) / 2).round(2)
-                x2 = (Float(half_saldo) / 2) / (Float(hash['ticker']['buy']))
+                x2 = (Float(@real_saldo) / 2) / (Float(hash['ticker']['buy'])).round(8)
+            
                 if x2 > 0.009
                     if k = place_buy_order("BRLLTC",x2,@buy_price_ltc,secret,key)
+                        p k
                         @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x2}, pelo preço #{@buy_price_ltc}"
                     end
-                elsif (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5) > 0.009
-                    x3 =  (Float(half_saldo)) / (Float(hash['ticker']['buy'])).round(5)
+                elsif (Float(@real_saldo)) / (Float(hash['ticker']['buy'])).round(5) > 0.009
+                    x3 =  (Float(@real_saldo)) / (Float(hash['ticker']['buy'])).round(5)
                     if k = place_buy_order("BRLLTC",x3,@buy_price_ltc,secret,key)
                         @warnings << "<br>Foi criada uma ordem de compra de litecoin aqui. Pois havia saldo livre disponível, quantidade: #{x3}, pelo preço #{@buy_price_ltc}"
                     end
