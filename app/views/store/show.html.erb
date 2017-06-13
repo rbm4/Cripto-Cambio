@@ -83,7 +83,7 @@ div{
  }
  .table_foto{
  	position: absolute;
-	margin-left: 40%;
+	margin-left: 25%;
 	margin-top: -25%;
  }
  
@@ -105,7 +105,7 @@ div{
 							<div class="content">
 								<h2> Detalhes </h2>
 								<p><font size='4'><h2><%= @product.name %></p></h2>
-								
+								<img src=<%= @product.in_the_box%> alt="prev" height=150px width=150px>
 								<p>Valor máximo disponível de compra: <BR>
 									<% if @product.name.downcase == 'fração de bitcoin' %>
  								-> Bitcoins: <%= limite_compra_btc %> BTC
@@ -151,7 +151,7 @@ div{
 								
 								
 								
-								<div class="table_foto"><img src=<%= @product.in_the_box%> alt="prev" height=250px width=250px></div>
+								
 								<div id="render"></div>
 								<hr><%= simple_format @product.description %></hr>
 								<hr><p><%= link_to "Voltar", '/store' %></p></hr>
