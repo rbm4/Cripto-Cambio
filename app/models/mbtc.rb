@@ -133,6 +133,20 @@ class Mbtc < ActiveRecord::Base
             elsif h["status"] == 2 and h["order_type"] == 2
                 ordens_venda.append(h["order_id"])
                 @warnings << "<br>Ordem #{h['order_id']} é uma ordem de venda de <b>#{h['quantity']} LTC</b>, pelo preço unitário de <b>#{h['limit_price']}</b>"
+                if Float(h['limit_price']) > Float(hash['ticker']['sell'] * 1.02)
+                    cancel_order(h['order_id'],"BRLLTC",secret,key)
+                    preco_venda = hash['ticker']['sell'] * 1.0099
+                    account_inf = account_info(secret,key)
+                    p account_inf
+                    saldoa = Float(account_inf["response_data"]["balance"]["ltc"]["available"])
+                    if (saldoa / 2) > 0.009
+                        saldoa = saldoa / 2
+                    end
+                    if j = place_sell_order("BRLLTC",saldoa.round(8),Float(preco_venda).round(5),secret,key)
+                        puts "Ordem de venda cancelada e recolocada"
+                        p j
+                    end
+                end
             end
         end
         
@@ -153,6 +167,8 @@ class Mbtc < ActiveRecord::Base
                     end
                 end
         end
+        
+        
         
         #verificar saldo em litecoins e criar ordens de venda
         if Float(@ltc_saldo) > 0.009
