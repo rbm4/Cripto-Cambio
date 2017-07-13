@@ -117,7 +117,16 @@ table[id=width100tabela]{
 						<% if session[:user_id] != nil %>
 						<% if session[:user_id] == current_user.id ;%>
 						<% if is_admin? == true %><li class='current'><%= link_to "Painel admin", :controller => 'admin', :action =>'home'%></li><% end%>
-						
+						<li class="submenu">
+									<a href="/exchange"><b>Exchange</b></a>
+									<ul>
+										<li><a href="/exchange">Overview</a></li>
+										<li><a href="/deposito">Depósito</a></li>
+										<li><a href="/saque">Saque</a></li>
+										<li><a href="/taxes">Taxas</a></li>
+										<li><a href="/faq">FAQ</a></li>
+									</ul>
+								</li>
 						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home'%></li>
 						<li class= 'current'><a href='/store'>Loja</a></li>
 						<% if current_user.coinbasebtc == true %>

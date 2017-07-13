@@ -86,6 +86,13 @@ Rails.application.routes.draw do
   post '/post_mercado_btc' => 'admin#mbtc_log'
   post '/orders_btc' => 'negociacoes#consultar_ordens'
   post '/info' => 'negociacoes#account_info'
+  get '/exchange' => 'exchange#overview'
+  get '/deposito' => 'exchange#credit_form'
+  get '/form' => 'exchange#formulario_dinamico'
+  post '/deposito/submit' => 'exchange#credit_execute'
+  match '/deposito/tax_calc' => 'exchange#credit_tax_calc', via: [:get, :post]
+  post '/save_credit' => 'exchange#credit_save'
+  
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

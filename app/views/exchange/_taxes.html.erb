@@ -1,0 +1,16 @@
+<table style="width:35%">
+  
+  <tr>
+      <td>Valor creditado após taxas:</td>
+  </tr>
+  <tr>
+      <td>Cartão: </td>
+      <td><%= text_field_tag "taxac", @taxa_card, :id => 'tax_card', :disabled => true%></td>
+      
+  </tr>
+  <tr>
+      <td>Boleto</td>
+      <td><%= text_field_tag "taxab", @taxa_boleto, :id => 'tax_boleto', :disabled => true%></td>
+  </tr>
+  
+</table>

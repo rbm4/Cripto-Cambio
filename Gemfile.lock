@@ -254,6 +254,8 @@ GEM
     mbtc (0.0.3)
       httparty
       methadone
+    mercadopago-sdk (0.3.4)
+      json
     methadone (1.9.5)
       bundler
     mime-types (3.1)
@@ -429,6 +431,7 @@ DEPENDENCIES
   http
   jbuilder (~> 2.0)
   mbtc
+  mercadopago-sdk
   nokogiri
   pagseguro-oficial (~> 2.5.0)
   paypal-sdk-rest

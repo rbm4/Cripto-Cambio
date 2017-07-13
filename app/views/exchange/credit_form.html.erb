@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<script>
+function loading()
+{
+ $('#button').html('<img src="images/loading.gif" height="84" width="84" />');
+}
+function save_credit(){
+	$.ajax
+	url: "routines/1"
+ 	type: "PUT",
+	data: { exercice_ids: getExerciceIds() }
+  	success: function() {}
+	}
+</script>
+<style>
+	input[id="Credit_reais"]{
+	width: 240px;
+	padding: 9px;
+	}
+</style>
+<html>
+	<body class="no-sidebar">
+		<!-- Main -->
+			<article id="main">
+
+				<header class="special container">
+					<h2>Depósitos</h2>
+					<p>Utilize o formulário abaixo para escolher o tipo de método para adicionar créditos.</p>
+				</header>
+					
+				<!-- One -->
+					<section class="wrapper style4 container">
+					
+						<!-- Content -->
+							<div class="content">
+								<section>
+									<header>
+										Método de Pagamento:
+										<%= select_tag "tipo_pgto", @opcoes.html_safe, data: { remote: true, url: url_for( action: :formulario_dinamico)} %> 
+									</header>
+									<p><div id="form"></div></p>
+								</section>
+							</div>
+
+					</section>
+
+				<!-- Two -->
+					<section class="wrapper style1 container special">
+						<div class="row">
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>This is Something</h3>
+									</header>
+									<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="#" class="button small">Learn More</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>Also Something</h3>
+									</header>
+									<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="#" class="button small">Learn More</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h3>Probably Something</h3>
+									</header>
+									<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
+									<footer>
+										<ul class="buttons">
+											<li><a href="#" class="button small">Learn More</a></li>
+										</ul>
+									</footer>
+								</section>
+							
+							</div>
+						</div>
+					</section>
+					
+			</article>
+
+		<!-- Footer -->
+			<footer id="footer">
+			
+				<ul class="icons">
+					<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+					<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+				</ul>
+				
+				<ul class="copyright">
+					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			
+			</footer>
+
+	</body>
+</html>

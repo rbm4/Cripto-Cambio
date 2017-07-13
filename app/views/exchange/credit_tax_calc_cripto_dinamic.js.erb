@@ -1,0 +1,5 @@
+<% if @method == "cripto" %>
+$( "#coinpay" ).html( "<%= escape_javascript( render( :partial => "cripto_taxes") ) %>" );
+<% elsif @method == "deposit"%>
+$( "#taxes" ).html( "<%= escape_javascript( render( :partial => "taxes") ) %>" );
+<% end %>

@@ -1,0 +1,59 @@
+<% if @type == "deposito"%>
+<%= form_tag 'deposito/submit', remote: true do %>
+Preencha o formulário abaixo para realizar um depósito:
+<%= hidden_field_tag "metodo", @formulario %>
+<h6><b>*</b> Minimo de R$ 50,00.</h6> 
+<div id="method_payment"></div>
+<table style="width:30%">
+  <tr>
+    <td></td>
+    <td><%= text_field_tag "reais", "00,00", data: { remote: true, url: url_for( action: :credit_tax_calc)}%></td>
+    <td>BRL</td>
+  </tr>
+  </table>
+  <br>
+  <div id="taxes">
+  <%= render "taxes"%>
+</div>
+<br>
+<div id="button">
+<%= submit_tag 'Continuar' %>
+</div>
+<% end %>
+
+<% elsif @type == "coinpayments"%>
+<%= form_tag "deposito/tax_calc", :remote => true %>
+<table style="width:35%">
+	<tr>
+		<td> Moeda: </td>
+		<td>
+			<%= select_tag "currency", @moedas.html_safe %> 
+		</td>
+	</tr>
+	<tr>
+		
+		<td> Quantidade: </td>
+		<td>
+			<%= text_field_tag "amountf", "00,00", data: { remote: true, url: url_for( action: :credit_tax_calc)}%>
+		</td>
+	</tr>
+</table>
+<div id="coinpay">
+
+<table style="width:35%">
+    <tr>
+        <td>
+            Taxa: 
+        </td>
+        <td>
+            <%= text_field_tag "taxac", @taxa_cripto, :id => 'tax_card', :disabled => true%>
+        </td>
+    </tr>
+</table>
+<br>
+<%= submit_tag "Continuar" %>
+</div>
+</form>
+<% else %>
+Selecione o método de pagamento no menu acima.
+<% end %>
