@@ -39,7 +39,16 @@
 								<p><j>	O endereço da sua carteira combinado com seu nome de usuário são os dados necessários para recuperação de valores em qualquer situação possível. Seu endereço poderá ser consultado em "Inicio", assim que solicitado. Nesses casos, entre em contato conosco pela aba "Contato".</j></p>
 							</div>
 							<j>Ao clicar no botão abaixo, você declara que aceita todos os termos acima.</j>
-							<td type="menu"><%= button_to "Criar carteira BTC", create_wallet_path, :data => { :confirm => 'Ao criar uma carteira vinculada você concorda com os termos de uso do site, prosseguir?' } %></td>
+							<% if current_user.bitcoin == nil %>
+							<td type="menu">
+								<%= button_to "Criar carteira BTC", create_wallet_path, :data => { :confirm => 'Ao criar uma carteira vinculada você concorda com os termos de uso do site, prosseguir?' } %>
+							</td>
+							<% end %>
+							<% if current_user.litecoin == nil %>
+							<td type="menu">
+								<%= button_to "Criar carteira LTC", create_wallet_ltc_path, :data => { :confirm => 'Ao criar uma carteira vinculada você concorda com os termos de uso do site, prosseguir?' } %>
+							</td>
+							<% end %>
 					</section>
 				
 			</article>

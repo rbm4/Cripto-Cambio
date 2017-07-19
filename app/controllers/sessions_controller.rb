@@ -158,6 +158,12 @@ class SessionsController < ApplicationController
       render 'setting'
     elsif option == 'Carteiras'
       @wallets = true
+      if current_user.bitcoin != nil
+        @qr = RQRCode::QRCode.new("bitcoin:#{current_user.bitcoin}")
+      end
+      if current_user.litecoin != nil
+        @qrl = RQRCode::QRCode.new("litecoin:#{current_user.litecoin}")
+      end
       render 'setting'
     elsif option == 'Notificações'
       @notifications = true

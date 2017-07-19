@@ -2,6 +2,10 @@ class AdminController < ApplicationController
     
     before_action :require_admin
     
+    def generate_storage
+        
+    end
+    
     def home
         @count = 0
         @numeros = Pagamento.where(status: "accepted")

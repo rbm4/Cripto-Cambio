@@ -19,15 +19,52 @@
 								<p>Nesta sessão é possível gereciar seus endereços de carteiras.</p>
 								<%= f.hidden_field :username_or_email, :value => user.email %>
 								<% atual = current_user %>
-								<% if atual.coinbasebtc == true %>
-								<font size='5px' color='red'>* Você possui um endereço vinculado ao site, sendo assim não pode mudar o endereço padrão.</font>
-								<div class="left_text"> Carteira Bitcoin padrão:<font color='red'>*</font></div> <div class="wallets"><%= f.text_field :bitcoin, :value => user.bitcoin, :id => "carteira", :disabled => true %> </div>
+								<% if atual.bitcoin != nil %>
+								
+								<b>Endereço bitcoin: <font color="red"><%= current_user.bitcoin %></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima ou escaneie o QR code abaixo em seu aplicativo preferido.</b>
+									
+									
+									<table class="qr-code">
+										<% @qr.modules.each_index do |x| %>
+  											<tr>
+  											<% @qr.modules.each_index do |y| %>
+  											<% if @qr.dark?(x,y) %>
+  											<td class="black"/>
+  											<% else %>
+  											<td class="white"/>
+  											<% end %>
+  											<% end %>
+  											</tr>
+  											<% end %>
+  											</table>
+								
 								<% else %>
-								<div class="left_text"> Carteira Bitcoin padrão:</div> <div class="wallets"><%= f.text_field :bitcoin, :value => user.bitcoin, :id => "carteira" %> </div>
+								Você não possui Endereços de depósito BTC, ainda. Crie abaixo:
+								<li class='current'><a href="/criar_carteira" class="button small menu"><text>Criar carteira BTC</text></a></li>
 								<% end %>
-                  				<div class="left_text"> Carteira Litecoin Padrão:</div> <div class="wallets"><%= f.text_field :litecoin, :value => user.litecoin, :id => "carteira" %> </div>
-                  				<div class='left_text'>Para confirmar alterações, insira sua senha:</div> <%= f.password_field :password %>
-                  				<%= f.submit 'Salvar Carteiras' %>
+								<% if atual.litecoin != nil %>
+                  				
+                  				<b>Endereço Litecoin: <font color="red"><%= current_user.litecoin %></font></b><br><b class="font">Para adicionar créditos ao site, envie litecoins para o endereço acima ou escaneie o QR code abaixo em seu aplicativo preferido.</b>
+                  				<table class="qr-code">
+										<% @qrl.modules.each_index do |x| %>
+  											<tr>
+  											<% @qrl.modules.each_index do |y| %>
+  											<% if @qrl.dark?(x,y) %>
+  											<td class="black"/>
+  											<% else %>
+  											<td class="white"/>
+  											<% end %>
+  											<% end %>
+  											</tr>
+  											<% end %>
+  											</table>
+                  				
+                  				
+                  				<% else %>
+                  				Você não possui Endereços de depósito LTC, ainda. Crie abaixo:
+								<li class='current'><a href="/criar_carteira" class="button small menu"><text>Criar carteira LTC</text></a></li>
+								
+                  				<% end %>
                   				<% normal = false %>
                   				<% end %>
                   				<% end %>

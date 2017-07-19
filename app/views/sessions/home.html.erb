@@ -26,26 +26,7 @@
 	a{
     
 }
-table.qr-code {
-  width: 150px;
-  height: 150px;
-  border-width: 0;
-  border-style: none;
-  border-color: #0000ff;
-  border-collapse: collapse;
-}
-table.qr-code td {
-  border-width: 0;
-  border-style: none;
-  border-color: #0000ff;
-  border-collapse: collapse;
-  padding: 0;
-  margin: 0;
-  width: 5px;
-  height: 3px;
-}
-table.qr-code td.black { background-color: #000; }
-table.qr-code td.white { background-color: #fff; }
+
 .menu {
 	width: 150px;
 	height: 55px;
@@ -94,25 +75,10 @@ text{
 								<section>
 									<b>Nome:</b> <%= String(current_user.first_name).capitalize + " #{current_user.last_name.capitalize}" %><br>
 									<b>Email:</b> <%= String(current_user.email) %><br>
-									<% if current_user.coinbasebtc == true %>
-									<b>Endereço bitcoin: <a href="https://blockchain.info/address/<%= current_user.bitcoin %>"><font color="red"><%= current_user.bitcoin %></a></font></b><br><b class="font">Para adicionar créditos ao site, envie bitcoins para o endereço acima ou escaneie o QR code abaixo em seu aplicativo preferido.</b>
+									<% if current_user.bitcoin != nil %>
 									
-									
-									<table class="qr-code">
-										<% @qr.modules.each_index do |x| %>
-  											<tr>
-  											<% @qr.modules.each_index do |y| %>
-  											<% if @qr.dark?(x,y) %>
-  											<td class="black"/>
-  											<% else %>
-  											<td class="white"/>
-  											<% end %>
-  											<% end %>
-  											</tr>
-  											<% end %>
-  											</table>
   										<% end %>
-									<b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br></b>
+									<b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br>Para Negociar Bitcoins e outras altcoins utilize o menu "Exchange".<br>Para criação de carteiras e validação de conta, utilize o menu "editar perfil".</b>
 						 	  	   	<div class="cartoes">
 						 	  	   		Métodos de pagamento aceitos:<br>
 						 	  	   		 <img src="images/debito.png" alt="Cartões aceitos"> 
@@ -122,9 +88,9 @@ text{
 										<h3><li class='current'><a href="/setting" class= "button small menu"><text>Editar perfil</a></text></h3></li>
 										<h3><li class='current'><a href="/tickets" class= "button small menu"><text>Tickets abertos</a></text></h3></li>
 										<h3><li class='current'><a href="/detalhes" class= "button small menu"><text>Transações</text></a></h3></li>
-										<% if current_user.coinbasebtc == true %>
+										<% if current_user.bitcoin != nil %>
 										<% else %>
-										<h3><li class='current'><a href="/criar_carteira" class="button small menu"><text>Criar carteira BTC</text></a></li></h3>
+										
 										<% end %>
 									</header>
 									<br>

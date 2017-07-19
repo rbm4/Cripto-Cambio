@@ -3,3 +3,15 @@ $( "#coinpay" ).html( "<%= escape_javascript( render( :partial => "cripto_taxes"
 <% elsif @method == "deposit"%>
 $( "#taxes" ).html( "<%= escape_javascript( render( :partial => "taxes") ) %>" );
 <% end %>
+<% if params['amountfbtc'] != nil %>
+$( "#tax" ).html( "Taxa: (1,2%) - 0.0008 BTC<br>* Minimo: 0.001 BTC" );
+<% elsif params['amountfltc'] != nil %>
+$( "#tax" ).html( "Taxa: (1,2%) - 0.02 LTC<br>* Minimo: 0.03 LTC" );
+<% elsif params['amountfeth'] != nil %>
+$( "#tax" ).html( "Taxa: (1,2%) - 0.0005 ETH<br>* Minimo: 0.001 ETH" );
+<% end %>
+<% if @valid == false %>
+$( "#validate" ).html( "Insira um valor válido." );
+<% elsif @valid == true %>
+$( "#validate" ).html( "<%= escape_javascript( submit_tag "Continuar" ) %>" );
+<% end %>

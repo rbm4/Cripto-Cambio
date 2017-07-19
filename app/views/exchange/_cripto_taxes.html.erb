@@ -1,21 +1,22 @@
 
-<table style="width:35%">
+<table style="width:40%">
     <tr>
         <td>
-            Taxa: 
+            Valor descontado: 
         </td>
         <td>
             <%= text_field_tag "taxac", @taxa_cripto, :id => 'tax_card', :disabled => true%>
         </td>
     </tr>
 </table>
+<font style="font-size:70%;font-weight: bold;"><b id="tax"></b></font>
 <br>
-<% if @moeda == "" %>
-<%= submit_tag "Continuar" %>
-</form>
+<% if params['commit'] == nil %>
+<b id='validate'><%= submit_tag "Continuar" %> </b>
 <% end %>
+</form>
 
-<%= form_tag "https://www.coinpayments.net/index.php" do  %>
+<form action="https://www.coinpayments.net/index.php" method="post">
 	<input type="hidden" name="cmd" value="_pay">
 	<input type="hidden" name="reset" value="1">
 	<input type="hidden" name="merchant" value="b1e3df05f8a772fc276f4b79aef1c551">
@@ -29,8 +30,8 @@
 	<input type="hidden" name="cancel_url" value="https://mkta.herokuapp.com/">
 	<input type="hidden" name="ipn_url" value="<%= ENV['COINPAY_IPN_URL'] %>">
     <input type="hidden" name="allow_extra" value="0">
-    <% if @moeda == "" %>
+    <% if params['commit'] == "Continuar" %>
+    <input type="image" onClick="save_credit();" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
     <% else %>
-	<input type="image" onClick="save_credit()" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
 	<% end %>
-<% end %>
+	</form>

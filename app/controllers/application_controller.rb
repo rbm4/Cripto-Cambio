@@ -451,12 +451,12 @@ class ApplicationController < ActionController::Base
   end
   def require_wallet
     user = current_user
-    if user.coinbasebtc == true or user.coinbaseeth == true
+    if user.bitcoin != nil or user.litecoin != nil 
       
     else
       @messages = "Você precisa ter, no mínimo, 1 carteira vinculada a sua conta para acessar essa sessão. Você pode solicitar no menu 'Inicio'<br> <a href='/'>Voltar</a>"
     end
-    render '/sessions/loginerror' unless (user.coinbasebtc == true or user.coinbaseeth == true)
+    render '/sessions/loginerror' unless (user.bitcoin != nil or user.litecoin != nil)
   end
   def require_admin
     @messages = 'Esta ação necessita permissão administrativa.'

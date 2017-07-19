@@ -23,33 +23,38 @@ Preencha o formulário abaixo para realizar um depósito:
 
 <% elsif @type == "coinpayments"%>
 <%= form_tag "deposito/tax_calc", :remote => true %>
-<table style="width:35%">
+<table style="width:40%">
 	<tr>
 		<td> Moeda: </td>
 		<td>
-			<%= select_tag "currency", @moedas.html_safe %> 
+			<%= select_tag "currency", @moedas.html_safe, data: { remote: true, url: url_for( action: :formulario_dinamico_cripto)} %> 
 		</td>
 	</tr>
 	<tr>
-		
-		<td> Quantidade: </td>
-		<td>
-			<%= text_field_tag "amountf", "00,00", data: { remote: true, url: url_for( action: :credit_tax_calc)}%>
-		</td>
+	    <td>Quantidade:</td>
+	    <td> <div id=qtd><%= text_field_tag "dummy", "0.00000000", :id => 'tax_card', :disabled => true%></div></td>
+	    <td>  <b id="moeda"></b></td>
 	</tr>
+	<tr>
+	    <td></td>
+	    <td></td>
+	    <td></td>
+	</tr>
+	
 </table>
 <div id="coinpay">
 
-<table style="width:35%">
+<table style="width:40%">
     <tr>
         <td>
-            Taxa: 
+            Valor descontado: 
         </td>
         <td>
             <%= text_field_tag "taxac", @taxa_cripto, :id => 'tax_card', :disabled => true%>
         </td>
     </tr>
 </table>
+<font style="font-size:70%;font-weight: bold;"><b id="tax"></b></font>
 <br>
 <%= submit_tag "Continuar" %>
 </div>

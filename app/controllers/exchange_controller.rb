@@ -49,28 +49,88 @@ class ExchangeController < ApplicationController
     def credit_execute
         
     end
-    
+    def formulario_dinamico_cripto
+        if params['currency'] == '[BTC] Bitcoin'
+            @amountf = "amountfbtc"
+            @curr = "BTC"
+        elsif params['currency'] == '[LTC] Litecoin'
+            @amountf = "amountfltc"
+            @curr = "LTC"
+        elsif params['currency'] == '[ETH] Ethereum'
+            @amountf = "amountfeth"
+            @curr = "ETH"
+        end
+    end
+
     def credit_tax_calc
-        if params['amountf'] == nil
+        if params['commit'] == "Continuar"
+            puts "Salvar depósito do usuário aqui"
+        end
+        @public_payment_key = String(DateTime.now)
+        private_payment_key = Digest::SHA256.digest(@public_payment_key)
+        if params['amountfbtc'] != nil
+            @method = "cripto"
+            certo = params['amountfbtc'].gsub(",",".")
+            @valor = BigDecimal(certo,9).to_f
+            if @valor < min("BTC")
+                @valid = false
+            else
+                @valid = true
+            end
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("BTC")).round(8)
+            @moeda = "BTC"
+        elsif params['amountfltc'] != nil
+            @method = "cripto"
+            certo = params['amountfltc'].gsub(",",".")
+            @valor = BigDecimal(certo,9).to_f
+            if @valor < min("LTC")
+                @valid = false
+            else
+                @valid = true
+            end
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("LTC")).round(8)
+            @moeda = "LTC"
+        elsif params['amountfeth'] != nil
+            @method = "cripto"
+            certo = params['amountfeth'].gsub(",",".")
+            @valor = BigDecimal(certo,9).to_f
+            if @valor < min("ETH")
+                @valid = false
+            else
+                @valid = true
+            end
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("ETH")).round(8)
+            @moeda = "LTC"
+        end
+        if params['reais'] != nil
             valor = BigDecimal(params['reais'])
             @taxa_card = String(valor - (valor * 0.065))
             @taxa_boleto = valor - (valor * 0.02)
             @method = "deposit"
-        elsif params['amountf'] != nil
-            @public_payment_key = ""
-            @moeda = ""
-            @valor = BigDecimal(params['amountf'],8)
-            if params['currency'] == nil
-                @method = "cripto"
-                @taxa_cripto = String(BigDecimal((@valor - (@valor * 0.012)),8))
-            elsif params['currency'] != nil
-                @public_payment_key = String(DateTime.now)
-                private_payment_key = Digest::SHA256.digest(@public_payment_key)
-                @taxa_cripto = String(BigDecimal((@valor - (@valor * 0.012)),8))
-                @method = "cripto"
-                @moeda = (params['currency'].split(" "))[0].delete("[").delete("]")
-                p @moeda
-            end
+        end
+    end
+    
+    def min(x)
+        if x == "BTC"
+            return 0.001
+        elsif x == "LTC"
+            return 0.03
+        elsif x == "ETH"
+            return 0.001
+        elsif x == "BRL"
+            return 50
+        end
+    end
+    
+    def fee(moeda)
+        if moeda == "BTC"
+            return 0.0008
+        elsif moeda == "LTC"
+            return 0.02
+        elsif moeda == "ETH"
+            return 0.0005
+        else
+            return "(0.0008 BTC)/(0.02 LTC)/(0.0005 ETH)*<br>*Taxa fixa referente à cobrança das transações na rede."
         end
     end
     
@@ -83,7 +143,7 @@ class ExchangeController < ApplicationController
             @type = "deposito"
         elsif params['tipo_pgto'] == "[Cripto] CoinPayments"
             @formulario = "CoinPayments"
-            @moedas = "<option>[BTC] Bitcoin</option><option>[LTC] Litecoin</option><option>[ETH] Ethereum</option>"
+            @moedas = "<option>Selecione a moeda</option><option>[BTC] Bitcoin</option><option>[LTC] Litecoin</option><option>[ETH] Ethereum</option>"
             @type = "coinpayments"
         end
         

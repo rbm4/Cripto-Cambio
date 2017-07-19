@@ -129,9 +129,6 @@ table[id=width100tabela]{
 								</li>
 						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home'%></li>
 						<li class= 'current'><a href='/store'>Loja</a></li>
-						<% if current_user.coinbasebtc == true %>
-							<li class= 'current'><a href='/apostas/index'>Cpt Loterias</a></li>
-							<% end %>
 						<li class='current'><a href='/contato'>Contato</a></li>
 						<li class='current'><a href='/howto'>Como comprar</a></li>
 						<% end %>
@@ -155,12 +152,12 @@ table[id=width100tabela]{
 					</ul>
 					 
 				</nav>
-				<% if current_user != nil and (current_user.coinbasebtc == true or current_user.coinbaseeth == true ) %>
+				<% if current_user != nil and (current_user.bitcoin != nil or current_user.ethereum != nil ) %>
 				<div class="saldos">
-					<% if current_user != nil and current_user.coinbasebtc == true%>
+					<% if current_user != nil and current_user.bitcoin != nil %>
 					<img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= balance_btc_coinbase %>BTC
 					<% end %>
-					<% if current_user != nil and current_user.coinbaseeth == true%>
+					<% if current_user != nil and current_user.ethereum != nil %>
 					<img src="images/eth.png" width="20px" height="20px" alt="Bitcoin"> => 0.00000000 ETH
 					<% end %><br>
 					<%= button_to "Transferir", "/transfer", :id => "transfer" %>

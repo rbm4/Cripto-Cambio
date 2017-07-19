@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount Shoppe::Engine => "/shoppe"
   post '/create_wallet' => 'wallets#create_btc_wallet'
+  post '/create_wallet_ltc' => 'wallets#create_ltc_wallet'
   get '/apostas/stats' => 'apostas#stats'
   match '/coinbase_notification' => 'wallets#notifications', via: [:get, :post]
   get '/apostas/howtoplay' => 'apostas#como_jogar'
@@ -92,6 +93,7 @@ Rails.application.routes.draw do
   post '/deposito/submit' => 'exchange#credit_execute'
   match '/deposito/tax_calc' => 'exchange#credit_tax_calc', via: [:get, :post]
   post '/save_credit' => 'exchange#credit_save'
+  get '/cripto_form' => 'exchange#formulario_dinamico_cripto'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

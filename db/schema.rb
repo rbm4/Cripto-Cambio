@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522124909) do
+ActiveRecord::Schema.define(version: 20170719121544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -380,6 +380,14 @@ ActiveRecord::Schema.define(version: 20170522124909) do
 
   add_index "shoppe_users", ["email_address"], name: "index_shoppe_users_on_email_address", using: :btree
 
+  create_table "storages", force: :cascade do |t|
+    t.string "tipo"
+    t.string "endereco"
+    t.string "privkey"
+    t.string "pubkey"
+    t.string "role"
+  end
+
   create_table "ticketbtcs", force: :cascade do |t|
     t.string   "proporcao"
     t.string   "usuario"
@@ -412,9 +420,13 @@ ActiveRecord::Schema.define(version: 20170522124909) do
     t.string   "confirm_token"
     t.string   "bitcoin"
     t.string   "litecoin"
-    t.boolean  "coinbasebtc"
-    t.boolean  "coinbaseeth"
     t.string   "ethereum"
+    t.string   "pubkeybtc"
+    t.string   "privkeybtc"
+    t.string   "pubkeyltc"
+    t.string   "pubkeydoge"
+    t.string   "privkeyltc"
+    t.string   "privkeydoge"
   end
 
 end

@@ -9,7 +9,7 @@ gem 'coinpayments'
 gem 'whenever', :require => false
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'rails_12factor'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -56,6 +56,7 @@ gem 'chartkick', '~> 2.0', '>= 2.0.2'
 gem 'groupdate'
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 gem 'googlecharts', :require => "gchart"
 gem "pagseguro-oficial", "~> 2.5.0"
