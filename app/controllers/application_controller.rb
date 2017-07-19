@@ -12,7 +12,15 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone, :captcha
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto
+  
+  def validate_operation(pass)
+    p pass
+    if BCrypt::Password.new(pass) == ENV["CPTOP_RESULT"]
+      return true
+    end
+      return false
+  end
   
   def captcha(x)
     parameters = {'secret' => ENV["CAPTCHA_KEY"], 'response' => x}
@@ -109,11 +117,17 @@ class ApplicationController < ActionController::Base
     limite_compra = BigDecimal(balance.amount).div(2,8)
     limite_compra
   end
-  def consulta_blockchain
-    url_r = 'http://127.0.0.1:3000/merchant/1b258f5b-d87e-402d-b475-20e0e13dda2a/balance?password="Xatm@074"'
+  def consulta_saldo_cripto(moeda,endereco)
+    # moeda pode ser: ltc, btc, dgc
+    if moeda == "doge"
+      moeda = "dgc"
+    end
+    url_r = "http://#{moeda}.blockr.io/api/v1/address/info/" + endereco
     uri_r = URI(url_r)
-    @messages = Net::HTTP.get(uri_r)
-    render 'sessions/loginerror' 
+    response_r = Net::HTTP.get(uri_r)
+    hash = JSON.parse(response_r)
+    saldo = hash["data"]["balance"]
+    return BigDecimal(saldo)
   end
   def limite_compra_ltc
     config_block

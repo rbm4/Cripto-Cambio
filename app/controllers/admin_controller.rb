@@ -2,8 +2,18 @@ class AdminController < ApplicationController
     
     before_action :require_admin
     
-    def generate_storage
-        
+    def generate_storage #Gerar endereços de armazenamento principal
+        if validate_operation(ENV["CPTOP"]) == true #validar a operação de acordo com o local onde ela está sendo executada
+            store_obj = Storage.new #criar objeto de armazenamento
+            if store_obj.create_wallet(params["storage"]) == true #criar carteira e armazená-la a partir da moeda desejada
+                @messages = "Storage criado com sucesso."
+            else
+                @messages = "Storage não foi criado."
+            end
+        else
+            @messages = "operação não validada"
+        end
+        render 'sessions/loginerror'
     end
     
     def home

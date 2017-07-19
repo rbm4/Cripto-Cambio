@@ -16,6 +16,26 @@
     border-style: inset;
     border-width: 1px;
 }
+table.qr-code {
+  width: 150px;
+  height: 150px;
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+table.qr-code td {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+  width: 5px;
+  height: 3px;
+}
+table.qr-code td.black { background-color: #000; }
+table.qr-code td.white { background-color: #fff; }
 article{
  	background-color: #cccccc;
  	margin-top: -10%;
@@ -87,15 +107,47 @@ input[type=submit]{
 									 	  	    <td type="menu"><%= button_to "Listar Usuarios", demote_path %></td>
 									 	  	    <td type="menu"><%= link_to "Exchange", 'exchange' %></td>
 									 	  	    </tr>
+									 	  	    </table>
 									 	  	    <tr>
 									 	  	    	<td type="menu"></td>
 									 	  	    	<td type="menu"></td>
-									 	  	    	<td type="menu"><%= button_to "Info da conta", info_path %></td>
+									 	  	    	<%= form_tag 'storage_create' %>
+									 	  	    	<%= select_tag(:storage, "<option>Selecione</option><option>btc</option><option>ltc</option><option>dgc</option>".html_safe ) %>
+									 	  	    	<td type="menu"><%= submit_tag "Criar Storage" %></td><br>
 									 	  	    </tr>
-									 	  	   	</table> 
+									 	  	   	 
+									Abaixo se encontram os Storages e a situação de cada um deles:
+									<table style="width:75%;">
+										<tr>
+											<th>Função</th>
+											<th>Endereço</th>
+											<th>Saldo</th>
+											<th>QRcode</th>
+										</tr>
+										
+									<% storages = Storage.all %>
+									<% storages.each do |h| %>
+									<% @qr = RQRCode::QRCode.new("#{h.endereco}") %>
+									<% users = Usuario.all %>
+									<% total = 0%>
+									<% users.each do |h| %>
+									<% if h.saldo != nil %>
+									<% total = BigDecimal(total,8) + BigDecimal(h.saldo,8) %>
+									<% end%>
+									<% end %>
+										<tr>
+											<td><font style="font-size:12.5px;"><%= h.role %></font><div style="margin-top: 20px;position: static;width: 180px;height: 20px">Saldo dos usuários: </div><br>Saldo em caixa:</td>
+											<td><font style="font-size:12.5px;"><%= h.endereco %></font><div style="margin-top: 20px;position: static;width: 180px;height: 20px"><%= total %> <%= h.tipo.upcase %></div><br><%= (consulta_saldo_cripto(h.tipo,h.endereco) - total).to_f %> <%= h.tipo.upcase %></td>
+											<td><font style="font-size:12.5px;"><%= consulta_saldo_cripto(h.tipo,h.endereco).to_f %> <%= h.tipo.upcase %></font></td>
+											<td>
+												<%= render 'qrcode' %>
+											</td>
+											
+										</tr>
+										
 									
-								
-									
+								<% end %>
+									</table>
 								</section>
 							</div>
 
