@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
   end
   def consulta_saldo_cripto(moeda,endereco)
     # moeda pode ser: ltc, btc, dgc
-    if moeda == "dgc"
+    if moeda == "doge"
       url_r = "https://dogechain.info/api/v1/address/balance/" + endereco
       uri_r = URI(url_r)
       response_r = Net::HTTP.get(uri_r)
