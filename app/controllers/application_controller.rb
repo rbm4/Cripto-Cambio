@@ -119,15 +119,22 @@ class ApplicationController < ActionController::Base
   end
   def consulta_saldo_cripto(moeda,endereco)
     # moeda pode ser: ltc, btc, dgc
-    if moeda == "doge"
-      moeda = "dgc"
+    if moeda == "dgc"
+      url_r = "https://dogechain.info/api/v1/address/balance/" + endereco
+      uri_r = URI(url_r)
+      response_r = Net::HTTP.get(uri_r)
+      hash = JSON.parse(response_r)
+      saldo = hash["balance"]
+      return BigDecimal(saldo,8)
+    else
+      url_r = "http://#{moeda}.blockr.io/api/v1/address/info/" + endereco
+      uri_r = URI(url_r)
+      response_r = Net::HTTP.get(uri_r)
+      hash = JSON.parse(response_r)
+      saldo = hash["data"]["balance"]
+      return BigDecimal(saldo,8)
     end
-    url_r = "http://#{moeda}.blockr.io/api/v1/address/info/" + endereco
-    uri_r = URI(url_r)
-    response_r = Net::HTTP.get(uri_r)
-    hash = JSON.parse(response_r)
-    saldo = hash["data"]["balance"]
-    return BigDecimal(saldo)
+    
   end
   def limite_compra_ltc
     config_block
