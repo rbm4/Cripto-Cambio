@@ -113,7 +113,7 @@ input[type=submit]{
 									 	  	    	<td type="menu"></td>
 									 	  	    	<%= form_tag 'storage_create' %>
 									 	  	    	<%= select_tag(:storage, "<option>Selecione</option><option>btc</option><option>ltc</option><option>doge</option>".html_safe ) %>
-									 	  	    	<td type="menu"><%= submit_tag "Criar Storage" %></td><br>
+									 	  	    	<td type="menu"><%= submit_tag "Criar Storage" %></form></td><br>
 									 	  	    </tr>
 									 	  	   	 
 									Abaixo se encontram os Storages e a situação de cada um deles:
@@ -141,6 +141,11 @@ input[type=submit]{
 											<td><font style="font-size:12.5px;"><%= consulta_saldo_cripto(h.tipo,h.endereco).to_f %> <%= h.tipo.upcase %></font></td>
 											<td>
 												<%= render 'qrcode' %>
+											</td>
+											<td>
+												<%= form_tag 'withdrawal_sign' %>
+									 	  	    	<%= text_field_tag :valor, "valor" %><br><%= text_field_tag :destino, "endereco de destino" %><%= hidden_field_tag(:endereco, h.endereco ) %><%= hidden_field_tag(:moeda, h.tipo ) %><br>
+									 	  	    	<%= submit_tag "Withdrawal" %></form>
 											</td>
 											
 										</tr>

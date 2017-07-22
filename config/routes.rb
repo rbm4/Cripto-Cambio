@@ -95,6 +95,7 @@ Rails.application.routes.draw do
   post '/save_credit' => 'exchange#credit_save'
   get '/cripto_form' => 'exchange#formulario_dinamico_cripto'
   post 'storage_create' => 'admin#generate_storage'
+  post '/withdrawal_sign' => 'wallets#withdrawal'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

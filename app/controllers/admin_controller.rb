@@ -16,6 +16,7 @@ class AdminController < ApplicationController
         render 'sessions/loginerror'
     end
     
+    
     def home
         @count = 0
         @numeros = Pagamento.where(status: "accepted")

@@ -99,6 +99,7 @@ GEM
     erubis (2.7.0)
     excon (0.52.0)
     execjs (2.7.0)
+    ffi (1.9.18)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.36.0)
@@ -425,6 +426,7 @@ DEPENDENCIES
   coinbase
   coinpayments
   css_parser
+  ffi
   googlecharts
   groupdate
   hashlib (~> 0.0.35)
@@ -454,4 +456,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.6
+   1.14.4

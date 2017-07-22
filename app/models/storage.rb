@@ -7,16 +7,19 @@ class Storage < ActiveRecord::Base
         elsif w == "doge"
             Bitcoin.network = :dogecoin
         end
-        keys = Bitcoin::generate_key
-        self.pubkey = keys[1]
-        self.privkey = keys[0]
-        self.endereco = Bitcoin::pubkey_to_address(keys[1])
-        self.tipo = w
-        self.role = "Storage principal de #{w.upcase}"
-        if self.save
-            return true
-        else
-            return false
+        keys = Bitcoin::Key.generate
+        if keys.pub.size == 66 and keys.priv.size == 64
+            self.pubkey = keys.pub
+            self.privkey = keys.priv
+            self.endereco = Bitcoin::pubkey_to_address(keys.pub)
+            self.tipo = w
+            self.role = "Storage principal de #{w.upcase}"
+            if self.save
+                return true
+            else
+                return false
+            end
         end
+        return false
     end
 end
