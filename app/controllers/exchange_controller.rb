@@ -130,7 +130,7 @@ class ExchangeController < ApplicationController
         elsif moeda == "ETH"
             return 0.0005
         else
-            return "(0.0008 BTC)/(0.02 LTC)/(0.0005 ETH)*<br>*Taxa fixa referente à cobrança das transações na rede."
+            return "(0.0008 BTC)/(0.002 LTC)/(2 DOGE)*<br>*Taxa fixa referente à cobrança das transações na rede."
         end
     end
     

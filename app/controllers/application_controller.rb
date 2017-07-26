@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   after_filter :cors_set_access_control_headers
   helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto
   
+  
+  
   def validate_operation(pass)
     p pass
     if BCrypt::Password.new(pass) == ENV["CPTOP_RESULT"]
@@ -108,33 +110,24 @@ class ApplicationController < ActionController::Base
   def limite_compra_btc
     config_block
     balance = 0
-    client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
-    client.accounts.each do |account|
-      if account.name == "cpt_vendas"
-        balance = account.balance
-      end
-    end
-    limite_compra = BigDecimal(balance.amount).div(2,8)
+    #client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
+    #client.accounts.each do |account|
+    #  if account.name == "cpt_vendas"
+    #    balance = account.balance
+    #  end
+    #end
+    limite_compra = 1
     limite_compra
   end
   def consulta_saldo_cripto(moeda,endereco)
     # moeda pode ser: ltc, btc, dgc
-    if moeda == "doge"
-      url_r = "https://dogechain.info/api/v1/address/balance/" + endereco
-      uri_r = URI(url_r)
-      response_r = Net::HTTP.get(uri_r)
-      hash = JSON.parse(response_r)
-      saldo = hash["balance"]
-      return BigDecimal(saldo,8)
-    else
-      url_r = "http://#{moeda}.blockr.io/api/v1/address/info/" + endereco
-      uri_r = URI(url_r)
-      response_r = Net::HTTP.get(uri_r)
-      hash = JSON.parse(response_r)
-      saldo = hash["data"]["balance"]
-      return BigDecimal(saldo,8)
-    end
-    
+    #utilização de API blockr.io, todos os storages serão dela 25/07/2017
+    key = Storage.key_push(moeda)
+    p key
+    BlockIo.set_options :api_key=> key, :pin => ENV["BLOCK_IO_PIN"], :version => 2
+    balance_hash = BlockIo.get_address_balance :addresses => endereco
+    return BigDecimal(balance_hash["data"]["available_balance"],8)
+    sleep 1
   end
   def limite_compra_ltc
     config_block

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: MyString
+  tipo: MyString
+  moeda: MyString
+  inout: MyString
+  fee: MyString
+  paid: false
+  txid: MyString
+
+two:
+  user: MyString
+  tipo: MyString
+  moeda: MyString
+  inout: MyString
+  fee: MyString
+  paid: false
+  txid: MyString

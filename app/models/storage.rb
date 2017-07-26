@@ -1,5 +1,31 @@
 class Storage < ActiveRecord::Base
-    def create_wallet(w)
+    def create_wallet(type,address)
+            self.endereco = address
+            self.role = "Storage principal de #{type.upcase}"
+            self.tipo = type
+            if self.save
+                return true
+            else
+                return false
+            end
+    end
+    def self.key_push(moeda)
+        if moeda == "tbtc"
+            return ENV["BLOCK_IO_TBTC"]
+        elsif moeda == "tltc"
+            return ENV["BLOCK_IO_TLTC"]
+        elsif moeda == "tdoge"
+            return ENV["BLOCK_IO_TDOGE"]
+        elsif moeda == "btc"
+            return ENV["BLOCK_IO_BTC"]
+        elsif moeda == "ltc"
+            return ENV["BLOCK_IO_LTC"]
+        elsif moeda == "doge"
+            return ENV["BLOCK_IO_DOGE"]
+        end
+    end
+    # depreciated
+    def create_wallet_antiga(w)
         if w == "ltc"
             Bitcoin.network = :litecoin
         elsif w == "btc"

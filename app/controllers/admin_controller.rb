@@ -5,8 +5,8 @@ class AdminController < ApplicationController
     def generate_storage #Gerar endereços de armazenamento principal
         if validate_operation(ENV["CPTOP"]) == true #validar a operação de acordo com o local onde ela está sendo executada
             store_obj = Storage.new #criar objeto de armazenamento
-            if store_obj.create_wallet(params["storage"]) == true #criar carteira e armazená-la a partir da moeda desejada
-                @messages = "Storage criado com sucesso."
+            if store_obj.create_wallet(params["storage"],params["storage_address"]) == true #criar carteira e armazená-la a partir da moeda desejada
+                @messages = "Storage de #{params["storage"].upcase} criado com sucesso."
             else
                 @messages = "Storage não foi criado."
             end
@@ -16,7 +16,21 @@ class AdminController < ApplicationController
         render 'sessions/loginerror'
     end
     
-    
+    def withdrawal #retirada de fundos do storage do block.io
+        value = params["valor"].gsub!(",",".")
+        from_addr = params["endereco"]
+        to_addr = params["destino"]
+        BlockIo.set_options :api_key=> Storage.key_push(params["moeda"]), :pin => ENV["BLOCK_IO_PIN"], :version => 2
+        a = BlockIo.withdraw_from_addresses :amounts => value, :from_addresses => from_addr, :to_addresses => to_addr
+        p a
+        if a["status"] == "success"
+            @messages = "Segue os dados Da transação: <br>Rede: #{a["data"]["network"]}<br>ID: #{a["data"]["txid"]}<br>Total retirado: #{a["data"]["amount_withdrawn"]}<br>Total enviado: #{a["data"]["amount_sent"]}"
+            tax = Transacao.new
+            #(tipo,moeda,inout,fee,paid,user,txid)
+            tax.construir_transacao("saque_exchange", a["data"]["network"], "[Cpt_cambio > #{current_user.username}]",a["data"]["network_fee"], true, current_user.username, a["data"]["txid"])
+        end
+        render 'sessions/loginerror'
+    end
     def home
         @count = 0
         @numeros = Pagamento.where(status: "accepted")

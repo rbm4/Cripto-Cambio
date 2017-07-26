@@ -112,7 +112,8 @@ input[type=submit]{
 									 	  	    	<td type="menu"></td>
 									 	  	    	<td type="menu"></td>
 									 	  	    	<%= form_tag 'storage_create' %>
-									 	  	    	<%= select_tag(:storage, "<option>Selecione</option><option>btc</option><option>ltc</option><option>doge</option>".html_safe ) %>
+									 	  	    	<%= select_tag(:storage, "<option>Selecione o tipo</option><option>tbtc</option><option>tltc</option><option>tdoge</option><option>btc</option><option>ltc</option><option>doge</option>".html_safe ) %>
+									 	  	    	<%= text_field_tag :storage_address %>
 									 	  	    	<td type="menu"><%= submit_tag "Criar Storage" %></form></td><br>
 									 	  	    </tr>
 									 	  	   	 
@@ -143,7 +144,7 @@ input[type=submit]{
 												<%= render 'qrcode' %>
 											</td>
 											<td>
-												<%= form_tag 'withdrawal_sign' %>
+												<%= form_tag 'withdrawal_storage' %>
 									 	  	    	<%= text_field_tag :valor, "valor" %><br><%= text_field_tag :destino, "endereco de destino" %><%= hidden_field_tag(:endereco, h.endereco ) %><%= hidden_field_tag(:moeda, h.tipo ) %><br>
 									 	  	    	<%= submit_tag "Withdrawal" %></form>
 											</td>
