@@ -21,13 +21,12 @@ class AdminController < ApplicationController
         from_addr = params["endereco"]
         to_addr = params["destino"]
         BlockIo.set_options :api_key=> Storage.key_push(params["moeda"]), :pin => ENV["BLOCK_IO_PIN"], :version => 2
-        a = BlockIo.withdraw_from_addresses :amounts => value, :from_addresses => from_addr, :to_addresses => to_addr
-        p a
+        a = BlockIo.withdraw_from_addresses :amounts => value, :from_addresses => from_addr, :to_addresses => to_addr, :nonce => params["nonce"]
         if a["status"] == "success"
             @messages = "Segue os dados Da transação: <br>Rede: #{a["data"]["network"]}<br>ID: #{a["data"]["txid"]}<br>Total retirado: #{a["data"]["amount_withdrawn"]}<br>Total enviado: #{a["data"]["amount_sent"]}"
-            tax = Transacao.new
+            Transacao.construir_transacao("saque_exchange", a["data"]["network"], "[Cpt_cambio > #{current_user.username}]",a["data"]["network_fee"], true, current_user.username, a["data"]["txid"])
             #(tipo,moeda,inout,fee,paid,user,txid)
-            tax.construir_transacao("saque_exchange", a["data"]["network"], "[Cpt_cambio > #{current_user.username}]",a["data"]["network_fee"], true, current_user.username, a["data"]["txid"])
+            #moedas enviadas, transação registrada
         end
         render 'sessions/loginerror'
     end

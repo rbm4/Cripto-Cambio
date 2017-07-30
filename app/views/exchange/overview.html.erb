@@ -1,31 +1,78 @@
 <!DOCTYPE HTML>
-<!--
-	Twenty by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
+<head>
+<style>
+	input[id=pair]{
+		background: #14100C;
+		font-size: 13px;
+		color: white;
+ 		height: 50px;
+	}
+	input[id=pair]:hover{
+		background: white;
+		font-size: 13px;
+		color: black;
+ 		height: 50px;
+	}
+	input[type=text]{
+		width: 170px;
+	}
+	input[type=submit]{
+		width: 60px;
+		padding: 4px;
+	}
+	td{
+		width: 250px;
+	}
+	table { 
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+h6{
+	font-size:10px;
+	font-weight:bold;
+}
+font[id=submit-message]{
+	font-size: 14px;
+	font-weight:bold;
+	color:red;
+}
+</style>
+<script>
+$(document).ready(function() {
+    console.log("Chamada")
+  // run the first time; all subsequent calls will take care of themselves
+  setTimeout(executeQuery, 5000);
+});
+</script>
+</head>
+
 	<body class="no-sidebar">
 		<!-- Main -->
 			<article id="main">
 
 				<header class="special container">
-					<h2>And finally there's <strong>No Sidebar</strong></h2>
-					<p>Where that in the center faces the nameless horrors alone.</p>
+					<h2>Pares de moedas:<strong></strong></h2>
+					<%= form_tag "/pair", :remote => true %>
+					
+					<p><%= submit_tag "[BTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/DOGE]", :id => "pair", :class => "small" %></p>
+					</form>
+					
+					<div id="table_overview"><%= render 'table_overview' %></div>
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 container">
+					<section class="wrapper style4 container" style="top:-50px">
 					
 						<!-- Content -->
 							<div class="content">
 								<section>
-									<header>
-										<h3>Dolore Amet Consequat</h3>
+									<header><%= form_tag "/order_show_form", :remote => true %>
+										<h3>Novas Ordens: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
 									</header>
-									<p></p>
-									<p></p>
-									<p></p>
+									<font id="submit-message"><div id="message-order-submit"></div></font>
+									<div id="order_form"></div>
+									<div id="order_book"><%= render "orderbook" %></div>
 								</section>
 							</div>
 

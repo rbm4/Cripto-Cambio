@@ -70,7 +70,7 @@
 	input[type="reset"],
 	.button {
 		max-width: 20em;
-		width: 100%;
+		width: 100%; 
 	}
 
 		input[type="button"].fit,

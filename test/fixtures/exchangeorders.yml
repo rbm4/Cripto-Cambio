@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  par: MyString
+  tipo: MyString
+  amount: MyString
+  user: MyString
+  has_execution: false
+  price: MyString
+  status: MyString
+
+two:
+  par: MyString
+  tipo: MyString
+  amount: MyString
+  user: MyString
+  has_execution: false
+  price: MyString
+  status: MyString

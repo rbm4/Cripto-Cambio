@@ -1,0 +1,349 @@
+/* line 1, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+/* line 12, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+article, aside, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+/* line 14, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+img, object, embed {
+  max-width: 100%;
+}
+
+/* line 15, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+ul {
+  list-style: none;
+}
+
+/* line 16, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 17, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+b, strong {
+  font-weight: bold;
+}
+
+/* line 18, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 20, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+/* line 22, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+del {
+  text-decoration: line-through;
+}
+
+/* line 24, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #000;
+  cursor: help;
+}
+
+/* tables still need cellspacing="0" in the markup */
+/* line 27, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+th {
+  font-weight: bold;
+  vertical-align: bottom;
+}
+
+/* line 29, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+td {
+  font-weight: normal;
+  vertical-align: top;
+}
+
+/* line 31, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* line 33, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input, select {
+  vertical-align: middle;
+}
+
+/* line 35, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+pre {
+  white-space: pre;
+  /* CSS2 */
+  white-space: pre-wrap;
+  /* CSS 2.1 */
+  white-space: pre-line;
+  /* CSS 3 (and 2.1 as well, actually) */
+  word-wrap: break-word;
+  /* IE */
+}
+
+/* line 42, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input[type="radio"] {
+  vertical-align: text-bottom;
+}
+
+/* line 43, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input[type="checkbox"] {
+  vertical-align: bottom;
+  *vertical-align: baseline;
+}
+
+/* line 44, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie6 input {
+  vertical-align: text-bottom;
+}
+
+/* line 46, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+select, input, textarea {
+  font: 99% sans-serif;
+}
+
+/* line 48, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+table {
+  font-size: inherit;
+  font: 100%;
+}
+
+/* Accessible focus treatment
+	people.opera.com/patrickl/experiments/keyboard/test */
+/* line 52, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+a:hover, a:active {
+  outline: none;
+}
+
+/* line 54, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+small {
+  font-size: 85%;
+}
+
+/* line 56, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+strong, th {
+  font-weight: bold;
+}
+
+/* line 58, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+td, td img {
+  vertical-align: top;
+}
+
+/* Make sure sup and sub don't screw with your line-heights
+	gist.github.com/413930 */
+/* line 62, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+
+/* line 63, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 64, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* standardize any monospaced elements */
+/* line 67, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+pre, code, kbd, samp {
+  font-family: monospace, sans-serif;
+}
+
+/* hand cursor on clickable elements */
+/* line 70, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clickable,
+label,
+input[type=button],
+input[type=submit],
+button {
+  cursor: pointer;
+}
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+/* line 77, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+button, input, select, textarea {
+  margin: 0;
+}
+
+/* make buttons play nice in IE */
+/* line 80, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+button {
+  width: auto;
+  overflow: visible;
+}
+
+/* scale images in IE7 more attractively */
+/* line 83, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie7 img {
+  -ms-interpolation-mode: bicubic;
+}
+
+/* prevent BG image flicker upon hover */
+/* line 86, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie6 html {
+  filter: expression(document.execCommand("BackgroundImageCache", false, true));
+}
+
+/* let's clear some floats */
+/* line 89, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix:before, .clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+
+/* line 90, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 91, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix {
+  zoom: 1;
+}
+
+/* line 93, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+select, input, textarea {
+  outline: none;
+}
+/*
+
+*/
+/* line 5, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #000;
+  font-size: 12px;
+  background: #efefef;
+}
+
+/* line 6, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+#content {
+  background: #fff;
+  margin: 5%;
+  outline: 1px solid #ccc;
+  padding: 35px;
+}
+
+/* line 14, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote header {
+  float: left;
+  width: 40%;
+}
+/* line 16, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote header h1 {
+  font-size: 1.8em;
+  font-weight: 300;
+}
+/* line 20, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote header h2 {
+  margin-top: 5px;
+  font-size: 2.3em;
+  font-weight: 500;
+}
+/* line 24, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote .address {
+  border: 1px solid #000;
+  padding: 25px;
+  margin-left: 45%;
+  line-height: 1.5;
+  font-size: 1.3em;
+}
+/* line 30, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote .address p.name {
+  font-size: 1.2em;
+  font-weight: 500;
+}
+/* line 32, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.details {
+  width: 100%;
+  margin: 25px 0;
+}
+/* line 35, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.details td, div.despatchNote table.details th {
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+}
+/* line 40, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.details th {
+  background: #efefef;
+}
+/* line 43, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.items {
+  width: 100%;
+  margin: 25px 0;
+}
+/* line 46, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.items td, div.despatchNote table.items th {
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+}
+/* line 50, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.items td.check, div.despatchNote table.items th.check {
+  width: 5%;
+}
+/* line 52, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote table.items th {
+  background: #efefef;
+}
+/* line 55, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+div.despatchNote p.footer {
+  font-size: 1.2em;
+  border: 1px solid #000;
+  padding: 15px;
+  text-align: center;
+}
+
+@media print {
+  /* line 65, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+  html {
+    background: none;
+  }
+
+  /* line 66, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+  body {
+    margin: 5%;
+  }
+
+  /* line 67, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/printable.scss */
+  #content {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+  }
+}

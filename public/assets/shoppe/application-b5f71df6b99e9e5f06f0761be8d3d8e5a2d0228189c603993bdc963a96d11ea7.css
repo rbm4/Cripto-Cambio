@@ -1,0 +1,2141 @@
+/* line 1, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  letter-spacing: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+/* line 12, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+article, aside, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+/* line 14, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+img, object, embed {
+  max-width: 100%;
+}
+
+/* line 15, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+ul {
+  list-style: none;
+}
+
+/* line 16, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 17, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+b, strong {
+  font-weight: bold;
+}
+
+/* line 18, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 20, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+/* line 22, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+del {
+  text-decoration: line-through;
+}
+
+/* line 24, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted #000;
+  cursor: help;
+}
+
+/* tables still need cellspacing="0" in the markup */
+/* line 27, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+th {
+  font-weight: bold;
+  vertical-align: bottom;
+}
+
+/* line 29, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+td {
+  font-weight: normal;
+  vertical-align: top;
+}
+
+/* line 31, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* line 33, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input, select {
+  vertical-align: middle;
+}
+
+/* line 35, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+pre {
+  white-space: pre;
+  /* CSS2 */
+  white-space: pre-wrap;
+  /* CSS 2.1 */
+  white-space: pre-line;
+  /* CSS 3 (and 2.1 as well, actually) */
+  word-wrap: break-word;
+  /* IE */
+}
+
+/* line 42, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input[type="radio"] {
+  vertical-align: text-bottom;
+}
+
+/* line 43, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+input[type="checkbox"] {
+  vertical-align: bottom;
+  *vertical-align: baseline;
+}
+
+/* line 44, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie6 input {
+  vertical-align: text-bottom;
+}
+
+/* line 46, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+select, input, textarea {
+  font: 99% sans-serif;
+}
+
+/* line 48, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+table {
+  font-size: inherit;
+  font: 100%;
+}
+
+/* Accessible focus treatment
+	people.opera.com/patrickl/experiments/keyboard/test */
+/* line 52, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+a:hover, a:active {
+  outline: none;
+}
+
+/* line 54, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+small {
+  font-size: 85%;
+}
+
+/* line 56, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+strong, th {
+  font-weight: bold;
+}
+
+/* line 58, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+td, td img {
+  vertical-align: top;
+}
+
+/* Make sure sup and sub don't screw with your line-heights
+	gist.github.com/413930 */
+/* line 62, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+
+/* line 63, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 64, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* standardize any monospaced elements */
+/* line 67, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+pre, code, kbd, samp {
+  font-family: monospace, sans-serif;
+}
+
+/* hand cursor on clickable elements */
+/* line 70, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clickable,
+label,
+input[type=button],
+input[type=submit],
+button {
+  cursor: pointer;
+}
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+/* line 77, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+button, input, select, textarea {
+  margin: 0;
+}
+
+/* make buttons play nice in IE */
+/* line 80, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+button {
+  width: auto;
+  overflow: visible;
+}
+
+/* scale images in IE7 more attractively */
+/* line 83, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie7 img {
+  -ms-interpolation-mode: bicubic;
+}
+
+/* prevent BG image flicker upon hover */
+/* line 86, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.ie6 html {
+  filter: expression(document.execCommand("BackgroundImageCache", false, true));
+}
+
+/* let's clear some floats */
+/* line 89, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix:before, .clearfix:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+
+/* line 90, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 91, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+.clearfix {
+  zoom: 1;
+}
+
+/* line 93, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/reset.scss */
+select, input, textarea {
+  outline: none;
+}
+/* line 6, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button {
+  border: 0;
+  padding: 0;
+  background: none;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 30px;
+  background-color: #40454D;
+  display: inline-block;
+}
+/* line 20, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button:active {
+  background: #535963;
+}
+/* line 24, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.green {
+  background-color: #96BF48;
+  border-color: #96BF48;
+  border-bottom-color: #86a350;
+}
+/* line 28, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.green:active {
+  background-color: #A8D750;
+}
+/* line 31, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.loading {
+  background-image: url(/images/spinners/button-green.gif);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  color: transparent !important;
+}
+/* line 38, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.purple {
+  background-color: #C17391;
+  border-color: #C17391;
+  border-bottom-color: #a7667f;
+}
+/* line 42, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.purple:active {
+  background: #DC83A6;
+}
+/* line 45, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.orange {
+  background-color: #c8541b;
+  border-color: #c8541b;
+  border-bottom-color: #974117;
+}
+/* line 49, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.orange:active {
+  background: #e75d19;
+}
+/* line 52, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.grey {
+  background-color: #777;
+  border-color: #777;
+  border-bottom-color: #777;
+}
+/* line 56, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.grey:active {
+  background: #888;
+}
+/* line 59, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.white {
+  background-color: #fff;
+  color: #333 !important;
+}
+/* line 64, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.white-green {
+  background-color: #fff;
+  color: #96BF48 !important;
+}
+/* line 70, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/elements.scss */
+.button.button-mini {
+  font-size: 11px;
+  padding: 4px 10px;
+  box-shadow: none;
+  font-weight: normal;
+  text-shadow: none;
+  text-transform: none;
+}
+/* @group Base */
+/* line 3, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  zoom: 1;
+  *display: inline;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* line 14, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  z-index: 1010;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #aaa;
+  border-top: 0;
+  background: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* line 28, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+
+/* line 31, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container a {
+  cursor: pointer;
+}
+
+/* @end */
+/* @group Single Chosen */
+/* line 37, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0 0 0 8px;
+  height: 23px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background-color: #fff;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #f6f6f6), color-stop(52%, #eeeeee), color-stop(100%, #f4f4f4));
+  background: -webkit-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+  background: -moz-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+  background: -o-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+  background: linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+  color: #444;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 24px;
+}
+
+/* line 58, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-default {
+  color: #999;
+}
+
+/* line 61, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  margin-right: 26px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* line 68, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single-with-deselect span {
+  margin-right: 38px;
+}
+
+/* line 71, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single abbr {
+  position: absolute;
+  top: 6px;
+  right: 26px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) -42px 1px no-repeat;
+  font-size: 1px;
+}
+
+/* line 81, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+/* line 84, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single.chosen-disabled .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+/* line 87, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 18px;
+  height: 100%;
+}
+
+/* line 95, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-single div b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 0px 2px;
+}
+
+/* line 101, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-search {
+  position: relative;
+  z-index: 1010;
+  margin: 0;
+  padding: 3px 4px;
+  white-space: nowrap;
+}
+
+/* line 108, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-search input[type="text"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1px 0;
+  padding: 4px 20px 4px 5px;
+  width: 100%;
+  height: auto;
+  outline: 0;
+  border: 1px solid #ccc;
+  background: white url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px;
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px, -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px, -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px, -o-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat 100% -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+  font-size: 1em;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+}
+
+/* line 129, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+  background-clip: padding-box;
+}
+
+/* line 134, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-single.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+/* @end */
+/* @group Results */
+/* line 141, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0 4px 4px 0;
+  padding: 0 0 0 4px;
+  max-height: 240px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* line 150, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li {
+  display: none;
+  margin: 0;
+  padding: 5px 6px;
+  list-style: none;
+  line-height: 15px;
+}
+
+/* line 157, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.active-result {
+  display: list-item;
+  cursor: pointer;
+}
+
+/* line 161, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  color: #ccc;
+  cursor: default;
+}
+
+/* line 166, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.highlighted {
+  background-color: #3875d7;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+  background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+  color: #fff;
+}
+
+/* line 175, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.no-results {
+  display: list-item;
+  background: #f4f4f4;
+}
+
+/* line 179, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.group-result {
+  display: list-item;
+  font-weight: bold;
+  cursor: default;
+}
+
+/* line 184, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li.group-option {
+  padding-left: 15px;
+}
+
+/* line 187, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container .chosen-results li em {
+  font-style: normal;
+  text-decoration: underline;
+}
+
+/* @end */
+/* @group Multi Chosen */
+/* line 194, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  height: auto !important;
+  height: 1%;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: text;
+}
+
+/* line 209, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li {
+  float: left;
+  list-style: none;
+}
+
+/* line 213, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-field {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* line 218, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  margin: 1px 0;
+  padding: 5px;
+  height: 15px;
+  outline: 0;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none;
+  color: #666;
+  font-size: 100%;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+}
+
+/* line 232, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-field .default {
+  color: #999;
+}
+
+/* line 235, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice {
+  position: relative;
+  margin: 3px 0 3px 5px;
+  padding: 3px 20px 3px 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #e4e4e4;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+}
+
+/* line 253, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) -42px 1px no-repeat;
+  font-size: 1px;
+}
+
+/* line 263, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
+  background-position: -42px -10px;
+}
+
+/* line 266, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice-disabled {
+  padding-right: 5px;
+  border: 1px solid #ccc;
+  background-color: #e4e4e4;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  color: #666;
+}
+
+/* line 277, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice-focus {
+  background: #d4d4d4;
+}
+
+/* line 280, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {
+  background-position: -42px -10px;
+}
+
+/* line 283, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-results {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 287, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-multi .chosen-drop .result-selected {
+  display: list-item;
+  color: #ccc;
+  cursor: default;
+}
+
+/* @end */
+/* @group Active  */
+/* line 295, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active .chosen-single {
+  border: 1px solid #9AC835;
+}
+
+/* line 299, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single {
+  border: 1px solid #ccc;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
+  box-shadow: 0 1px 0 #fff inset;
+}
+
+/* line 312, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-left: none;
+  background: transparent;
+}
+
+/* line 316, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 2px;
+}
+
+/* line 319, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active .chosen-choices {
+  border: 1px solid #9AC835;
+}
+
+/* line 322, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-container-active .chosen-choices li.search-field input[type="text"] {
+  color: #111 !important;
+}
+
+/* @end */
+/* @group Disabled Support */
+/* line 328, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-disabled {
+  opacity: 0.5 !important;
+  cursor: default;
+}
+
+/* line 332, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-disabled .chosen-single {
+  cursor: default;
+}
+
+/* line 335, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-disabled .chosen-choices .search-choice .search-choice-close {
+  cursor: default;
+}
+
+/* @end */
+/* @group Right to Left */
+/* line 341, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl {
+  text-align: right;
+}
+
+/* line 344, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-single {
+  overflow: visible;
+  padding: 0 8px 0 0;
+}
+
+/* line 348, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-single span {
+  margin-right: 0;
+  margin-left: 26px;
+  direction: rtl;
+}
+
+/* line 353, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-single-with-deselect span {
+  margin-left: 38px;
+}
+
+/* line 356, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-single div {
+  right: auto;
+  left: 3px;
+}
+
+/* line 360, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-single abbr {
+  right: auto;
+  left: 26px;
+}
+
+/* line 364, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-choices li {
+  float: right;
+}
+
+/* line 367, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-choices li.search-field input[type="text"] {
+  direction: rtl;
+}
+
+/* line 370, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-choices li.search-choice {
+  margin: 3px 5px 3px 0;
+  padding: 3px 5px 3px 19px;
+}
+
+/* line 374, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-choices li.search-choice .search-choice-close {
+  right: auto;
+  left: 4px;
+}
+
+/* line 378, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl.chosen-container-single-nosearch .chosen-search,
+.chosen-rtl .chosen-drop {
+  left: 9999px;
+}
+
+/* line 382, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl.chosen-container-single .chosen-results {
+  margin: 0 0 4px 4px;
+  padding: 0 4px 0 0;
+}
+
+/* line 386, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-results li.group-option {
+  padding-right: 15px;
+  padding-left: 0;
+}
+
+/* line 390, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-right: none;
+}
+
+/* line 393, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl .chosen-search input[type="text"] {
+  padding: 4px 5px 4px 20px;
+  background: white url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px;
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px, -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px, -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px, -o-linear-gradient(#eeeeee 1%, #ffffff 15%);
+  background: url(/assets/shoppe/chosen-sprite-e670fdcaf8cd467a9a1a67e9a5c1f73288089f59dc08031b118dc26fbd233c80.png) no-repeat -30px -20px, linear-gradient(#eeeeee 1%, #ffffff 15%);
+  direction: rtl;
+}
+
+/* line 403, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl.chosen-container-single .chosen-single div b {
+  background-position: 6px 2px;
+}
+
+/* line 406, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+.chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b {
+  background-position: -12px 2px;
+}
+
+/* @end */
+/* @group Retina compatibility */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+  /* line 413, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/chosen.scss */
+  .chosen-rtl .chosen-search input[type="text"],
+  .chosen-container-single .chosen-single abbr,
+  .chosen-container-single .chosen-single div b,
+  .chosen-container-single .chosen-search input[type="text"],
+  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+  .chosen-container .chosen-results-scroll-down span,
+  .chosen-container .chosen-results-scroll-up span {
+    background-image: url(/assets/shoppe/chosen-sprite@2x-edc297359fe8a5f6ee0bc4a1abc36ce4a773104a9225e17bbe592f820c617a72.png) !important;
+    background-size: 52px 37px !important;
+    background-repeat: no-repeat !important;
+  }
+}
+/* @end */
+/* line 4, /usr/local/rvm/gems/ruby-2.3.0/gems/nifty-dialog-1.0.7/vendor/assets/stylesheets/nifty/dialog.scss */
+div.niftyOverlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4000px;
+  display: none;
+  z-index: 50;
+}
+
+/* line 18, /usr/local/rvm/gems/ruby-2.3.0/gems/nifty-dialog-1.0.7/vendor/assets/stylesheets/nifty/dialog.scss */
+div.niftyOverlay.invisible {
+  background: transparent;
+}
+
+/* line 25, /usr/local/rvm/gems/ruby-2.3.0/gems/nifty-dialog-1.0.7/vendor/assets/stylesheets/nifty/dialog.scss */
+div.niftyDialog {
+  display: none;
+  position: fixed;
+  top: 50%;
+  top: 100px;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  background: #fff;
+  box-shadow: 0 0 70px black;
+}
+/* line 35, /usr/local/rvm/gems/ruby-2.3.0/gems/nifty-dialog-1.0.7/vendor/assets/stylesheets/nifty/dialog.scss */
+div.niftyDialog h2 {
+  background: #333333;
+  color: #fff;
+  padding: 10px 15px;
+  font-weight: 600;
+  background-repeat: no-repeat;
+  background-position: 95% 17px;
+  background-size: 16px;
+  font-size: 0.9em;
+}
+/* line 1, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog {
+  padding: 15px;
+}
+/* line 2, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog h2 {
+  background: #fff;
+  border: 0;
+  padding: 0;
+  font-size: 1.3em;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+  color: #111;
+}
+/* line 13, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog nav.pagination {
+  margin: 0;
+  margin-top: 15px;
+}
+/* line 14, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog p.intro {
+  line-height: 1.5;
+  color: #666;
+  margin: 6px 0;
+}
+/* line 16, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm {
+  overflow: hidden;
+  margin: 10px;
+}
+/* line 19, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm p.intro {
+  margin-bottom: 25px;
+}
+/* line 20, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm .moneyInput {
+  float: left;
+}
+/* line 21, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm .moneyInput .currency {
+  font-size: 1.4em;
+}
+/* line 22, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm .moneyInput input {
+  font-size: 1.4em;
+}
+/* line 23, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/dialog.scss */
+div.niftyDialog form.refundForm p.submit {
+  float: right;
+}
+/*
+
+
+
+
+
+
+ */
+/* line 13, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+html {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f7f9fc;
+  overflow-y: scroll;
+}
+
+/* line 15, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar {
+  width: 200px;
+  background: #40454D;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+/* line 21, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar header.logo {
+  height: 57px;
+  background: url(/assets/shoppe/logo-6ca458aa10f87a2873293a3dbb61cc837bc77bdc05945d906189c78634f9ecc2.svg) #9AC835 no-repeat 22px 25px;
+  background-size: 45px;
+  padding-left: 80px;
+  padding-top: 28px;
+}
+/* line 27, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar header.logo h1 a {
+  display: block;
+  width: 72px;
+  height: 16px;
+  background: url(/assets/shoppe/shoppe-b7e8f75d9045d2327c4b28e6cd35f7e5a8585920d4315b16fbd86ad172c06b4f.svg) no-repeat;
+  background-size: 72px 16px;
+  text-indent: -40000px;
+}
+/* line 35, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar header.logo p {
+  color: #fff;
+  font-size: 0.9em;
+  margin-top: 4px;
+}
+/* line 38, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar p.logged {
+  background: #5B6270;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 0.9em;
+}
+/* line 47, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar ul li span.pending {
+  float: right;
+  font-size: 0.9em;
+  font-weight: bold;
+  background: #5B6270;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 16px;
+  margin-top: 9px;
+  margin-right: 10px;
+}
+/* line 48, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar ul li a {
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+}
+/* line 55, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar ul li a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+/* line 58, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.sidebar ul li a.active {
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* line 68, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main {
+  position: fixed;
+  left: 200px;
+  right: 0;
+  height: 85px;
+  background: #fff;
+  box-shadow: 0 0px 15px -2px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+/* line 76, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main p.buttons {
+  float: right;
+  margin-top: 27px;
+  margin-right: 35px;
+}
+/* line 77, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main p.buttons a {
+  margin-left: 10px;
+}
+/* line 78, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2 {
+  margin-top: 28px;
+  margin-left: 35px;
+  font-size: 2.0em;
+  font-weight: 300;
+  color: #333;
+  background-repeat: no-repeat;
+  background-size: 22px;
+  background-position: 0 5px;
+  padding-left: 32px;
+}
+/* line 79, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2 span {
+  font-size: 0.4em;
+  font-weight: normal;
+  color: #999;
+  margin-left: 10px;
+}
+/* line 80, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2 b {
+  font-weight: 500;
+}
+/* line 81, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.products {
+  background-image: url(/assets/shoppe/icons/tags-1ee83d0f2c60d5fd7f70806912e1948eed51bcbec7b08e3aa06ffe70af44543f.svg);
+}
+/* line 82, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.orders {
+  background-image: url(/assets/shoppe/icons/bag-8c9f1e152e46b6691542c2a0f0b429fec538a7af9c3b4af584cea44d0c6e0db7.svg);
+  background-position: 0 3px;
+}
+/* line 83, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.delivery_services {
+  background-image: url(/assets/shoppe/icons/box-19f09b7d113691090985c8e03eca51fcfc2b805f2b67a6180dde96001b6c2e2b.svg);
+  background-position: 0 3px;
+  background-size: 20px;
+}
+/* line 84, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.tax_rates {
+  background-image: url(/assets/shoppe/icons/currency-9f5ed32d0474b9827200018d375be017855a582a868a7cc38c85ed98dd4f2328.svg);
+  background-position: 0 2px;
+  background-size: 22px;
+}
+/* line 85, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.users {
+  background-image: url(/assets/shoppe/icons/id-cb2a42ea443d6081564941fbfadd207f9516796da83572022a6ff3ea75216e74.svg);
+  background-position: 0 2px;
+  background-size: 22px;
+}
+/* line 86, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.countries {
+  background-image: url(/assets/shoppe/icons/globe-11325b004300917434c11f23f0515c927ada6aa658e08027a81efa1a2e26b4ab.svg);
+  background-position: 0 2px;
+  background-size: 22px;
+}
+/* line 87, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+header.main h2.settings {
+  background-image: url(/assets/shoppe/icons/toolbox-971d790a3360106ae72a99f5fb425147d113cd106f6b3442a96e6dca9aab1b06.svg);
+  background-position: 0 2px;
+  background-size: 22px;
+}
+
+/* line 91, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content {
+  padding-left: 200px;
+  padding-top: 85px;
+}
+/* line 95, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content section.main {
+  padding: 35px;
+}
+/* line 102, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #flash-notice {
+  background: #21a3e0;
+  padding: 15px 35px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+/* line 103, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #flash-alert {
+  background: #e04e21;
+  padding: 15px 35px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+/* line 108, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content .subtitle {
+  background: #fff;
+  border: 1px solid #CFD4DD;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+/* line 113, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content .subtitle h3 {
+  font-size: 2.0em;
+  font-weight: 500;
+}
+/* line 120, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content span.status-tag {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  padding-left: 20px;
+  min-height: 16px;
+  display: inline-block;
+}
+/* line 129, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content span.status-tag.shipped {
+  color: #E32479;
+  background-image: url(/assets/shoppe/statuses/shipped-4593fec130c1f51138c16439c706ec65a96d5586ab601d5cfa439f0e385864da.svg);
+}
+/* line 130, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content span.status-tag.accepted {
+  color: #89BD2F;
+  background-image: url(/assets/shoppe/statuses/accepted-d95dec12e7759a7af1e46b5dfc39057ea9654346a25c5d8eaeae251cab38813a.svg);
+}
+/* line 131, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content span.status-tag.rejected {
+  color: #E33127;
+  background-image: url(/assets/shoppe/statuses/rejected-e7b87cde8329aefb9cc8407ac210f6dd9bbdbe6267a7cc130d0719c0fc6d2166.svg);
+}
+/* line 132, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content span.status-tag.received {
+  color: #909091;
+  background-image: url(/assets/shoppe/statuses/received-7d3422371d33a6f91829b124657d46d58664573c2c0873bc6927f72f631da2b0.svg);
+}
+/* line 138, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset {
+  border: 1px solid #dce2eb;
+  background: #fff;
+  padding-top: 15px;
+  padding-bottom: 25px;
+  margin-bottom: 15px;
+}
+/* line 144, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset legend {
+  color: #5B6270;
+  margin: 0 25px;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+/* line 145, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.padded {
+  padding: 15px 25px 25px 25px;
+}
+/* line 146, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.padded legend {
+  margin: 0;
+}
+/* line 155, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset .splitContainer {
+  margin: 0 25px;
+  margin-bottom: 15px;
+  height: 50px;
+}
+/* line 156, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset .splitContainer:last-child {
+  margin-bottom: 0;
+}
+/* line 158, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.cleared {
+  margin-top: 15px;
+  clear: both;
+}
+/* line 163, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl {
+  margin: 0 25px;
+  margin-bottom: 15px;
+}
+/* line 166, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl:last-child {
+  margin-bottom: 0;
+}
+/* line 167, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dt {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+/* line 168, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dt label {
+  font-weight: 500;
+}
+/* line 172, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd select {
+  width: 100%;
+}
+/* line 173, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd textarea {
+  height: 80px;
+}
+/* line 174, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd p.help {
+  margin-top: 15px;
+  color: #333;
+  background: url(/assets/shoppe/icons/support-16b6b0040ca75da799f19cb4ac17d89dd61421bb86bcf580287a5d7a7a8a717c.svg) no-repeat 0 3px;
+  line-height: 1.5;
+  background-size: 13px;
+  padding-left: 18px;
+  opacity: 0.7;
+}
+/* line 175, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd.checkbox {
+  margin-top: 14px;
+  font-size: 1.1em;
+  color: #999;
+}
+/* line 176, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd.checkbox input {
+  float: left;
+  margin-right: 10px;
+  margin-top: 2px;
+}
+/* line 177, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd div.radios {
+  padding-top: 4px;
+}
+/* line 179, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd div.radios input, #content form fieldset dl dd div.radios label {
+  margin-right: 10px;
+}
+/* line 181, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd.space {
+  margin-bottom: 5px;
+}
+/* line 182, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl dd.space:last-child {
+  margin-bottom: 0;
+}
+/* line 183, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.half {
+  width: 49%;
+  margin: 0;
+  float: left;
+}
+/* line 187, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.half:nth-child(2) {
+  float: right;
+}
+/* line 190, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.third {
+  width: 31%;
+  margin: 0;
+  float: left;
+}
+/* line 194, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.third:nth-child(2) {
+  margin-left: 2%;
+  width: 32%;
+}
+/* line 195, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.third:last-child {
+  float: right;
+  width: 33%;
+}
+/* line 198, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.quarter {
+  width: 23%;
+  margin: 0;
+  margin-left: 2%;
+  float: left;
+}
+/* line 203, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.quarter:last-child {
+  float: right;
+  width: 25%;
+}
+/* line 204, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.quarter:first-child {
+  margin: 0;
+}
+/* line 207, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.three-quarter {
+  width: 75%;
+  margin: 0;
+  float: right;
+}
+/* line 214, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.sided {
+  clear: both;
+}
+/* line 216, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.sided dt {
+  float: left;
+  width: 25%;
+  text-align: right;
+  padding-top: 4px;
+}
+/* line 217, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.sided dd {
+  margin-left: 30%;
+}
+/* line 218, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.sided dd p.help {
+  margin-top: 10px;
+}
+/* line 219, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset dl.sided dd div.checkbox {
+  padding-top: 5px;
+}
+/* line 226, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset div.margin {
+  margin: 0 25px;
+}
+/* line 231, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes, #content form fieldset table.importExample, #content form fieldset table.categoryChildren {
+  width: 100%;
+  margin-bottom: 10px;
+  line-height: 1.0;
+}
+/* line 235, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes thead td, #content form fieldset table.importExample thead td, #content form fieldset table.categoryChildren thead td, #content form fieldset table.productAttributes thead th, #content form fieldset table.importExample thead th, #content form fieldset table.categoryChildren thead th {
+  text-align: left;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  color: #999;
+  font-size: 0.9em;
+  padding: 10px;
+}
+/* line 236, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes tr:nth-child(even) td, #content form fieldset table.importExample tr:nth-child(even) td, #content form fieldset table.categoryChildren tr:nth-child(even) td {
+  background: #fbfbfb;
+}
+/* line 239, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes td, #content form fieldset table.importExample td, #content form fieldset table.categoryChildren td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  vertical-align: middle;
+  width: 40%;
+}
+/* line 244, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes td input[type=text], #content form fieldset table.importExample td input[type=text], #content form fieldset table.categoryChildren td input[type=text] {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+}
+/* line 245, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes td.remove, #content form fieldset table.importExample td.remove, #content form fieldset table.categoryChildren td.remove {
+  width: 8%;
+  text-align: center;
+  background: #ffeff5;
+}
+/* line 246, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes td.searchable, #content form fieldset table.importExample td.searchable, #content form fieldset table.categoryChildren td.searchable {
+  width: 8%;
+  text-align: center;
+}
+/* line 247, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.productAttributes td.handle, #content form fieldset table.importExample td.handle, #content form fieldset table.categoryChildren td.handle {
+  width: 4%;
+  background: url(/assets/shoppe/move-6e32f2d0a5acb84ace1e31a7defbd76bfdf02a46959fa693e1505ba92b214956.svg) no-repeat center;
+  background-size: 16px;
+}
+/* line 256, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.importExample tr:nth-last-child(2) td, #content form fieldset table.categoryChildren tr:nth-last-child(2) td {
+  border-bottom: none;
+}
+/* line 259, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.importExample tr.tear-off td, #content form fieldset table.categoryChildren tr.tear-off td {
+  border: none;
+  background: url(/assets/shoppe/table-tear-off-0b5e2d0733f33a2e0240676922cb90f7dc7ac5913cac78ca0295e821cb796754.png) repeat-x 0 0;
+  height: 5px;
+  padding: 0;
+}
+/* line 265, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.importExample td, #content form fieldset table.categoryChildren td {
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+  width: auto;
+}
+/* line 277, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.categoryChildren a {
+  color: #000;
+}
+/* line 278, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form fieldset table.categoryChildren tr:nth-last-child(2) td {
+  border: 1px solid #ddd;
+}
+/* line 283, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form p.submit {
+  margin: 0;
+  background: #fff;
+  border: 1px solid #dce2eb;
+  padding: 25px;
+}
+/* line 284, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form p.submit .button {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+/* line 288, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form p.submit .right .button {
+  margin-left: 5px;
+  margin-right: 0;
+}
+/* line 289, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form p.submit span.right {
+  float: right;
+}
+/* line 290, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form p.submit.sided {
+  padding-left: 30%;
+}
+/* line 291, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form .errorExplanation {
+  margin-bottom: 25px;
+  border: 1px solid #EB2732;
+  background: #fff;
+  padding: 25px;
+  line-height: 1.5;
+}
+/* line 297, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form .errorExplanation h2 {
+  font-size: 1.5em !important;
+  font-weight: 300;
+  color: #de1818;
+  margin-bottom: 10px;
+}
+/* line 298, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form .errorExplanation p {
+  display: none;
+}
+/* line 299, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form .errorExplanation ul li {
+  list-style: disc;
+  margin-left: 25px;
+  font-size: 1.2em;
+}
+/* line 303, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.extraAttachments {
+  display: none;
+}
+/* line 306, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.extraAttachments dl.half {
+  margin-top: 15px;
+}
+/* line 309, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content p.addAttachments {
+  float: right;
+  margin: 15px 25px 0 0;
+}
+/* line 317, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+/* line 323, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.imgContainer {
+  float: left;
+  padding: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+/* line 324, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.imgContainer div.img {
+  background-image: url(/assets/shoppe/document-62e9c3b2bebfaa226b36661c682a3037582c73aaa59a31755b18f3b21dbafea6.svg);
+  width: 40px;
+  height: 40px;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+/* line 325, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.imgContainer div.img.none {
+  background-image: none;
+}
+/* line 326, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc {
+  margin-left: 60px;
+  padding-top: 5px;
+}
+/* line 327, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc span {
+  display: block;
+}
+/* line 328, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc span.filename {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+/* line 329, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc span.filename a {
+  text-decoration: none;
+  font-weight: bold;
+}
+/* line 330, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc span.delete a {
+  color: #FF9781;
+  font-size: 0.9em;
+}
+/* line 331, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc a {
+  color: #000;
+}
+/* line 332, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.attachmentPreview div.desc.none {
+  color: #999;
+  font-style: italic;
+}
+/* line 339, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details, #content #customer .details {
+  overflow: hidden;
+}
+/* line 341, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details .left, #content #customer .details .left {
+  width: 55%;
+  float: left;
+}
+/* line 345, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details .right, #content #customer .details .right {
+  width: 45%;
+  float: left;
+}
+/* line 348, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details .right p.acceptreject, #content #customer .details .right p.acceptreject {
+  text-align: center;
+  margin-top: 22px;
+}
+/* line 349, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details .right p.acceptreject a, #content #customer .details .right p.acceptreject a {
+  margin: 0 5px;
+}
+/* line 350, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details .right p.ship, #content #customer .details .right p.ship {
+  text-align: center;
+  margin-top: 22px;
+}
+/* line 355, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl dt, #content #customer .details dl dt {
+  float: left;
+  width: 30%;
+  text-align: right;
+  color: #888;
+  white-space: nowrap;
+}
+/* line 356, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl dd, #content #customer .details dl dd {
+  font-weight: bold;
+  margin-left: 35%;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+/* line 357, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl dd a, #content #customer .details dl dd a {
+  color: inherit;
+}
+/* line 358, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl dt.padding, #content #customer .details dl dt.padding {
+  padding-top: 6px;
+}
+/* line 361, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl.form, #content #customer .details dl.form {
+  margin-top: 15px;
+}
+/* line 363, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl.form input.text, #content #customer .details dl.form input.text {
+  width: 70%;
+}
+/* line 364, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .details dl.form a.button, #content #customer .details dl.form a.button {
+  margin-right: 5px;
+}
+/* line 369, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar, #content #customer .status-bar {
+  background: url(/assets/shoppe/square-0e7f64d1a4156f6e0a129506260ad6d60640667e589b0ce332a74ebe8c958150.svg) repeat-x 0 15px;
+  background-size: 8px;
+  margin: 45px 0;
+  overflow: hidden;
+}
+/* line 375, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li, #content #customer .status-bar ul li {
+  width: 33%;
+  float: left;
+  text-align: center;
+  background: url(/assets/shoppe/statuses/shipped-4593fec130c1f51138c16439c706ec65a96d5586ab601d5cfa439f0e385864da.svg) no-repeat center 0;
+  background-size: 36px;
+  padding-top: 42px;
+  z-index: 10;
+}
+/* line 376, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul h4, #content #customer .status-bar ul h4 {
+  color: #E32479;
+}
+/* line 377, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li p, #content #customer .status-bar ul li p {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #999;
+}
+/* line 378, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li a, #content #customer .status-bar ul li a {
+  color: inherit;
+}
+/* line 379, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.payment, #content #customer .status-bar ul li.payment {
+  background-image: url(/assets/shoppe/statuses/paid-a600d842c128497f9f7159ccc2e8af77c8f8ddd95e595545f6bb923516ee0782.svg);
+}
+/* line 380, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.payment h4, #content #customer .status-bar ul li.payment h4 {
+  color: #3DB3E2;
+}
+/* line 381, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.received, #content #customer .status-bar ul li.received {
+  background-image: url(/assets/shoppe/statuses/received-7d3422371d33a6f91829b124657d46d58664573c2c0873bc6927f72f631da2b0.svg);
+}
+/* line 382, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.received h4, #content #customer .status-bar ul li.received h4 {
+  color: #909091;
+}
+/* line 383, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.accepted, #content #customer .status-bar ul li.accepted {
+  background-image: url(/assets/shoppe/statuses/accepted-d95dec12e7759a7af1e46b5dfc39057ea9654346a25c5d8eaeae251cab38813a.svg);
+}
+/* line 384, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.accepted h4, #content #customer .status-bar ul li.accepted h4 {
+  color: #89BD2F;
+}
+/* line 385, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.rejected, #content #customer .status-bar ul li.rejected {
+  background-image: url(/assets/shoppe/statuses/rejected-e7b87cde8329aefb9cc8407ac210f6dd9bbdbe6267a7cc130d0719c0fc6d2166.svg);
+}
+/* line 386, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .status-bar ul li.rejected h4, #content #customer .status-bar ul li.rejected h4 {
+  color: #E33127;
+}
+/* line 392, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .order_items table.data .money, #content #customer .order_items table.data .money {
+  text-align: right;
+  width: 8%;
+}
+/* line 393, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .order_items table.data .product, #content #customer .order_items table.data .product {
+  width: 42%;
+}
+/* line 394, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .order_items table.data .sku, #content #customer .order_items table.data .sku {
+  width: 18%;
+}
+/* line 395, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content #order .order_items table.data .qty, #content #customer .order_items table.data .qty {
+  text-align: center;
+  width: 5%;
+}
+/* line 403, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content p.warning {
+  background: #ffffed;
+  border: 1px solid #ed7c04;
+  color: #ed7c04;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 25px;
+  padding: 15px;
+}
+/* line 417, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments h4 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #5B6270;
+}
+/* line 418, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments .table {
+  margin-bottom: 20px;
+}
+/* line 420, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments .table table td.refund {
+  width: 10%;
+  text-align: center;
+}
+/* line 421, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments .table table td.confirmed {
+  width: 5%;
+  text-align: center;
+}
+/* line 423, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form {
+  overflow: hidden;
+  background: #F7F9FC;
+  border: 1px solid #DCE2EB;
+  padding: 15px;
+}
+/* line 428, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form dl {
+  float: left;
+}
+/* line 430, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form dl dt {
+  margin-bottom: 4px;
+  font-size: 0.9em;
+  color: #A9AEB5;
+  font-weight: 500;
+}
+/* line 431, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form dl.text {
+  width: 37%;
+  margin-right: 2%;
+}
+/* line 436, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form dl.amount {
+  min-width: 131px;
+  margin-right: 2%;
+}
+/* line 441, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments form dl.submit {
+  text-align: right;
+  margin-top: 15px;
+}
+/* line 447, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content fieldset.orderPayments p.notice {
+  background: #fffff3;
+  padding: 10px;
+  color: #F67C00;
+  border: 1px solid #F6B721;
+  margin-bottom: 15px;
+}
+/* line 459, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch, #content div.customerSearch {
+  overflow: hidden;
+  display: none;
+}
+/* line 462, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch dl.left, #content div.orderSearch dl.right, #content div.customerSearch dl.left, #content div.customerSearch dl.right {
+  float: left;
+  width: 50%;
+}
+/* line 465, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch dl.left dt, #content div.orderSearch dl.right dt, #content div.customerSearch dl.left dt, #content div.customerSearch dl.right dt {
+  float: left;
+  width: 40%;
+  text-align: right;
+  padding-top: 3px;
+  color: #888;
+}
+/* line 466, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch dl.left dd, #content div.orderSearch dl.right dd, #content div.customerSearch dl.left dd, #content div.customerSearch dl.right dd {
+  margin-left: 44%;
+  margin-bottom: 15px;
+}
+/* line 467, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch dl.left dd input.small, #content div.orderSearch dl.right dd input.small, #content div.customerSearch dl.left dd input.small, #content div.customerSearch dl.right dd input.small {
+  width: 40%;
+}
+/* line 469, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content div.orderSearch p.submit, #content div.customerSearch p.submit {
+  float: right;
+}
+/* line 478, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm input[type=text].disabled {
+  background: #f7f7f7;
+  color: #888;
+}
+/* line 479, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm p.slaWarning {
+  background: #e5eaf4;
+  padding: 15px;
+  border: 1px solid #abb4c6;
+  border-top: 0;
+  text-align: center;
+}
+/* line 488, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems thead th.product {
+  width: 40%;
+}
+/* line 489, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems thead th.qty, #content form.orderForm table.orderItems thead th.stock {
+  width: 5%;
+  text-align: center;
+}
+/* line 490, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems thead th.price, #content form.orderForm table.orderItems thead th.tax, #content form.orderForm table.orderItems thead th.total, #content form.orderForm table.orderItems thead th.weight {
+  width: 50px;
+}
+/* line 493, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody td.qty input {
+  text-align: center;
+}
+/* line 494, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody td.stock {
+  text-align: center;
+}
+/* line 495, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody td input {
+  width: 100%;
+  font-size: 1.0em;
+  padding: 3px;
+  background: #f7f7f7;
+}
+/* line 496, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody td.product select {
+  width: 400px;
+}
+/* line 497, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody tr.item.new td {
+  background: #f7f7f7;
+}
+/* line 498, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody td.stock.oos {
+  background: #fff4f4;
+  color: #e32828;
+}
+/* line 499, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tbody tr.delivery td.none {
+  background: #fff4f4;
+  color: #e32828;
+  font-weight: 500;
+}
+/* line 502, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+#content form.orderForm table.orderItems tfoot td input {
+  width: 100%;
+  padding: 3px;
+  background: transparent;
+  border: 0;
+  font-size: 1.0em;
+  color: #fff;
+}
+
+/* line 511, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 200px;
+  background: rgba(0, 0, 0, 0.05);
+}
+/* line 518, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+footer p.store a {
+  display: block;
+  background: #4B515C;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 12px 20px;
+  font-size: 1.1em;
+  text-decoration: none;
+}
+
+/* line 529, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+span.boolean span.true {
+  color: #96BF48;
+}
+
+/* line 530, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+span.boolean span.false {
+  color: #c04a4a;
+}
+
+/* line 532, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+.float-right {
+  float: right;
+}
+
+/* line 534, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+div.field_with_errors {
+  display: inline;
+}
+
+/* line 539, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+div.moneyInput {
+  overflow: hidden;
+}
+/* line 541, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+div.moneyInput div.currency {
+  float: left;
+  background: #f3f6ec;
+  color: #74884a;
+  padding: 5px;
+  width: 20px;
+  text-align: center;
+  border: 1px solid #c5ceb1;
+  font-size: 1.1em;
+  border-right: 0;
+}
+/* line 542, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+div.moneyInput input {
+  width: 100px;
+  font-size: 1.1em;
+}
+
+/* line 548, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+input.text, textarea.text {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  font-size: 1.1em;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+/* line 555, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+input.text:focus, textarea.text:focus {
+  border-color: #9AC835;
+}
+/* line 556, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+input.text.short, textarea.text.short {
+  width: 100px;
+}
+
+/* line 563, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+div.table p.info {
+  overflow: hidden;
+  margin-bottom: 10px;
+  color: #40454D;
+}
+
+/* line 570, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data {
+  width: 100%;
+}
+/* line 572, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data th, table.data td {
+  padding: 10px;
+  vertical-align: middle;
+}
+/* line 573, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data thead th {
+  border: 1px solid #40454D;
+  background: #40454D;
+  text-align: left;
+  font-weight: normal;
+  font-size: 0.9em;
+  color: #fff;
+}
+/* line 574, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td {
+  border: 1px solid #cfd4dd;
+  background: #fff;
+}
+/* line 575, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data a {
+  color: inherit;
+}
+/* line 576, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody th {
+  text-align: left;
+  background: #5B6270;
+  border: 1px solid #5B6270;
+  font-size: 1.2em;
+  color: #fff;
+}
+/* line 577, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.empty td {
+  padding: 50px 0;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+/* line 578, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tfoot td.right {
+  text-align: right;
+}
+/* line 579, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tfoot td.bold {
+  font-weight: bold;
+}
+/* line 580, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tfoot td {
+  border-top: 0 solid #ccc;
+  background: #fafafa;
+}
+/* line 581, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tfoot tr:first-child td {
+  border-top-width: 3px;
+}
+/* line 582, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td a.edit {
+  background: url(/assets/shoppe/icons/edit-1bcc0ace3019fc09f8132c628afa67ad3c4c678a4bab44bc65a84d7b48867918.svg) no-repeat;
+  margin-top: 3px;
+  width: 16px;
+  width: 16px;
+  background-size: 13px;
+  display: inline-block;
+  text-indent: -40000px;
+  opacity: 0.3;
+}
+/* line 583, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td a.edit:hover {
+  opacity: 0.5;
+}
+/* line 584, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td.table {
+  padding: 0;
+}
+/* line 587, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td.table table.data td {
+  padding: 10px;
+  border-width: 0;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+}
+/* line 588, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td.table table.data td:last-child {
+  border-right-width: 0;
+}
+/* line 589, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody td.table table.data tr:last-child td {
+  border-bottom-width: 0;
+}
+/* line 593, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.form td {
+  background: #f2f6fb;
+}
+/* line 594, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.form input[type=text] {
+  border: 1px solid #CFD4DD;
+  padding: 5px;
+}
+/* line 595, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.form input[type=text]:focus {
+  border-color: #9AC835;
+}
+/* line 596, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.form td.desc input[type=text] {
+  width: 95%;
+}
+/* line 597, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tbody tr.form td.adjustment input[type=text] {
+  width: 50px;
+  margin-right: 5px;
+}
+/* line 599, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+table.data tfoot td {
+  background: #5B6270;
+  color: #fff;
+  border: 1px solid #5B6270;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* line 605, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.pagination {
+  display: block;
+  margin: 25px 0;
+  overflow: hidden;
+  text-align: center;
+}
+/* line 610, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.pagination span {
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin-right: 3px;
+  color: #333;
+  background: #fff;
+}
+/* line 616, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.pagination span.current {
+  background: #9AC835;
+  border-color: #7B9F26;
+  color: #fff;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+/* line 617, /usr/local/rvm/gems/ruby-2.3.0/gems/shoppe-1.1.2/app/assets/stylesheets/shoppe/application.scss */
+nav.pagination span a {
+  padding: 5px 10px;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}

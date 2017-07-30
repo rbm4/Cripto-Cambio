@@ -1,8 +1,77 @@
 class ExchangeController < ApplicationController
     require 'mercadopago.rb'
     
+    def order_show_form
+        if params[:commit] == "Esconder"
+            @esconder = true
+            @moeda_par1 = nil
+            @moeda_par2 = nil
+        end
+        session[:moeda1_compra] = nil
+        session[:moeda2_compra] = nil
+        session[:moeda1_venda] = nil
+        session[:moeda2_venda] = nil
+        if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+            @moeda_par1 = "btc"
+            @moeda_par2 = "brl"
+        else
+            @moeda_par1 = session[:moeda1_par]
+            @moeda_par2 = session[:moeda2_par]
+        end
+    end
+    def pair
+        par_moedas = params["commit"].split("/")
+        par_moedas[0].gsub!("[","")
+        par_moedas[1].gsub!("]","")
+        session[:moeda1_compra] = nil
+        session[:moeda2_compra] = nil
+        session[:moeda1_venda] = nil
+        session[:moeda2_venda] = nil
+        session[:moeda1_par] = par_moedas[0]
+        session[:moeda2_par] = par_moedas[1]
+        @moeda_par1 = session[:moeda1_par]
+        @moeda_par2 = session[:moeda2_par]
+        
+        render 'order_show_form'
+    end
     def overview
-        #formulário
+        session[:moeda1_compra] = nil
+        session[:moeda2_compra] = nil
+        session[:moeda1_venda] = nil
+        session[:moeda2_venda] = nil
+        @moeda_par1 = "btc"
+        @moeda_par2 = "brl"
+        @valor_buy = 8932.32 #verificar preço da última venda das Order.all.last if Order.type == "buy"
+        @valor_sell = 8876.22 #verificar preço da última compra das Order.all.last if Order.type == "sell"
+        #Par de moedas inicial: [BRL/BTC]
+    end
+    def calc_tax
+        if params["qtd_moeda1buy"] != nil
+            session[:moeda1_compra] = params["qtd_moeda1buy"].gsub(/,/,".")
+        end
+        if params["qtd_moeda2buy"] != nil
+            session[:moeda2_compra] = params["qtd_moeda2buy"].gsub(/,/,".")
+        end
+        if (session[:moeda1_compra] != nil) and (session[:moeda2_compra] != nil)
+            qtdb1, qtdb2 = BigDecimal(session[:moeda1_compra],8), BigDecimal(session[:moeda2_compra],8)
+            @total_buy = (qtdb1 * qtdb2)
+            @comission_buy = qtdb1 * 0.005
+            @liquid_buy = qtdb1 - @comission_buy
+            @calculo_feito_compra = true
+        end
+        if params["qtd_moeda1sell"] != nil
+            session[:moeda1_venda] = params["qtd_moeda1sell"].gsub(/,/,".")
+        end
+        if params["qtd_moeda2sell"] != nil
+            session[:moeda2_venda] = params["qtd_moeda2sell"].gsub(/,/,".")
+        end
+        if (session[:moeda1_venda] != nil) and (session[:moeda2_venda] != nil)
+            qtds1, qtds2 = BigDecimal(session[:moeda1_venda],8), BigDecimal(session[:moeda2_venda],8)
+            @total_sell = (qtds1 * qtds2)
+            @comission_sell = qtds2 * 0.005
+            @liquid_sell = qtds2 - @comission_sell
+            @calculo_feito_venda = true
+        end
     end
     
     def credit_form
@@ -152,3 +221,4 @@ class ExchangeController < ApplicationController
         p params
     end
 end
+

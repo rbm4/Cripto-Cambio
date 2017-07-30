@@ -1,0 +1,77 @@
+<style>
+    td[type=orders] {
+   border: 1px solid black;
+   text-align: center;
+}
+</style>
+
+<table style="width: 100%;">
+    <tr>
+        <th>Ordens de compra</th>
+        <th>Ordens de venda</th>
+        <th>Ordens executadas</th>
+    </tr>
+    <tr><!-- Ordens de compra -->
+        <td type="orders"><table>
+            <!--Consultar ordens aberta do Order.tipo = buy-->
+            <tr>
+                <td>Quantidade <%= @moeda_par1 %></td>
+                <td>Preço <%= @moeda_par2 %></td>
+            </tr>
+            <% if @consulta_compra != nil %>
+            <% @consulta_compra.each do |l| %>
+            <tr>
+                
+                <td type="orders"><%= l.amount %></td>
+                <td type="orders"><%= l.price %></td>
+                
+                
+            </tr>
+            <% end %>
+            <% end %>
+        </table></td>
+        <!-- Ordens de venda -->
+        <td type="orders"><table>
+            <!--Consultar ordens aberta do Order.tipo = buy-->
+            <tr>
+                <td>Quantidade <%= @moeda_par1 %></td>
+                <td>Preço  <%= @moeda_par2 %></td>
+            </tr>
+            <% if @consulta_venda != nil %>
+            <% @consulta_venda.each do |v| %>
+            <tr>
+                
+                <td type="orders"><%= v.amount %></td>
+                <td type="orders"><%= v.price %></td>
+                
+                
+            </tr>
+            <% end %>
+            <% end %>
+            </table>
+        </td>
+        <!-- ordens executadas -->
+        <td type="orders"><table>
+            <!--Consultar ordens aberta do Order.tipo = buy-->
+            <tr>
+                <td>Data</td>
+                <td>Tipo</td>
+                <td>Quantidade</td>
+                <td>Preço</td>
+            </tr>
+            <tr>
+                <td type="orders"></td>
+                <td type="orders"></td>
+                <td type="orders"></td>
+                <td type="orders"></td>
+            </tr>
+            </table>
+        </td>
+    </tr>
+    
+    </tr>
+    <tr>
+        
+    </tr>
+    
+</table>

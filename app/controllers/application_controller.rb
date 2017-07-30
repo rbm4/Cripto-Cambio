@@ -12,12 +12,23 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone, :captcha
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange
   
   
-  
+  def last_order_exchange(string_par)
+    base_currency = string_par.split("/")[1]
+    h = Hash.new
+    consulta = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "complete"}).last)
+    if consulta != nil
+      h[string_par]["last_buy"] = consulta.price
+    end
+    consulta_sell = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "complete"}).last)
+    if consulta_sell != nil
+      h[string_par]["last_sell"] = consulta_sell.price
+    end
+    return h, base_currency
+  end
   def validate_operation(pass)
-    p pass
     if BCrypt::Password.new(pass) == ENV["CPTOP_RESULT"]
       return true
     end

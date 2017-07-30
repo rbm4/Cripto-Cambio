@@ -14,3 +14,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+function executeQuery() {
+  $.ajax({
+    url: 'exchange/order_stats', 
+    success: function(data) {
+      $('.result').html(data);
+    },
+    complete: function() {
+      // Schedule the next request when the current one's complete
+      setTimeout(executeQuery, 8500);
+    }
+})};
+
+

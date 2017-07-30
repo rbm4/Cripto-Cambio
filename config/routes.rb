@@ -43,7 +43,6 @@ Rails.application.routes.draw do
   get '/detalhes' => 'sessions#detalhes'
   post '/create_handler' => 'produtos#finalizar_compra'
   post '/create_handlerps' => 'produtos#finalizar_compra_pagseguro'
-  #post 'sessions/setting' => 'sessions#setting'
   get 'login' => 'sessions#login'
   get 'login_attempt' => 'sessions#login_attempt'
   post 'login_attempt' => 'sessions#login_attempt'
@@ -52,8 +51,6 @@ Rails.application.routes.draw do
   get '/register' => 'usuarios#new'
   get '/create' => 'usuarios#new'
   post '/create' => 'usuarios#create'
-  get '/charte' => 'sensores#charte'
-  get '/chamados' => 'sensores#smart'
   post "/store" => "store#show", as: "product"
   post "/show" => "store#buy", as: "buy"
   get "basket", to: "orders#show"
@@ -96,6 +93,11 @@ Rails.application.routes.draw do
   get '/cripto_form' => 'exchange#formulario_dinamico_cripto'
   post 'storage_create' => 'admin#generate_storage'
   post '/withdrawal_storage' => 'admin#withdrawal'
+  get '/calc_tax_exchange' => 'exchange#calc_tax'
+  post '/order_show_form' => 'exchange#order_show_form'
+  post '/pair' => 'exchange#pair'
+  post "/new_order" => 'orders#exchange_order_create'
+  get 'exchange/order_stats' => 'orders#public_stats'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

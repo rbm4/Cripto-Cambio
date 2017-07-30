@@ -145,6 +145,7 @@ input[type=submit]{
 											</td>
 											<td>
 												<%= form_tag 'withdrawal_storage' %>
+												<%= hidden_field_tag :nonce, Time.now.to_i %>
 									 	  	    	<%= text_field_tag :valor, "valor" %><br><%= text_field_tag :destino, "endereco de destino" %><%= hidden_field_tag(:endereco, h.endereco ) %><%= hidden_field_tag(:moeda, h.tipo ) %><br>
 									 	  	    	<%= submit_tag "Withdrawal" %></form>
 											</td>

@@ -1,0 +1,10 @@
+<% if @calculo_feito_compra == true %>
+$( "#total_buy" ).html( "<%= @total_buy  %>" );
+$( "#comission_buy" ).html( "<%= @comission_buy  %>" );
+$( "#liquid_buy" ).html( "<%= @liquid_buy  %>" );
+<% end %>
+<% if @calculo_feito_venda == true %>
+$( "#total_sell" ).html( "<%= @total_sell  %>" );
+$( "#comission_sell" ).html( "<%= @comission_sell  %>" );
+$( "#liquid_sell" ).html( "<%= @liquid_sell  %>" );
+<% end %>
