@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
   end
   def last_order_exchange(string_par)
     base_currency = string_par.split("/")[1]
-    h = Hash.new
-    consulta = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "complete"}).last)
+    h = {}
+    consulta = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "executada"}).last)
     if consulta != nil
-      h[string_par]["last_buy"] = consulta.price
+      h["#{string_par}/last_buy"] = consulta.price
     end
-    consulta_sell = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "complete"}).last)
+    consulta_sell = (Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "executada"}).last)
     if consulta_sell != nil
-      h[string_par]["last_sell"] = consulta_sell.price
+      h["#{string_par}/last_sell"] = consulta_sell.price
     end
     return h, base_currency
   end

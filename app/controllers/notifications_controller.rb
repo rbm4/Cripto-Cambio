@@ -122,6 +122,7 @@ class NotificationsController < ApplicationController
     else
       #transacação inválida, finalizar.
      render nothing: true, status: 211
+     return
     end
     
     render nothing: true, status: 211

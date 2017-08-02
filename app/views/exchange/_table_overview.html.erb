@@ -11,10 +11,10 @@
 							<td>Compra:</td>
 							<% pares.each do |b|%>
 							<% hash, base = last_order_exchange(b)%>
-							<% if hash[b] == nil%>
+							<% if hash["#{b}/last_buy"] == nil%>
 							<td type="orders"> ----- </td>
 							<% else %>
-							<td type="orders"><%= hash[b]["last_buy"] %> <%= base %> </td>
+							<td type="orders"><%= hash["#{b}/last_buy"] %> <%= base %> </td>
 							<% end %>
 							<% end %>
 						</tr>
@@ -22,10 +22,10 @@
 							<td>Venda:</td>
 							<% pares.each do |b|%>
 							<% hash, base = last_order_exchange(b)%>
-							<% if hash[b] == nil%>
+							<% if hash["#{b}/last_sell"] == nil%>
 							<td type="orders"> ----- </td>
 							<% else %>
-							<td type="orders"><%= hash[b]["last_sell"] %> <%= base %> </td>
+							<td type="orders"><%= hash["#{b}/last_sell"] %> <%= base %> </td>
 							<% end %>
 							<% end %>
 						</tr>
