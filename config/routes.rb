@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post '/apostas/btc_loteria' => 'apostas#buy_btc_ticket'
   post '/apostas/dynamic' => 'apostas#calcular_tickets'
   post '/withdraw_exec' => 'wallets#withdraw_remove'
-  post '/transfer' => 'wallets#withdraw'
+  get '/transfer' => 'wallets#withdraw'
   post '/blockchain' => 'application#consulta_blockchain'
   get '/forget' => 'sessions#senha'
   post '/recuperar' => 'sessions#recuperar_senha'
@@ -98,6 +98,7 @@ Rails.application.routes.draw do
   post '/pair' => 'exchange#pair'
   post "/new_order" => 'orders#exchange_order_create'
   get 'exchange/order_stats' => 'orders#public_stats'
+  post '/coinpay/exchange_deposit' => 'notifications#coinpay_deposits'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

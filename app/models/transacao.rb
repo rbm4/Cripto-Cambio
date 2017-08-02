@@ -7,11 +7,12 @@ class Transacao < ActiveRecord::Base
         tx.fee = fee # taxa cobrada pela transação (aplicada de várias formas) #STRING
         tx.paid = paid # esta transação já foi paga? #BOOLEAN
         tx.user = user # usuário/entidade que originou a transação #String
-        if moeda != "brl" 
-            tx.txid = txid
+        tx.txid = txid # quantidade solicitada pelo usuário
+        if tx.save!
+            return true
         else
-            tx.txid = nil
+            return false
         end
-        tx.save!
+        
     end
 end

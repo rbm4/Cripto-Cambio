@@ -17,7 +17,7 @@ class AdminController < ApplicationController
     end
     
     def withdrawal #retirada de fundos do storage do block.io
-        value = params["valor"].gsub!(",",".")
+        value = params["valor"].gsub(",",".")
         from_addr = params["endereco"]
         to_addr = params["destino"]
         BlockIo.set_options :api_key=> Storage.key_push(params["moeda"]), :pin => ENV["BLOCK_IO_PIN"], :version => 2

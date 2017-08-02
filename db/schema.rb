@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170729185445) do
+ActiveRecord::Schema.define(version: 20170730045904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -457,6 +457,7 @@ ActiveRecord::Schema.define(version: 20170729185445) do
     t.string   "privkeyltc"
     t.string   "privkeydoge"
     t.string   "saldo"
+    t.string   "saldo_encrypted"
   end
 
 end

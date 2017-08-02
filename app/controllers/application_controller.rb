@@ -14,7 +14,12 @@ class ApplicationController < ActionController::Base
   after_filter :cors_set_access_control_headers
   helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange
   
-  
+  def require_login
+    if current_user != nil
+      return true
+    end
+    redirect_to '/login'
+  end
   def last_order_exchange(string_par)
     base_currency = string_par.split("/")[1]
     h = Hash.new
@@ -491,6 +496,7 @@ class ApplicationController < ActionController::Base
   def require_logout
     rendirect_to '/' if current_user
   end
+  
   def useremail
     if @current_user == nil
       current_user

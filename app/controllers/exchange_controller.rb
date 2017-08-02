@@ -12,8 +12,8 @@ class ExchangeController < ApplicationController
         session[:moeda1_venda] = nil
         session[:moeda2_venda] = nil
         if session[:moeda1_par] == nil and session[:moeda2_par] == nil
-            @moeda_par1 = "btc"
-            @moeda_par2 = "brl"
+            @moeda_par1 = "BTC"
+            @moeda_par2 = "BRL"
         else
             @moeda_par1 = session[:moeda1_par]
             @moeda_par2 = session[:moeda2_par]
@@ -39,8 +39,8 @@ class ExchangeController < ApplicationController
         session[:moeda2_compra] = nil
         session[:moeda1_venda] = nil
         session[:moeda2_venda] = nil
-        @moeda_par1 = "btc"
-        @moeda_par2 = "brl"
+        @moeda_par1 = "BTC"
+        @moeda_par2 = "BRL"
         @valor_buy = 8932.32 #verificar preço da última venda das Order.all.last if Order.type == "buy"
         @valor_sell = 8876.22 #verificar preço da última compra das Order.all.last if Order.type == "sell"
         #Par de moedas inicial: [BRL/BTC]
@@ -68,8 +68,8 @@ class ExchangeController < ApplicationController
         if (session[:moeda1_venda] != nil) and (session[:moeda2_venda] != nil)
             qtds1, qtds2 = BigDecimal(session[:moeda1_venda],8), BigDecimal(session[:moeda2_venda],8)
             @total_sell = (qtds1 * qtds2)
-            @comission_sell = qtds2 * 0.005
-            @liquid_sell = qtds2 - @comission_sell
+            @comission_sell = @total_sell * 0.005
+            @liquid_sell = @total_sell - @comission_sell
             @calculo_feito_venda = true
         end
     end
@@ -125,18 +125,52 @@ class ExchangeController < ApplicationController
         elsif params['currency'] == '[LTC] Litecoin'
             @amountf = "amountfltc"
             @curr = "LTC"
-        elsif params['currency'] == '[ETH] Ethereum'
-            @amountf = "amountfeth"
-            @curr = "ETH"
+        elsif params['currency'] == '[DOGE] Dogecoin'
+            @amountf = "amountfdoge"
+            @curr = "DOGE"
         end
     end
 
     def credit_tax_calc
         if params['commit'] == "Continuar"
-            puts "Salvar depósito do usuário aqui"
+            quantidade_solicitado = BigDecimal(params["amountf#{moeda.downcase}"],8)
+            digest = "#{current_user.username}/#{params["amountf#{moeda.downcase}"]}" # usuario/quantidade solicitada
+            cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc") #criar objeto para encriptar
+            cipher.encrypt 
+            datetime = Datetime.now
+            # you will need to store these for later, in order to decrypt your data
+            key = Digest::SHA1.hexdigest(datetime) #chave de criação
+            iv = cipher.random_iv
+            # load them into the cipher
+            cipher.key = key
+            cipher.iv = iv
+            # encrypt the message
+            encrypted = cipher.update("#{current_user.username}/#{quantidade_solicitado}")
+            encrypted << cipher.final
+            
+            @public_payment_key = "#{encrypted}/#{datetime}/#{current_user.username}" #nome do item a ser recuperado no controlador de notificações
+            
+            
+            moeda = params["currency"].split(" ")[0].gsub("]","")
+            moeda = moeda.gsub("[","")
+            certo = params["amountf#{moeda.downcase}"].gsub(",",".")
+            @valor = BigDecimal(certo,9).to_f
+            if @valor < min("DOGE")
+                @valid = false
+            else
+                @valid = true
+            end
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("DOGE")).round(8)
+            
+            fee = (((@valor * 0.012).round(8) - fee("DOGE")) * -1 ).round(8)
+            if Transacao.construir_transacao("coinpayments/#{moeda.downcase}",moeda,"#{current_user.username} > Cpt Cambio",fee,false,"#{current_user.username}/#{datetime}", "#{key}|#{iv}")#(tipo,moeda,inout,fee,paid,user,txid)
+                @moeda = moeda
+                @valor = BigDecimal(certo,9).to_f
+            else
+                @valid = false
+            end
         end
-        @public_payment_key = String(DateTime.now)
-        private_payment_key = Digest::SHA256.digest(@public_payment_key)
+        
         if params['amountfbtc'] != nil
             @method = "cripto"
             certo = params['amountfbtc'].gsub(",",".")
@@ -159,17 +193,17 @@ class ExchangeController < ApplicationController
             end
             @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("LTC")).round(8)
             @moeda = "LTC"
-        elsif params['amountfeth'] != nil
+        elsif params['amountfdoge'] != nil
             @method = "cripto"
-            certo = params['amountfeth'].gsub(",",".")
+            certo = params['amountfdoge'].gsub(",",".")
             @valor = BigDecimal(certo,9).to_f
-            if @valor < min("ETH")
+            if @valor < min("DOGE")
                 @valid = false
             else
                 @valid = true
             end
-            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("ETH")).round(8)
-            @moeda = "LTC"
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("DOGE")).round(8)
+            @moeda = "DOGE"
         end
         if params['reais'] != nil
             valor = BigDecimal(params['reais'])
@@ -181,11 +215,11 @@ class ExchangeController < ApplicationController
     
     def min(x)
         if x == "BTC"
-            return 0.001
+            return 0.0002
         elsif x == "LTC"
-            return 0.03
-        elsif x == "ETH"
-            return 0.001
+            return 0.003
+        elsif x == "DOGE"
+            return 3
         elsif x == "BRL"
             return 50
         end
@@ -193,11 +227,11 @@ class ExchangeController < ApplicationController
     
     def fee(moeda)
         if moeda == "BTC"
-            return 0.0008
+            return 0.00008
         elsif moeda == "LTC"
-            return 0.02
-        elsif moeda == "ETH"
-            return 0.0005
+            return 0.003
+        elsif moeda == "DOGE"
+            return 3
         else
             return "(0.0008 BTC)/(0.002 LTC)/(2 DOGE)*<br>*Taxa fixa referente à cobrança das transações na rede."
         end
@@ -212,7 +246,7 @@ class ExchangeController < ApplicationController
             @type = "deposito"
         elsif params['tipo_pgto'] == "[Cripto] CoinPayments"
             @formulario = "CoinPayments"
-            @moedas = "<option>Selecione a moeda</option><option>[BTC] Bitcoin</option><option>[LTC] Litecoin</option><option>[ETH] Ethereum</option>"
+            @moedas = "<option>Selecione a moeda</option><option>[BTC] Bitcoin</option><option>[LTC] Litecoin</option><option>[DOGE] Dogecoin</option>"
             @type = "coinpayments"
         end
         

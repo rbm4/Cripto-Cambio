@@ -1,8 +1,8 @@
 $( "#qtd" ).html( "<%= escape_javascript( text_field_tag @amountf, "0.00000000", data: { remote: true, url: url_for( action: :credit_tax_calc)} ) %>" );
 <% if params['currency'] == '[BTC] Bitcoin' %>
-$( "#tax" ).html( "Taxa: (1,2%) - 0.0008 BTC<br>* Minimo: 0.001 BTC" );
+$( "#tax" ).html( "Taxa: (1,2%) - 0.00008 BTC<br>* Minimo: 0.0002 BTC" );
 <% elsif params['currency'] == '[LTC] Litecoin' %>
-$( "#tax" ).html( "Taxa: (1,2%) - 0.02 LTC<br>* Minimo: 0.03 LTC" );
-<% elsif params['currency'] == '[ETH] Ethereum' %>
-$( "#tax" ).html( "Taxa: (1,2%) - 0.0005 ETH* Minimo: 0.001 ETH" );
+$( "#tax" ).html( "Taxa: (1,2%) - 0.02 LTC<br>* Minimo: 0.003 LTC" );
+<% elsif params['currency'] == '[DOGE] Dogecoin' %>
+$( "#tax" ).html( "Taxa: (1,2%) - 3 DOGE* Minimo: 3 DOGE" );
 <% end %>

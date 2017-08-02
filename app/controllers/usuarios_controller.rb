@@ -81,6 +81,7 @@ class UsuariosController < ApplicationController
     @usuario.username.downcase!
     @usuario.email.downcase!
     @usuario.fone = @customer.phone
+    @usuario.saldo_encrypted = eval("{'BRL' => 0, 'BTC' => 0, 'LTC' => 0, 'DOGE' => 0}").to_s
 
     if @usuario.save
       @logged = "Você efetuou o registro com sucesso. Guarde suas informações com segurança, nós não divulgamos nem solicitamos informações.\n Por favor, acesse seu email para confirmar o registro."

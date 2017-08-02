@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
-  
+  before_action :require_login, only: [:home]
   before_action :require_logout, only: [:login,:login_attempt]
+  
   
   def login
     #Login Form

@@ -2,6 +2,7 @@
     td[type=orders] {
    border: 1px solid black;
    text-align: center;
+   font-size: 13px;
 }
 </style>
 
@@ -59,12 +60,23 @@
                 <td>Quantidade</td>
                 <td>Preço</td>
             </tr>
+            
+            <% if @consulta_realizadas != nil %>
+            <% @consulta_realizadas.each do |g| %>
             <tr>
-                <td type="orders"></td>
-                <td type="orders"></td>
-                <td type="orders"></td>
-                <td type="orders"></td>
+                
+                <td type="orders"><%= g.updated_at %></td>
+                <% if g.tipo == "buy" %>
+                <td type="orders">Compra</td>
+                <% elsif g.tipo == "sell" %>
+                <td type="orders">Venda</td>
+                <% end %>
+                <td type="orders"><%= g.amount %></td>
+                <td type="orders"><%= g.price %></td>
+                
             </tr>
+            <% end %>
+            <% end %>
             </table>
         </td>
     </tr>

@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
     require 'paypal-sdk-rest'
     include PayPal::SDK::REST
     include PayPal::SDK::Core::Logging
-    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip, :coinpay]
+    skip_before_action :verify_authenticity_token, :only => [:bitcoin, :pgseguro, :paypal, :paypalnip, :coinpay, :coinpay_deposits]
     
   def coinpay
     config_block
@@ -71,6 +71,60 @@ class NotificationsController < ApplicationController
       end
       #Parameters: "txn_id"=>"CPAK66ELODNBAV3TE8U29WYYPB", "status"=>"0", "status_text"=>"Waiting for buyer funds...", "currency1"=>"BTC", "currency2"=>"LTC", "amount1"=>"1.366E-5", "amount2"=>"0.0026", "subtotal"=>"1.366E-5", "shipping"=>"0", "tax"=>"0", "fee"=>"1.0E-5", "item_amount"=>"1.366E-5", "item_name"=>"FracaoBTC", "quantity"=>"1", "first_name"=>"krobellus", "last_name"=>"alperte", "email"=>"krobellus@protonmail.ch", "received_amount"=>"0", "received_confirms"=>"0"}
     end
+  end
+  def coinpay_deposits
+    if params['merchant'] != 'b1e3df05f8a772fc276f4b79aef1c551' && params['status'] < '100'
+      render nothing: true, status: 211
+      return
+    end
+    moeda1 = params["currency1"] #moeda nativa que deve ser igual a moeda da transação
+    moeda2 = params["currency2"] #moeda em que foi feito o pagamento
+   # amount_1 = params["amount1"] #quantidade da moeda nativa (sem desconto de taxas)
+    #amount_2 = params["amount2"] #quantidade da moeda paga na moeda 2, caso diferente da moeda 1 descontar 5%
+    array_name = params["item_name"].split("/")
+    encrypted = array_name[0]
+    datetime = array_name[1]
+    username = array_name[2]
+    
+    #recuperar a tranção do banco
+    transacao = Transacao.find_by_user("#{username}/#{datetime}")
+    if transacao != nil #transcação válida, prosseguir
+      array_cipher = transacao.txid.split("|")
+      cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
+      cipher.decrypt
+      cipher.key = array_cipher[0]
+      cipher.iv = array_cipher[1]
+      decrypted = cipher.update(encrypted)
+      decrypted << cipher.final
+      
+      dados = decrypted.split("/")
+      username = dados[0]
+      qtd_moeda = BigDecimal(dados[1],8)
+      #verificar moedas nativas e as pagas:
+      if moeda2 == moeda1 #sem taxas extras desconto normal
+        qtd_moeda = qtd_moeda - BigDecimal(transacao.fee,8)
+        moeda = moeda1
+      else #taxa de 5% em cima do qtd_moeda
+        qtd_moeda = qtd_moeda + (qtd_moeda * 0.95)
+        moeda = moeda2
+      end
+      #descontos calculados
+      #encontrar usuário
+      user_depto = Usuario.find_by_username(username)
+      hash = eval(user_depto.saldo_encrypted)
+      hash["#{moeda}"] = (BigDecimal(hash["#{moeda}"],8) + qtd_moeda).to_s
+      user_depto.saldo_encrypted = hash.to_s
+      if user_depto.save 
+        transacao.paid = true
+        transacao.txid = qtd_moeda
+        transsacao.save
+      end
+    else
+      #transacação inválida, finalizar.
+     render nothing: true, status: 211
+    end
+    
+    render nothing: true, status: 211
   end
     
     def balance_change url_string, xml_string

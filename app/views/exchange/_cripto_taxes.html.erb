@@ -28,7 +28,7 @@
 	<input type="hidden" name="want_shipping" value="0">
 	<input type="hidden" name="success_url" value="https://mkta.herokuapp.com/">
 	<input type="hidden" name="cancel_url" value="https://mkta.herokuapp.com/">
-	<input type="hidden" name="ipn_url" value="<%= ENV['COINPAY_IPN_URL'] %>">
+	<input type="hidden" name="ipn_url" value="<%= ENV['COINPAY_IPN_URL'] %>/exchange_deposit">
     <input type="hidden" name="allow_extra" value="0">
     <% if params['commit'] == "Continuar" %>
     <input type="image" onClick="save_credit();" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
