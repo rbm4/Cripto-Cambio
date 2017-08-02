@@ -13,7 +13,9 @@ class ApplicationController < ActionController::Base
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone, :captcha
   after_filter :cors_set_access_control_headers
   helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange
-  
+  #mneconic 'icon monkey curtain tomorrow guard above genuine episode rival palm frame disease'
+
+  #heroku email
   def require_login
     if current_user != nil
       return true
