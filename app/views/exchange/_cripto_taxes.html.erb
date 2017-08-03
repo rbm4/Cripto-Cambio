@@ -1,4 +1,26 @@
-
+<style>
+	
+ table.qr-code {
+  width: 150px;
+  height: 150px;
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+}
+table.qr-code td {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+  width: 5px;
+  height: 3px;
+}
+table.qr-code td.black { background-color: #000; }
+table.qr-code td.white { background-color: #fff; }
+</style>
 <table style="width:40%">
     <tr>
         <td>
@@ -15,23 +37,24 @@
 <b id='validate'><%= submit_tag "Continuar" %> </b>
 <% end %>
 </form>
-
-<form action="https://www.coinpayments.net/index.php" method="post">
-	<input type="hidden" name="cmd" value="_pay">
-	<input type="hidden" name="reset" value="1">
-	<input type="hidden" name="merchant" value="b1e3df05f8a772fc276f4b79aef1c551">
-	<input type="hidden" name="currency" value=<%= @moeda %>>
-	<input type="hidden" name="amountf" value=<%= @valor %>>
-	<input type="hidden" name="item_name" value=<%= "#{String(current_user.id) + "/" + @moeda + "/" + @public_payment_key}" %>>		
-	<input type="hidden" name="quantity" value="1">
-	<input type="hidden" name="allow_quantity" value="0">
-	<input type="hidden" name="want_shipping" value="0">
-	<input type="hidden" name="success_url" value="https://mkta.herokuapp.com/">
-	<input type="hidden" name="cancel_url" value="https://mkta.herokuapp.com/">
-	<input type="hidden" name="ipn_url" value="<%= ENV['COINPAY_IPN_URL'] %>/exchange_deposit">
-    <input type="hidden" name="allow_extra" value="0">
-    <% if params['commit'] == "Continuar" %>
-    <input type="image" onClick="save_credit();" src="https://www.coinpayments.net/images/pub/buynow-med.png" alt="Buy Now with CoinPayments.net">
-    <% else %>
+<% if @qr != nil%>
+<font style="font-size:70%;">Este endereço foi gerado automaticamente a partir da moeda que você selecionou acima.<br>
+Por favor, envie a quantidade de <b style="font-weight: bold;color: red;"><%= @valor %> <%= @moeda %></b> para o endereço especificado abaixo ou seu depósito pode <b style="font-weight: bold;">correr o risco de não ser contabilizado!</b><br>
+Seu saldo irá automaticamente ser atualizado a partir das confirmações da rede necessárias para completar a transação.</font><br>
+Este endereço será válido para transações realizadas em até 1 hora a partir do momento da solicitação.
+    <table class="qr-code">
+										<% @qr.modules.each_index do |x| %>
+  											<tr>
+  											<% @qr.modules.each_index do |y| %>
+  											<% if @qr.dark?(x,y) %>
+  											<td class="black"/>
+  											<% else %>
+  											<td class="white"/>
+  											<% end %>
+  											<% end %>
+  											</tr>
+  											<% end %>
+  											</table><br>
+Valor: <%= @valor %> <%= @moeda %>
+Endereço: <%= @address %>
 	<% end %>
-	</form>

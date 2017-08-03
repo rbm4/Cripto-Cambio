@@ -73,52 +73,36 @@ class NotificationsController < ApplicationController
     end
   end
   def coinpay_deposits
-    if params['merchant'] != 'b1e3df05f8a772fc276f4b79aef1c551' && params['status'] < '100'
+    if params['merchant'] != 'b1e3df05f8a772fc276f4b79aef1c551' or params['status'].to_i < 100
       render nothing: true, status: 211
       return
     end
-    moeda1 = params["currency1"] #moeda nativa que deve ser igual a moeda da transação
-    moeda2 = params["currency2"] #moeda em que foi feito o pagamento
+   # moeda1 = params["currency1"] #moeda nativa que deve ser igual a moeda da transação
+   # moeda2 = params["currency2"] #moeda em que foi feito o pagamento
    # amount_1 = params["amount1"] #quantidade da moeda nativa (sem desconto de taxas)
     #amount_2 = params["amount2"] #quantidade da moeda paga na moeda 2, caso diferente da moeda 1 descontar 5%
-    array_name = params["item_name"].split("/")
-    encrypted = array_name[0]
-    datetime = array_name[1]
+    array_name = params["item_name"].split("|")
+    encrypted_digest = array_name[0]
+    quantidade = array_name[1] 
     username = array_name[2]
-    
+    id = array_name[3]
+    pass = BCrypt::Password.new(encrypted_digest)
+    if pass != ENV["DEPOSIT_KEY"]
+      render nothing: true, status: 211
+      return 
+    end
     #recuperar a tranção do banco
-    transacao = Transacao.find_by_user("#{username}/#{datetime}")
-    if transacao != nil #transcação válida, prosseguir
-      array_cipher = transacao.txid.split("|")
-      cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
-      cipher.decrypt
-      cipher.key = array_cipher[0]
-      cipher.iv = array_cipher[1]
-      decrypted = cipher.update(encrypted)
-      decrypted << cipher.final
+    transacao = Transacao.find(id)
+    if transacao != nil && transacao.paid == false #transcação válida, prosseguir
       
-      dados = decrypted.split("/")
-      username = dados[0]
-      qtd_moeda = BigDecimal(dados[1],8)
-      #verificar moedas nativas e as pagas:
-      if moeda2 == moeda1 #sem taxas extras desconto normal
-        qtd_moeda = qtd_moeda - BigDecimal(transacao.fee,8)
-        moeda = moeda1
-      else #taxa de 5% em cima do qtd_moeda
-        qtd_moeda = qtd_moeda + (qtd_moeda * 0.95)
-        moeda = moeda2
-      end
-      #descontos calculados
-      #encontrar usuário
-      user_depto = Usuario.find_by_username(username)
-      hash = eval(user_depto.saldo_encrypted)
-      hash["#{moeda}"] = (BigDecimal(hash["#{moeda}"],8) + qtd_moeda).to_s
-      user_depto.saldo_encrypted = hash.to_s
-      if user_depto.save 
+      user = Usuario.find_by_username(username)
+      user_saldo = eval(user.saldo_encrypted)
+      user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) - BigDecimal(transacao.fee,8)).to_s
+      if user.save
         transacao.paid = true
-        transacao.txid = qtd_moeda
-        transsacao.save
+        transacao.save
       end
+      render render nothing: true, status: 211 and return
     else
       #transacação inválida, finalizar.
      render nothing: true, status: 211

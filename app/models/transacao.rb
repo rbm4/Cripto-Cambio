@@ -9,10 +9,10 @@ class Transacao < ActiveRecord::Base
         tx.user = user # usuário/entidade que originou a transação #String
         tx.txid = txid # quantidade solicitada pelo usuário
         if tx.save!
-            return true
+            return tx
         else
             return false
         end
-        
+        return 
     end
 end

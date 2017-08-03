@@ -133,26 +133,16 @@ class ExchangeController < ApplicationController
 
     def credit_tax_calc
         if params['commit'] == "Continuar"
-            quantidade_solicitado = BigDecimal(params["amountf#{moeda.downcase}"],8)
-            digest = "#{current_user.username}/#{params["amountf#{moeda.downcase}"]}" # usuario/quantidade solicitada
-            cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc") #criar objeto para encriptar
-            cipher.encrypt 
-            datetime = Datetime.now
-            # you will need to store these for later, in order to decrypt your data
-            key = Digest::SHA1.hexdigest(datetime) #chave de criação
-            iv = cipher.random_iv
-            # load them into the cipher
-            cipher.key = key
-            cipher.iv = iv
-            # encrypt the message
-            encrypted = cipher.update("#{current_user.username}/#{quantidade_solicitado}")
-            encrypted << cipher.final
-            
-            @public_payment_key = "#{encrypted}/#{datetime}/#{current_user.username}" #nome do item a ser recuperado no controlador de notificações
-            
-            
             moeda = params["currency"].split(" ")[0].gsub("]","")
             moeda = moeda.gsub("[","")
+            quantidade_solicitado = BigDecimal(params["amountf#{moeda.downcase}"],8)
+            #digest = "#{current_user.username}/#{params["amountf#{moeda.downcase}"]}" # usuario/quantidade solicitada
+            
+            @public_payment_key = "#{ENV["DEPOSIT_KEY_DIGEST"]}|#{quantidade_solicitado}|#{current_user.username}" #nome do item a ser recuperado no controlador de notificações
+            
+            
+            
+            
             certo = params["amountf#{moeda.downcase}"].gsub(",",".")
             @valor = BigDecimal(certo,9).to_f
             if @valor < min("DOGE")
@@ -163,9 +153,14 @@ class ExchangeController < ApplicationController
             @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("DOGE")).round(8)
             
             fee = (((@valor * 0.012).round(8) - fee("DOGE")) * -1 ).round(8)
-            if Transacao.construir_transacao("coinpayments/#{moeda.downcase}",moeda,"#{current_user.username} > Cpt Cambio",fee,false,"#{current_user.username}/#{datetime}", "#{key}|#{iv}")#(tipo,moeda,inout,fee,paid,user,txid)
+            if transacao = Transacao.construir_transacao("coinpayments/#{moeda.downcase}",moeda,"#{current_user.username} > Cpt Cambio",fee,false, current_user.username, "#{quantidade_solicitado}")#(tipo,moeda,inout,fee,paid,user,txid)
                 @moeda = moeda
                 @valor = BigDecimal(certo,9).to_f
+                transacao_coinpay = Coinpayments.create_transaction(@valor, "#{moeda}", "#{moeda}", options = {buyer_email: current_user.email, buyer_name: current_user.username, item_name: "#{@public_payment_key}|#{transacao.id}", item_number: 1, ipn_url: "#{ENV['COINPAY_IPN_URL']}/exchange_deposit"})
+                @address = transacao_coinpay.address
+                p "endereço para ser pago : #{@address}"
+                p "qtd de #{moeda} a ser pago: #{@valor}"
+                @qr = RQRCode::QRCode.new("bitcoin:#{@address}")
             else
                 @valid = false
             end
