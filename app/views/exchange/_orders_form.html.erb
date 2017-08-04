@@ -1,6 +1,11 @@
-                                
+<style>
+table[id=Form_order]{
+    border-spacing: -2px;
+    border-collapse: collapse;
+}
+</style>
                                 <%= form_tag '/new_order', :remote => true %>
-									<table style="width: 80%;border: 4px;border-style: bold;">
+									<table style="width: 80%;border: 4px;border-style: bold;" id="form_order">
 										<tr>
 										<th>Compra:</th>
 										<th></th>
@@ -46,10 +51,10 @@
 										</tr>
 										<tr>
 											<td></td>
-											<td><%= submit_tag "Comprar", :class => "small" %></td>
+											<td><h3><%= submit_tag "Comprar", :class => "small" %></h3></td>
 											<td></td>
 											<td></td>
-											<td><%= submit_tag "vender" , :class => "small" %> </td>
+											<td><h3><%= submit_tag "vender" , :class => "small" %></h3> </td>
 										</tr>
 									</table>
 									</form>

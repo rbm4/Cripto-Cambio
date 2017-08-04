@@ -7,8 +7,7 @@
 										<li type="saldo"><img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["BTC"] %> BTC</li>
 										<li type="saldo"><img src="images/litecoin.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["LTC"] %> LTC</li>
 										<li type="saldo"><img src="images/doge.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["DOGE"] %> DOGE</li>
-										<li type="saldo"><img src="images/brl.jpeg" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["BRL"] %> BRL</li>
-										<li type="saldo"><a href="/transfer" id="transfer" method="POST">Transferir</a></li>
+										<li type="saldo"><img src="images/brl.jpeg" width="20px" height="20px" alt="Bitcoin"> => <%= (saldos["BRL"].to_f.round(2)).to_s %> BRL</li>
 									</ul>
 								</li>
 							</ul>

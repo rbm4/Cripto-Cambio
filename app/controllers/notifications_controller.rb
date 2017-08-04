@@ -74,14 +74,27 @@ class NotificationsController < ApplicationController
   end
   def coinpay_deposits
     if params['merchant'] != 'b1e3df05f8a772fc276f4b79aef1c551' or params['status'].to_i < 100
+      if params["status"].to_i == -1
+        array_name = params["item_name"].split("|")
+        id = array_name[3]
+        transacao = Transacao.find(id)
+        transacao.tipo = "coinpayments/cancelada"
+        transacao.save
+      end
       render nothing: true, status: 211
       return
+    end
+    array_name = params["item_name"].split("|")
+    if params["status"].to_i == 0
+      array_name = params["item_name"].split("|")
+      id = array_name[3]
+      transacao = Transacao.find(id)
     end
    # moeda1 = params["currency1"] #moeda nativa que deve ser igual a moeda da transação
    # moeda2 = params["currency2"] #moeda em que foi feito o pagamento
    # amount_1 = params["amount1"] #quantidade da moeda nativa (sem desconto de taxas)
     #amount_2 = params["amount2"] #quantidade da moeda paga na moeda 2, caso diferente da moeda 1 descontar 5%
-    array_name = params["item_name"].split("|")
+    
     encrypted_digest = array_name[0]
     quantidade = array_name[1] 
     username = array_name[2]
@@ -94,11 +107,14 @@ class NotificationsController < ApplicationController
     #recuperar a tranção do banco
     transacao = Transacao.find(id)
     if transacao != nil && transacao.paid == false #transcação válida, prosseguir
-      
+      qtd = BigDecimal(transacao.txid,8)
+      saldo_a_adicionar = (qtd - (qtd * 0.012).round(8) - fee("#{currency2}")).round(8) #cálculo de desconto do fee
       user = Usuario.find_by_username(username)
       user_saldo = eval(user.saldo_encrypted)
-      user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) - BigDecimal(transacao.fee,8)).to_s
+      user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) + saldo_a_adicionar ).to_s
+      user.saldo_encrypted = user_saldo.to_s
       if user.save
+        #enviar email de depósito realizado
         transacao.paid = true
         transacao.save
       end

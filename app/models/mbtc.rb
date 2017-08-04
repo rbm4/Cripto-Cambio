@@ -31,7 +31,7 @@ class Mbtc < ActiveRecord::Base
         #Acima, são os cálculos de compra
         #Abaixo são os cálculos de quanto é preciso vender a quanto para obter lucro
         
-        taxa_lucro = 1.017                                                      #necessário para lucrar a partir do preco_comprado
+        taxa_lucro = 1.018                                                      #necessário para lucrar a partir do preco_comprado
         minimo_lucro= preco_comprado * taxa_lucro                               #porcentagem de venda no valor de [hash["ticker"]["sell"] tirando o lucro e a taxa do mercado
         tax_real = tax_coin * minimo_lucro                                      #taxa em real no ato da venda
         estimativa_lucro_real = (minimo_lucro * resultado_em_coin) - tax_real
@@ -90,20 +90,20 @@ class Mbtc < ActiveRecord::Base
             end
         end
         
-        #verificar ordem de compra, cancelar e criar com 1% abaixo do valor de @ticker_ltc
+        #verificar ordem de compra, cancelar e criar com 1,4% abaixo do valor de @ticker_ltc
         #verificar se preço atual de venda está acima do preço mínimo para lucro:
         if @profit <= hash["ticker"]["sell"] #se sim, coloque o preço para venda a mais
-           @sell_price_ltc = hash["ticker"]["sell"] * 1.01
+           @sell_price_ltc = hash["ticker"]["sell"] * 1.02
         else                    
            @sell_price_ltc = @profit 
         end
         
         
-        #verificar se o preço de compra está muito abaixo do ticker, ajustar caso diferença maior que 2%
+        #verificar se o preço de compra está muito abaixo do ticker, ajustar caso diferença maior que 4%
         if @buy_price <= (hash["ticker"]["buy"]*0.97) #preço de compra menor que o atual. É mais de 2%?
-            @buy_price_ltc = @ticker_ltc * 0.985
+            @buy_price_ltc = @ticker_ltc * 0.965
         elsif @buy_price >= hash["ticker"]["buy"] #preço de compra é maior que o ticker atual
-            @buy_price_ltc = @ticker_ltc * 0.985
+            @buy_price_ltc = @ticker_ltc * 0.965
         else
             @buy_price_ltc = @buy_price
         end

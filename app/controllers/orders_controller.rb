@@ -222,8 +222,8 @@ class OrdersController < ApplicationController
                         
                         user = Usuario.find_by_username(order.user) #encontrar usuário da ordem atual (Comprador, recebe moeda1)
                         saldo2 = eval(user.saldo_encrypted) #recuperar saldo do usuário
-                        p "adicionar saldo de #{((inicial_amount * BigDecimal(b.price))*0.995).to_s} #{params["moeda2"]} pra quem vendeu as bitcoins"
-                        saldo2["#{params["moeda2"]}"] = (BigDecimal(saldo2["#{params["moeda2"]}"],8) + ((inicial_amount * BigDecimal(b.price))*0.995)).to_s#atualizar saldo do usuário com o preço da ordem atual descontado o fee 0,5%
+                        p "adicionar saldo de #{((inicial_amount * BigDecimal(order.price))*0.995).to_s} #{params["moeda2"]} pra quem vendeu as #{params["moeda1"]} no preço que ele mesmo colocou"
+                        saldo2["#{params["moeda2"]}"] = (BigDecimal(saldo2["#{params["moeda2"]}"],8) + ((inicial_amount * BigDecimal(order.price))*0.995)).to_s#atualizar saldo do usuário com o preço da ordem atual descontado o fee 0,5%
                         user.saldo_encrypted = saldo2.to_s
                         user.save #atualizar saldo do usuário que comrpou as moedas
                         current_amount = 0

@@ -32,6 +32,10 @@ h6{
 	font-size:10px;
 	font-weight:bold;
 }
+h3{
+	font-size:14px;
+	font-weight:bold;
+}
 font[id=submit-message]{
 	font-size: 14px;
 	font-weight:bold;
@@ -78,7 +82,7 @@ $(document).ready(function() {
 					<section class="wrapper style4 container" style="top:-50px">
 					
 						<!-- Content -->
-							<div class="content">
+							<div class="content" style="">
 								<section>
 									<header><%= form_tag "/order_show_form", :remote => true %>
 										<h3>Novas Ordens: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
