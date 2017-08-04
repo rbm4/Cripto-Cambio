@@ -4,9 +4,9 @@
 					<li class="submenu">
 									<b>Saldos</b>
 									<ul>
-										<li type="saldo"><img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["BTC"] %> BTC</li>
-										<li type="saldo"><img src="images/litecoin.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["LTC"] %> LTC</li>
-										<li type="saldo"><img src="images/doge.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["DOGE"] %> DOGE</li>
+										<li type="saldo"><img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["BTC"].to_f.round(8).to_s %> BTC</li>
+										<li type="saldo"><img src="images/litecoin.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["LTC"].to_f.round(8).to_s %> LTC</li>
+										<li type="saldo"><img src="images/doge.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["DOGE"].to_f.round(5).to_s %> DOGE</li>
 										<li type="saldo"><img src="images/brl.jpeg" width="20px" height="20px" alt="Bitcoin"> => <%= (saldos["BRL"].to_f.round(2)).to_s %> BRL</li>
 									</ul>
 								</li>
