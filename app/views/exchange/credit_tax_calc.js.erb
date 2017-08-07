@@ -6,9 +6,9 @@ $( "#taxes" ).html( "<%= escape_javascript( render( :partial => "taxes") ) %>" )
 <% if params['amountfbtc'] != nil %>
 $( "#tax" ).html( "Taxa: (1,2%) - 0.0008 BTC<br>* Minimo: 0.001 BTC" );
 <% elsif params['amountfltc'] != nil %>
-$( "#tax" ).html( "Taxa: (1,2%) - 0.02 LTC<br>* Minimo: 0.03 LTC" );
-<% elsif params['amountfeth'] != nil %>
-$( "#tax" ).html( "Taxa: (1,2%) - 0.0005 ETH<br>* Minimo: 0.001 ETH" );
+$( "#tax" ).html( "Taxa: (1,2%) - 0.02 LTC<br>* Minimo: 0.003 LTC" );
+<% elsif params['amountfdoge'] != nil %>
+$( "#tax" ).html( "Taxa: (1,2%) - 2 DOGE<br>* Minimo: 3 DOGE" );
 <% end %>
 <% if @valid == false %>
 $( "#validate" ).html( "Insira um valor válido." );

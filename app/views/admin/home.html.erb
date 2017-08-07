@@ -138,7 +138,7 @@ input[type=submit]{
 									<% end %>
 										<tr>
 											<td><font style="font-size:12.5px;"><%= h.role %></font><div style="margin-top: 20px;position: static;width: 180px;height: 20px">Saldo dos usuários: </div><br>Saldo em caixa:</td>
-											<td><font style="font-size:12.5px;"><%= h.endereco %></font><div style="margin-top: 20px;position: static;width: 180px;height: 20px"><%= total %> <%= h.tipo.upcase %></div><br><%= (consulta_saldo_cripto(h.tipo,h.endereco) - total).to_f %> <%= h.tipo.upcase %></td>
+											<td><font style="font-size:12.5px;"><%= h.endereco %></font><div style="margin-top: 20px;position: static;width: 180px;height: 20px"><%= total_usuario_saldo(h.tipo) %> <%= h.tipo.upcase %></div><br><%= (consulta_saldo_cripto(h.tipo,h.endereco) - total).to_f %> <%= h.tipo.upcase %></td>
 											<td><font style="font-size:12.5px;"><%= consulta_saldo_cripto(h.tipo,h.endereco).to_f %> <%= h.tipo.upcase %></font></td>
 											<td>
 												<%= render 'qrcode' %>

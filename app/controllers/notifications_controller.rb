@@ -108,7 +108,7 @@ class NotificationsController < ApplicationController
     transacao = Transacao.find(id)
     if transacao != nil && transacao.paid == false #transcação válida, prosseguir
       qtd = BigDecimal(transacao.txid,8)
-      saldo_a_adicionar = (qtd - (qtd * 0.012).round(8) - fee("#{currency2}")).round(8) #cálculo de desconto do fee
+      saldo_a_adicionar = (qtd - (qtd * 0.012).round(8) - (fee("#{params['currency2'].upcase}"))).round(8) #cálculo de desconto do fee
       user = Usuario.find_by_username(username)
       user_saldo = eval(user.saldo_encrypted)
       user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) + saldo_a_adicionar ).to_s
@@ -118,7 +118,8 @@ class NotificationsController < ApplicationController
         transacao.paid = true
         transacao.save
       end
-      render render nothing: true, status: 211 and return
+      render nothing: true, status: 211 
+      return
     else
       #transacação inválida, finalizar.
      render nothing: true, status: 211
@@ -344,5 +345,16 @@ class NotificationsController < ApplicationController
     if second != false
       render nothing: true, status: 200
     end
+    end
+    def fee(moeda)
+        if moeda == "BTC"
+            return 0.00008
+        elsif moeda == "LTC"
+            return 0.003
+        elsif moeda == "DOGE"
+            return 3
+        else
+            return "(0.0008 BTC)/(0.002 LTC)/(2 DOGE)*<br>*Taxa fixa referente à cobrança das transações na rede."
+        end
     end
 end

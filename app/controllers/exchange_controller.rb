@@ -145,12 +145,12 @@ class ExchangeController < ApplicationController
             
             certo = params["amountf#{moeda.downcase}"].gsub(",",".")
             @valor = BigDecimal(certo,9).to_f
-            if @valor < min("DOGE")
+            if @valor < min("#{moeda}")
                 @valid = false
             else
                 @valid = true
             end
-            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("DOGE")).round(8)
+            @taxa_cripto = (@valor - (@valor * 0.012).round(8) - fee("#{moeda}")).round(8)
             
             fee = (((@valor * 0.012).round(8) - fee("DOGE")) * -1 ).round(8)
             if transacao = Transacao.construir_transacao("coinpayments/#{moeda.downcase}",moeda,"#{current_user.username} > Cpt Cambio",fee,false, current_user.username, "#{quantidade_solicitado}")#(tipo,moeda,inout,fee,paid,user,txid)
