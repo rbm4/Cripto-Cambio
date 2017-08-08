@@ -4,10 +4,10 @@
 					<li class="submenu">
 									<b>Saldos</b>
 									<ul>
-										<li type="saldo"><img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["BTC"].to_f.round(8) %> BTC</li>
-										<li type="saldo"><img src="images/litecoin.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["LTC"].to_f.round(8) %> LTC</li>
-										<li type="saldo"><img src="images/doge.png" width="20px" height="20px" alt="Bitcoin"> => <%= saldos["DOGE"].to_f.round(5) %> DOGE</li>
-										<li type="saldo"><img src="images/brl.jpeg" width="20px" height="20px" alt="Bitcoin"> => <%= (saldos["BRL"].to_f.round(2)) %> BRL</li>
+										<li type="saldo"><img src="images/btc.png" width="20px" height="20px" alt="Bitcoin"> => <%= BigDecimal(saldos["BTC"],8).truncate(8) %> BTC</li>
+										<li type="saldo"><img src="images/litecoin.png" width="20px" height="20px" alt="Bitcoin"> => <%= BigDecimal(saldos["LTC"],8).truncate(8) %> LTC</li>
+										<li type="saldo"><img src="images/doge.png" width="20px" height="20px" alt="Bitcoin"> => <%= BigDecimal(saldos["DOGE"],5).truncate(5) %> DOGE</li>
+										<li type="saldo"><img src="images/brl.jpeg" width="20px" height="20px" alt="Bitcoin"> => <%= (BigDecimal(saldos["BRL"],2)).truncate(2) %> BRL</li>
 									</ul>
 								</li>
 							</ul>
