@@ -36,30 +36,30 @@ class ApplicationController < ActionController::Base
         end
         saldo_total_hash["#{k}"] = (BigDecimal(saldo_total_hash["#{k}"],8) + BigDecimal(saldo_hash["#{k.upcase}"],8)).to_s
       end
-      p saldo_total_hash #Saldo total "em saldo" de todos 1 usuário, ao finalizar execução de linha 31 terá saldo completo
-      consulta = Exchangeorder.where("user = :usuario AND status = :stt", {usuario: m.username, stt: "open"}) #adicionar saldo de ordens abertas daquele usuário "m" da linha 31
-      if consulta != nil
-        consulta.each do |n|
-          # Informações da ordem "n"
-          par = n.par.split("/")
-          moeda1 = par[0]
-          moeda2 = par[1]
-          amount = BigDecimal(n.amount,8)
-          price = BigDecimal(n.price,8)
-          #
-          
-          if n.tipo == "buy" #comprar determinada quantidade de moeda1 usando moeda2, valor total em moeda2 é a multiplicação de moeda1 (amount) com moeda2 (price) resultado em moeda2
-            saldo_total_hash["#{moeda2.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda2.downcase}"],8) + (amount * price)).to_s
-          elsif n.tipo == "sell" && par[0] == string_par #tentativa de venda de moeda1 para receber moeda2, usuário tem saldo "amount" em moeda1, somar moeda 1 no saldo
-            saldo_total_hash["#{moeda1.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda1.downcase}"],8) + amount).to_s
-          end
-          
-        end
-        #Saldo de ordem "n" aberta pertencente ao usuário "m" somada em seu respectivo valor de "crédito"
-      end
-      #saldo de usuário "m" completamente somado
     end
-    #saldo de todos os usuários somados
+    #saldo de todos os usuários salvo
+    consulta = Exchangeorder.where("status = :stt", {stt: "open"})
+    p saldo_total_hash #Saldo total "em saldo" de todos 1 usuário, ao finalizar execução de linha 31 terá saldo completo
+    #consulta = Exchangeorder.where("user = :usuario AND status = :stt", {usuario: m.username, stt: "open"}) #adicionar saldo de ordens abertas daquele usuário "m" da linha 31
+    if consulta != nil
+      consulta.each do |n|
+        # Informações da ordem "n"
+        par = n.par.split("/")
+        moeda1 = par[0]
+        moeda2 = par[1]
+        amount = BigDecimal(n.amount,8)
+        price = BigDecimal(n.price,8)
+      #
+        
+        if n.tipo == "buy" #comprar determinada quantidade de moeda1 usando moeda2, valor total em moeda2 é a multiplicação de moeda1 (amount) com moeda2 (price) resultado em moeda2
+          saldo_total_hash["#{moeda2.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda2.downcase}"],8) + (amount * price)).to_s
+        elsif n.tipo == "sell" #tentativa de venda de moeda1 para receber moeda2, usuário tem saldo "amount" em moeda1, somar moeda 1 no saldo
+          saldo_total_hash["#{moeda1.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda1.downcase}"],8) + amount).to_s
+        end
+        
+      end
+      #Saldo de ordem "n" aberta pertencente ao usuário "m" somada em seu respectivo valor de "crédito"
+    end
     return saldo_total_hash
   end
   def last_order_exchange(string_par)
@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
     end
     url
   end
-  def balance_btc_coinbase
+  def balance_btc_coinbase #função obsoleta
         client = Coinbase::Wallet::Client.new(api_key: ENV["COINBASE_KEY"], api_secret: ENV["COINBASE_SECRET"])
         client.accounts.each do |account|
             balance = account.balance
@@ -155,7 +155,7 @@ class ApplicationController < ActionController::Base
     puts response.headers
 
   end
-  def config_block
+  def config_block #função obsoleta
     @ltc_pin = ENV["BLOCK_KEY_LTC"] 
     @btc_pin = ENV["BLOCK_KEY_BTC"]
     @pin = 'ignezconha'
@@ -181,7 +181,6 @@ class ApplicationController < ActionController::Base
     # moeda pode ser: ltc, btc, dgc
     #utilização de API blockr.io, todos os storages serão dela 25/07/2017
     key = Storage.key_push(moeda)
-    p key
     BlockIo.set_options :api_key=> key, :pin => ENV["BLOCK_IO_PIN"], :version => 2
     balance_hash = BlockIo.get_address_balance :addresses => endereco
     return BigDecimal(balance_hash["data"]["available_balance"],8)
