@@ -49,9 +49,9 @@ class ApplicationController < ActionController::Base
           #
           
           if n.tipo == "buy" #comprar determinada quantidade de moeda1 usando moeda2, valor total em moeda2 é a multiplicação de moeda1 (amount) com moeda2 (price) resultado em moeda2
-            saldo_total_hash["#{moeda2}"] = (BigDecimal(saldo_total_hash["#{moeda2}"],8) + (amount * price)).to_s
+            saldo_total_hash["#{moeda2.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda2.downcase}"],8) + (amount * price)).to_s
           elsif n.tipo == "sell" && par[0] == string_par #tentativa de venda de moeda1 para receber moeda2, usuário tem saldo "amount" em moeda1, somar moeda 1 no saldo
-            saldo_total_hash["#{moeda1}"] = (BigDecimal(saldo_total_hash["#{moeda1}"],8) + amount).to_s
+            saldo_total_hash["#{moeda1.downcase}"] = (BigDecimal(saldo_total_hash["#{moeda1.downcase}"],8) + amount).to_s
           end
           
         end
