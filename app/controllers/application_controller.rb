@@ -22,23 +22,45 @@ class ApplicationController < ActionController::Base
     end
     redirect_to '/login'
   end
-  def total_usuario_saldo(string_moeda)
+  def total_usuario_saldo
     # string_moeda == "lct", "btc", "doge", "tltc", "tbtc", "tdoge"
-    if string_moeda == "tltc"
-      string_moeda = "ltc"
-    elsif string_moeda == "tbtc"
-      string_moeda = "btc"
-    elsif string_moeda == "tdoge"
-      string_moeda = "doge"
-    end
     all_users = Usuario.all
     sum = BigDecimal(0,8)
+    saldo_total_hash = {} #hashtable que vai conter o saldo total de dogecoin bitcoin e litecoin
+    moedas_a_percorrer = ["doge","ltc","btc","brl"]
     all_users.each do |m|
       saldo_hash = eval(m.saldo_encrypted)
-      p saldo_hash
-      sum = sum + BigDecimal(saldo_hash["#{string_moeda.upcase}"],8)
+      moedas_a_percorrer.each do |k|
+        if saldo_total_hash["#{k}"] == nil
+          saldo_total_hash["#{k}"] = 0
+        end
+        saldo_total_hash["#{k}"] = (BigDecimal(saldo_total_hash["#{k}"],8) + BigDecimal(saldo_hash["#{k.upcase}"],8)).to_s
+      end
+      p saldo_total_hash #Saldo total "em saldo" de todos 1 usuário, ao finalizar execução de linha 31 terá saldo completo
+      consulta = Exchangeorder.where("user = :usuario AND status = :stt", {usuario: m.username, stt: "open"}) #adicionar saldo de ordens abertas daquele usuário "m" da linha 31
+      if consulta != nil
+        consulta.each do |n|
+          # Informações da ordem "n"
+          par = n.par.split("/")
+          moeda1 = par[0]
+          moeda2 = par[1]
+          amount = BigDecimal(n.amount,8)
+          price = BigDecimal(n.price,8)
+          #
+          
+          if n.tipo == "buy" #comprar determinada quantidade de moeda1 usando moeda2, valor total em moeda2 é a multiplicação de moeda1 (amount) com moeda2 (price) resultado em moeda2
+            saldo_total_hash["#{moeda2}"] = (BigDecimal(saldo_total_hash["#{moeda2}"],8) + (amount * price)).to_s
+          elsif n.tipo == "sell" && par[0] == string_par #tentativa de venda de moeda1 para receber moeda2, usuário tem saldo "amount" em moeda1, somar moeda 1 no saldo
+            saldo_total_hash["#{moeda1}"] = (BigDecimal(saldo_total_hash["#{moeda1}"],8) + amount).to_s
+          end
+          
+        end
+        #Saldo de ordem "n" aberta pertencente ao usuário "m" somada em seu respectivo valor de "crédito"
+      end
+      #saldo de usuário "m" completamente somado
     end
-    return sum.to_s
+    #saldo de todos os usuários somados
+    return saldo_total_hash
   end
   def last_order_exchange(string_par)
     base_currency = string_par.split("/")[1]

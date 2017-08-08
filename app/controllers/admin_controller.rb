@@ -31,6 +31,7 @@ class AdminController < ApplicationController
         render 'sessions/loginerror'
     end
     def home
+        @total_saldo = total_usuario_saldo
         @count = 0
         @numeros = Pagamento.where(status: "accepted")
         @numeros.each do
