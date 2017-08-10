@@ -535,7 +535,7 @@ class ApplicationController < ActionController::Base
   end
   
   def require_logout
-    rendirect_to '/' if current_user
+    redirect_to '/' if current_user
   end
   
   def useremail

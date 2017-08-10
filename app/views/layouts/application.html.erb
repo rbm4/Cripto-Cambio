@@ -29,7 +29,8 @@ table[id=black]{
  	position: absolute;
  	background-color: white;
  	left: 0;
- 	padding: 5px;
+ 	padding: 3px;
+ 	max-height: 260%;
  }
  div[class=errorspeech]{
  	  text-align: left;
@@ -50,9 +51,52 @@ table[id=width100tabela]{
 }
 li[type=saldo]{
 	font-size:10px;
+	
 }
-
-
+img[class=logo] {
+    height: 150px;
+    width: 150px;
+    
+}
+li[class=li_bottom]{
+	font-size:13.5px;
+	
+}
+section[id=left]{
+	position: static;
+	
+}
+div[id=row]{
+	position: relative;
+	
+}
+li{
+	padding: 5px;
+}
+li[class=li_bottom]{
+	padding-top: 10px;
+    padding-right: 145px;
+    
+}
+div[id=logofooter]{
+	padding-left: 7%;
+}
+div[class="row"]{
+		background-color: white;
+		border: 1px solid;
+    	border-radius: 5px;
+    	padding-top: 5%;
+    	font-size: 70%;
+    	margin: 0 auto;
+  		width: 100%;
+		}
+article[id=main2]{
+ 	background-image: url("images/dark-tl.svg"), url("images/dark-tr.svg"), url("images/dark-bl.svg"), url("images/dark-br.svg");
+		background-position: top left, top right, bottom left, bottom right;
+		background-repeat: no-repeat;
+		background-size: 25em;
+		padding-top: 7em;
+ }
 	</style>
   <title>Cripto câmbio</title>
   
@@ -133,7 +177,7 @@ li[type=saldo]{
 								</li>
 						<li class="current"><%= link_to "Inicio", :controller => 'sessions', :action =>'home'%></li>
 						<li class= 'current'><a href='/store'>Loja</a></li>
-						<li class='current'><a href='/contato'>Contato</a></li>
+						<li class='current'></li>
 						<li class='current'><a href='/howto'>Como comprar</a></li>
 						<% end %>
 						<% else %>
@@ -163,5 +207,109 @@ li[type=saldo]{
 
 <%= yield %>
 
+<% if @hide != true %>
+				<!-- Two -->
+					<section style="width: 100%;" id="left">
+						<div class="row" id="row">
+							<div id="logofooter" class="col-sm-4 col-md-3 ">
+			<div class="text-center">
+				<img class="logo" src="/images/logo_bottom.png" alt="Logo Cripto Câmbio">
+				</div>
+				Cripto Câmbio exchange</div>
+							<div class="col-sm-6 col-md-2">
+							
+								<section>
+									
+									<header>
+										<h3>Sobre</h3>
+									</header>
+									
+										<ul>
+							
+							<li class="li_bottom"><a href="https://www.youtube.com/watch?v=N1NJbhxSr8E">O que é Bitcoin?</a></li>
+							<li class="li_bottom"><a href="/exchange">Livro de Ordens</a></li>
+							<li class="li_bottom"><a href="/store">Loja</a></li>
+							<li class="li_bottom"><a href="https://www.bitcoinbrasil.com.br" target="_blank">Bitcoin Brasil</a></li>
+							</ul>
+								</section>
+							
+							</div>
+							<div class="col-sm-3 col-md-2">
+							
+								<section>
+									<header>
+										<h3>Suporte</h3>
+									</header>
+									<ul>
+											<li class="li_bottom"><a href="/faq">Perguntas Frequentes (FAQ)</a></li>
+											<li class="li_bottom"><a href='/contato'>Contato</a></li>
+											<li class="li_bottom"><a href="/taxes">Taxas, Comissões e Limites</a></li>
+											<li class="li_bottom"><a href="/terms/">Termos de Uso</a></li>
+											<li class="li_bottom"><a href="/privacidade/">Política de Privacidade</a></li>
+											</ul>
+								</section>
+							
+							</div>
+							<div class="col-sm-3 col-md-2">
+							
+								<section>
+									<header>
+										<h3>Social</h3>
+									</header>
+									<a href="https://www.facebook.com/cripcambio/" title="Facebook" target="_blank"><i class="fa fa-facebook text-center"></i></a>
+								</section>
+							
+							</div>
+						</div>
+					</section>
+					</article>
+					<% else %>
+					
+</article>
+<% end %>
+
+
+<!-- <footer id="footer" class="mb-blue">
+	<div class="container"><div class="row top">
+		<div class="col-sm-4 col-md-3 ">
+			<div class="text-center">
+				<img class="logo" src="/images/logo_bottom.png" alt="Logo Cripto Câmbio">
+				</div>
+				<div class="follow-us">
+					<div class="col_title text-center">Social:</div>
+					<ul class="follow-us">
+						<div><a href="https://www.facebook.com/cripcambio/" title="Facebook" target="_blank"><i class="fa fa-facebook text-center"></i></a></div>
+					</ul>
+					</div></div>
+						<div class="col-sm-4 col-md-2">
+							<ul>
+							<li class="col_title">Sobre</li>
+							<li class="li_bottom"><a href="https://www.youtube.com/watch?v=N1NJbhxSr8E">o que é Bitcoin?</a></li>
+							<li class="li_bottom"><a href="/exchange">negociações</a></li>
+							<li class="li_bottom"><a href="/store">Loja</a></li>
+							<li class="li_bottom"><a href="https://www.bitcoinbrasil.com.br" target="_blank">Bitcoin Brasil</a></li>
+							</ul></div>
+							<div class="clearfix visible-sm-block"></div>
+							<div class="col-sm-4 col-md-2">
+								<ul>
+									<li class="col_title">Tecnologia</li>
+									<li class="li_bottom"><a href="/seguranca/">Segurança</a></li>
+									<li class="li_bottom"><a href="/api-doc/">API de Dados</a></li>
+									<li class="li_bottom"><a href="/trade-api/">API de Negociações</a></li>
+									<li class="li_bottom"><a href="https://status.mercadobitcoin.com.br" target="_blank">Status</a>
+									</li></ul></div>
+									<div class="col-sm-4 col-md-3">
+										<ul>
+											<li class="col_title">Suporte</li>
+											<li class="li_bottom"><a href="/faq">Perguntas Frequentes (FAQ)</a></li>
+											<li class="li_bottom"><a href='/contato'>Contato</a></li>
+											<li class="li_bottom"><a href="/taxes">Taxas, Comissões e Limites</a></li>
+											<li class="li_bottom"><a href="/terms/">Termos de Uso</a></li>
+											<li class="li_bottom"><a href="/privacidade/">Política de Privacidade</a></li>
+											</ul></div></div><div class="clearfix"></div></div>
+											
+											</footer>
+											-->
 </body>
+
 </html>
