@@ -43,9 +43,14 @@ text{
  div[class=cartoes]{
  	position: absolute;
   	left: 43%;
-  	width: 300px;
+  	width: 500px;
   	height: 200px;
   	border: 1px;
+  	
+ }
+ .redbold{
+ 	color: red;
+  	font-weight: bold;
  }
  
 		</style>
@@ -72,8 +77,12 @@ text{
   										<% end %>
 									<b class="font">Para mais detalhes, utilize o menu abaixo. <br> Para comprar Bitcoins ou Litecoins, utilize o menu "loja", no topo da página.<br>Para Negociar Bitcoins e outras altcoins utilize o menu "Exchange".<br>Para criação de carteiras e validação de conta, utilize o menu "editar perfil".</b>
 						 	  	   	<div class="cartoes">
-						 	  	   		Métodos de pagamento aceitos:<br>
-						 	  	   		 <img src="images/debito.png" alt="Cartões aceitos"> 
+						 	  	   		<font class="redbold">Valide sua conta e torne-se um usuário vip!</font><br>
+						 	  	   		Sendo vip você pode:
+						 	  	   		<li class='current'>Realizar depósitos em Real (BRL)</li>
+						 	  	   		<li class='current'>Negociar com os pares (BRL)</li>
+						 	  	   		<li class='current'>Melhores taxas e limites!</li>
+						 	  	   		<li class='current'><a href="/validate_form" class= "button small menu"><text>Validar</text></a></h3></li>
 									</div>
 									<header>
 										<h3><li class='current'><a href="/exchange" class= "button small menu"><text>Exchange</text></a></h3></li>
@@ -85,10 +94,6 @@ text{
 										
 										<% end %>
 									</header>
-									<br>
-										<img src="images/cartoes.png" alt="Cartões aceitos" ><br>
-										Cripto Moedas: <br><img src="images/coinpayments.png" alt="Coinpayments.net">
-									<br>
 								</section>
 							</div>
 

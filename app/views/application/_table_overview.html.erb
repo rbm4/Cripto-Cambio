@@ -1,0 +1,29 @@
+<% pares = "BTC/BRL","LTC/BRL","DOGE/BRL","LTC/BTC","DOGE/BTC","LTC/DOGE"%>
+<table style="font-size: 12px;align:center;">
+	<tr>
+		<th>Par: </th>
+		<th>Compra / Venda</th>
+	</tr>
+	<% pares.each do |b|%>
+	<% hash, base = last_order_exchange(b)%>
+						<tr style="font-size: 12px">
+							<td><%= "[#{b}]" %></td>
+							<td type="orders">
+								<table>
+									<tr>
+							<% if hash["#{b}/last_buy"] == nil %>
+							<td width="65px">-----</td>
+							<% else %>
+							<td width="65px"><%= hash["#{b}/last_buy"] %> <%= base %></td>
+							<% end %><td width="15px">/</td>
+							<% if hash["#{b}/last_sell"] == nil %>
+							<td width="65px">-----</td>
+							<% else %>
+							<td width="65px"><%= hash["#{b}/last_sell"] %> <%= base %></td>
+							<% end %>
+							</td>
+							</tr>
+							</table>
+						</tr>
+						<% end %>
+					</table>

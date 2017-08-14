@@ -1,4 +1,13 @@
 <!DOCTYPE HTML>
+<header id="header" style="background-color: transparent;border: 0px;z-index:0;"><div id="cotacoes" align="justify" style="width: 300px;background-color: white;float: right;margin-top: 65px;padding-top: 40px;padding-left: 40px;padding-right: 10px;">
+				<div id="table_overview"><%= render 'application/table_overview' %></div>
+			</div>
+			</header>
+<style>
+	div[id=skel-layers-wrapper]{
+		height: 1024px;
+	}
+</style>
 <!--
 	Twenty by HTML5 UP
 	html5up.net | @n33co
@@ -12,29 +21,8 @@
 		}
 		
 	</style>
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="Cripto Câmbio Exchange e serviços em cripto moedas" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery.dropotron.min.js"></script>
-		<script src="js/jquery.scrolly.min.js"></script>
-		<script src="js/jquery.scrollgress.min.js"></script>
-		<script src="js/skel.min.js"></script>
-		<script src="js/skel-layers.min.js"></script>
-		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-wide.css" />
-			<link rel="stylesheet" href="css/style-noscript.css" />
-		</noscript>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
-		
-	</head>
-	<body class="index">
+	
+	
 	
 		<!-- Banner -->		
 			<section id="banner">
@@ -59,11 +47,11 @@
 						<ul class="buttons vertical">
 							<li><a href="howto" class="button fit scrolly">Como comprar?</a></li>
 						</ul>
-						<ul class="buttons vertical">
+						<!-- <ul class="buttons vertical">
 							<li><a href="apostas/index" class="button fit scrolly">Como apostar?</a></li>
-						</ul>
+						</ul> -->
 						<ul class="buttons vertical">
-							<li><a href="apostas/index" class="button fit scrolly">Como Negociar?</a></li>
+							<li><a href="exchange/howto" class="button fit scrolly">Como Negociar?</a></li>
 						</ul>
 					</footer>
 					<footer>

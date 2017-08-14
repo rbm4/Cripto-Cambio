@@ -100,13 +100,8 @@ class SessionsController < ApplicationController
     redirect_to '/' 
   end
   def home
-      if current_user.bitcoin != nil
-        @qr = RQRCode::QRCode.new("bitcoin:#{current_user.bitcoin}")
-      end
-      @total_btc = limite_compra_btc
-      @total_ltc = limite_compra_ltc
-      @atual = current_user
-    unless session[:user_id] == @atual.id
+      
+    unless session[:user_id] == current_user.id
       @messages = "ERRO! Você não pode acessar esta página"
       render 'sessions/loginerror'
       return

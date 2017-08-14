@@ -97,6 +97,7 @@ article[id=main2]{
 		background-repeat: no-repeat;
 		background-size: 25em;
 		padding-top: 7em;
+		
  }
 	</style>
   <title>Cripto câmbio</title>
@@ -128,29 +129,9 @@ article[id=main2]{
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
 	</head>
-	<body class="contact">
-		<!-- integração com aplicativo no facebook -->
-		<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1424407041192104',
-      xfbml      : true,
-      version    : 'v2.8'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-	
+	<body>
 		<!-- Header -->
-			<header id="header">
+			<header id="header" style="z-index: 10;">
 				<font size='4' >
 					<a href="/"><img src="images/flag.png" widht="40px" height="40px" alt="www.cptcambio.com"></a>
 					<% if session[:user_id] != nil %>
@@ -166,6 +147,7 @@ article[id=main2]{
 						<% if session[:user_id] != nil %>
 						<% if session[:user_id] == current_user.id ;%>
 						<% if is_admin? == true %><li class='current'><%= link_to "Painel admin", :controller => 'admin', :action =>'home'%></li><% end%>
+						
 						<li class="submenu">
 									<a href="/exchange"><b>Exchange</b></a>
 									<ul>
@@ -203,8 +185,12 @@ article[id=main2]{
 				<div id="saldos" class="saldos">
 				<%= render 'saldos' %>
 			</div>
+			
 			</header>
+			
 
+			
+			
 <%= yield %>
 
 <% if @hide != true %>
@@ -269,48 +255,6 @@ article[id=main2]{
 </article>
 <% end %>
 
-
-<!-- <footer id="footer" class="mb-blue">
-	<div class="container"><div class="row top">
-		<div class="col-sm-4 col-md-3 ">
-			<div class="text-center">
-				<img class="logo" src="/images/logo_bottom.png" alt="Logo Cripto Câmbio">
-				</div>
-				<div class="follow-us">
-					<div class="col_title text-center">Social:</div>
-					<ul class="follow-us">
-						<div><a href="https://www.facebook.com/cripcambio/" title="Facebook" target="_blank"><i class="fa fa-facebook text-center"></i></a></div>
-					</ul>
-					</div></div>
-						<div class="col-sm-4 col-md-2">
-							<ul>
-							<li class="col_title">Sobre</li>
-							<li class="li_bottom"><a href="https://www.youtube.com/watch?v=N1NJbhxSr8E">o que é Bitcoin?</a></li>
-							<li class="li_bottom"><a href="/exchange">negociações</a></li>
-							<li class="li_bottom"><a href="/store">Loja</a></li>
-							<li class="li_bottom"><a href="https://www.bitcoinbrasil.com.br" target="_blank">Bitcoin Brasil</a></li>
-							</ul></div>
-							<div class="clearfix visible-sm-block"></div>
-							<div class="col-sm-4 col-md-2">
-								<ul>
-									<li class="col_title">Tecnologia</li>
-									<li class="li_bottom"><a href="/seguranca/">Segurança</a></li>
-									<li class="li_bottom"><a href="/api-doc/">API de Dados</a></li>
-									<li class="li_bottom"><a href="/trade-api/">API de Negociações</a></li>
-									<li class="li_bottom"><a href="https://status.mercadobitcoin.com.br" target="_blank">Status</a>
-									</li></ul></div>
-									<div class="col-sm-4 col-md-3">
-										<ul>
-											<li class="col_title">Suporte</li>
-											<li class="li_bottom"><a href="/faq">Perguntas Frequentes (FAQ)</a></li>
-											<li class="li_bottom"><a href='/contato'>Contato</a></li>
-											<li class="li_bottom"><a href="/taxes">Taxas, Comissões e Limites</a></li>
-											<li class="li_bottom"><a href="/terms/">Termos de Uso</a></li>
-											<li class="li_bottom"><a href="/privacidade/">Política de Privacidade</a></li>
-											</ul></div></div><div class="clearfix"></div></div>
-											
-											</footer>
-											-->
 </body>
 
 </html>

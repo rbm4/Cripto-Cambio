@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <style>
 	article{
- 	margin-top: -10%;
   background-color: #cccccc;
  }
  input[type=text]:focus,textarea[name=message]:focus, input[class=form]{
@@ -15,10 +14,10 @@
 	
 	
 		<!-- Main -->
-			<article id="main">
+			<article id="main2">
 
 				<header class="special container">
-					<span class="icon fa-envelope"></span>
+					
 					<h2>Entre em contato</h2>
 					<p>Utilize o formulário abaixo para entrar em contato conosco, tirar dúvidas, e questionar pagamentos.</p> Utilize o identificador único, localizado na página de detalhes, para qualquer dúvida sobre pagamentos específicos.
 				</header>
@@ -49,37 +48,16 @@
 											<%= f.text_area :message, :name => "message", :placeholder => "Mensagem" %> 
 										</div>
 									</div>
-									<div class="row">
+									<div class="row half">
 										<div class="12u">
-											<ul class="buttons">
-												<li><%= f.submit "Enviar", :type => "submit",  :class => "special" %></li>
+											
+											<%= f.submit "Enviar", :type => "submit",  :class => "special" %>
 												<% end %>
-											</ul>
+											
 										</div>
 									</div>
 								</form>
 							</div>
 							
 					</section>
-				
-			</article>
-
-		<!-- Footer -->
-			<footer id="footer">
 			
-				<ul class="icons">
-					<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-					<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
-				</ul>
-				
-				<ul class="copyright">
-					<li>&copy; Cripto Cambio Exchange</li>
-				</ul>
-			
-			</footer>
-
-	</body>
-</html>
