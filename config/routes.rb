@@ -99,6 +99,7 @@ Rails.application.routes.draw do
   post "/new_order" => 'orders#exchange_order_create'
   get 'exchange/order_stats' => 'orders#public_stats'
   post '/coinpay/exchange_deposit' => 'notifications#coinpay_deposits'
+  post '/export_users' => 'admin#export_users'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

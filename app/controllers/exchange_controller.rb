@@ -202,8 +202,8 @@ class ExchangeController < ApplicationController
         end
         if params['reais'] != nil
             valor = BigDecimal(params['reais'])
-            @taxa_card = String(valor - (valor * 0.065))
-            @taxa_boleto = valor - (valor * 0.02)
+            @desconto = String(valor * 0.012)
+            @total_brl = valor - (valor * 0.012)
             @method = "deposit"
         end
     end

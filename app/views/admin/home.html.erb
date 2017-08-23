@@ -93,7 +93,7 @@ input[type=submit]{
 									 	  	    <td type="title">Mensagens</td>
 									 	  	    </tr>
 									 	  	    <tr>
-									 	  	    <td type="menu"><%= button_to "Criar carteira BTC", create_wallet_path, :data => { :confirm => 'Ao criar uma carteira vinculada você concorda com os termos de uso do site, prosseguir?' } %></td>
+									 	  	    <td type="menu"><%= button_to "Exportar usuarios", export_users_path, :data => { :confirm => 'Você está prestes a exportar todos os usuários atuais para a aplicação secundária, prosseguir?' } %></td>
 									 	  	    <td type="menu"><%= button_to "Aguardando envio: " + @count.to_s, payment_path%></td>
 									 	  	    <td type="menu"><%= button_to "Novas: " + @opened.to_s, msgs_path, :method => 'get' %></td>
 									 	  	    </tr>

@@ -2,6 +2,28 @@ class AdminController < ApplicationController
     
     before_action :require_admin
     
+    def cpt_transaction_user(user,id,username,email)
+        url = URI.parse('https://cpttransactions.herokuapp.com/add_users')
+        req = Net::HTTP::Post.new(url.request_uri)
+        req.set_form_data({'username'=> username, 'email'=> email, 'id_original'=> id, 'name'=> user})
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = (url.scheme == "https")
+        response = http.request(req)
+        response
+    end
+    
+    def export_users
+        a = Usuario.all
+        a.each do |m|
+            if m.email_confirmed == true
+               p (cpt_transaction_user("#{m.first_name} #{m.last_name}",m.id,m.username,m.email)).body
+            end
+            sleep 1
+        end
+        @messages = "operação de exportação realizada"
+        render 'sessions/loginerror'
+    end
+    
     def generate_storage #Gerar endereços de armazenamento principal
         if validate_operation(ENV["CPTOP"]) == true #validar a operação de acordo com o local onde ela está sendo executada
             store_obj = Storage.new #criar objeto de armazenamento

@@ -12,10 +12,29 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone, :captcha
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange, :total_usuario_saldo
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange, :total_usuario_saldo, :get_saldo
   #mneconic 'icon monkey curtain tomorrow guard above genuine episode rival palm frame disease'
 
   #heroku email
+  def get_saldo(usuario)
+    url = URI.parse('https://cpttransactions.herokuapp.com/get_saldo')
+    req = Net::HTTP::Post.new(url.request_uri)
+    req.set_form_data({'username'=> usuario.username, 'id_original'=> usuario.id})
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    response = http.request(req)
+    p response.body
+    response.body
+  end
+  def cpt_transaction_add(currency,type,user_id,debit_credit,amount)
+    url = URI.parse('https://cpttransactions.herokuapp.com/add_transaction')
+    req = Net::HTTP::Post.new(url.request_uri)
+    req.set_form_data({'currency'=> currency, 'type'=> type, 'user_id'=> user_id, 'debit_credit'=> debit_credit, 'amount'=> amount})
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    response = http.request(req)
+    response
+  end
   def require_login
     if current_user != nil
       return true

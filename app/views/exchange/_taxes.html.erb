@@ -1,16 +1,16 @@
 <table style="width:35%">
   
-  <tr>
+  <tr style=" white-space: nowrap;">
       <td>Valor creditado após taxas:</td>
   </tr>
   <tr>
-      <td>Cartão: </td>
-      <td><%= text_field_tag "taxac", @taxa_card, :id => 'tax_card', :disabled => true%></td>
+      <td>Desconto (1,2%) [BRL]: </td>
+      <td><%= text_field_tag "taxac", @desconto, :id => 'tax_card', :disabled => true%></td>
       
   </tr>
   <tr>
-      <td>Boleto</td>
-      <td><%= text_field_tag "taxab", @taxa_boleto, :id => 'tax_boleto', :disabled => true%></td>
+      <td>Total [BRL]:</td>
+      <td><%= text_field_tag "taxab", @total_brl, :id => 'tax_boleto', :disabled => true%></td>
   </tr>
   
 </table>
