@@ -1,17 +1,7 @@
 class AdminController < ApplicationController
     
-    helper_method :cpt_transaction_user
+
     before_action :require_admin
-    
-    def cpt_transaction_user(user,id,username,email)
-        url = URI.parse('https://cpttransactions.herokuapp.com/add_users')
-        req = Net::HTTP::Post.new(url.request_uri)
-        req.set_form_data({'username'=> username, 'email'=> email, 'id_original'=> id, 'name'=> user})
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = (url.scheme == "https")
-        response = http.request(req)
-        response
-    end
     
     def export_users
         a = Usuario.all
