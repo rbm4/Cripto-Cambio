@@ -16,6 +16,16 @@ class ApplicationController < ActionController::Base
   #mneconic 'icon monkey curtain tomorrow guard above genuine episode rival palm frame disease'
 
   #heroku email
+  def add_saldo(usuario,moeda,qtd,tipo) #função para adicionar saldo em depóstios
+    url = URI.parse('https://cpttransactions.herokuapp.com/add_saldo')
+    req = Net::HTTP::Post.new(url.request_uri)
+    req.set_form_data({'username'=> usuario.username, 'id_original'=> usuario.id, 'currency'=>moeda, 'amount'=>qtd, 'type'=>tipo})
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = (url.scheme == "https")
+    response = http.request(req)
+    p response.body
+    response.body
+  end
   def get_saldo(usuario)
     url = URI.parse('https://cpttransactions.herokuapp.com/get_saldo')
     req = Net::HTTP::Post.new(url.request_uri)

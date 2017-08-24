@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
     
+    helper_method :cpt_transaction_user
     before_action :require_admin
     
     def cpt_transaction_user(user,id,username,email)

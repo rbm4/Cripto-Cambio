@@ -140,6 +140,7 @@ class UsuariosController < ApplicationController
     if user
       user.email_activate
       user.save
+      cpt_transaction_user("#{user.first_name} #{user.last_name}",user.id,user.username,user.email)
       @logged = "Parabéns! Seu email foi confirmado! Faça login para prosseguir."
       render 'sessions/login'
     else

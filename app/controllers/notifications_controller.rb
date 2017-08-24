@@ -96,7 +96,7 @@ class NotificationsController < ApplicationController
     #amount_2 = params["amount2"] #quantidade da moeda paga na moeda 2, caso diferente da moeda 1 descontar 5%
     
     encrypted_digest = array_name[0]
-    quantidade = array_name[1] 
+    #quantidade = array_name[1] 
     username = array_name[2]
     id = array_name[3]
     pass = BCrypt::Password.new(encrypted_digest)
@@ -114,6 +114,7 @@ class NotificationsController < ApplicationController
       user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) + saldo_a_adicionar ).to_s
       user.saldo_encrypted = user_saldo.to_s
       if user.save
+        add_saldo(usuario,"#{params['currency2']}",saldo_a_adicionar.to_s,"coinpay_deposit")
         #enviar email de depósito realizado
         transacao.paid = true
         transacao.save
