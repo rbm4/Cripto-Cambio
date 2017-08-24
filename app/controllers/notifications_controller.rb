@@ -114,7 +114,7 @@ class NotificationsController < ApplicationController
       user_saldo["#{params['currency2']}"] = (BigDecimal(user_saldo["#{params['currency2']}"],8) + saldo_a_adicionar ).to_s
       user.saldo_encrypted = user_saldo.to_s
       if user.save
-        add_saldo(usuario,"#{params['currency2']}",saldo_a_adicionar.to_s,"coinpay_deposit")
+        add_saldo(user,"#{params['currency2']}",saldo_a_adicionar.to_s,"coinpay_deposit")
         #enviar email de depósito realizado
         transacao.paid = true
         transacao.save
