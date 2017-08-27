@@ -349,7 +349,7 @@ class OrdersController < ApplicationController
                         add_saldo(current_user,par_array[0],ordem.amount,"cancel_ordem_venda")
                     end
                     p "saldo recuperado, colocar ordem como fechada"
-                    ordem.status = "fechada"
+                    ordem.status = "fechada_user"
                     ordem.save
                 end
             end
@@ -366,13 +366,15 @@ class OrdersController < ApplicationController
             if params["id"] != nil
                 ordem = Exchangeorder.find(Integer(params["id"]))
                 if ordem.usuario_id == current_user.username #usuario validado
-                    if ordem.type == "buy" #ordem de compra, valor a ser creditado é a multiplicaçãao da quantia pelo preço resultado na moeda2
+                    if ordem.tipo == "buy" #ordem de compra, valor a ser creditado é a multiplicaçãao da quantia pelo preço resultado na moeda2
                         creditar = (BigDecimal(orderm.amount,8) * BigDecimal(ordem.price,8)).to_s
                         add_saldo(current_user,par_array[1],creditar,"cancel_ordem_compra")
-                    elsif ordem.type == "sell" #ordem de venda, valor a ser creditado é o total de "amount" da ordem na moeda1
+                    elsif ordem.tipo == "sell" #ordem de venda, valor a ser creditado é o total de "amount" da ordem na moeda1
                         add_saldo(current_user,par_array[0],ordem.amount,"cancel_ordem_venda")
                     end
-                    p "saldo recuperado"
+                    p "saldo recuperado, colocar ordem como fechada pelo usuário"
+                    ordem.status = "fechada_user"
+                    ordem.save
                 end
             end
             j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :usuario_id", {str_par: @par.upcase, stt: "open", usuario_id: current_user.username}).order(:created_at)
