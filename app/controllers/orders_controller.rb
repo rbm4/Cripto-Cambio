@@ -335,4 +335,52 @@ class OrdersController < ApplicationController
             o += 1
         end
     end
+    def cancel_order
+        if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+            @par = "BTC/BRL"
+            par_array = @par.split("/")
+            if params["id"] != nil
+                ordem = Exchangeorder.find(params["id"])
+                if ordem.usuario_id == current_user.username #usuario validado
+                    if ordem.type == "buy" #ordem de compra, valor a ser creditado é a multiplicaçãao da quantia pelo preço resultado na moeda2
+                        creditar = (BigDecimal(orderm.amount,8) * BigDecimal(ordem.price,8)).to_s
+                        add_saldo(current_user,par_array[1],creditar,"cancel_ordem_compra")
+                    elsif ordem.type == "sell" #ordem de venda, valor a ser creditado é o total de "amount" da ordem na moeda1
+                        add_saldo(current_user,par_array[0],ordem.amount,"cancel_ordem_venda")
+                    end
+                    p "saldo recuperado"
+                end
+            end
+            
+            j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :users", {str_par: @par.upcase, stt: "open", users: current_user.username}).order(:created_at)
+            if j.any?
+                @orders = j
+            else
+                @open_tipo << "Não há ordens abertas."
+            end
+        else
+            @par = "#{session[:moeda1_par]}/#{session[:moeda2_par]}"
+            par_array = @par.split("/")
+            if params["id"] != nil
+                ordem = Exchangeorder.find(params["id"])
+                if ordem.usuario_id == current_user.username #usuario validado
+                    if ordem.type == "buy" #ordem de compra, valor a ser creditado é a multiplicaçãao da quantia pelo preço resultado na moeda2
+                        creditar = (BigDecimal(orderm.amount,8) * BigDecimal(ordem.price,8)).to_s
+                        add_saldo(current_user,par_array[1],creditar,"cancel_ordem_compra")
+                    elsif ordem.type == "sell" #ordem de venda, valor a ser creditado é o total de "amount" da ordem na moeda1
+                        add_saldo(current_user,par_array[0],ordem.amount,"cancel_ordem_venda")
+                    end
+                    p "saldo recuperado"
+                end
+            end
+            j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :usuario_id", {str_par: @par.upcase, stt: "open", usuario_id: current_user.username}).order(:created_at)
+            if j.any?
+                @orders = j
+            else
+                @open_tipo << "Não há ordens abertas."
+            end
+        end
+            
+        render :partial => "exchange/open_orders"
+    end
 end

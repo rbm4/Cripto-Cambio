@@ -1,0 +1,39 @@
+<style>
+    .borderlist 
+{
+    border: 1px solid black;
+}
+</style>
+Par atual: <font color="red"><%= @par %></font>
+
+<div class="row" style="border: 2px solid;width:70%;padding-top: 10px;">
+    <table type="openorders">
+    <tr>
+        <th>Tipo de Ordem</th>
+        <th>Quantidade</th>
+        <th>Preço unitário</th>
+        <th>Valor Total</th>
+        <th>Cancelar</th>
+    </tr>
+    <% @orders.each do |k| %>
+    <% if k.tipo == "buy"%>
+    <% tipo = "Compra"%>
+    <% elsif k.tipo == "sell"%>
+    <% tipo = "Venda" %>
+    <% end %>
+    <% if session[:moeda2_par] == nil %>
+    <% moeda_base = "BRL" %>
+    <% else %>
+    <% moeda_base = session[:moeda2_par].upcase %>
+    <% end %>
+    <tr>
+        <td type="orders"><%= tipo %></td>
+        <td type="orders"><%= k.amount %></td>
+        <td type="orders"><%= k.price %>  <%= moeda_base %></td>
+        <td type="orders"><%= String(BigDecimal(k.amount,8) * BigDecimal(k.price,8)) %> <%= moeda_base %></td>
+        <td type="orders"><a href="cancel_order?id=<%= k.id %>" data-remote="true" data-confirm="Cancelar ordem?" method="POST">Cancelar</a></td>
+    </tr>
+    <% end %>
+    </table>
+    
+</div>

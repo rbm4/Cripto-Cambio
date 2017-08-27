@@ -84,9 +84,17 @@ $(document).ready(function() {
 						<!-- Content -->
 							<div class="content" style="">
 								<section>
+									<div class="row">
+										<div class="col-sm-6 col-md-2">
+										
 									<header><%= form_tag "/order_show_form", :remote => true %>
 										<h3>Novas Ordens: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
-									</header>
+									</header></form>
+										</div>
+									<header><%= form_tag "/open_order_show", :remote => true %>
+										<h3>Ordens Abertas: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
+									</header></form>
+									</div>
 									<font id="submit-message"><div id="message-order-submit"></div></font>
 									<div id="order_form"></div>
 									<div id="order_book"><%= render "orderbook" %></div>

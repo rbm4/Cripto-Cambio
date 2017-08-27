@@ -1,6 +1,36 @@
 class ExchangeController < ApplicationController
     require 'mercadopago.rb'
     
+    def open_order_show
+        @open_tipo = ""
+        @open_qtd = ""
+        @open_price = ""
+        @open_value = ""
+        @open_cancel = ""
+        if params["commit"] == "Mostrar"
+            if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+                @par = "BTC/BRL"
+                j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :users", {str_par: @par.upcase, stt: "open", users: current_user.username}).order(:created_at)
+                if j.any?
+                    @orders = j
+                else
+                    @open_tipo << "Não há ordens abertas."
+                end
+            else
+                @par = "#{session[:moeda1_par]}/#{session[:moeda2_par]}"
+                j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :usuario_id", {str_par: @par.upcase, stt: "open", usuario_id: current_user.username}).order(:created_at)
+                if j.any?
+                    @orders = j
+                else
+                    @open_tipo << "Não há ordens abertas."
+                end
+            end
+        elsif params["commit"] == "Esconder"
+            @esconder = true
+            @moeda_par1 = nil
+            @moeda_par2 = nil
+        end
+    end
     def order_show_form
         if params[:commit] == "Esconder"
             @esconder = true

@@ -1,0 +1,6 @@
+<% if @esconder == true %>
+$( "#order_form" ).html( "" );
+$( "#message-order-submit" ).html( "" );
+<% else %>
+$( "#order_form" ).html( "<%= escape_javascript( render( :partial => "exchange/open_orders") ) %>" );
+<% end %>

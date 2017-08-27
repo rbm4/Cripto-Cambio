@@ -4,8 +4,9 @@ table[id=Form_order]{
     border-collapse: collapse;
 }
 </style>
+<div class="row" style="border: 2px solid;width:70%;padding-top: 10px;">
                                 <%= form_tag '/new_order', :remote => true %>
-									<table style="width: 80%;border: 4px;border-style: bold;" id="form_order">
+									<table style="border: 4px;border-style: bold;" id="form_order">
 										<tr>
 										<th>Compra:</th>
 										<th></th>
@@ -58,3 +59,4 @@ table[id=Form_order]{
 										</tr>
 									</table>
 									</form>
+									</div>

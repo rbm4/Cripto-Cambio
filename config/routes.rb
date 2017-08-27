@@ -101,6 +101,8 @@ Rails.application.routes.draw do
   post '/coinpay/exchange_deposit' => 'notifications#coinpay_deposits'
   post '/export_users' => 'admin#export_users'
   post '/add_saldos' => 'admin#add_saldos'
+  post '/open_order_show' => 'exchange#open_order_show'
+  get '/cancel_order' => 'orders#cancel_order'
   
   
   # The priority is based upon order of creation: first created -> highest priority.
