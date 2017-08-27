@@ -7,6 +7,9 @@
 Par atual: <font color="red"><%= @par %></font>
 
 <div class="row" style="border: 2px solid;width:70%;padding-top: 10px;">
+    <% if @orders == nil %>
+    Não há ordens abertas no par selecionado.
+    <% else %>
     <table type="openorders">
     <tr>
         <th>Tipo de Ordem</th>
@@ -36,4 +39,4 @@ Par atual: <font color="red"><%= @par %></font>
     <% end %>
     </table>
     
-</div>
+</div><% end %>

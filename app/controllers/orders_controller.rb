@@ -355,7 +355,7 @@ class OrdersController < ApplicationController
             if j.any?
                 @orders = j
             else
-                @open_tipo << "Não há ordens abertas."
+                @orders = nil
             end
         else
             @par = "#{session[:moeda1_par]}/#{session[:moeda2_par]}"
@@ -378,7 +378,7 @@ class OrdersController < ApplicationController
             if j.any?
                 @orders = j
             else
-                @open_tipo << "Não há ordens abertas."
+                @orders = nil
             end
         end
     end
