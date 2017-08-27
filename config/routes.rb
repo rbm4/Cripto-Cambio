@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   get 'exchange/order_stats' => 'orders#public_stats'
   post '/coinpay/exchange_deposit' => 'notifications#coinpay_deposits'
   post '/export_users' => 'admin#export_users'
+  post '/add_saldos' => 'admin#add_saldos'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

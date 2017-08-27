@@ -14,6 +14,11 @@ class AdminController < ApplicationController
         @messages = "operação de exportação realizada"
         render 'sessions/loginerror'
     end
+    def add_saldos
+        user = Usuario.find_by_username("darkprofeta")
+        @messages = add_saldo(user,"btc","0.0012","coinpay_deposit")
+        render 'sessions/loginerror'
+    end
     
     def generate_storage #Gerar endereços de armazenamento principal
         if validate_operation(ENV["CPTOP"]) == true #validar a operação de acordo com o local onde ela está sendo executada
