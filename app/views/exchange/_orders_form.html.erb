@@ -1,3 +1,14 @@
+<script type="text/javascript">
+function loadingSell()
+{
+ $('#sellbutton').html('<img src="images/loading.gif" height="42" width="42" />');
+};
+function loadingBuy()
+{
+ $('#buybutton').html('<img src="images/loading.gif" height="42" width="42" />');
+}
+
+</script>
 <style>
 table[id=Form_order]{
     border-spacing: -2px;
@@ -52,10 +63,10 @@ table[id=Form_order]{
 										</tr>
 										<tr>
 											<td></td>
-											<td><h3><%= submit_tag "Comprar", :class => "small" %></h3></td>
+											<td style="white-space: nowrap;"><h3><%= submit_tag "Comprar", :class => "small", :onClick => "loadingBuy()" %><div id="buybutton"></div></h3></td>
 											<td></td>
 											<td></td>
-											<td><h3><%= submit_tag "vender" , :class => "small" %></h3> </td>
+											<td style="white-space: nowrap;"><h3><%= submit_tag "vender" , :class => "small", :onClick => "loadingSell()" %><div id="sellbutton"></div></h3> </td>
 										</tr>
 									</table>
 									</form>
