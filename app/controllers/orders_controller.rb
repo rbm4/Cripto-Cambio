@@ -93,9 +93,11 @@ class OrdersController < ApplicationController
                         saldo = eval(obj.saldo_encrypted)
                         #saldo["#{params["moeda2"]}"].decrypt
                         p "adicionar saldo de #{((BigDecimal(b.price) * BigDecimal(order.amount,8)) * 0.995).to_s} '#{params["moeda2"]}' pro vendedor das #{b.amount} #{params["moeda1"]} - #{order.amount} #{params["moeda1"]}"
-                        saldo["#{params["moeda2"]}"] = (BigDecimal(saldo["#{params["moeda2"]}"],8) + (BigDecimal(b.price) * BigDecimal(order.amount,8)) * 0.995).to_s #volume da ordem recém aberta multiplicado pelo preço da ordem do livro é o resultado do saldo do usuário descontado o fee 0,5%
-                        obj.saldo_encrypted = saldo.to_s
-                        obj.save #atualizar saldo do que vende as moedas
+                        #saldo["#{params["moeda2"]}"] = (BigDecimal(saldo["#{params["moeda2"]}"],8) + 
+                        saldo = ((BigDecimal(b.price) * BigDecimal(order.amount,8)) * 0.995).to_s #volume da ordem recém aberta multiplicado pelo preço da ordem do livro é o resultado do saldo do usuário descontado o fee 0,5%
+                        add_saldo(obj,params["moeda2"],saldo,"order_exec_buy")
+                        #obj.saldo_encrypted = saldo.to_s
+                        #obj.save #atualizar saldo do que vende as moedas
                         
                         if result_amount <= 0 #ordem completamente executada
                             b.status = "executada"
@@ -120,14 +122,13 @@ class OrdersController < ApplicationController
                         user = Usuario.find_by_username(order.usuario_id) #encontrar usuário da ordem atual (Comprador, recebe moeda1)
                         saldo2 = eval(user.saldo_encrypted) #recuperar saldo do usuário
                         p "adicionar saldo de #{(current_amount*0.995).to_s} ao comprador por ter executado a ordem inteira de uma vez só"
-                        saldo2["#{params["moeda1"]}"] = (BigDecimal(saldo2["#{params["moeda1"]}"],8) + (current_amount * 0.995 )).to_s#atualizar saldo do usuário com o preço da ordem atual descontado o fee 0,5%
-                        user.saldo_encrypted = saldo2.to_s
-                        user.save #atualizar saldo do usuário que comrpou as moedas
+                        saldo_adicional = (current_amount * 0.995 ).to_s#atualizar saldo do usuário com o preço da ordem atual descontado o fee 0,5%
+                        add_saldo(user,params["moeda1"],saldo_adicional,"order_exect_buy")
+                        #user.saldo_encrypted = saldo2.to_s
+                        #user.save #atualizar saldo do usuário que comrpou as moedas
                         current_amount = 0
                         order.has_execution = true
                         order.save #ordem completamente finalizada e salva
-                        p obj.saldo_encrypted
-                        p user.saldo_encrypted 
                         @message_from_order_controller = "Ordem de compra abateu uma ordem de venda do livro de ofertas!"
                         @moeda_par1 = params["moeda1"]
                         @moeda_par2 = params["moeda2"]
