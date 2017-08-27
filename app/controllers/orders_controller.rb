@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
     def exchange_order_create
         #par: nil, tipo: nil, amount: nil, user: nil, has_execution: nil, price: nil, status: nil
         #validações
-        current_user_saldo = eval(current_user.saldo_encrypted)
+        current_user_saldo = eval(get_saldo(current_user))
         session[:moeda1_compra] = nil
         session[:moeda2_compra] = nil
         session[:moeda1_venda] = nil
@@ -46,6 +46,7 @@ class OrdersController < ApplicationController
             if BigDecimal(current_user_saldo["#{params["moeda2"]}"],8) > discount_saldo
                 current_user_saldo["#{params["moeda2"]}"] = (BigDecimal(current_user_saldo["#{params["moeda2"]}"],8) - discount_saldo).to_s
                 current_user.saldo_encrypted = current_user_saldo
+                add_saldo(current_user,params["moeda2"],discount_saldo,"exchange_buy")
                 current_user.save #saldo removido do usuário !!! >>>>> discount_saldo.to_s <<<<<<< foi o valor removido, implementar nota fiscal por email aqui 
                 consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "sell", stt: "open"}).order(price: :asc).limit(20)
             else
@@ -60,6 +61,7 @@ class OrdersController < ApplicationController
             current_user_saldo["#{params["moeda1"]}"] = (BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) - BigDecimal(params["qtd_moeda1#{type}"].gsub(/,/,"."),8)).to_s
             if BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) > 0
                 current_user.saldo_encrypted = current_user_saldo
+                add_saldo(current_user,params["moeda1"],params["qtd_moeda1#{type}"],"exchange_sell")
                 current_user.save 
                 consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "buy", stt: "open"}).order(price: :desc).limit(20)
             else
