@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
                 
                 add_saldo(current_user,params["moeda2"],discount_saldo,"exchange_buy")
                 #saldo removido do usuário !!! >>>>> discount_saldo.to_s <<<<<<< foi o valor removido, implementar nota fiscal por email aqui 
-                consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "sell", stt: "open"}).order(price: :asc).limit(20)
+                consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "sell", stt: "open"}).order(price: :asc)
             else
                 p "sem saldo"
                 @moeda_par1 = params["moeda1"]
@@ -59,8 +59,8 @@ class OrdersController < ApplicationController
             type = "sell"
             current_user_saldo["#{params["moeda1"]}"] = (BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) - BigDecimal(params["qtd_moeda1#{type}"].gsub(/,/,"."),8)).to_s
             if BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) > 0
-                add_saldo(current_user,params["moeda1"],params["qtd_moeda1#{type}"],"exchange_sell")
-                consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "buy", stt: "open"}).order(price: :desc).limit(20)
+                add_saldo(current_user,params["moeda1"],BigDecimal(params["qtd_moeda1#{type}"].gsub(/,/,"."),8),"exchange_sell")
+                consulta_ordem_oposta = Exchangeorder.where("par = :str_par AND tipo = :tupe AND status = :stt", {str_par: order.par, tupe: "buy", stt: "open"}).order(price: :desc)
             else
                 p "sem saldo"
                 @moeda_par1 = params["moeda1"]
@@ -254,7 +254,7 @@ class OrdersController < ApplicationController
                         #saldo["#{params["moeda2"]}"].decrypt
                         p "adicionar saldo de #{((BigDecimal(b.price) * BigDecimal(b.amount,8)) * 0.995).to_s} '#{params["moeda2"]}' pro vendedor das #{b.amount} #{params["moeda1"]} - #{order.amount} #{params["moeda1"]}"
                         saldo = ((BigDecimal(b.price) * BigDecimal(b.amount,8)) * 0.995).to_s #volume da ordem recém aberta multiplicado pelo preço da ordem do livro é o resultado do saldo do usuário descontado o fee 0,5%
-                        add_saldo(obj,params["moeda21"],saldo,"order_exec_sellp")
+                        add_saldo(obj,params["moeda2"],saldo,"order_exec_sellp")
                         #obj.saldo_encrypted = saldo.to_s
                         #obj.save #atualizar saldo do que vende as moedas
                         #resultante do montante das duas transações é o que sobra na transação do livro convertido em string
