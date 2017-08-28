@@ -3,6 +3,26 @@
 <head>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<%= favicon_link_tag 'favicon.ico' %>
+	<script>
+	function executeQuery() {
+  $.ajax({
+    url: 'exchange/order_stats', 
+    success: function(data) {
+      $('.result').html(data);
+    },
+    complete: function() {
+      // Schedule the next request when the current one's complete
+      setTimeout(executeQuery, 8500);
+    }
+})};
+</script>
+<script>
+$(document).ready(function() {
+    console.log("Chamada")
+  // run the first time; all subsequent calls will take care of themselves
+  setTimeout(executeQuery, 5000);
+});
+</script>
 	<style>
 	
 

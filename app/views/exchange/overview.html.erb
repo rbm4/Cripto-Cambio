@@ -42,26 +42,7 @@ font[id=submit-message]{
 	color:red;
 }
 </style>
-<script>
-	function executeQuery() {
-  $.ajax({
-    url: 'exchange/order_stats', 
-    success: function(data) {
-      $('.result').html(data);
-    },
-    complete: function() {
-      // Schedule the next request when the current one's complete
-      setTimeout(executeQuery, 8500);
-    }
-})};
-</script>
-<script>
-$(document).ready(function() {
-    console.log("Chamada")
-  // run the first time; all subsequent calls will take care of themselves
-  setTimeout(executeQuery, 5000);
-});
-</script>
+
 </head>
 
 	<body class="no-sidebar">
@@ -79,12 +60,12 @@ $(document).ready(function() {
 				</header>
 					
 				<!-- One -->
-					<section class="wrapper style4 container" style="top:-50px">
+					<section class="wrapper style4 container" style="top:-50px;padding-top: 0px;">
 					
 						<!-- Content -->
 							<div class="content" style="">
 								<section>
-									<div class="row">
+									<div class="row" style="padding-top: 25px;">
 									
 									<header><%= form_tag "/order_show_form", :remote => true %>
 										<h3>Novas Ordens: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
