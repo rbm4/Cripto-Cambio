@@ -371,7 +371,7 @@ class OrdersController < ApplicationController
                 ordem = Exchangeorder.find(Integer(params["id"]))
                 if ordem.usuario_id == current_user.username #usuario validado
                     if ordem.tipo == "buy" #ordem de compra, valor a ser creditado é a multiplicaçãao da quantia pelo preço resultado na moeda2
-                        creditar = (BigDecimal(orderm.amount,8) * BigDecimal(ordem.price,8)).to_s
+                        creditar = (BigDecimal(ordem.amount,8) * BigDecimal(ordem.price,8)).to_s
                         add_saldo(current_user,par_array[1],creditar,"cancel_ordem_compra")
                     elsif ordem.tipo == "sell" #ordem de venda, valor a ser creditado é o total de "amount" da ordem na moeda1
                         add_saldo(current_user,par_array[0],ordem.amount,"cancel_ordem_venda")
