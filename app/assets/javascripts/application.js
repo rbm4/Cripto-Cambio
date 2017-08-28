@@ -25,5 +25,9 @@ function executeQuery() {
       setTimeout(executeQuery, 8500);
     }
 })};
-
+$(document).ready(function() {
+    console.log("Chamada")
+  // run the first time; all subsequent calls will take care of themselves
+  setTimeout(executeQuery, 5000);
+});
 
