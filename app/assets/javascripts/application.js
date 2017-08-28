@@ -14,20 +14,20 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-function executeQuery() {
-  $.ajax({
-    url: 'exchange/order_stats', 
-    success: function(data) {
-      $('.result').html(data);
-    },
-    complete: function() {
-      // Schedule the next request when the current one's complete
-      setTimeout(executeQuery, 8500);
-    }
-})};
-$(document).ready(function() {
-    console.log("Chamada")
-  // run the first time; all subsequent calls will take care of themselves
-  setTimeout(executeQuery, 5000);
-});
+//= function executeQuery() {
+  //= $.ajax({
+    //= url: 'exchange/order_stats', 
+    //= success: function(data) {
+      //= $('.result').html(data);
+    //= },
+    //= complete: function() {
+      //= // Schedule the next request when the current one's complete
+      //= setTimeout(executeQuery, 8500);
+    //= }
+//= })};
+//= $(document).ready(function() {
+//=     console.log("Chamada")
+  //= // run the first time; all subsequent calls will take care of themselves
+  //= setTimeout(executeQuery, 5000);
+//= });
 

@@ -6,15 +6,12 @@
 
 $ ->
   console.log("DOM is ready")
+  setTimeout(executeQuery, 5000)
   
-$("#buym1").change ->
-    console.log("Change rodado")
-    comission = $("comission_buy")
-    total = $("total_buy")
-    liquido = $("liquid_buy")
-    $('#buym2').keyup ->
-    current_value = $.trim @value
-    comission.html(current_value)
+executeQuery = () ->
+    console.log("Busca rodada")
+    $.get 'exchange/order_stats'
+    setTimeout(executeQuery, 6500)
     
     
     
