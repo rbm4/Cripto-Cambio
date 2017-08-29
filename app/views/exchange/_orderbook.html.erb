@@ -1,6 +1,13 @@
 <style>
-    td[type=orders] {
+td[type=extorders] {
+    border-style: groove;
    border: 1px solid black;
+   text-align: center;
+   font-size: 13px;
+}
+    td[type=intorders] {
+    border-style: groove;
+   border-bottom: 1px solid black;
    text-align: center;
    font-size: 13px;
 }
@@ -21,7 +28,7 @@ table[type=openorders]{
         <th>Ordens executadas</th>
     </tr>
     <tr><!-- Ordens de compra -->
-        <td type="orders"><table type="openorders">
+        <td type="extorders"><table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
@@ -31,8 +38,8 @@ table[type=openorders]{
             <% @consulta_compra.each do |l| %>
             <tr type="openorders">
                 
-                <td type="orders"><%= l.amount %></td>
-                <td type="orders"><%= l.price %></td>
+                <td type="intorders"><%= l.amount %></td>
+                <td type="intorders"><%= l.price %></td>
                 
                 
             </tr>
@@ -40,7 +47,7 @@ table[type=openorders]{
             <% end %>
         </table></td>
         <!-- Ordens de venda -->
-        <td type="orders"><table type="openorders">
+        <td type="extorders"><table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
@@ -50,8 +57,8 @@ table[type=openorders]{
             <% @consulta_venda.each do |v| %>
             <tr type="openorders">
                 
-                <td type="orders"><%= v.amount %></td>
-                <td type="orders"><%= v.price %></td>
+                <td type="intorders"><%= v.amount %></td>
+                <td type="intorders"><%= v.price %></td>
                 
                 
             </tr>
@@ -60,7 +67,7 @@ table[type=openorders]{
             </table>
         </td>
         <!-- ordens executadas -->
-        <td type="orders"><table type="openorders">
+        <td type="extorders"><table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
             <tr>
                 <td>Data</td>
@@ -73,14 +80,14 @@ table[type=openorders]{
             <% @consulta_realizadas.each do |g| %>
             <tr type="openorders">
                 
-                <td type="orders" style="font-size:85%;width:110%;"><%= g.updated_at.strftime('%d/%m %I:%M:%S') %></td>
+                <td type="intorders" style="font-size:85%;width:100%;"><%= g.updated_at.strftime('%d/%m %I:%M:%S') %></td>
                 <% if g.tipo == "buy" %>
-                <td type="orders">Compra</td>
+                <td type="intorders">Compra</td>
                 <% elsif g.tipo == "sell" %>
-                <td type="orders">Venda</td>
+                <td type="intorders">Venda</td>
                 <% end %>
-                <td type="orders"><%= g.amount %></td>
-                <td type="orders"><%= g.price %></td>
+                <td type="intorders"><%= g.amount %></td>
+                <td type="intorders"><%= g.price %></td>
                 
             </tr>
             <% end %>

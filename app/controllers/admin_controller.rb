@@ -15,7 +15,7 @@ class AdminController < ApplicationController
         render 'sessions/loginerror'
     end
     def add_saldos
-        user = Usuario.find_by_username("darkprofeta")
+        user = Usuario.find_by_email("tgo@cin.ufpe.br")
         @messages = add_saldo(user,"btc","0.0012","coinpay_deposit")
         @messages = add_saldo(user,"ltc","0.01","coinpay_deposit")
         @messages = add_saldo(user,"doge","40","coinpay_deposit")

@@ -258,12 +258,12 @@ class ExchangeController < ApplicationController
         elsif moeda == "DOGE"
             return 3
         else
-            return "(0.0008 BTC)/(0.002 LTC)/(2 DOGE)*<br>*Taxa fixa referente à cobrança das transações na rede."
+            return "(0.00008 BTC)/(0.002 LTC)/(2 DOGE)*<br>*Taxa fixa referente à cobrança das transações na rede."
         end
     end
     
     def formulario_dinamico
-        
+        @tax_percentage = "1,2%"
         @formulario = ""
         if params['tipo_pgto'] == "[BRL] Deposito Bancario"
             @formulario = "MercadoPago"

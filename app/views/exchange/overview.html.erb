@@ -50,7 +50,7 @@ font[id=submit-message]{
 			<article id="main2">
 
 				<header class="special container">
-					<h2>Pares de moedas:<strong></strong></h2>
+					<h2 style="margin-top:-5%;">Pares de moedas:<strong></strong></h2>
 					<%= form_tag "/pair", :remote => true %>
 					
 					<p><%= submit_tag "[BTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/DOGE]", :id => "pair", :class => "small" %></p>
