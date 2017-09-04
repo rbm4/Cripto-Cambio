@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<!-- <script>
+<script>
 function loading()
 {
  $('#button').html('<img src="images/loading.gif" height="84" width="84" />');
@@ -11,23 +11,21 @@ function save_credit(){
 	data: { exercice_ids: getExerciceIds() }
   	success: function() {}
 	}
-</script> -->
-
+</script>
 <style>
 	input[id="Credit_reais"]{
 	width: 240px;
 	padding: 9px;
 	}
 </style>
-<%= javascript_include_tag  'negociacoes' %>
 <html>
 	<body class="no-sidebar">
 		<!-- Main -->
 			<article id="main2">
 
 				<header class="special container">
-					<h2>Depósitos</h2>
-					<p>Utilize o formulário abaixo para escolher o tipo de método para adicionar créditos.</p>
+					<h2>Saques</h2>
+					<p>Utilize o formulário abaixo para sacar saldo da sua conta.</p>
 				</header>
 					
 				<!-- One -->
@@ -37,10 +35,10 @@ function save_credit(){
 							<div class="content">
 								<section>
 									<header>
-										Método de Pagamento:
-										<%= form_tag '/form', :remote => true, :method => 'get' %>
+										Selecione a moeda:
+										<% form_tag 'withdrawal_js', remote: true %>
 										<%= select_tag "tipo_pgto", @opcoes.html_safe %> 
-										<%= submit_tag 'Ok', :class => 'small' %>
+										</form>
 									</header>
 									<p><div id="form"></div></p>
 								</section>

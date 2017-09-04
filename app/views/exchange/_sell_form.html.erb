@@ -1,0 +1,75 @@
+<script type="text/javascript">
+function loadingSell()
+{
+ $('#sellbutton').html('<img src="images/loading.gif" height="42" width="42" />');
+};
+function loadingBuy()
+{
+ $('#buybutton').html('<img src="images/loading.gif" height="42" width="42" />');
+}
+
+</script>
+<style>
+table[id=Form_order]{
+    border-spacing: -2px;
+    border-collapse: collapse;
+}
+</style>
+
+                               
+									<table style="border: 4px;border-style: bold;" id="form_order">
+										<tr>
+										<td style="white-space: nowrap;">
+										<%= form_tag "/order_form_dynamic", :remote => true %>
+					
+					
+						<%= submit_tag "Comprar", :class => "small" %>
+						<%= submit_tag "Vender", :class => "small" %>
+					
+					</form>
+										
+										</td>
+										<th></th>
+										<%= form_tag '/new_order', :remote => true %>
+										</tr>
+										<tr>VENDER: </tr>
+										</tr>
+										<%= hidden_field_tag :moeda1, @moeda_par1 %>
+										<%= hidden_field_tag :moeda2, @moeda_par2 %>
+										<tr>
+											
+											<td><h6>Quantidade de <%= @moeda_par1.upcase %>: </h6></td>
+											<td><%= text_field_tag :qtd_moeda1sell, nil, :placeholder => @moeda_par1.upcase, :id => "sellm1", data: { remote: true, url: url_for( action: :calc_tax, controller: :exchange)}  %></td>
+										</tr>
+										<tr>
+											<td><h6>Preço unitário <%= @moeda_par2.upcase %>:</h6> </td>
+											<td><%= text_field_tag :qtd_moeda2sell, nil, :placeholder => @moeda_par2.upcase, :id => "sellm2", data: { remote: true, url: url_for( action: :calc_tax, controller: :exchange)}  %></td>
+											<td></td>
+										</tr>
+										<tr>
+											
+											<td><h6>Total [<%= @moeda_par2.upcase %>]: </h6></td>
+											<td><h6><div id="total_sell"></div></h6></td>
+											<td></td>
+										</tr>
+										<tr>
+											
+											<td><h6>Comissão [<%= @moeda_par2.upcase %>]: </h6></td>
+											<td><h6><div id="comission_sell"></div></h6></td>
+											<td></td>
+										</tr>
+										<tr>
+											
+											<td><h6>Líquido [<%= @moeda_par2.upcase %>]: </h6></td>
+											<td><h6><div id="liquid_sell"></div></h6></td>
+											<td></td>
+										</tr>
+										<tr>
+											
+											<td></td>
+											<td style="white-space: nowrap;"><h3><%= submit_tag "vender" , :class => "small", :onClick => "loadingSell()" %><div id="sellbutton"></div></h3> </td>
+											<td></td>
+										</tr>
+									</table>
+									</form>
+								

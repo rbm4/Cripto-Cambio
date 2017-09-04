@@ -7,28 +7,108 @@ td[type=extorders] {
 }
     td[type=intorders] {
     border-style: groove;
-   border-bottom: 1px solid black;
+   border: 1px solid black;
    text-align: center;
    font-size: 13px;
+   
 }
 tr:hover[type=openorders]{
     background-color: #D8D8D8
 }
 table[type=openorders]{
+    width:80%;
     border-spacing: 2px;
     border-collapse: separate;
     border-collapse: collapse;
 }
 </style>
 
-<table style="width: 100%;">
-    <tr>
-        <th>Ordens de compra</th>
-        <th>Ordens de venda</th>
-        <th>Ordens executadas</th>
-    </tr>
-    <tr><!-- Ordens de compra -->
-        <td type="extorders"><table type="openorders">
+        <% if session[:form_tipo] == nil or session[:form_tipo] == "buy" %>
+         
+        
+       <div class="col-sm-6 landing-padding-r">     
+                            <div id="ordersrefreshment">
+ <div class="tab-content">      
+    
+     <div id="landing_buy_2" class="tab-pane fade active in">
+    <div class="col-sm-12 landing-padding-r">   
+       	<!-- SELL ORDERS -->
+           <div class="top-text-buy-sell">
+           <div class="col-sm-6">
+           	            <h5 class="text-center text-uppercase">OFERTAS DE VENDA</h5>
+                       </div>
+           
+           <div class="col-sm-6 ">
+           	
+          <h5 class="text-center">
+                                    <span class="text-monto">
+                        Total: 
+                        242.51644432 BTC                    </span>
+                                </h5>
+           	
+           </div>
+</div>
+
+            <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
+                <div style="" id="mCSB_1">
+                    <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
+                        <table type="openorders">
+            <!--Consultar ordens aberta do Order.tipo = buy-->
+            <tr>
+                <td>Quantidade <%= @moeda_par1 %></td>
+                <td>Preço <%= @moeda_par2 %></td>
+            </tr>
+            <% if @consulta_venda != nil %>
+            <% @consulta_venda.each do |l| %>
+            <tr type="openorders">
+                
+                <td type="intorders"><%= l.amount %></td>
+                <td type="intorders"><%= l.price %></td>
+                
+                
+            </tr>
+            <% end %>
+            <% end %>
+        </table>
+                    </div>
+                    <div style="position: absolute; display: block;" class="mCSB_scrollTools">
+                    </div></div></div>
+
+        </div>
+    </div>
+    
+        
+        </td>
+        <% elsif session[:form_tipo] == "sell" %>
+        
+            
+             <div class="col-sm-6 landing-padding-r">     
+                            <div id="ordersrefreshment">
+ <div class="tab-content">      
+    
+     <div id="landing_buy_2" class="tab-pane fade active in">
+    <div class="col-sm-12 landing-padding-r">   
+       	<!-- SELL ORDERS -->
+           <div class="top-text-buy-sell">
+           <div class="col-sm-6">
+           	            <h5 class="text-center text-uppercase">OFERTAS DE COMPRA</h5>
+                       </div>
+           
+           <div class="col-sm-6 ">
+           	
+          <h5 class="text-center">
+                                    <span class="text-monto">
+                        Total: 
+                        242.51644432 BTC                    </span>
+                                </h5>
+           	
+           </div>
+</div>
+
+            <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
+                <div style="" id="mCSB_1">
+                    <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
+                        <table type="openorders" >
             <!--Consultar ordens aberta do Order.tipo = buy-->
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
@@ -45,60 +125,15 @@ table[type=openorders]{
             </tr>
             <% end %>
             <% end %>
-        </table></td>
-        <!-- Ordens de venda -->
-        <td type="extorders"><table type="openorders">
-            <!--Consultar ordens aberta do Order.tipo = buy-->
-            <tr>
-                <td>Quantidade <%= @moeda_par1 %></td>
-                <td>Preço  <%= @moeda_par2 %></td>
-            </tr>
-            <% if @consulta_venda != nil %>
-            <% @consulta_venda.each do |v| %>
-            <tr type="openorders">
-                
-                <td type="intorders"><%= v.amount %></td>
-                <td type="intorders"><%= v.price %></td>
-                
-                
-            </tr>
-            <% end %>
-            <% end %>
-            </table>
-        </td>
-        <!-- ordens executadas -->
-        <td type="extorders"><table type="openorders">
-            <!--Consultar ordens aberta do Order.tipo = buy-->
-            <tr>
-                <td>Data</td>
-                <td>Tipo</td>
-                <td>Quantidade</td>
-                <td>Preço</td>
-            </tr>
-            
-            <% if @consulta_realizadas != nil %>
-            <% @consulta_realizadas.each do |g| %>
-            <tr type="openorders">
-                
-                <td type="intorders" style="font-size:85%;width:100%;"><%= g.updated_at.strftime('%d/%m %I:%M:%S') %></td>
-                <% if g.tipo == "buy" %>
-                <td type="intorders">Compra</td>
-                <% elsif g.tipo == "sell" %>
-                <td type="intorders">Venda</td>
-                <% end %>
-                <td type="intorders"><%= g.amount %></td>
-                <td type="intorders"><%= g.price %></td>
-                
-            </tr>
-            <% end %>
-            <% end %>
-            </table>
-        </td>
-    </tr>
+        </table>
+                    </div>
+                    <div style="position: absolute; display: block;" class="mCSB_scrollTools">
+                    </div></div></div>
+
+        </div>
+    </div>
     
-    </tr>
-    <tr>
-        
-    </tr>
+        </td>
+        <% end %>
     
-</table>
+   

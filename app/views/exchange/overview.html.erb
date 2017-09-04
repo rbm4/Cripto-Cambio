@@ -50,11 +50,7 @@ font[id=submit-message]{
 			<article id="main2">
 
 				<header class="special container">
-					<h2 style="margin-top:-5%;">Pares de moedas:<strong></strong></h2>
-					<%= form_tag "/pair", :remote => true %>
 					
-					<p><%= submit_tag "[BTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/DOGE]", :id => "pair", :class => "small" %></p>
-					</form>
 					
 					<div id="table_overview"><%= render 'table_overview' %></div>
 				</header>
@@ -65,21 +61,131 @@ font[id=submit-message]{
 						<!-- Content -->
 							<div class="content" style="">
 								<section>
-									<div class="row" style="padding-top: 25px;">
+									<%= form_tag "/pair", :remote => true %>
+					
+					<p><%= submit_tag "[BTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/DOGE]", :id => "pair", :class => "small" %></p>
+					</form>
 									
-									<header><%= form_tag "/order_show_form", :remote => true %>
-										<h3>Novas Ordens: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
-									</header></form>
-									<header><%= form_tag "/open_order_show", :remote => true %>
-										<h3>Ordens Abertas: <%= submit_tag "Mostrar", data: { :remote => true }, :class => "small" %><%= submit_tag "Esconder", data: { :remote => true }, :class => "small" %> </h3> 
-									</header></form>
-									</div>
-									<font id="submit-message"><div id="message-order-submit"></div></font>
-									<div id="order_form"></div>
-									<div id="order_book"><%= render "orderbook" %></div>
+									<table>
+                                    <tr>
+                                        <td> <div id="order_form"><%= render 'buy_form' %></div></td>
+									<td><div id="order_book"><%= render "orderbook" %></div>
+									</tr>
+                                    </table>
+                                    
 								</section>
 							</div>
 
+
+
+
+
+
+<section>
+    <div class="cls_bg_white">
+
+        <div id="order_last"><%= render 'orderlast' %></div>
+
+            
+                            </div>          
+                        
+
+                        
+     
+    
+                <div class="row1">
+                    <div class="col-sm-12"> 
+                        <div id="ordershistory_t" class="row">
+<div class="row">
+    <div class="col-sm-12">
+        <!-- Active orders starts here -->
+        <div class="cls_buy_ttc">
+            <div class="cls_buy_ttc mar_top">
+           
+
+            <h4>Suas ordens ativos atuais</h4>
+            
+                    <h5><center>Sem ordens ativas no momento</center></h5>
+                            
+         </div> </div>
+        <!-- Active orders ends here -->
+
+        <!-- Trade History starts here -->		
+        <div class="cls_buy_ttc mar_top mCustomScrollbar _mCS_1">
+            <div style="position:relative;overflow:hidden; max-width:100%;" id="mCSB_1" class="mCustomScrollBox mCS-light">
+                <h4>História do comércio:</h4>
+
+                                    <div class="tradehist_tab special-scroll-landing">
+                        <div class="content_3 content mCustomScrollbar _mCS_1 _mCS_2 special-width-scroll" style="height:330px; max-width:900px; min-width: 240px;">
+                            <div style="position: relative; height: 100%; max-width: 100%; overflow: hidden; min-width: 500px;" id="mCSB_2" class="mCustomScrollBox mCS-light">
+                                <div style="position: relative; top: 0px;" class="mCSB_container">
+                                    <div class="mCustomScrollBox mCS-light" id="mCSB_1" style="position:relative;overflow:hidden; max-width:100%;">
+                                        <div class="cls_inner_buy">
+                                            <table class="table table-striped" style="width:100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="text-align:center;">Data</th>
+                                                        <th style="text-align:center;">Tipo</th>
+                                                        <th style="text-align:center;">Preço</th>
+                                                        <th style="text-align:center;">Quantidade (BTC)</th>
+                                                        <th style="text-align:center;">Total (USD)</th>
+                                                    </tr>
+                                                                                                            <tr>
+                                                            <td style="text-align:center;">2017-09-04 09:29:52</td>
+                                                                                                                            <td style="text-align:center;"><span style="color:red;">VENDER</span></td>
+                                                                                                                        <td style="text-align:center;">4375.71 USD</td>
+
+                                                            <td style="text-align:center;">0.02953000 BTC</td>
+
+                                                            <td style="text-align:center;">129.21 USD</td>
+                                                        </tr>
+                                                                                                                <tr>
+                                                            <td style="text-align:center;">2017-09-04 09:29:52</td>
+                                                                                                                            <td style="text-align:center;"><span style="color:green;">COMPRAR</span></td>
+                                                                                                                        <td style="text-align:center;">4375.71 USD</td>
+
+                                                            <td style="text-align:center;">0.02953000 BTC</td>
+
+                                                            <td style="text-align:center;">129.21 USD</td>
+                                                        </tr>
+                                                          
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+        </div>
+        <!-- Trade History ends here -->
+    </div>
+</div>
+
+</div>
+                    </div>
+                </div>
+
+
+
+                <!-- Sidebar Ends Here -->
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
 					</section>
+					
+					
 
 			

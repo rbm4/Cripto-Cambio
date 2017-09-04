@@ -1,0 +1,5 @@
+<% if @tipo == 'compra'%>
+$( "#order_form" ).html( "<%= escape_javascript( render( :partial => "buy_form") ) %>" );
+<% else @tipo == 'venda'%>
+$( "#order_form" ).html( "<%= escape_javascript( render( :partial => "sell_form") ) %>" );
+<% end %>

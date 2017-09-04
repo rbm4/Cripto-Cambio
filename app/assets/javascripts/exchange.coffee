@@ -14,8 +14,7 @@ executeQuery = () ->
     setTimeout(executeQuery, 6500)
     
     
-    
-    
+
     
     
     

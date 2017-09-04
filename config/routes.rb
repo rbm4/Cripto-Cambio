@@ -103,7 +103,9 @@ Rails.application.routes.draw do
   post '/add_saldos' => 'admin#add_saldos'
   post '/open_order_show' => 'exchange#open_order_show'
   get '/cancel_order' => 'orders#cancel_order'
-  
+  get '/saque' => 'exchange#withdrawal'
+  match '/withdrawal_js' => 'exchange#withdrawal_js', via: [:get, :post]
+  post '/order_form_dynamic' => 'exchange#form_js'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

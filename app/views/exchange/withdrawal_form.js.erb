@@ -2,5 +2,5 @@
 $( "#order_form" ).html( "" );
 $( "#message-order-submit" ).html( "" );
 <% else %>
-$( "#order_form" ).html( "<%= escape_javascript( render( :partial => "exchange/buy_form") ) %>" );
+$( "#order_form" ).html( "<%= escape_javascript( render( :partial => "exchange/orders_form") ) %>" );
 <% end %>

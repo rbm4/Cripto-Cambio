@@ -1,6 +1,6 @@
 class ExchangeController < ApplicationController
     require 'mercadopago.rb'
-    
+    skip_before_action :verify_authenticity_token, :only => [:formulario_dinamico]
     def open_order_show
         @open_tipo = ""
         @open_qtd = ""
@@ -274,10 +274,38 @@ class ExchangeController < ApplicationController
             @moedas = "<option>Selecione a moeda</option><option>[BTC] Bitcoin</option><option>[LTC] Litecoin</option><option>[DOGE] Dogecoin</option>"
             @type = "coinpayments"
         end
-        
+        respond_to do |format|
+            format.js
+        end
+        render do |page|
+        #page.html {}
+            page.js {}
+        end
     end
     def credit_save
         p params
+    end
+    def withdrawal 
+        @opcoes = "<option>Selecione</option><option>[BRL] Real</option><option>[LTC] Litecoin</option><option>[BTC] Bitcoin</option><option>[DOGE] Dogecoin</option>"
+    end
+    def withdrawal_js
+        p params
+    end
+    def form_js
+        if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+            @moeda_par1 = "BTC"
+            @moeda_par2 = "BRL"
+        else
+            @moeda_par1 = session[:moeda1_par]
+            @moeda_par2 = session[:moeda2_par]
+        end
+        if params["commit"] == "Comprar"
+            @tipo = 'compra'
+            session[:form_tipo] = "buy"
+        elsif params["commit"] == "Vender"
+            @tipo = 'venda'
+            session[:form_tipo] = "sell"
+        end
     end
 end
 

@@ -308,6 +308,9 @@ class OrdersController < ApplicationController
         #ordem criada e salva, após ser salva, verificar se há ordens existentes que executem esta.
     end
     def public_stats
+        @order_sell_px = 0
+        @order_buy_px = 0
+        @order_total_px = 0
         if session[:moeda1_par] == nil or session[:moeda2_par] == nil
             @moeda_par1 = "BTC"
             @moeda_par2 = "BRL"
@@ -315,6 +318,8 @@ class OrdersController < ApplicationController
             @moeda_par1 = session[:moeda1_par]
             @moeda_par2 = session[:moeda2_par]
         end
+        
+            
         string_par = "#{@moeda_par1 }/#{@moeda_par2}"
         g = 0
         f = 0
@@ -325,16 +330,18 @@ class OrdersController < ApplicationController
         consulta = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "open"}).order(price: :desc).limit(20)
         consulta.each do |h|
             @consulta_compra[g] = h
+            @order_buy_px += 80
             g += 1
         end
         consulta2 = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "open"}).order(price: :asc).limit(20)
         consulta2.each do |a|
+            @order_sell_px += 80
             @consulta_venda[f] = a
             f += 1
         end
         consulta3 = Exchangeorder.where("par = :str_par AND status = :stt", {str_par: string_par, stt: "executada"}).order(updated_at: :desc).limit(30)
         consulta3.each do |m|
-            
+            @order_total_px += 80
             @consulta_realizadas[o] = m
             o += 1
         end
