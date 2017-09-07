@@ -26,7 +26,7 @@ table[type=openorders]{
         <% if session[:form_tipo] == nil or session[:form_tipo] == "buy" %>
          
         
-       <div class="col-sm-6 landing-padding-r">     
+       <div class="landing-padding-r">     
                             <div id="ordersrefreshment">
  <div class="tab-content">      
     
@@ -56,7 +56,7 @@ table[type=openorders]{
             <!--Consultar ordens aberta do Order.tipo = buy-->
             <% if @consulta_venda != nil %>
             <% if @consulta_venda.empty? %>
-            <font id="submit-message">Não Há ordens abertas nesta modalidade de negociação.</font>
+            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
             <% else %>
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
