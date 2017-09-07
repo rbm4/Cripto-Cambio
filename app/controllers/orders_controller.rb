@@ -38,9 +38,12 @@ class OrdersController < ApplicationController
         session[:moeda2_venda] = nil
         order = Exchangeorder.new
         
-        order.par = "#{params["moeda1"]}/#{params["moeda2"]}"
+        order.par = "#{params["moeda1"]}/#{params["moeda1"]}"
+        if params["moeda1"] == nil or params["moeda2"] == nil
+        end
         
-        if params["commit"] == "Comprar"
+        if params["commit"] == "comprar"
+            @renderz = "buy"
             type = "buy"
             discount_saldo = BigDecimal(params["qtd_moeda1#{type}"].gsub(/,/,"."),8) * BigDecimal(params["qtd_moeda2#{type}"].gsub(/,/,"."),8)
             if BigDecimal(current_user_saldo["#{params["moeda2"]}"],8) > discount_saldo
@@ -56,6 +59,7 @@ class OrdersController < ApplicationController
                 return
             end
         elsif params["commit"] == "vender"
+            @renderz = "sell"
             type = "sell"
             current_user_saldo["#{params["moeda1"]}"] = (BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) - BigDecimal(params["qtd_moeda1#{type}"].gsub(/,/,"."),8)).to_s
             if BigDecimal(current_user_saldo["#{params["moeda1"]}"],8) > 0

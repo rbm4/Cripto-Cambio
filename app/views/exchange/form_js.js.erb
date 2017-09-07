@@ -1,5 +1,7 @@
 <% if @tipo == 'compra'%>
 $( "#order_form" ).html( "<%= escape_javascript( render( :partial => "buy_form") ) %>" );
+$('#order_book').html('<img src="images/loading.gif" height="64" width="64" />');
 <% else @tipo == 'venda'%>
 $( "#order_form" ).html( "<%= escape_javascript( render( :partial => "sell_form") ) %>" );
+$('#order_book').html('<img src="images/loading.gif" height="64" width="64" />');
 <% end %>

@@ -7,8 +7,7 @@ class ExchangeController < ApplicationController
         @open_price = ""
         @open_value = ""
         @open_cancel = ""
-        if params["commit"] == "Mostrar"
-            if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+        if session[:moeda1_par] == nil and session[:moeda2_par] == nil
                 @par = "BTC/BRL"
                 j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :users", {str_par: @par.upcase, stt: "open", users: current_user.username}).order(:created_at)
                 if j.any?
@@ -16,7 +15,7 @@ class ExchangeController < ApplicationController
                 else
                     @open_tipo << "Não há ordens abertas."
                 end
-            else
+        else
                 @par = "#{session[:moeda1_par]}/#{session[:moeda2_par]}"
                 j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :usuario_id", {str_par: @par.upcase, stt: "open", usuario_id: current_user.username}).order(:created_at)
                 if j.any?
@@ -24,11 +23,6 @@ class ExchangeController < ApplicationController
                 else
                     @open_tipo << "Não há ordens abertas."
                 end
-            end
-        elsif params["commit"] == "Esconder"
-            @esconder = true
-            @moeda_par1 = nil
-            @moeda_par2 = nil
         end
     end
     def order_show_form
@@ -61,6 +55,12 @@ class ExchangeController < ApplicationController
         session[:moeda2_par] = par_moedas[1]
         @moeda_par1 = session[:moeda1_par]
         @moeda_par2 = session[:moeda2_par]
+        if session[:form_tipo] == "buy"
+            @tipo = 'compra'
+        elsif session[:form_tipo] == "sell"
+            @tipo = 'venda'
+        end
+        
         
         render 'order_show_form'
     end
@@ -292,6 +292,10 @@ class ExchangeController < ApplicationController
         p params
     end
     def form_js
+        session[:moeda1_compra] = nil
+        session[:moeda2_compra] = nil
+        session[:moeda1_venda] = nil
+        session[:moeda2_venda] = nil
         if session[:moeda1_par] == nil and session[:moeda2_par] == nil
             @moeda_par1 = "BTC"
             @moeda_par2 = "BRL"

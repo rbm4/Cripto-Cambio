@@ -6,67 +6,109 @@ function loadingSell()
 function loadingBuy()
 {
  $('#buybutton').html('<img src="images/loading.gif" height="42" width="42" />');
+ var qtd_moeda1 = document.getElementById("buym1").value
+ var moeda1 = document.getElementById("moeda1").value
+ var moeda2 = document.getElementById("moeda2").value
+ var qtd_moeda2 = document.getElementById("buym2").value
+ $.post( "/new_order", { qtd_moeda1buy: qtd_moeda1, qtd_moeda2buy: qtd_moeda2, moeda1: moeda1, moeda2: moeda2, commit: "comprar" } );
 }
-
+function calctax()
+{
+	var moeda1 = document.getElementById("moeda1").value
+ 	var moeda2 = document.getElementById("moeda2").value
+	var qtd_moeda1 = parseFloat((document.getElementById("buym1").value).replace(",","."))
+	var qtd_moeda2 = parseFloat((document.getElementById("buym2").value).replace(",","."))
+	var comissao = qtd_moeda1 * 0.005
+	var total = qtd_moeda1 * qtd_moeda2
+	var liquid = qtd_moeda1 - comissao
+	console.log("Calculo de taxa")
+	console.log(comissao)
+	console.log(total)
+	console.log(liquid)
+	$( "#total_buy" ).html(total.toFixed(8) + " " + moeda2);
+	$( "#comission_buy" ).html(comissao.toFixed(8) + " " + moeda1);
+	$( "#liquid_buy" ).html(liquid.toFixed(8) + " " + moeda1);
+	
+}
 </script>
 <style>
+	input[id=pairselected]:hover{
+		background: white;
+		font-size: 13px;
+		color: black;
+ 		height: 50px;
+	}
+	input[id=pairselected]{
+		background: black;
+		font-size: 13px;
+		color: white;
+ 		height: 50px;
+	}
+	input[id=pairselect]{
+		background: white;
+		font-size: 13px;
+		color: black;
+ 		height: 50px;
+	}
+	input[id=pairselect]:hover{
+		background: black;
+		font-size: 13px;
+		color: white;
+ 		height: 50px;
+	}
+	
 table[id=Form_order]{
     border-spacing: -2px;
     border-collapse: collapse;
 }
+div[id=form]{
+	font-size: 70%;
+	padding-top: 5%;
+	position: static;
+}
+div[id=form]{
+	padding-top:10px;
+}
 </style>
                                 
-									<table style="border: 4px;border-style: bold;" id="form_order">
-										<tr>
-										<td style="white-space: nowrap;">
+									<div class="row" id="form_order;padding-right: 40px;">
+									<ul>
+										<li>
+											COMPRAR:
+										</li>
 										<%= form_tag "/order_form_dynamic", :remote => true %>
-					
-					
-						<%= submit_tag "Comprar", :class => "small" %>
-						<%= submit_tag "Vender", :class => "small" %>
-					
-					</form>
+											<li><%= submit_tag "Comprar", :class => "small" , :id => "pairselected" %> <%= submit_tag "Vender", :class => "small", :id => "pairselect" %></li>
 										
-										</td>
-										<th></th>
-										<%= form_tag '/new_order', :remote => true %>
-										</tr>
-										<tr>COMPRAR: </tr>
-										<%= hidden_field_tag :moeda1, @moeda_par1 %>
-										<%= hidden_field_tag :moeda2, @moeda_par2 %>
-										<tr>
-											<td><h6>Quantidade de <%= @moeda_par1.upcase %>:</h6></td>
-											<td><%= text_field_tag :qtd_moeda1buy, nil, :placeholder => @moeda_par1.upcase, :id => "buym1", data: { remote: true, url: url_for( action: :calc_tax, controller: :exchange)} %></td>
-											<td></td>
+									
+					</form>
+										<%= form_tag '/new_order', :remote => true do -%>
+										<%= hidden_field_tag :moeda1, @moeda_par1, :id => "moeda1" %>
+										<%= hidden_field_tag :moeda2, @moeda_par2, :id => "moeda2" %>
+										<div class="row">
+										<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">Quantidade de <%= @moeda_par1.upcase %>:</div>
+										<div class="col-sm-2"  id="form" style="padding-top: 10px;">
+											<%= text_field_tag :qtd_moeda1buy, nil, :placeholder => @moeda_par1.upcase, :id => "buym1", :onChange => 'calctax()' %>
+											</div>	</div>
 											
-										</tr>
-										<tr>
-											<td><h6>Preço unitário <%= @moeda_par2.upcase %>:</h6></td>
-											<td><%= text_field_tag :qtd_moeda2buy, nil, :placeholder => @moeda_par2.upcase, :id => "buym2", data: { remote: true, url: url_for( action: :calc_tax, controller: :exchange)}  %></td>
-											<td></td>
+											<div class="row">
+									<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">	Preço unitário <%= @moeda_par2.upcase %>:</div>
+											<div class="col-sm-2" id="form" style="padding-top: 10px;"><%= text_field_tag :qtd_moeda2buy, nil, :placeholder => @moeda_par2.upcase, :id => "buym2", :onChange => 'calctax()' %></div>
+										</div>
 											
-										</tr>
-										<tr>
-											<td><h6>Total [<%= @moeda_par2.upcase %>]: </h6></td>
-											<td><h6><div id="total_buy"></div></h6></td>
-											<td></td>
-											
-										</tr>
-										<tr>
-											<td><h6>Comissão [<%= @moeda_par1.upcase %>]: </h6></td>
-											<td><h6><div id="comission_buy"></div></h6></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td><h6>Líquido [<%= @moeda_par1.upcase %>]: </h6></td>
-											<td><h6><div id="liquid_buy"></div></h6></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td></td>
-											<td style="white-space: nowrap;"><h3><%= submit_tag "Comprar", :class => "small", :onClick => "loadingBuy()" %><div id="buybutton"></div></h3></td>
-											<td></td>
-										</tr>
-									</table>
-									</form>
-								
+											<div class="row">
+											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">Total [<%= @moeda_par2.upcase %>]:</div>
+											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;"><div id="total_buy"></div></div>
+											</div>
+											<div class="row">
+											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">Comissão [<%= @moeda_par1.upcase %>]: </div>
+											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;"><div id="comission_buy"></div></div>
+											</div>
+											<div class="row">
+											<div class="col-md-6" id="form" style="padding-top: 10px;width:170px;">Líquido [<%= @moeda_par1.upcase %>]: </div>
+										<div class="col-sm-2" id="form" style="padding-top: 10px;">	<h6><div id="liquid_buy"></div></div>
+											</div>
+											<td style="white-space: nowrap;"><h3><div id="buybutton"><%= submit_tag "Comprar", :class => "small", :onClick => 'loadingBuy()' %><% end -%></div></h3></td>
+										
+									
+									</ul>
+								</div>

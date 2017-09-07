@@ -54,19 +54,23 @@ table[type=openorders]{
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
                         <table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
+            <% if @consulta_venda != nil %>
+            <% if @consulta_venda.empty? %>
+            <font id="submit-message">Não Há ordens abertas nesta modalidade de negociação.</font>
+            <% else %>
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
             </tr>
-            <% if @consulta_venda != nil %>
             <% @consulta_venda.each do |l| %>
             <tr type="openorders">
                 
-                <td type="intorders"><%= l.amount %></td>
-                <td type="intorders"><%= l.price %></td>
+                <td type="intorders"><%= l.amount %> <%= @moeda_par1 %></td>
+                <td type="intorders"><%= l.price %>  <%= @moeda_par2 %></td>
                 
                 
             </tr>
+            <% end %>
             <% end %>
             <% end %>
         </table>
@@ -118,12 +122,14 @@ table[type=openorders]{
             <% @consulta_compra.each do |l| %>
             <tr type="openorders">
                 
-                <td type="intorders"><%= l.amount %></td>
-                <td type="intorders"><%= l.price %></td>
+                <td type="intorders"><%= l.amount %>  <%= @moeda_par1 %></td>
+                <td type="intorders"><%= l.price %>  <%= @moeda_par2 %></td>
                 
                 
             </tr>
             <% end %>
+            <% else %>
+            <tr> <td> Não Há ordens abertas nessa modalidade de negociação.</td></tr>
             <% end %>
         </table>
                     </div>
