@@ -1,27 +1,4 @@
-<style>
-td[type=extorders] {
-    border-style: groove;
-   border: 1px solid black;
-   text-align: center;
-   font-size: 13px;
-}
-    td[type=intorders] {
-    border-style: groove;
-   border: 1px solid black;
-   text-align: center;
-   font-size: 13px;
-   
-}
-tr:hover[type=openorders]{
-    background-color: #D8D8D8
-}
-table[type=openorders]{
-    width:80%;
-    border-spacing: 2px;
-    border-collapse: separate;
-    border-collapse: collapse;
-}
-</style>
+
 
         <% if session[:form_tipo] == nil or session[:form_tipo] == "buy" %>
          
@@ -114,11 +91,15 @@ table[type=openorders]{
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
                         <table type="openorders" >
             <!--Consultar ordens aberta do Order.tipo = buy-->
+            
+            <% if @consulta_compra != nil %>
+            <% if @consulta_venda.empty? %>
+            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
+            <% else %>
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
             </tr>
-            <% if @consulta_compra != nil %>
             <% @consulta_compra.each do |l| %>
             <tr type="openorders">
                 
@@ -128,8 +109,7 @@ table[type=openorders]{
                 
             </tr>
             <% end %>
-            <% else %>
-            <tr> <td> Não Há ordens abertas nessa modalidade de negociação.</td></tr>
+            <% end %>
             <% end %>
         </table>
                     </div>

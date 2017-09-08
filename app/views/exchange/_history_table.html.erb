@@ -1,0 +1,23 @@
+<table type="openorders" style:"text-align: center;">
+   <tr>
+        <td class="borderbottom" style:"text-align: center;">Data/Horda</td>
+        <td class="borderbottom" style:"text-align: center;">Tipo</td>
+        <td class="borderbottom" style:"text-align: center;">Quantidade</td>
+        <td class="borderbottom" style:"text-align: center;">Preço unitário</td>
+    </tr>
+    <% if @consulta_realizadas.any?%>
+    <% array = @par.split("/") %>
+    <% @consulta_realizadas.each do |j| %>
+    <tr class="open">
+        <td class="borderbottom" style:"text-align: center;"><%= j.updated_at.strftime("%d/%m/%y %H:%M:%S") %></td>
+        <% if j.tipo == "buy"%>
+        <td class="borderbottom" style:"text-align: center;">Compra</td>
+        <% else %>
+        <td class="borderbottom" style:"text-align: center;">Venda</td>
+        <% end %>
+        <td class="borderbottom" style:"text-align: center;"><%= j.amount %> <%= array[0] %></td>
+        <td class="borderbottom" style:"text-align: center;"><%= j.price %> <%= array[1] %></td>
+    </tr>
+    <% end %>
+    <% end %>
+</table>

@@ -2,6 +2,30 @@
 <html>
 <head>
 <style>
+
+td[type=extorders] {
+    border-style: groove;
+   border: 1px solid black;
+   text-align: center;
+   font-size: 13px;
+}
+    td[type=intorders] {
+    border-style: groove;
+   border: 1px solid black;
+   text-align: center;
+   font-size: 13px;
+   
+}
+tr:hover[type=openorders]{
+    background-color: #D8D8D8
+}
+table[type=openorders]{
+    width:80%;
+    border-spacing: 2px;
+    border-collapse: separate;
+    border-collapse: collapse;
+}
+
 	input[id=pair]{
 		background: #14100C;
 		font-size: 13px;
@@ -74,7 +98,7 @@ div[id=order_last]{
 					
 									<div class="row">
 									<div class="col-sm-6"> <div id="order_form"><%= render 'buy_form' %></div></div>
-									<div class="col-sm-6"><div id="order_book"><%= render "orderbook" %></div>	</div>
+									<div class="col-sm-6"><div id="order_book"><img src="images/loading.gif" height="42" width="42" /></div>	</div>
 								    </div><br>
 								    
 								</section>
@@ -86,13 +110,13 @@ div[id=order_last]{
 <div class="row">
     <div class="col-sm-12">
         <!-- Active orders starts here -->
-        <div class="cls_buy_ttc">
+       <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r"> <div class="cls_buy_ttc ">
             <div class="cls_buy_ttc mar_top">
            
 
-            <h4>Suas ordens ativos atuais</h4>
+            <h4>Suas ordens abertas atuais</h4>
             
-                    <h5><center>Sem ordens ativas no momento</center></h5>
+                    <div id="open_orders_table" style="padding-left: 50px;"><img src="images/loading.gif" height="42" width="42" /></div>
                             
          </div> </div>
         <!-- Active orders ends here -->
@@ -101,7 +125,7 @@ div[id=order_last]{
         <div class="cls_buy_ttc mar_top mCustomScrollbar _mCS_1">
             <div style="position:relative;overflow:hidden; max-width:100%;" id="mCSB_1" class="mCustomScrollBox mCS-light">
                 <h4>História do comércio:</h4>
-<div id="history"><%= order_show_form_url %></div>
+<div id="history"><img src="images/loading.gif" height="42" width="42" /></div>
         <!-- Trade History ends here -->
     </div>
 </div>

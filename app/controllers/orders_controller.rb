@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
     def exchange_order_create
         #par: nil, tipo: nil, amount: nil, user: nil, has_execution: nil, price: nil, status: nil
         #validações
+        p current_user.inspect
         current_user_saldo = eval(get_saldo(current_user))
         session[:moeda1_compra] = nil
         session[:moeda2_compra] = nil
@@ -39,9 +40,7 @@ class OrdersController < ApplicationController
         order = Exchangeorder.new
         
         order.par = "#{params["moeda1"]}/#{params["moeda1"]}"
-        if params["moeda1"] == nil or params["moeda2"] == nil
-        end
-        
+
         if params["commit"] == "comprar"
             @renderz = "buy"
             type = "buy"
@@ -348,6 +347,29 @@ class OrdersController < ApplicationController
             @order_total_px += 80
             @consulta_realizadas[o] = m
             o += 1
+        end
+        #ordens abertas
+        @open_tipo = ""
+        @open_qtd = ""
+        @open_price = ""
+        @open_value = ""
+        @open_cancel = ""
+        if session[:moeda1_par] == nil and session[:moeda2_par] == nil
+                @par = "BTC/BRL"
+                j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :users", {str_par: @par.upcase, stt: "open", users: current_user.username}).order(:created_at)
+                if j.any?
+                    @orders = j
+                else
+                    @open_tipo << "Não há ordens abertas."
+                end
+        else
+                @par = "#{session[:moeda1_par]}/#{session[:moeda2_par]}"
+                j = Exchangeorder.where("par = :str_par AND status = :stt AND usuario_id = :usuario_id", {str_par: @par.upcase, stt: "open", usuario_id: current_user.username}).order(:created_at)
+                if j.any?
+                    @orders = j
+                else
+                    @open_tipo << "Não há ordens abertas."
+                end
         end
     end
     def cancel_order
