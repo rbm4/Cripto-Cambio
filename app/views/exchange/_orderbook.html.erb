@@ -25,12 +25,11 @@
            	
            </div>
 </div>
-            <% if @consulta_venda != nil %>
-            <% if @consulta_venda.empty? %>
+            <% if @consulta2.empty? %>
             <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
             <% else %>
             <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
-                <div style="" id="mCSB_1">
+                
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
                         <table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
@@ -38,7 +37,7 @@
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
             </tr>
-            <% @consulta_venda.each do |l| %>
+            <% @consulta2.each do |l| %>
             <tr type="openorders">
                 
                 <td type="intorders"><%= l.amount %> <%= @moeda_par1 %></td>
@@ -48,10 +47,9 @@
             </tr>
             <% end %>
             <% end %>
-            <% end %>
         </table>
                     </div>
-                    </div></div>
+                    </div>
 
         </div>
     </div>
@@ -87,8 +85,7 @@
             
             <!--Consultar ordens aberta do Order.tipo = buy-->
             
-            <% if @consulta_venda != nil %>
-            <% if @consulta_venda.empty? %>
+            <% if @consulta.empty? %>
             <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
             <% else %>
             <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
@@ -99,7 +96,7 @@
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
             </tr>
-            <% @consulta_compra.each do |l| %>
+            <% @consulta.each do |l| %>
             <tr type="openorders">
                 
                 <td type="intorders"><%= l.amount %>  <%= @moeda_par1 %></td>
@@ -109,7 +106,7 @@
             </tr>
             <% end %>
             <% end %>
-            <% end %>
+            
         </table>
                     </div>
                     </div></div>

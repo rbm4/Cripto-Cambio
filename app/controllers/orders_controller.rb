@@ -324,29 +324,21 @@ class OrdersController < ApplicationController
         
             
         string_par = "#{@moeda_par1.upcase}/#{@moeda_par2.upcase}"
-        g = 0
-        f = 0
-        o = 0
+        
         @consulta_compra = Array.new
         @consulta_venda = Array.new
         @consulta_realizadas = Array.new
-        consulta = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "open"}).order(price: :desc).limit(20)
-        consulta.each do |h|
-            @consulta_compra[g] = h
+        @consulta = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "buy", stt: "open"}).order(price: :desc).limit(20)
+        @consulta.each do |h|
             @order_buy_px += 80
-            g += 1
         end
-        consulta2 = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "open"}).order(price: :asc).limit(20)
-        consulta2.each do |a|
+        @consulta2 = Exchangeorder.where("par = :str_par AND tipo = :type AND status = :stt", {str_par: string_par, type: "sell", stt: "open"}).order(price: :asc).limit(20)
+        @consulta2.each do |a|
             @order_sell_px += 80
-            @consulta_venda[f] = a
-            f += 1
         end
-        consulta3 = Exchangeorder.where("par = :str_par AND status = :stt", {str_par: string_par, stt: "executada"}).order(updated_at: :desc).limit(30)
-        consulta3.each do |m|
+        @consulta3 = Exchangeorder.where("par = :str_par AND status = :stt", {str_par: string_par, stt: "executada"}).order(updated_at: :desc).limit(30)
+        @consulta3.each do |m|
             @order_total_px += 80
-            @consulta_realizadas[o] = m
-            o += 1
         end
         #ordens abertas
         @open_tipo = ""

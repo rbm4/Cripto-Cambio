@@ -48,7 +48,7 @@ Par atual: <font color="red"><%= @par %></font>
     <% end %>
     <tr class="open">
         <td class="borderbottom"><%= tipo %></td>
-        <td class="borderbottom"><%= k.amount %></td>
+        <td class="borderbottom"><%= k.amount %> <%= @par.split("/")[0] %></td>
         <td class="borderbottom"><%= k.price %>  <%= moeda_base %></td>
         <td class="borderbottom"><%= String(BigDecimal(k.amount,8) * BigDecimal(k.price,8)) %> <%= moeda_base %></td>
         <td class="borderbottom"><a href="cancel_order?id=<%= k.id %>" data-remote="true" data-confirm="Cancelar ordem?" method="POST">Cancelar</a></td>
