@@ -25,16 +25,15 @@
            	
            </div>
 </div>
-
+            <% if @consulta_venda != nil %>
+            <% if @consulta_venda.empty? %>
+            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
+            <% else %>
             <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
                 <div style="" id="mCSB_1">
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
                         <table type="openorders">
             <!--Consultar ordens aberta do Order.tipo = buy-->
-            <% if @consulta_venda != nil %>
-            <% if @consulta_venda.empty? %>
-            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
-            <% else %>
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
@@ -86,16 +85,17 @@
            </div>
 </div>
 
+            
+            <!--Consultar ordens aberta do Order.tipo = buy-->
+            
+            <% if @consulta_venda != nil %>
+            <% if @consulta_venda.empty? %>
+            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
+            <% else %>
             <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
                 <div style="" id="mCSB_1">
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
                         <table type="openorders" >
-            <!--Consultar ordens aberta do Order.tipo = buy-->
-            
-            <% if @consulta_compra != nil %>
-            <% if @consulta_venda.empty? %>
-            <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
-            <% else %>
             <tr>
                 <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
@@ -113,8 +113,7 @@
             <% end %>
         </table>
                     </div>
-                    <div style="position: absolute; display: block;" class="mCSB_scrollTools">
-                    </div></div></div>
+                    </div></div>
 
         </div>
     </div>

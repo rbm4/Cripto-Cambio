@@ -70,6 +70,7 @@ class SessionsController < ApplicationController
     parameters = {'secret' => ENV["CAPTCHA_KEY"], 'response' => params["g-recaptcha-response"]}
     x = Net::HTTP.post_form(URI.parse('https://www.google.com/recaptcha/api/siteverify'), parameters)
     hash = JSON.parse(x.body)
+    p hash
     @authorized_user = Usuario.authenticate(params[:username_or_email],params[:login_password])
     if @authorized_user
       if @authorized_user.email_confirmed == true 
