@@ -71,8 +71,8 @@ class ExchangeController < ApplicationController
         session[:moeda2_venda] = nil
         @moeda_par1 = "BTC"
         @moeda_par2 = "BRL"
-        @valor_buy = 8932.32 #verificar preço da última venda das Order.all.last if Order.type == "buy"
-        @valor_sell = 8876.22 #verificar preço da última compra das Order.all.last if Order.type == "sell"
+        session[:form_tipo] = nil
+        session[:form_tipo] = nil
         #Par de moedas inicial: [BRL/BTC]
     end
     def calc_tax

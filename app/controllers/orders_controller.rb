@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
         session[:moeda2_venda] = nil
         order = Exchangeorder.new
         
-        order.par = "#{params["moeda1"]}/#{params["moeda2"]}"
+        order.par = "#{params["moeda1"].upcase}/#{params["moeda2"].upcase}"
 
         if params["commit"] == "comprar"
             @renderz = "buy"
@@ -323,7 +323,7 @@ class OrdersController < ApplicationController
         end
         
             
-        string_par = "#{@moeda_par1 }/#{@moeda_par2}"
+        string_par = "#{@moeda_par1.upcase}/#{@moeda_par2.upcase}"
         g = 0
         f = 0
         o = 0
