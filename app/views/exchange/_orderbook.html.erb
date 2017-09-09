@@ -10,7 +10,6 @@
      <div id="landing_buy_2" class="tab-pane fade active in">
     <div class="col-sm-12 landing-padding-r">   
        	<!-- SELL ORDERS -->
-           <div class="top-text-buy-sell">
            <div class="col-sm-6">
            	            <h5 class="text-center text-uppercase">OFERTAS DE VENDA</h5>
                        </div>
@@ -24,7 +23,6 @@
                                 </h5>
            	
            </div>
-</div>
             <% if @consulta2.empty? %>
             <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
             <% else %>
@@ -59,14 +57,13 @@
         <% elsif session[:form_tipo] == "sell" %>
         
             
-             <div class="col-sm-6 landing-padding-r">     
+       <div class="landing-padding-r">     
                             <div id="ordersrefreshment">
  <div class="tab-content">      
     
      <div id="landing_buy_2" class="tab-pane fade active in">
     <div class="col-sm-12 landing-padding-r">   
        	<!-- SELL ORDERS -->
-           <div class="top-text-buy-sell">
            <div class="col-sm-6">
            	            <h5 class="text-center text-uppercase">OFERTAS DE COMPRA</h5>
                        </div>
@@ -80,20 +77,16 @@
                                 </h5>
            	
            </div>
-</div>
-
-            
-            <!--Consultar ordens aberta do Order.tipo = buy-->
-            
             <% if @consulta.empty? %>
             <font id="submit-message">Não Há ordens abertas para atender esta modalidade de negociação.</font>
             <% else %>
             <div class="content_3 content mCustomScrollbar _mCS_1 col-sm-12 landing-padding-r" style="height:<%= @order_sell_px %>px;">
-                <div style="" id="mCSB_1">
+                
                     <div class="cls_inner_buy" style="overflow-y: scroll; height:400px;">
-                        <table type="openorders" >
+                        <table type="openorders">
+            <!--Consultar ordens aberta do Order.tipo = buy-->
             <tr>
-                <td>Quantidade <%= @moeda_par1 %></td>
+               <td>Quantidade <%= @moeda_par1 %></td>
                 <td>Preço <%= @moeda_par2 %></td>
             </tr>
             <% @consulta.each do |l| %>
@@ -102,19 +95,18 @@
                 <td type="intorders"><%= l.amount %>  <%= @moeda_par1 %></td>
                 <td type="intorders"><%= l.price %>  <%= @moeda_par2 %></td>
                 
-                
             </tr>
             <% end %>
             <% end %>
-            
         </table>
                     </div>
-                    </div></div>
+                    </div>
 
         </div>
     </div>
     
+        
         </td>
         <% end %>
-    
+         
    

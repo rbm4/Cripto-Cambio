@@ -7,7 +7,7 @@
     </tr>
     <% if @consulta3.any?%>
     <% array = @par.split("/") %>
-    <% @consulta_realizadas.each do |j| %>
+    <% @consulta3.each do |j| %>
     <tr class="open">
         <td class="borderbottom" style:"text-align: center;"><%= j.updated_at.strftime("%d/%m/%y %H:%M:%S") %></td>
         <% if j.tipo == "buy"%>
