@@ -104,12 +104,18 @@ div[id=order_last]{
 							<div class="content" style="">
 							<section>
 								<div class="row paddingtop widthcem">
-								<div class="col-sm-3 center"><ul><li><%= image_tag("btc.png", :onClick => "pair('[BTC/BRL]')", size: "64x64", :class => "link") %></li><li>[BTC/BRL]</li></ul></div>
-								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BRL]')", size: "64x64", :class => "link") %></li><li>[LTC/BRL]</li></ul></div>
-								<div class="col-sm-3 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BRL]')", size: "64x64", :class => "link") %></li><li>[DOGE/BRL]</li></ul></div>
-								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BTC]')", size: "64x64", :class => "link") %></li><li>[LTC/BTC]</li></ul></div>
-								<div class="col-sm-3 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BTC]')", size: "64x64", :class => "link") %></li><li>[DOGE/BTC]</li></ul></div>
-								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/DOGE]')", size: "64x64", :class => "link") %></li><li>[LTC/DOGE]</li></ul></div>
+									<% set_pair("BTC/BRL")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("btc.png", :onClick => "pair('[BTC/BRL]')", size: "64x64", :class => "link") %></li><li>[BTC/BRL]</li><%= render 'lastprice' %></ul></div>
+								<% set_pair("LTC/BRL")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BRL]')", size: "64x64", :class => "link") %></li><li>[LTC/BRL]</li><%= render 'lastprice' %></ul></div>
+								<% set_pair("DOGE/BRL")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BRL]')", size: "64x64", :class => "link") %></li><li>[DOGE/BRL]</li><%= render 'lastprice' %></ul></div>
+								<% set_pair("LTC/BTC")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BTC]')", size: "64x64", :class => "link") %></li><li>[LTC/BTC]</li><%= render 'lastprice' %></ul></div>
+								<% set_pair("DOGE/BTC")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BTC]')", size: "64x64", :class => "link") %></li><li>[DOGE/BTC]</li><%= render 'lastprice' %></ul></div>
+								<% set_pair("LTC/DOGE")%>
+								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/DOGE]')", size: "64x64", :class => "link") %></li><li>[LTC/DOGE]</li><%= render 'lastprice' %></ul></div>
 								</div>
 					<div id="order_last"><%= render 'orderlast' %></div>
 					<font id="submit-message"><div id="message-order-submit"></div></font>

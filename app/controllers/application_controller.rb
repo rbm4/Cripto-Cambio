@@ -12,10 +12,26 @@ class ApplicationController < ActionController::Base
   attr_accessor :viewname
   helper_method :limite_compra_btc, :confirmar_email, :limite_compra_ltc, :useremail, :current_user, :current_order, :has_order?, :username, :receber_pagamento, :moeda, :buy, :convert_bitcoin, :is_admin?, :archive_wallet, :itens_string, :params_post, :userphone, :captcha
   after_filter :cors_set_access_control_headers
-  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange, :total_usuario_saldo, :get_saldo, :cpt_transaction_user, :add_saldo
+  helper_method :wich_status, :brl_btc, :bitcoin_para_real, :type, :standard_conversion, :litecoin_para_bitcoin, :config_block, :litecoin_para_x_bitcoin, :block_address, :balance_btc_coinbase, :parabenizar_ganho, :validate_operation, :consulta_saldo_cripto, :last_order_exchange, :total_usuario_saldo, :get_saldo, :cpt_transaction_user, :add_saldo, :set_pair
   #mneconic 'icon monkey curtain tomorrow guard above genuine episode rival palm frame disease'
 
   #heroku email
+  def set_pair(string)
+    hash, base = last_order_exchange(string)
+    if hash["#{string}/last_buy"] == nil
+      buy_string = "-------"
+    else
+      buy_string = hash["#{string}/last_buy"]
+    end
+    if hash["#{string}/last_sell"] == nil
+      sell_string = "-------"
+    else
+      sell_string = hash["#{string}/last_sell"]
+    end
+    @buy = "#{buy_string} #{base}"
+    p @buy
+    @sell = "#{sell_string} #{base}"
+  end
   def cpt_transaction_user(user,id,username,email)
         url = URI.parse('https://cpttransactions.herokuapp.com/add_users')
         req = Net::HTTP::Post.new(url.request_uri)
