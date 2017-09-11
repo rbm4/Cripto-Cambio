@@ -14,8 +14,5 @@ executeQuery = () ->
     setTimeout(executeQuery, 6500)
     
     
-
-    
-    
-    
-    
+@pair = (string) ->
+ $.post( "/pair", { commit: string } );

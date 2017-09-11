@@ -69,8 +69,22 @@ div[id=order_last]{
     font-size: 14px;
 	font-weight:bold;
 }
+.link{
+	cursor: pointer; cursor: hand;
+}
+.center{
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+.widthcem{
+	width: 100%;
+}
+.paddingtop{
+	padding-top:8px;
+}
 </style>
-<%= javascript_include_tag 'application', 'exchange' %>
+<%= javascript_include_tag 'exchange' %>
 </head>
 
 	<body class="no-sidebar">
@@ -89,14 +103,18 @@ div[id=order_last]{
 						<!-- Content -->
 							<div class="content" style="">
 							<section>
-									<%= form_tag "/pair", :remote => true %>
-					
-					<p><%= submit_tag "[BTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BRL]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[DOGE/BTC]", :id => "pair", :class => "small" %><%= submit_tag "[LTC/DOGE]", :id => "pair", :class => "small" %></p>
-					</form>
+								<div class="row paddingtop widthcem">
+								<div class="col-sm-3 center"><ul><li><%= image_tag("btc.png", :onClick => "pair('[BTC/BRL]')", size: "64x64", :class => "link") %></li><li>[BTC/BRL]</li></ul></div>
+								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BRL]')", size: "64x64", :class => "link") %></li><li>[LTC/BRL]</li></ul></div>
+								<div class="col-sm-3 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BRL]')", size: "64x64", :class => "link") %></li><li>[DOGE/BRL]</li></ul></div>
+								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BTC]')", size: "64x64", :class => "link") %></li><li>[LTC/BTC]</li></ul></div>
+								<div class="col-sm-3 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BTC]')", size: "64x64", :class => "link") %></li><li>[DOGE/BTC]</li></ul></div>
+								<div class="col-sm-3 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/DOGE]')", size: "64x64", :class => "link") %></li><li>[LTC/DOGE]</li></ul></div>
+								</div>
 					<div id="order_last"><%= render 'orderlast' %></div>
 					<font id="submit-message"><div id="message-order-submit"></div></font>
 					
-									<div class="row">
+									<div class="contentcolor row">
 									<div class="col-sm-6"> <div id="order_form"><%= render 'buy_form' %></div></div>
 									<div class="col-sm-6"><div id="order_book"><img src="images/loading.gif" height="42" width="42" /></div>	</div>
 								    </div><br>

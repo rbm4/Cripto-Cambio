@@ -1,8 +1,8 @@
-<% if @tipo == "compra" %>
+<% if session[:form_tipo] == "buy" or session[:form_tipo] == nil %>
 $( "#order_form" ).html( "<%= escape_javascript( render( :partial => "exchange/buy_form") ) %>" );
 $('#open_orders_table').html('<img src="images/loading.gif" height="64" width="64" />');
 $('#order_book').html('<img src="images/loading.gif" height="64" width="64" />');
-<% elsif @tipo == "venda" %>
+<% elsif session[:form_tipo] == "sell" %>
 $( "#order_form" ).html( "<%= escape_javascript( render( :partial => "exchange/sell_form") ) %>" );
 $('#order_book').html('<img src="images/loading.gif" height="64" width="64" />');
 $('#open_orders_table').html('<img src="images/loading.gif" height="64" width="64" />');

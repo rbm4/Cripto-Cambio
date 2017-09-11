@@ -12,22 +12,28 @@ function loadingsell()
  var qtd_moeda2 = document.getElementById("sellm2").value
  $.post( "/new_order", { qtd_moeda1sell: qtd_moeda1, qtd_moeda2sell: qtd_moeda2, moeda1: moeda1, moeda2: moeda2, commit: "vender" } );
 }
+function profundidade(string_moeda){
+	if (string_moeda == "BRL") {
+    	return 2
+	} else { 
+    	return 8
+	}
+}
 function calctax()
 {
 	var moeda1 = document.getElementById("moeda1").value
  	var moeda2 = document.getElementById("moeda2").value
 	var qtd_moeda1 = parseFloat((document.getElementById("sellm1").value).replace(",","."))
 	var qtd_moeda2 = parseFloat((document.getElementById("sellm2").value).replace(",","."))
-	var comissao = qtd_moeda1 * 0.005
 	var total = qtd_moeda1 * qtd_moeda2
-	var liquid = qtd_moeda1 - comissao
-	console.log("Calculo de taxa")
-	console.log(comissao)
-	console.log(total)
-	console.log(liquid)
-	$( "#total_sell" ).html(total.toFixed(8) + " " + moeda2);
-	$( "#comission_sell" ).html(comissao.toFixed(8) + " " + moeda1);
-	$( "#liquid_sell" ).html(liquid.toFixed(8) + " " + moeda1);
+	var comissao = total * 0.005
+	var liquid = total - comissao
+	var profundidade_total = profundidade(moeda2) 
+	var profundidade_comissao = profundidade(moeda2)
+	var profundidade_liquido = profundidade(moeda2)
+	$( "#total_sell" ).html(total.toFixed(profundidade_total) + " " + moeda2);
+	$( "#comission_sell" ).html(comissao.toFixed(profundidade_comissao) + " " + moeda2);
+	$( "#liquid_sell" ).html(liquid.toFixed(profundidade_liquido) + " " + moeda2);
 	
 }
 </script>
@@ -36,11 +42,11 @@ function calctax()
 	input[id=pairselected]:hover{
 		background: white;
 		font-size: 13px;
-		color: black;
+		color: silver;
  		height: 50px;
 	}
 	input[id=pairselected]{
-		background: black;
+		background: silver;
 		font-size: 13px;
 		color: white;
  		height: 50px;
@@ -48,11 +54,11 @@ function calctax()
 	input[id=pairselect]{
 		background: white;
 		font-size: 13px;
-		color: black;
+		color: silver;
  		height: 50px;
 	}
 	input[id=pairselect]:hover{
-		background: black;
+		background: silver;
 		font-size: 13px;
 		color: white;
  		height: 50px;
@@ -72,7 +78,7 @@ div[id=form]{
 }
 </style>
                                 
-									<div class="row" id="form_order;padding-right: 40px;">
+									<div class="contentcolor row" id="form_order;padding-right: 40px;">
 									<ul>
 										<li>
 											VENDER:
@@ -101,11 +107,11 @@ div[id=form]{
 											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;"><div id="total_sell"></div></div>
 											</div>
 											<div class="row">
-											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">Comissão [<%= @moeda_par1.upcase %>]: </div>
+											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;">Comissão [<%= @moeda_par2.upcase %>]: </div>
 											<div class="col-sm-2" id="form" style="padding-top: 10px;width:170px;"><div id="comission_sell"></div></div>
 											</div>
 											<div class="row">
-											<div class="col-md-6" id="form" style="padding-top: 10px;width:170px;">Líquido [<%= @moeda_par1.upcase %>]: </div>
+											<div class="col-md-6" id="form" style="padding-top: 10px;width:170px;">Líquido [<%= @moeda_par2.upcase %>]: </div>
 										<div class="col-sm-2" id="form" style="padding-top: 10px;">	<h6><div id="liquid_sell"></div></div>
 											</div>
 											<td style="white-space: nowrap;"><h3><div id="sellbutton"><%= submit_tag "vender", :class => "small", :onClick => 'loadingsell()' %><% end -%></div></h3></td>

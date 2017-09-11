@@ -21,13 +21,12 @@ function calctax()
 	var comissao = qtd_moeda1 * 0.005
 	var total = qtd_moeda1 * qtd_moeda2
 	var liquid = qtd_moeda1 - comissao
-	console.log("Calculo de taxa")
-	console.log(comissao)
-	console.log(total)
-	console.log(liquid)
-	$( "#total_buy" ).html(total.toFixed(8) + " " + moeda2);
-	$( "#comission_buy" ).html(comissao.toFixed(8) + " " + moeda1);
-	$( "#liquid_buy" ).html(liquid.toFixed(8) + " " + moeda1);
+	var profundidade_total = profundidade(moeda2) 
+	var profundidade_comissao = profundidade(moeda1)
+	var profundidade_liquido = profundidade(moeda1)
+	$( "#total_buy" ).html(total.toFixed(profundidade_total) + " " + moeda2);
+	$( "#comission_buy" ).html(comissao.toFixed(profundidade_comissao) + " " + moeda1);
+	$( "#liquid_buy" ).html(liquid.toFixed(profundidade_liquido) + " " + moeda1);
 	
 }
 </script>
@@ -39,7 +38,7 @@ function calctax()
  		height: 50px;
 	}
 	input[id=pairselected]{
-		background: black;
+		background: silver;
 		font-size: 13px;
 		color: white;
  		height: 50px;
@@ -47,11 +46,11 @@ function calctax()
 	input[id=pairselect]{
 		background: white;
 		font-size: 13px;
-		color: black;
+		color: silver;
  		height: 50px;
 	}
 	input[id=pairselect]:hover{
-		background: black;
+		background: silver;
 		font-size: 13px;
 		color: white;
  		height: 50px;

@@ -336,7 +336,7 @@ class OrdersController < ApplicationController
         @consulta2.each do |a|
             @order_sell_px += 80
         end
-        @consulta3 = Exchangeorder.where("par = :str_par AND status = :stt", {str_par: string_par, stt: "executada"}).order(updated_at: :desc).limit(30)
+        @consulta3 = Exchangeorder.where("par = :str_par AND status = :stt", {str_par: string_par, stt: "executada"}).order(updated_at: :desc).limit(20)
         @consulta3.each do |m|
             @order_total_px += 80
         end

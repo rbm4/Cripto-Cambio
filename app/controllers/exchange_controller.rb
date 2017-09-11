@@ -1,6 +1,6 @@
 class ExchangeController < ApplicationController
     require 'mercadopago.rb'
-    skip_before_action :verify_authenticity_token, :only => [:formulario_dinamico]
+    skip_before_action :verify_authenticity_token, :only => [:formulario_dinamico,:pair]
     def open_order_show
         @open_tipo = ""
         @open_qtd = ""
@@ -55,16 +55,13 @@ class ExchangeController < ApplicationController
         session[:moeda2_par] = par_moedas[1]
         @moeda_par1 = session[:moeda1_par]
         @moeda_par2 = session[:moeda2_par]
-        if session[:form_tipo] == "buy"
-            @tipo = 'compra'
-        elsif session[:form_tipo] == "sell"
-            @tipo = 'venda'
-        end
         
         
         render 'order_show_form'
     end
     def overview
+        session[:moeda1_par] = nil
+        session[:moeda2_par] = nil
         session[:moeda1_compra] = nil
         session[:moeda2_compra] = nil
         session[:moeda1_venda] = nil
