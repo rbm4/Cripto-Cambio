@@ -1,6 +1,6 @@
 class ExchangeController < ApplicationController
     require 'mercadopago.rb'
-    skip_before_action :verify_authenticity_token, :only => [:formulario_dinamico,:pair]
+    skip_before_action :verify_authenticity_token, :only => [:formulario_dinamico,:pair,:form_js]
     def open_order_show
         @open_tipo = ""
         @open_qtd = ""
