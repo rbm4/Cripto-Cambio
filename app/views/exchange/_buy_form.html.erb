@@ -75,11 +75,9 @@ div[id=form]{
 										<li>
 											COMPRAR:
 										</li>
-										<%= form_tag "/order_form_dynamic", :remote => true %>
-											<li><%= submit_tag "Comprar", :class => "small" , :id => "pairselected" %> <%= submit_tag "Vender", :class => "small", :id => "pairselect" %></li>
 										
-									
-					</form>
+											<li><%= submit_tag "Comprar", :class => "small" , :id => "pairselected", :onClick => "dynamic_form('Comprar')" %> <%= submit_tag "Vender", :class => "small", :id => "pairselect", :onClick => "dynamic_form('Vender')" %></li>
+										
 										<%= form_tag '/new_order', :remote => true do -%>
 										<%= hidden_field_tag :moeda1, @moeda_par1, :id => "moeda1" %>
 										<%= hidden_field_tag :moeda2, @moeda_par2, :id => "moeda2" %>

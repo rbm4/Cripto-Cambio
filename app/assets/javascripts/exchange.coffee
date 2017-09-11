@@ -16,3 +16,6 @@ executeQuery = () ->
     
 @pair = (string) ->
  $.post( "/pair", { commit: string } );
+ 
+@dynamic_form = (string) ->
+ $.post( "/order_form_dynamic", { commit: string } );
