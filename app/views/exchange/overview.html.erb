@@ -56,6 +56,10 @@ h6{
 	font-size:10px;
 	font-weight:bold;
 }
+.h6{
+	font-size:10px;
+	font-weight:bold;
+}
 h3{
 	font-size:14px;
 	font-weight:bold;
@@ -92,9 +96,7 @@ div[id=order_last]{
 			<article id="main2">
 
 				<header class="special container">
-					
-					
-					<div id="table_overview"><%= render 'table_overview' %></div>
+					<span>Negociações</span>
 				</header>
 					
 				<!-- One -->
@@ -104,19 +106,50 @@ div[id=order_last]{
 							<div class="content" style="">
 							<section>
 								<div class="row paddingtop widthcem">
-									<% set_pair("BTC/BRL")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("btc.png", :onClick => "pair('[BTC/BRL]')", size: "64x64", :class => "link") %></li><li>[BTC/BRL]</li><%= render 'lastprice' %></ul></div>
-								<% set_pair("LTC/BRL")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BRL]')", size: "64x64", :class => "link") %></li><li>[LTC/BRL]</li><%= render 'lastprice' %></ul></div>
-								<% set_pair("DOGE/BRL")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BRL]')", size: "64x64", :class => "link") %></li><li>[DOGE/BRL]</li><%= render 'lastprice' %></ul></div>
-								<% set_pair("LTC/BTC")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/BTC]')", size: "64x64", :class => "link") %></li><li>[LTC/BTC]</li><%= render 'lastprice' %></ul></div>
-								<% set_pair("DOGE/BTC")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("doge.png", :onClick => "pair('[DOGE/BTC]')", size: "64x64", :class => "link") %></li><li>[DOGE/BTC]</li><%= render 'lastprice' %></ul></div>
-								<% set_pair("LTC/DOGE")%>
-								<div class="col-sm-2 center"><ul><li><%= image_tag("litecoin.png", :onClick => "pair('[LTC/DOGE]')", size: "64x64", :class => "link") %></li><li>[LTC/DOGE]</li><%= render 'lastprice' %></ul></div>
-								</div>
+									<% pares = "BTC/BRL","LTC/BRL","DOGE/BRL","LTC/BTC","DOGE/BTC","LTC/DOGE"%>
+									<% pares.each do |m| %>
+									<% set_pair(m)%>
+									<% hash, base = last_order_exchange(m)%>
+									<% if hash["#{m}/last_buy"] == nil%>
+									 <% @buy = "-----" %> 
+									<% else %>
+									<% str = hash["#{m}/last_buy"] %>
+									<% @buy = "#{str} #{base}" %>
+									<% end %>
+									<% if hash["#{m}/last_sell"] == nil%>
+									 <% @sell = "-----" %> 
+									<% else %>
+									<% strs = hash["#{m}/last_sell"] %>
+									<% @sell = "#{strs} #{base}" %>
+									<% end %>
+									<% par_atual = m.split('/') %>
+									<% if par_atual[0] == "BTC" %>
+										<% img1 = "btc.png"%>
+									<% elsif par_atual[0] == "BRL"%>
+										<% img1 = "brl.jpeg"%>
+									<% elsif par_atual[0] == "DOGE"%>
+										<% img1 = "doge.png"%>
+									<% elsif par_atual[0] == "LTC"%>
+										<% img1 = "litecoin.png"%>
+									<% end %>
+									<% if par_atual[1] == "BTC" %>
+										<% img2 = "btc.png"%>
+									<% elsif par_atual[1] == "BRL"%>
+										<% img2 = "brl.jpeg"%>
+									<% elsif par_atual[1] == "DOGE"%>
+										<% img2 = "doge.png"%>
+									<% elsif par_atual[1] == "LTC"%>
+										<% img2 = "litecoin.png"%>
+									<% end %>
+									
+									<div class="col-sm-2 center"><ul>
+										<li><%= image_tag("#{img1}", :onClick => "pair('[#{m}]')", size: "64x64", :class => "link") %><i class="fa fa-arrow-left" style="color:#333" aria-hidden="true"></i><i class="fa fa-arrow-right" style="color:#333" aria-hidden="true"></i> <%= image_tag("#{img2}", :onClick => "pair('[#{m}]')", size: "64x64", :class => "link") %></li>
+										<li>[<%= "#{m}" %>]</li>
+										<li class="h6"> <i class="fa fa-arrow-right" style="color:#333" aria-hidden="true"></i> Compra: <%= @buy %> </li>
+										<li class="h6"> <i class="fa fa-arrow-right" style="color:#333" aria-hidden="true"></i> Venda: <%= @sell %> </li>
+									</ul></div>
+									<% end %>
+									</div>
 					<div id="order_last"><%= render 'orderlast' %></div>
 					<font id="submit-message"><div id="message-order-submit"></div></font>
 					
